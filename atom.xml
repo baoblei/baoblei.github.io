@@ -3,18 +3,23 @@
   <title>庞贝堡垒</title>
   
   <subtitle>Pompeii&#39;s Blog</subtitle>
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="http://baoblei.github.io/"/>
   <updated>2024-11-29T21:13:20.593Z</updated>
-  <id>http://example.com/</id>
+  <id>http://baoblei.github.io/</id>
+  
+  <author>
+    <name>庞贝堡垒</name>
+    
+  </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
     <title>大模型显存占用分析</title>
-    <link href="http://example.com/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/"/>
-    <id>http://example.com/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</id>
+    <link href="http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/"/>
+    <id>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</id>
     <published>2024-11-29T21:13:20.000Z</published>
     <updated>2024-11-29T21:13:20.593Z</updated>
     
@@ -26,8 +31,8 @@
   
   <entry>
     <title>hexo博客搭建</title>
-    <link href="http://example.com/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
-    <id>http://example.com/2024/11/28/hexo-zhu-ti-next-pei-zhi/</id>
+    <link href="http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
+    <id>http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/</id>
     <published>2024-11-27T18:11:12.000Z</published>
     <updated>2024-11-29T21:16:09.793Z</updated>
     
@@ -42,16 +47,16 @@
     
     
     
-    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-    <category term="hexo" scheme="http://example.com/tags/hexo/"/>
+    <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
     
-    <category term="next" scheme="http://example.com/tags/next/"/>
+    <category term="next" scheme="http://baoblei.github.io/tags/next/"/>
     
-    <category term="博客" scheme="http://example.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    <category term="博客" scheme="http://baoblei.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
     
-    <category term="静态web" scheme="http://example.com/tags/%E9%9D%99%E6%80%81web/"/>
+    <category term="静态web" scheme="http://baoblei.github.io/tags/%E9%9D%99%E6%80%81web/"/>
     
   </entry>
   
