@@ -25,11 +25,11 @@
   </entry>
   
   <entry>
-    <title>hexo主题next配置</title>
+    <title>hexo博客搭建</title>
     <link href="http://example.com/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
     <id>http://example.com/2024/11/28/hexo-zhu-ti-next-pei-zhi/</id>
     <published>2024-11-27T18:11:12.000Z</published>
-    <updated>2024-11-29T20:45:15.949Z</updated>
+    <updated>2024-11-29T21:16:09.793Z</updated>
     
     
       
@@ -48,6 +48,10 @@
     <category term="hexo" scheme="http://example.com/tags/hexo/"/>
     
     <category term="next" scheme="http://example.com/tags/next/"/>
+    
+    <category term="博客" scheme="http://example.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+    <category term="静态web" scheme="http://example.com/tags/%E9%9D%99%E6%80%81web/"/>
     
   </entry>
   

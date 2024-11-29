@@ -17,7 +17,7 @@
     
     
     <entry>
-      <title>hexo主题next配置</title>
+      <title>hexo博客搭建</title>
       <link href="/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
       <url>/2024/11/28/hexo-zhu-ti-next-pei-zhi/</url>
       
@@ -36,6 +36,10 @@
             <tag> hexo </tag>
             
             <tag> next </tag>
+            
+            <tag> 博客 </tag>
+            
+            <tag> 静态web </tag>
             
         </tags>
       
