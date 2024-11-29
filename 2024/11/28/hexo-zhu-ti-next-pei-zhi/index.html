@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="hexo博客搭建, 庞贝堡垒">
+    <meta name="keywords" content="hexo博客搭建, 庞贝堡垒｜ Pompeii BL">
     <meta name="description" content="基础搭建Hexo安装 git安装 Node.js
 下载地址：https://nodejs.org/en/download/
 check version: node -v
@@ -22,7 +22,7 @@ check npm version: npm -v
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>hexo博客搭建 | 庞贝堡垒</title>
+    <title>hexo博客搭建 | 庞贝堡垒｜ Pompeii BL</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -68,7 +68,7 @@ check npm version: npm -v
 
 <meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
 </head>
 
 
@@ -81,7 +81,7 @@ check npm version: npm -v
                     
                     <img src="/favicon-32x32.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">庞贝堡垒</span>
+                    <span class="logo-span">庞贝堡垒｜ Pompeii BL</span>
                 </a>
             </div>
             
@@ -185,7 +185,7 @@ check npm version: npm -v
         
         <img src="/favicon-32x32.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">庞贝堡垒</div>
+        <div class="logo-name">庞贝堡垒｜ Pompeii BL</div>
         <div class="logo-desc">
             
             日拱一卒 功不唐捐
@@ -494,7 +494,10 @@ check npm version: npm -v
 <li>github new repo: https://<username>.github.io/</username></li>
 </ul>
 </li>
-<li><code>cnpm install hexo-deployer-git --save</code>  <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https://&lt;token&gt;@github.com/&lt;username&gt;/&lt;username&gt;.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></tbody></table></figure></li>
+<li><code>cnpm install hexo-deployer-git --save</code>  <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">deploy:
+    type: git
+    repo: https://&lt;token&gt;@github.com/&lt;username&gt;/&lt;username&gt;.github.io.git
+    branch: master</code></pre></li>
 <li><code>hexo d</code>            # deploy blog</li>
 </ul>
 <h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
@@ -504,7 +507,7 @@ check npm version: npm -v
 </ul>
 </li>
 <li>clone theme into themes folder, e.g. <code>git clone https://github.com/theme-next/hexo-theme-next.git themes/next</code></li>
-<li>edit _config.yml, set theme to next  <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></tbody></table></figure></li>
+<li>edit _config.yml, set theme to next  <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">theme: next</code></pre></li>
 <li><code>hexo c</code>&amp;&amp;<code>hexo g</code>&amp;&amp;<code>hexo d</code>            # clean cache, generate static files, deploy blog</li>
 </ul>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>关键文件<code>_config.yml</code> 文件</p>
@@ -515,9 +518,26 @@ check npm version: npm -v
 <li>Pisces - 双栏 Scheme，小家碧玉似的清新<br>Scheme 的切换通过更改 <code>_config.yml</code> 文件，搜索 scheme 关键字。 你会看到有三行 scheme 的配置，将你需用启用的 scheme 前面注释 # 去除即可。</li>
 </ul>
 <h4 id="language"><a href="#language" class="headerlink" title="language"></a>language</h4><h4 id="menu"><a href="#menu" class="headerlink" title="menu"></a>menu</h4><p>菜单配置包括三个部分，第一是菜单项（名称和链接），第二是菜单项的显示文本，第三是菜单项对应的图标。 NexT 使用的是 Font Awesome 提供的图标，可以在 <a target="_blank" rel="noopener" href="https://fontawesome.com/icons">Font Awesome</a> 查看。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  archives: /archives || archive</span><br><span class="line">  tags: /tags || tags</span><br><span class="line">  categories: /categories || th</span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">menu:
+  home: / || home
+  archives: /archives || archive
+  tags: /tags || tags
+  categories: /categories || th</code></pre>
 <h4 id="social"><a href="#social" class="headerlink" title="social"></a>social</h4><h4 id="links"><a href="#links" class="headerlink" title="links"></a>links</h4><h4 id="avatar"><a href="#avatar" class="headerlink" title="avatar"></a>avatar</h4><h4 id="site-state"><a href="#site-state" class="headerlink" title="site_state"></a>site_state</h4><h4 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h4><h4 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h4><h3 id="美化与SEO"><a href="#美化与SEO" class="headerlink" title="美化与SEO"></a>美化与SEO</h3><h3 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h3><h3 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h3><p><strong>gallery page</strong>–justified gallery</p>
-<h3 id="挂件"><a href="#挂件" class="headerlink" title="挂件"></a>挂件</h3><h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h3 id="sitemap"><a href="#sitemap" class="headerlink" title="sitemap"></a>sitemap</h3><h4 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h4>
+<h3 id="挂件"><a href="#挂件" class="headerlink" title="挂件"></a>挂件</h3><h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h3 id="sitemap"><a href="#sitemap" class="headerlink" title="sitemap"></a>sitemap</h3><h4 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h4><!-- ```cpp
+int main(){
+    return 0;
+}
+``` -->
+
+
+
+
+
+
+
+
+
                 
             </div>
             <hr/>
@@ -1070,7 +1090,7 @@ check npm version: npm -v
 
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
-            + '来源: 庞贝堡垒<br />'
+            + '来源: 庞贝堡垒｜ Pompeii BL<br />'
             + '文章作者: 庞贝堡垒<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
