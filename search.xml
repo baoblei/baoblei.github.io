@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>hexo主题next配置</title>
+      <link href="/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
+      <url>/2024/11/28/hexo-zhu-ti-next-pei-zhi/</url>
+      
+        <content type="html"><![CDATA[<h1 id="基础搭建"><a href="#基础搭建" class="headerlink" title="基础搭建"></a>基础搭建</h1><h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="安装-git"><a href="#安装-git" class="headerlink" title="安装 git"></a>安装 git</h3><h3 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h3><ul><li>下载地址：<a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a></li><li>check version: <code>node -v</code></li><li>check npm version: <code>npm -v</code></li></ul><h3 id="安装-cnmp-（淘宝镜像加速）"><a href="#安装-cnmp-（淘宝镜像加速）" class="headerlink" title="安装 cnmp （淘宝镜像加速）"></a>安装 cnmp （淘宝镜像加速）</h3><ul><li><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code></li><li>check cnmp version: <code>cnpm -v</code></li></ul><h3 id="安装-hexo-cli"><a href="#安装-hexo-cli" class="headerlink" title="安装 hexo-cli"></a>安装 hexo-cli</h3><ul><li><code>cnpm install -g hexo-cli</code></li><li>check hexo version: <code>hexo -v</code></li></ul><h2 id="初始化blog目录"><a href="#初始化blog目录" class="headerlink" title="初始化blog目录"></a>初始化blog目录</h2><ul><li><code>mkdir blog | cd blog</code></li><li><code>sudo hexo init</code>    # clone hexo-starter repo</li><li><code>hexo s</code>            # start blog, default port 4000</li></ul><h2 id="添加博客"><a href="#添加博客" class="headerlink" title="添加博客"></a>添加博客</h2><ul><li><code>hexo n "newblog"</code>  # add new blog, save in /source/_posts<ul><li>edit blog in /source/_posts/newblog.md</li></ul></li><li><code>hexo clean</code>        # clean cache</li><li><code>hexo g</code>            # generate static files</li><li><code>hexo s</code>            # start blog, default port 4000</li></ul><h2 id="github部署"><a href="#github部署" class="headerlink" title="github部署"></a>github部署</h2><ul><li>build blog address:<ul><li>add new token in github</li><li>github new repo: https://<username>.github.io/</username></li></ul></li><li><code>cnpm install hexo-deployer-git --save</code>  <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https://&lt;token&gt;@github.com/&lt;username&gt;/&lt;username&gt;.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></tbody></table></figure></li><li><code>hexo d</code>            # deploy blog</li></ul><h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul><li>theme 推荐：<ul><li><a href="https://github.com/litten/hexo-theme-yilia.git">https://github.com/litten/hexo-theme-yilia.git</a></li><li><a href="https://github.com/theme-next/hexo-theme-next.git">https://github.com/theme-next/hexo-theme-next.git</a></li></ul></li><li>clone theme into themes folder, e.g. <code>git clone https://github.com/theme-next/hexo-theme-next.git themes/next</code></li><li>edit _config.yml, set theme to next  <figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></tbody></table></figure></li><li><code>hexo c</code>&amp;&amp;<code>hexo g</code>&amp;&amp;<code>hexo d</code>            # clean cache, generate static files, deploy blog</li></ul><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>关键文件<code>_config.yml</code> 文件</p><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h4 id="scheme"><a href="#scheme" class="headerlink" title="scheme"></a>scheme</h4><ul><li>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。</li><li>muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</li><li>Mist - Muse 的紧凑版本，整洁有序的单栏外观</li><li>Pisces - 双栏 Scheme，小家碧玉似的清新<br>Scheme 的切换通过更改 <code>_config.yml</code> 文件，搜索 scheme 关键字。 你会看到有三行 scheme 的配置，将你需用启用的 scheme 前面注释 # 去除即可。</li></ul><h4 id="language"><a href="#language" class="headerlink" title="language"></a>language</h4><h4 id="menu"><a href="#menu" class="headerlink" title="menu"></a>menu</h4><p>菜单配置包括三个部分，第一是菜单项（名称和链接），第二是菜单项的显示文本，第三是菜单项对应的图标。 NexT 使用的是 Font Awesome 提供的图标，可以在 <a href="https://fontawesome.com/icons">Font Awesome</a> 查看。</p><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  archives: /archives || archive</span><br><span class="line">  tags: /tags || tags</span><br><span class="line">  categories: /categories || th</span><br></pre></td></tr></tbody></table></figure><h4 id="social"><a href="#social" class="headerlink" title="social"></a>social</h4><h4 id="links"><a href="#links" class="headerlink" title="links"></a>links</h4><h4 id="avatar"><a href="#avatar" class="headerlink" title="avatar"></a>avatar</h4><h4 id="site-state"><a href="#site-state" class="headerlink" title="site_state"></a>site_state</h4><h4 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h4><h4 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h4><h3 id="美化与SEO"><a href="#美化与SEO" class="headerlink" title="美化与SEO"></a>美化与SEO</h3><h3 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h3><h3 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h3><p><strong>gallery page</strong>–justified gallery</p><h3 id="挂件"><a href="#挂件" class="headerlink" title="挂件"></a>挂件</h3><h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h3 id="sitemap"><a href="#sitemap" class="headerlink" title="sitemap"></a>sitemap</h3><h4 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> next </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
