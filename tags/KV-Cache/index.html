@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="庞贝堡垒｜ Pompeii BL">
+    <meta name="keywords" content="标签: KV Cache, 庞贝堡垒｜ Pompeii BL">
     <meta name="description" content="日拱一卒 功不唐捐">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>庞贝堡垒｜ Pompeii BL</title>
+    <title>标签: KV Cache | 庞贝堡垒｜ Pompeii BL</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -31,48 +31,7 @@
 
 
 
-    <!-- index cover -->
-    <!-- <link rel="stylesheet preload" type="text/css" href="/css/indexcover.css"> -->
-    <style>
-        .carousel-control {
-            width: 45px;
-            height: 45px;
-            line-height: 55px;
-            border-radius: 45px;
-            background: transparent;
-            cursor: pointer;
-            z-index: 100;
-        }
-        
-        #prev-cover {
-            position: absolute;
-            top: 48%;
-            left: 8px;
-        }
-        
-        #next-cover {
-            position: absolute;
-            top: 48%;
-            right: 8px;;
-        }
-        
-        #prev-cover i {
-            margin-right: 3px;
-        }
-        
-        #next-cover i {
-            margin-left: 3px;
-        }
-        
-        .carousel-control:hover {
-            background-color: rgba(0, 0, 0, .4);
-        }
-        
-        .carousel-control i {
-            color: #fff;
-            font-size: 2.4rem;
-        }
-    </style>
+    <!-- bg-cover style     -->
 
 
 
@@ -93,6 +52,10 @@
 
 
 
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
 
 
 
@@ -379,15 +342,9 @@
 
 </header>
 
-    
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item  white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
         <div class="brand">
             <div class="title center-align">
@@ -437,172 +394,117 @@
 </script>
 
 
-
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
-                </a>
-
-                
-                    <a href="https://github.com/baoblei" class="waves-effect waves-light btn" target="_blank">
-                        <i class="fab fa-github-alt"></i>Github
-                    </a>
-                
-            </div>
-            <div class="cover-social-link">
-    <a href="https://github.com/baoblei" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:baobinglei@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2274463342" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2274463342" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
-
-</div>
-        </div>
     </div>
-
-    
 </div>
-
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
-        }
-
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
-
-        let carouselIntervalId;
-        
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
-
-        function restartPlay() {
-            
-            clearInterval(carouselIntervalId);
-            autoCarousel();
-            
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
-
-
 
 <main class="content">
 
     
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-                        <div class="dream">
-    
-    <div class="title center-align">
-        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;我的梦想
-    </div>
-    
-    <div class="row">
-        <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">
-            不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。梦想是生命的灵魂，是心灵的灯塔，是引导人走向成功的信仰。有了崇高的梦想，只要矢志不渝地追求，梦想就会成为现实，奋斗就会变成壮举，生命就会创造奇迹。——罗伯·舒乐
+
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+            </div>
+            <div class="tag-chips">
+                
+                
+                <a href="/tags/hexo/" title="hexo: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="hexo" style="background-color: #F9EBEA;">hexo
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/next/" title="next: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="next" style="background-color: #F5EEF8;">next
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/" title="静态网站搭建: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="静态网站搭建" style="background-color: #D5F5E3;">静态网站搭建
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/AI/" title="AI: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="AI" style="background-color: #E8F8F5;">AI
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="大模型: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="大模型" style="background-color: #FEF9E7;">大模型
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/LLM/" title="LLM: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="LLM" style="background-color: #F8F9F9;">LLM
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%98%BE%E5%AD%98/" title="显存: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="显存" style="background-color: #82E0AA;">显存
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/KV-Cache/" title="KV Cache: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="KV Cache" style="background-color: #D7BDE2;">KV Cache
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/" title="显存优化: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="显存优化" style="background-color: #A3E4D7;">显存优化
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+            </div>
         </div>
     </div>
 </div>
 
-                    
-
-                    
-
-                    
-
-                    
-                    <div id="recommend-sections" class="recommend">
-                        
-
-
-
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
     
 
-    
-
-    <!-- 所有文章卡片 -->
     <article id="articles" class="container articles">
-        <div class="row article-row">
+        <div class="row tags-posts">
             
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="LLM, KV Cache, 显存优化" data-aos="fade-up">
                 <div class="card">
                     <a href="/2024/12/02/da-mo-xing-you-hua-kv-cache/">
-                        <div class="card-image">
+                        <div class="card-image tag-image">
                             
                             
                             <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="大模型优化--KV Cache">
@@ -610,14 +512,7 @@
                             <span class="card-title">大模型优化--KV Cache</span>
                         </div>
                     </a>
-
                     <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                
-https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;mid=2247486250&amp;idx=1&amp;sn=060cb277a22558f8f2bae6578df75240&
-                            
-                        </div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="far fa-clock fa-fw icon-date"></i>2024-12-02
@@ -627,167 +522,22 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;mid=2247486250&amp;idx=1&a
                                 <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
                                 <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
+                                技术
                                 </a>
                                 
                                 <a href="/categories/%E6%8A%80%E6%9C%AF/AI/" class="post-category">
-                                    AI
+                                AI
                                 </a>
                                 
                                 
                             </span>
                         </div>
                     </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/LLM/">
-                            <span class="chip bg-color">LLM</span>
-                        </a>
-                        
-                        <a href="/tags/KV-Cache/">
-                            <span class="chip bg-color">KV Cache</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/">
-                            <span class="chip bg-color">显存优化</span>
-                        </a>
-                        
-                    </div>
-                    
                 </div>
             </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="大模型显存占用分析">
-                            
-                            <span class="card-title">大模型显存占用分析</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                大模型消耗的显存在详细说明大模型需要消耗的显存大小之前我们需要先明确几个概念。一个就是大模型在不同阶段对显存的消耗是不同的。但是大致可以分为三个阶段或者说三个场景。即大模型预训练阶段、大模型微调阶段和大模型推理阶段。在预训练阶段，大模型通常
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-30
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/AI/" class="post-category">
-                                    AI
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/AI/">
-                            <span class="chip bg-color">AI</span>
-                        </a>
-                        
-                        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
-                            <span class="chip bg-color">大模型</span>
-                        </a>
-                        
-                        <a href="/tags/LLM/">
-                            <span class="chip bg-color">LLM</span>
-                        </a>
-                        
-                        <a href="/tags/%E6%98%BE%E5%AD%98/">
-                            <span class="chip bg-color">显存</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2024/11/28/hexo-zhu-ti-next-pei-zhi/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="hexo博客搭建">
-                            
-                            <span class="card-title">hexo博客搭建</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                基础搭建Hexo选一个博客框架，hexo是静态网站框架，基于nodejs，可以生成静态网页，部署到github上。需要提前安装git，nodejs。
-
-check git version: git --version
-check nodej
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-28
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
-                                    技术
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/hexo/">
-                            <span class="chip bg-color">hexo</span>
-                        </a>
-                        
-                        <a href="/tags/next/">
-                            <span class="chip bg-color">next</span>
-                        </a>
-                        
-                        <a href="/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/">
-                            <span class="chip bg-color">静态网站搭建</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
             
         </div>
     </article>
-
 </main>
 
 

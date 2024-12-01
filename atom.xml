@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-11-29T21:13:20.593Z</updated>
+  <updated>2024-12-01T20:30:02.071Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,15 +17,67 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>大模型优化--KV Cache</title>
+    <link href="http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/"/>
+    <id>http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/</id>
+    <published>2024-12-01T20:28:19.000Z</published>
+    <updated>2024-12-01T20:30:02.071Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    <category term="AI" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/AI/"/>
+    
+    
+    <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
+    
+    <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
+    
+    <category term="显存优化" scheme="http://baoblei.github.io/tags/%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大模型显存占用分析</title>
     <link href="http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/"/>
     <id>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</id>
     <published>2024-11-29T21:13:20.000Z</published>
-    <updated>2024-11-29T21:13:20.593Z</updated>
+    <updated>2024-12-01T20:30:17.133Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;大模型消耗的显存&quot;&gt;&lt;a href=&quot;#大模型消耗的显存&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
+    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
     
+    <category term="AI" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/AI/"/>
+    
+    
+    <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
+    
+    <category term="大模型" scheme="http://baoblei.github.io/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
+    
+    <category term="显存" scheme="http://baoblei.github.io/tags/%E6%98%BE%E5%AD%98/"/>
     
   </entry>
   
@@ -34,7 +86,7 @@
     <link href="http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
     <id>http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/</id>
     <published>2024-11-27T18:11:12.000Z</published>
-    <updated>2024-12-01T18:21:49.774Z</updated>
+    <updated>2024-12-01T20:29:56.036Z</updated>
     
     
       
