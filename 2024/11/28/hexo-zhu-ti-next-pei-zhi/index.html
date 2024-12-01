@@ -5,12 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="hexo博客搭建, 庞贝堡垒｜ Pompeii BL">
-    <meta name="description" content="基础搭建Hexo安装 git安装 Node.js
-下载地址：https://nodejs.org/en/download/
-check version: node -v
-check npm version: npm -v
+    <meta name="description" content="基础搭建Hexo选一个博客框架，hexo是静态网站框架，基于nodejs，可以生成静态网页，部署到github上。需要提前安装git，nodejs。
 
-安装 cnmp ">
+check git version: git --version
+check nodej">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -388,12 +386,8 @@ check npm version: npm -v
                                 <span class="chip bg-color">next</span>
                             </a>
                         
-                            <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                                <span class="chip bg-color">博客</span>
-                            </a>
-                        
-                            <a href="/tags/%E9%9D%99%E6%80%81web/">
-                                <span class="chip bg-color">静态web</span>
+                            <a href="/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/">
+                                <span class="chip bg-color">静态网站搭建</span>
                             </a>
                         
                     </div>
@@ -424,14 +418,14 @@ check npm version: npm -v
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-11-30
+                    2024-12-02
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    490
+                    556
                 </div>
                 
 
@@ -461,16 +455,16 @@ check npm version: npm -v
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="基础搭建"><a href="#基础搭建" class="headerlink" title="基础搭建"></a>基础搭建</h1><h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="安装-git"><a href="#安装-git" class="headerlink" title="安装 git"></a>安装 git</h3><h3 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h3><ul>
-<li>下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a></li>
-<li>check version: <code>node -v</code></li>
-<li>check npm version: <code>npm -v</code></li>
-</ul>
-<h3 id="安装-cnmp-（淘宝镜像加速）"><a href="#安装-cnmp-（淘宝镜像加速）" class="headerlink" title="安装 cnmp （淘宝镜像加速）"></a>安装 cnmp （淘宝镜像加速）</h3><ul>
+                <h1 id="基础搭建"><a href="#基础搭建" class="headerlink" title="基础搭建"></a>基础搭建</h1><h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>选一个博客框架，hexo是静态网站框架，基于nodejs，可以生成静态网页，部署到github上。<br>需要提前安装<strong>git</strong>，<strong>nodejs</strong>。</p>
+<ul>
+<li>check git version: <code>git --version</code></li>
+<li>check nodejs version: <code>node -v</code></li>
+<li>check npm version: <code>npm -v</code><br>安装 cnmp (optional) </li>
 <li><code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code></li>
 <li>check cnmp version: <code>cnpm -v</code></li>
 </ul>
-<h3 id="安装-hexo-cli"><a href="#安装-hexo-cli" class="headerlink" title="安装 hexo-cli"></a>安装 hexo-cli</h3><ul>
+<p>安装 <strong>hexo-cli</strong></p>
+<ul>
 <li><code>cnpm install -g hexo-cli</code></li>
 <li>check hexo version: <code>hexo -v</code></li>
 </ul>
@@ -510,7 +504,7 @@ check npm version: npm -v
 <li>edit _config.yml, set theme to next  <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml">theme: next</code></pre></li>
 <li><code>hexo c</code>&amp;&amp;<code>hexo g</code>&amp;&amp;<code>hexo d</code>            # clean cache, generate static files, deploy blog</li>
 </ul>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>关键文件<code>_config.yml</code> 文件</p>
+<h2 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h2><p>大部分配置在<code>_config.yml</code> 文件中，可以参考<a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">官方文档</a></p>
 <h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h4 id="scheme"><a href="#scheme" class="headerlink" title="scheme"></a>scheme</h4><ul>
 <li>Scheme 是 NexT 提供的一种特性，借助于 Scheme，NexT 为你提供多种不同的外观。同时，几乎所有的配置都可以 在 Scheme 之间共用。</li>
 <li>muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</li>
@@ -523,20 +517,7 @@ check npm version: npm -v
   archives: /archives || archive
   tags: /tags || tags
   categories: /categories || th</code></pre>
-<h4 id="social"><a href="#social" class="headerlink" title="social"></a>social</h4><h4 id="links"><a href="#links" class="headerlink" title="links"></a>links</h4><h4 id="avatar"><a href="#avatar" class="headerlink" title="avatar"></a>avatar</h4><h4 id="site-state"><a href="#site-state" class="headerlink" title="site_state"></a>site_state</h4><h4 id="tags"><a href="#tags" class="headerlink" title="tags"></a>tags</h4><h4 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h4><h3 id="美化与SEO"><a href="#美化与SEO" class="headerlink" title="美化与SEO"></a>美化与SEO</h3><h3 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h3><h3 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h3><p><strong>gallery page</strong>–justified gallery</p>
-<h3 id="挂件"><a href="#挂件" class="headerlink" title="挂件"></a>挂件</h3><h3 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h3><h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h3 id="sitemap"><a href="#sitemap" class="headerlink" title="sitemap"></a>sitemap</h3><h4 id="RSS"><a href="#RSS" class="headerlink" title="RSS"></a>RSS</h4><!-- ```cpp
-int main(){
-    return 0;
-}
-``` -->
-
-
-
-
-
-
-
-
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>主题美化是个逐渐积累的过程, 后期可以在相册、挂件、评论、搜索、sitemap、rss等方面进行配置。<br>一些工具插件：<br><strong>gallery page</strong>–justified gallery</p>
 
                 
             </div>
@@ -609,12 +590,8 @@ int main(){
                                     <span class="chip bg-color">next</span>
                                 </a>
                             
-                                <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                                    <span class="chip bg-color">博客</span>
-                                </a>
-                            
-                                <a href="/tags/%E9%9D%99%E6%80%81web/">
-                                    <span class="chip bg-color">静态web</span>
+                                <a href="/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/">
+                                    <span class="chip bg-color">静态网站搭建</span>
                                 </a>
                             
                         </div>
@@ -1044,12 +1021,8 @@ int main(){
                         <span class="chip bg-color">next</span>
                     </a>
                     
-                    <a href="/tags/%E5%8D%9A%E5%AE%A2/">
-                        <span class="chip bg-color">博客</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%99%E6%80%81web/">
-                        <span class="chip bg-color">静态web</span>
+                    <a href="/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/">
+                        <span class="chip bg-color">静态网站搭建</span>
                     </a>
                     
                 </div>
@@ -1284,7 +1257,7 @@ int main(){
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">490</span>
+                        class="white-color">556</span>
             
             
             
