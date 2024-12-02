@@ -5,8 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="大模型优化--KV Cache, 庞贝堡垒｜ Pompeii BL">
-    <meta name="description" content="
-https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp;idx=1&amp;amp;sn=060cb277a22558f8f2bae6578df75240&amp;">
+    <meta name="description" content="KV CacheKV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在推理的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -376,6 +375,10 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
                             <a href="/tags/LLM/">
                                 <span class="chip bg-color">LLM</span>
                             </a>
@@ -384,8 +387,12 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                                 <span class="chip bg-color">KV Cache</span>
                             </a>
                         
-                            <a href="/tags/%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/">
-                                <span class="chip bg-color">显存优化</span>
+                            <a href="/tags/MQA/">
+                                <span class="chip bg-color">MQA</span>
+                            </a>
+                        
+                            <a href="/tags/GQA/">
+                                <span class="chip bg-color">GQA</span>
                             </a>
                         
                     </div>
@@ -420,21 +427,21 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-02
+                    2024-12-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    31
+                    699
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -457,8 +464,51 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;mid=2247486250&amp;idx=1&amp;sn=060cb277a22558f8f2bae6578df75240&amp;chksm=ceed0816f99a81004a65fe94fa837efb12327138166e0238bc16822287aa24e341a854785f30&amp;token=861524234&amp;lang=zh_CN#rd">https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;mid=2247486250&amp;idx=1&amp;sn=060cb277a22558f8f2bae6578df75240&amp;chksm=ceed0816f99a81004a65fe94fa837efb12327138166e0238bc16822287aa24e341a854785f30&amp;token=861524234&amp;lang=zh_CN#rd</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7290163879287881765">https://juejin.cn/post/7290163879287881765</a></p>
+                <h2 id="KV-Cache"><a href="#KV-Cache" class="headerlink" title="KV Cache"></a>KV Cache</h2><p>KV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在推理的时候前面已经生成的字符不需要与后面的字符产生attention，从而使得前面已经计算的K和V可以缓存起来。</p>
+<p>我们先看一下不使用KV Cache的推理过程。假设模型最终生成了“遥遥领先”4个字。</p>
+<p>当模型生成第一个“遥”字时，<code>input="&lt;s&gt;"</code>, <code>"&lt;s&gt;"</code>是起始字符。Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241202155542.png"></p>
+<p>为了看上去方便，我们暂时忽略scale项$1/\sqrt(d)$， 但是要注意这个scale面试时经常考。</p>
+<p>如上图所示，最终Attention的计算公式如下，（softmaxed 表示已经按行进行了softmax）:<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241202155748.png"></p>
+<p>当模型生成第二个“遥”字时，<code>input="&lt;s&gt;遥"</code>, Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241202155837.png"></p>
+<p>当QK变为矩阵时，softmax 会针对 行 进行计算。写详细一点如下，softmaxed 表示已经按行进行了softmax。</p>
+<p><strong>（关键）由于decoder架构的模型有Causal Mask，所以$Q_1$与$K_2$的计算结果为$-\infty$。</strong><br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202204856.png"></p>
+<p>假设$Att_1$表示 Attention 的第一行， $Att_2$表示 Attention 的第二行，则根据上面推导，其计算公式为：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202205002.png"></p>
+<p>我们发现：</p>
+<ul>
+<li>$Q_1$在第二步参与的计算与第一步是一样的，而且第二步生成的$Att_1$仅仅依赖于$Q_1$，与$Q_2$毫无关系。</li>
+<li>$Att_2$仅仅依赖于$Q_2$，与$Q_1$毫无关系。</li>
+</ul>
+<p>当模型生成第三个“领”字时，<code>input="&lt;s&gt;遥遥"</code>, Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202210952.png"><br>详细的推导参考第二步，其计算公式为：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211018.png"><br>同样的，第三步生成的$Att_3$仅仅依赖于$Q_3$，与$Q_1$和$Q_2$毫无关系。</p>
+<p>当模型生成第四个“先”字时，<code>input="&lt;s&gt;遥遥领"</code>, Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211156.png"><br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211222.png"><br>和之前类似，不再赘述。</p>
+<p>看上面图和公式，我们可以得出结论：</p>
+<ul>
+<li>当前计算方式存在大量冗余计算</li>
+<li>$Attn_k$只与$Q_k$有关</li>
+<li>推理第$x_k$个字符时，只需要输入字符$x_{k-1}$即可。<br>第三个结论的前提是，我们需要把每一步的K和V缓存起来，这样在推理第$x_k$个字符时，只需要输入字符$x_{k-1}$计算其$Q_k,K_k,V_k$, 结合之前保存的KV Cache即可得到对应的$Attn_k$。</li>
+</ul>
+<p>下图展示了使用KV Cache和不使用KV Cache的过程对比：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211901.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt2/modeling_gpt2.py#L318C1-L331C97">huggingface 的实现</a></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">if layer_past is not None:
+        past_key, past_value = layer_past
+        key = torch.cat((past_key, key), dim=-2)
+        value = torch.cat((past_value, value), dim=-2)
+    
+    if use_cache is True:
+        present = (key, value)
+    else:
+        present = None
+    
+    if self.reorder_and_upcast_attn:
+        attn_output, attn_weights = self._upcast_and_reordered_attn(query, key, value, attention_mask, head_mask)
+    else:
+        attn_output, attn_weights = self._attn(query, key, value, attention_mask, head_mask)</code></pre>
+
+<h2 id="MQA与GQA"><a href="#MQA与GQA" class="headerlink" title="MQA与GQA"></a>MQA与GQA</h2><p> 参考：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/708120479">https://zhuanlan.zhihu.com/p/708120479</a></p>
+</blockquote>
+<blockquote>
+<p>大模型推理加速：看图学KV Cache <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662498827">https://zhuanlan.zhihu.com/p/662498827</a></p>
 </blockquote>
 
                 
@@ -524,6 +574,10 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                     
                         <div class="article-tag">
                             
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
                                 <a href="/tags/LLM/">
                                     <span class="chip bg-color">LLM</span>
                                 </a>
@@ -532,8 +586,12 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                                     <span class="chip bg-color">KV Cache</span>
                                 </a>
                             
-                                <a href="/tags/%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/">
-                                    <span class="chip bg-color">显存优化</span>
+                                <a href="/tags/MQA/">
+                                    <span class="chip bg-color">MQA</span>
+                                </a>
+                            
+                                <a href="/tags/GQA/">
+                                    <span class="chip bg-color">GQA</span>
                                 </a>
                             
                         </div>
@@ -879,18 +937,17 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/12/02/da-mo-xing-you-hua-kv-cache/">
+                <a href="/2024/12/03/da-mo-xing-you-hua-pagedattention/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="大模型优化--KV Cache">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="大模型优化--PagedAttention">
                         
-                        <span class="card-title">大模型优化--KV Cache</span>
+                        <span class="card-title">大模型优化--PagedAttention</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -900,9 +957,9 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-02
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-03
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -919,20 +976,19 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
                     
                     <a href="/tags/LLM/">
                         <span class="chip bg-color">LLM</span>
                     </a>
                     
-                    <a href="/tags/KV-Cache/">
-                        <span class="chip bg-color">KV Cache</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/">
-                        <span class="chip bg-color">显存优化</span>
+                    <a href="/tags/PagedAttention/">
+                        <span class="chip bg-color">PagedAttention</span>
                     </a>
                     
                 </div>
@@ -984,6 +1040,18 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/LLM/">
+                        <span class="chip bg-color">LLM</span>
+                    </a>
+                    
+                    <a href="/tags/KV-Cache/">
+                        <span class="chip bg-color">KV Cache</span>
+                    </a>
+                    
                     <a href="/tags/AI/">
                         <span class="chip bg-color">AI</span>
                     </a>
@@ -992,12 +1060,8 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
                         <span class="chip bg-color">大模型</span>
                     </a>
                     
-                    <a href="/tags/LLM/">
-                        <span class="chip bg-color">LLM</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%98%BE%E5%AD%98/">
-                        <span class="chip bg-color">显存</span>
+                    <a href="/tags/LoRA/">
+                        <span class="chip bg-color">LoRA</span>
                     </a>
                     
                 </div>
@@ -1232,7 +1296,7 @@ https://mp.weixin.qq.com/s?__biz=Mzg3MjYzMzkzOQ==&amp;amp;mid=2247486250&amp;amp
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">3.8k</span>
+                        class="white-color">4.2k</span>
             
             
             
