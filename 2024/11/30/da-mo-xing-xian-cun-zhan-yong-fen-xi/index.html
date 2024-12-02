@@ -425,7 +425,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-02
+                    2024-12-03
                 </div>
                 
 
@@ -564,7 +564,7 @@
         attn_output, attn_weights = self._upcast_and_reordered_attn(query, key, value, attention_mask, head_mask)
     else:
         attn_output, attn_weights = self._attn(query, key, value, attention_mask, head_mask)</code></pre>
-<h4 id="KV-Cache显存占用"><a href="#KV-Cache显存占用" class="headerlink" title="KV Cache显存占用"></a>KV Cache显存占用</h4><p>当sequence特别长的时候，KV Cache其实还是个Memory刺客。</p>
+<h4 id="KV-Cache显存占用"><a href="#KV-Cache显存占用" class="headerlink" title="KV Cache显存占用"></a>KV Cache显存占用</h4><p>当<strong>sequence特别长</strong>的时候，KV Cache其实还是个Memory刺客。</p>
 <p>比如batch_size=32, head=32, layer=32, dim_size=4096, seq_length=2048, float32类型，则需要占用的显存为 2 * 32 * 4096 * 2048 * 32 * 4 / 1024/1024/1024 /1024 = 64G。</p>
 <blockquote>
 <p>大模型推理加速：看图学KV Cache <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662498827">https://zhuanlan.zhihu.com/p/662498827</a></p>
