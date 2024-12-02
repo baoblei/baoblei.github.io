@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-02T18:13:45.599Z</updated>
+  <updated>2024-12-02T18:19:20.456Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/"/>
     <id>http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/</id>
     <published>2024-12-02T17:52:42.000Z</published>
-    <updated>2024-12-02T18:13:45.599Z</updated>
+    <updated>2024-12-02T18:19:20.456Z</updated>
     
     
       
@@ -35,9 +35,7 @@
     
     
     
-    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="AI" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/AI/"/>
+    <category term="大模型" scheme="http://baoblei.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
     
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
@@ -53,7 +51,7 @@
     <link href="http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/"/>
     <id>http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/</id>
     <published>2024-12-01T20:28:19.000Z</published>
-    <updated>2024-12-02T18:16:47.764Z</updated>
+    <updated>2024-12-02T18:18:53.695Z</updated>
     
     
       
@@ -66,9 +64,7 @@
     
     
     
-    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="AI" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/AI/"/>
+    <category term="大模型" scheme="http://baoblei.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
     
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
@@ -88,7 +84,7 @@
     <link href="http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/"/>
     <id>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</id>
     <published>2024-11-29T21:13:20.000Z</published>
-    <updated>2024-12-02T18:16:09.916Z</updated>
+    <updated>2024-12-02T18:19:05.404Z</updated>
     
     
       
@@ -101,9 +97,7 @@
     
     
     
-    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    <category term="AI" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/AI/"/>
+    <category term="大模型" scheme="http://baoblei.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
     
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
