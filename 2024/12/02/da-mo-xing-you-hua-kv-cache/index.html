@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="大模型优化--KV Cache, 庞贝堡垒｜ Pompeii BL">
-    <meta name="description" content="KV CacheKV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在推理的">
+    <meta name="description" content="KV Cache 介绍KV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -61,9 +61,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
 </head>
 
 
@@ -423,21 +423,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-03
+                    2024-12-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    699
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    6 分
                 </div>
                 
 
@@ -460,7 +460,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="KV-Cache"><a href="#KV-Cache" class="headerlink" title="KV Cache"></a>KV Cache</h2><p>KV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在推理的时候前面已经生成的字符不需要与后面的字符产生attention，从而使得前面已经计算的K和V可以缓存起来。</p>
+                <h2 id="KV-Cache-介绍"><a href="#KV-Cache-介绍" class="headerlink" title="KV Cache 介绍"></a>KV Cache 介绍</h2><p>KV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在推理的时候前面已经生成的字符不需要与后面的字符产生attention，从而使得前面已经计算的K和V可以缓存起来。</p>
 <p>我们先看一下不使用KV Cache的推理过程。假设模型最终生成了“遥遥领先”4个字。</p>
 <p>当模型生成第一个“遥”字时，<code>input="&lt;s&gt;"</code>, <code>"&lt;s&gt;"</code>是起始字符。Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241202155542.png"></p>
 <p>为了看上去方便，我们暂时忽略scale项$1/\sqrt(d)$， 但是要注意这个scale面试时经常考。</p>
@@ -498,8 +498,100 @@
         attn_output, attn_weights = self._upcast_and_reordered_attn(query, key, value, attention_mask, head_mask)
     else:
         attn_output, attn_weights = self._attn(query, key, value, attention_mask, head_mask)</code></pre>
-
-<h2 id="MQA与GQA"><a href="#MQA与GQA" class="headerlink" title="MQA与GQA"></a>MQA与GQA</h2><p> 参考：</p>
+<h2 id="KV-Cache-步骤"><a href="#KV-Cache-步骤" class="headerlink" title="KV Cache 步骤"></a>KV Cache 步骤</h2><p>正是因为 Self Attention 中带 Maske ，因此，在推理的时候，前面已经生成的 token 不需要与后面的 token 计算 Attention ，从而使得前面已经计算的 K 和 V 可以缓存起来。<br>一个典型的带有 KV Cache 的推理过程包含以下两个阶段：</p>
+<ol>
+<li>预填充阶段：输入一个 prompt 序列，为每个 transformer 层生成 Key Cache 和 Value Cache（KV cache）。</li>
+<li>解码阶段：使用并更新 KV Cache，一个接一个地生成 token，当前生成的 token 依赖于之前已经生成的token。</li>
+</ol>
+<h3 id="预填充阶段"><a href="#预填充阶段" class="headerlink" title="预填充阶段"></a>预填充阶段</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204023238.png"></p>
+<h3 id="解码阶段"><a href="#解码阶段" class="headerlink" title="解码阶段"></a>解码阶段</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204023814.png"></p>
+<h2 id="MQA与GQA"><a href="#MQA与GQA" class="headerlink" title="MQA与GQA"></a>MQA与GQA</h2><p>在GPU上部署模型时，我们遵循的原则是：能在一张卡上部署的，就不要跨多张卡；能在一台机器上部署的，就不要跨多台机器。这是因为“卡内通信带宽 &gt; 卡间通信带宽 &gt; 机间通信带宽”。由于“木桶效应”，模型部署时跨的设备越多，受到设备间通信带宽的制约就越大。</p>
+<p>因此，减少 KV Cache 的目的是为了在更少的设备上推理更长的 Context，或者在相同的 Context 长度下实现更大的推理 batch size，从而提升推理速度或增加吞吐总量。最终目的都是为了降低推理成本。</p>
+<h3 id="MHA"><a href="#MHA" class="headerlink" title="MHA"></a>MHA</h3><p>MHA（Multi-Head Attention），也就是多头注意力，是 Transformer 中的标准 Attention 形式。在数学上，多头注意力 MHA 等价于多个独立的单头注意力的拼接。其遵循前面所讲的KV Cache 的原理。而后面的 MQA、GQA、都是围绕“如何减少 KV Cache 同时尽可能地保证效果”这个主题发展而来的产物。</p>
+<h3 id="MQA"><a href="#MQA" class="headerlink" title="MQA"></a>MQA</h3><p>MQA，即“Multi-Query Attention”，2019年由 Google 在论文 <a href="chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://arxiv.org/pdf/1911.02150">Fast Transformer Decoding: One Write-Head is All You Need</a> 中提出。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204024825.png"><br>使用 MQA 的模型包括 PaLM、StarCoder、Gemini 等。很明显，MQA 直接将 KV Cache 减少到了原来的 1/head_num。</p>
+<p>效果方面，目前看来大部分任务的损失都比较有限。</p>
+<h3 id="GQA"><a href="#GQA" class="headerlink" title="GQA"></a>GQA</h3><p>也有人担心 MQA 对 KV Cache 的压缩太严重，以至于会影响模型的学习效率以及最终效果。为此，一个 MHA 与 MQA 之间的过渡版本 GQA（Grouped-Query Attention）应运而生，出自 2023 年 Google 的论文 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.13245">GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints</a>。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241203015549.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204025114.png"></p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>参数量</th>
+<th>非Embedding参数量</th>
+<th>GQA</th>
+<th>上下文长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Qwen2-0.5B</td>
+<td>0.49B</td>
+<td>0.35B</td>
+<td>√</td>
+<td>32K</td>
+</tr>
+<tr>
+<td>Qwen2-1.5B</td>
+<td>1.54B</td>
+<td>1.31B</td>
+<td>√</td>
+<td>32K</td>
+</tr>
+<tr>
+<td>Qwen2-7B</td>
+<td>7.07B</td>
+<td>5.98B</td>
+<td>√</td>
+<td>128K</td>
+</tr>
+<tr>
+<td>Qwen2-57B-A14B</td>
+<td>57.41B</td>
+<td>56.32B</td>
+<td>√</td>
+<td>64K</td>
+</tr>
+<tr>
+<td>Qwen2-72B</td>
+<td>72.71B</td>
+<td>70.21B</td>
+<td>√</td>
+<td>128K</td>
+</tr>
+</tbody></table>
+<p>在 Llama 2/3-70B 中，GQA 的 g=8 ，其他用了 GQA 的同体量模型基本上也保持了这个设置，这并非偶然，而是同样出于推理效率的考虑。我们知道，70B 这个体量的模型，如果不进行极端的量化，那么不可能部署到单卡（A100/H100 80G）上。单卡不行，那么就能单机了，一般情况下一台机可以装 8 张卡，Attention 的每个Head 实际上是独立运算然后拼接起来的，当 g=8 时，正好可以每张卡负责计算一组 K、V 对应的 Attention Head，这样可以在尽可能保证 K、V 多样性的同时最大程度上减少卡间通信。</p>
+<p>下面看一下 GQA 的实验效果。</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>推理时间</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MHA-Large</td>
+<td>0.37</td>
+<td>46.0</td>
+</tr>
+<tr>
+<td>MHA-XXL</td>
+<td>1.51</td>
+<td>47.2</td>
+</tr>
+<tr>
+<td>MQA-XXL</td>
+<td>0.24</td>
+<td>46.6</td>
+</tr>
+<tr>
+<td>GQA-8-XXL</td>
+<td>0.28</td>
+<td>47.1</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204025823.png"></p>
+<p>参考：</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/708120479">https://zhuanlan.zhihu.com/p/708120479</a></p>
 </blockquote>
@@ -1284,7 +1376,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">4.2k</span>
+                        class="white-color">5.1k</span>
             
             
             
