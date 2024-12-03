@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>大模型高效微调方法PEFT--LoRA/QLoRA</title>
+      <link href="/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/"/>
+      <url>/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 大模型 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> LoRA </tag>
+            
+            <tag> PEFT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>大模型优化--PagedAttention</title>
       <link href="/2024/12/03/da-mo-xing-you-hua-pagedattention/"/>
       <url>/2024/12/03/da-mo-xing-you-hua-pagedattention/</url>
