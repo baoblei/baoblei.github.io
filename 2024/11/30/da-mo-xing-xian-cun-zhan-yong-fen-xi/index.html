@@ -386,16 +386,16 @@
                                 <span class="chip bg-color">LLM</span>
                             </a>
                         
-                            <a href="/tags/KV-Cache/">
-                                <span class="chip bg-color">KV Cache</span>
-                            </a>
-                        
                             <a href="/tags/AI/">
                                 <span class="chip bg-color">AI</span>
                             </a>
                         
                             <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
                                 <span class="chip bg-color">大模型</span>
+                            </a>
+                        
+                            <a href="/tags/KV-Cache/">
+                                <span class="chip bg-color">KV Cache</span>
                             </a>
                         
                             <a href="/tags/LoRA/">
@@ -430,21 +430,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-04
+                    2024-12-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    3.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    13 分
                 </div>
                 
 
@@ -561,7 +561,61 @@
 <blockquote>
 <p>大模型推理加速：看图学KV Cache <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662498827">https://zhuanlan.zhihu.com/p/662498827</a></p>
 </blockquote>
-<h3 id="LoRA-与-QLoRA-训练显存"><a href="#LoRA-与-QLoRA-训练显存" class="headerlink" title="LoRA 与 QLoRA 训练显存"></a>LoRA 与 QLoRA 训练显存</h3><h4 id="LoRA"><a href="#LoRA" class="headerlink" title="LoRA"></a>LoRA</h4><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204190635.png"></p>
+<h3 id="LoRA-与-QLoRA-训练显存"><a href="#LoRA-与-QLoRA-训练显存" class="headerlink" title="LoRA 与 QLoRA 训练显存"></a>LoRA 与 QLoRA 训练显存</h3><h4 id="LoRA"><a href="#LoRA" class="headerlink" title="LoRA"></a>LoRA</h4><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204190635.png"><br>LoRA是在原来的权重矩阵的旁路新建一对低秩的可训练权重，训练的时候只训练旁路，大大降低了训练的权重数量，参数量从 dxd 降为 2xdxr。</p>
+<p>有了前面的全参情况下训练的显存分析，现在分析起来就比较通顺了，我们一步一步来，还是以BF16半精度模型Adamw优化器训练为例子，lora部分的参数精度也是BF16，并且设1字节模型参数对应的显存大小 $\Phi$。</p>
+<ul>
+<li>首先是模型权重本身的权重，这个肯定是要加载原始模型和lora旁路模型的，因为lora部分占比小于2个数量级，所以显存分析的时候忽略不计，显存占用 $2\Phi$。</li>
+<li>然后就是优化器部分，优化器也不需要对原模型进行备份了，因为优化器是针对于需要更新参数的模型权重部分进行处理，也就是说优化器只包含Lora模型权重相关的内容，考虑到数量级太小，也忽略不计，故优化器部分占用显存 0。</li>
+<li>原始模型都不更新梯度，肯定只需要Lora部分的梯度显存，而这部分占用显存也可以近似为 0。<br>想深入探究的可以去看了一篇<a href="https://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/">博文</a>和<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/702629428">大模型高效微调-LoRA原理详解和训练过程深入分析</a>。</li>
+</ul>
+<p>总的来说，不考虑激活值的情况下，Lora微调训练的显存占用只有$2\Phi$，一个7B的模型Lora训练只需要占用显存大约14G左右。验证一下，我们来看Llama Factory里给出训练任务的显存预估表格：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241205031352.png"></p>
+<h4 id="QLoRA"><a href="#QLoRA" class="headerlink" title="QLoRA"></a>QLoRA</h4><p>QLoRA本质上还是对模型的主体进行了量化，以4Bit量化为例，Qlora占用的显存主要就是4Bit量化后的模型本身也就是$0.5\Phi$，由于A、B矩阵的参数量很小，故忽略不计。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
+<thead>
+<tr>
+<th>部分显存对应精度（训练）</th>
+<th>全参微调（全FP16）</th>
+<th>全参微调（BF16混合精度）</th>
+<th>LoRA</th>
+<th>QLoRA</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主干模型（模型存储/计算参数）</td>
+<td>FP16/FP16</td>
+<td>BF16/BF16</td>
+<td>BF16/BF16</td>
+<td>NF4/BF16</td>
+</tr>
+<tr>
+<td>主干模型（梯度）</td>
+<td>FP16</td>
+<td>BF16</td>
+<td>Null</td>
+<td>Null</td>
+</tr>
+<tr>
+<td>主干模型（adamw优化器）</td>
+<td>2 x FP16</td>
+<td>3 x FP32</td>
+<td>Null</td>
+<td>Null</td>
+</tr>
+<tr>
+<td>LoRA部分（可忽略不计）</td>
+<td>Null</td>
+<td>Null</td>
+<td>BF16</td>
+<td>BF16</td>
+</tr>
+<tr>
+<td>总和（大约）</td>
+<td>8Byte</td>
+<td>16Byte</td>
+<td>2Byte</td>
+<td>0.5Byte</td>
+</tr>
+</tbody></table>
 <h1 id="huggingface-显存分析工具"><a href="#huggingface-显存分析工具" class="headerlink" title="huggingface 显存分析工具"></a>huggingface 显存分析工具</h1><p>huggingface 提供了一个工具可以方便的查看大模型在不同阶段消耗的显存大小。<br><a target="_blank" rel="noopener" href="https://huggingface.co/docs/accelerate/usage_guides/model_size_estimator">model size estimator</a></p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.zhexuan.org/archives/llm-gpu-memory.html">https://blog.zhexuan.org/archives/llm-gpu-memory.html</a></p>
@@ -653,16 +707,16 @@
                                     <span class="chip bg-color">LLM</span>
                                 </a>
                             
-                                <a href="/tags/KV-Cache/">
-                                    <span class="chip bg-color">KV Cache</span>
-                                </a>
-                            
                                 <a href="/tags/AI/">
                                     <span class="chip bg-color">AI</span>
                                 </a>
                             
                                 <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
                                     <span class="chip bg-color">大模型</span>
+                                </a>
+                            
+                                <a href="/tags/KV-Cache/">
+                                    <span class="chip bg-color">KV Cache</span>
                                 </a>
                             
                                 <a href="/tags/LoRA/">
@@ -1359,7 +1413,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">9.5k</span>
+                        class="white-color">10.1k</span>
             
             
             
