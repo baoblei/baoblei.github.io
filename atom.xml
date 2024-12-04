@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-03T19:07:35.011Z</updated>
+  <updated>2024-12-03T19:34:53.800Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,12 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>个人博客加入谷歌元标记与站点地图</title>
+    <link href="http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/"/>
+    <id>http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/</id>
+    <published>2024-12-03T19:34:00.000Z</published>
+    <updated>2024-12-03T19:34:53.800Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>大模型高效微调方法PEFT--LoRA/QLoRA</title>
     <link href="http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/"/>
     <id>http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/</id>
     <published>2024-12-03T19:04:31.000Z</published>
-    <updated>2024-12-03T19:07:35.011Z</updated>
+    <updated>2024-12-04T18:37:19.917Z</updated>
     
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;参数高效微调PEFT&quot;&gt;&lt;a href=&quot;#参数高效微调PEFT&quot; class=&quot;headerlink&quot; title=&quot;参数高效微调PEFT&quot;&gt;&lt;/a&gt;参数高效微调PEFT&lt;/h2&gt;&lt;h4 id=&quot;微调&quot;&gt;&lt;a href=&quot;#微调&quot;</summary>
+        
+      
     
     
     
@@ -105,7 +135,7 @@
     <link href="http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/"/>
     <id>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</id>
     <published>2024-11-29T21:13:20.000Z</published>
-    <updated>2024-12-02T18:19:05.404Z</updated>
+    <updated>2024-12-04T11:19:11.271Z</updated>
     
     
       

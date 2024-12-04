@@ -4,8 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="大模型优化--KV Cache, 庞贝堡垒｜ Pompeii BL">
-    <meta name="description" content="KV Cache 介绍KV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在">
+    <meta name="keywords" content="个人博客加入谷歌元标记与站点地图, 庞贝堡垒｜ Pompeii BL">
+    <meta name="description" content="
+https://blog.csdn.net/tzhuwb/article/details/125477001
+
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>大模型优化--KV Cache | 庞贝堡垒｜ Pompeii BL</title>
+    <title>个人博客加入谷歌元标记与站点地图 | 庞贝堡垒｜ Pompeii BL</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -347,12 +350,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">大模型优化--KV Cache</h1>
+                    <h1 class="description center-align post-title">个人博客加入谷歌元标记与站点地图</h1>
                 </div>
             </div>
         </div>
@@ -374,41 +377,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                <span class="chip bg-color">深度学习</span>
-                            </a>
-                        
-                            <a href="/tags/LLM/">
-                                <span class="chip bg-color">LLM</span>
-                            </a>
-                        
-                            <a href="/tags/KV-Cache/">
-                                <span class="chip bg-color">KV Cache</span>
-                            </a>
-                        
-                            <a href="/tags/MQA/">
-                                <span class="chip bg-color">MQA</span>
-                            </a>
-                        
-                            <a href="/tags/GQA/">
-                                <span class="chip bg-color">GQA</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="post-category">
-                                大模型
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -417,7 +391,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-02
+                    2024-12-04
                 </div>
                 
 
@@ -431,14 +405,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    8
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    1 分
                 </div>
                 
 
@@ -461,143 +435,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="KV-Cache-介绍"><a href="#KV-Cache-介绍" class="headerlink" title="KV Cache 介绍"></a>KV Cache 介绍</h2><p>KV Cache是Transformer标配的推理加速功能，transformer官方use_cache这个参数默认是True，但是它只能用于Decoder架构的模型，这是因为Decoder有Causal Mask，在推理的时候前面已经生成的字符不需要与后面的字符产生attention，从而使得前面已经计算的K和V可以缓存起来。</p>
-<p>我们先看一下不使用KV Cache的推理过程。假设模型最终生成了“遥遥领先”4个字。</p>
-<p>当模型生成第一个“遥”字时，<code>input="&lt;s&gt;"</code>, <code>"&lt;s&gt;"</code>是起始字符。Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241202155542.png"></p>
-<p>为了看上去方便，我们暂时忽略scale项$1/\sqrt(d)$， 但是要注意这个scale面试时经常考。</p>
-<p>如上图所示，最终Attention的计算公式如下，（softmaxed 表示已经按行进行了softmax）:<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241202155748.png"></p>
-<p>当模型生成第二个“遥”字时，<code>input="&lt;s&gt;遥"</code>, Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241202155837.png"></p>
-<p>当QK变为矩阵时，softmax 会针对 行 进行计算。写详细一点如下，softmaxed 表示已经按行进行了softmax。</p>
-<p><strong>（关键）由于decoder架构的模型有Causal Mask，所以$Q_1$与$K_2$的计算结果为$-\infty$。</strong><br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202204856.png"></p>
-<p>假设$Att_1$表示 Attention 的第一行， $Att_2$表示 Attention 的第二行，则根据上面推导，其计算公式为：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202205002.png"></p>
-<p>我们发现：</p>
-<ul>
-<li>$Q_1$在第二步参与的计算与第一步是一样的，而且第二步生成的$Att_1$仅仅依赖于$Q_1$，与$Q_2$毫无关系。</li>
-<li>$Att_2$仅仅依赖于$Q_2$，与$Q_1$毫无关系。</li>
-</ul>
-<p>当模型生成第三个“领”字时，<code>input="&lt;s&gt;遥遥"</code>, Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202210952.png"><br>详细的推导参考第二步，其计算公式为：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211018.png"><br>同样的，第三步生成的$Att_3$仅仅依赖于$Q_3$，与$Q_1$和$Q_2$毫无关系。</p>
-<p>当模型生成第四个“先”字时，<code>input="&lt;s&gt;遥遥领"</code>, Attention的计算如下：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211156.png"><br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211222.png"><br>和之前类似，不再赘述。</p>
-<p>看上面图和公式，我们可以得出结论：</p>
-<ul>
-<li>当前计算方式存在大量冗余计算</li>
-<li>$Attn_k$只与$Q_k$有关</li>
-<li>推理第$x_k$个字符时，只需要输入字符$x_{k-1}$即可。<br>第三个结论的前提是，我们需要把每一步的K和V缓存起来，这样在推理第$x_k$个字符时，只需要输入字符$x_{k-1}$计算其$Q_k,K_k,V_k$, 结合之前保存的KV Cache即可得到对应的$Attn_k$。</li>
-</ul>
-<p>下图展示了使用KV Cache和不使用KV Cache的过程对比：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241202211901.png"></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt2/modeling_gpt2.py#L318C1-L331C97">huggingface 的实现</a></p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">if layer_past is not None:
-        past_key, past_value = layer_past
-        key = torch.cat((past_key, key), dim=-2)
-        value = torch.cat((past_value, value), dim=-2)
-    
-    if use_cache is True:
-        present = (key, value)
-    else:
-        present = None
-    
-    if self.reorder_and_upcast_attn:
-        attn_output, attn_weights = self._upcast_and_reordered_attn(query, key, value, attention_mask, head_mask)
-    else:
-        attn_output, attn_weights = self._attn(query, key, value, attention_mask, head_mask)</code></pre>
-<h2 id="KV-Cache-步骤"><a href="#KV-Cache-步骤" class="headerlink" title="KV Cache 步骤"></a>KV Cache 步骤</h2><p>正是因为 Self Attention 中带 Maske ，因此，在推理的时候，前面已经生成的 token 不需要与后面的 token 计算 Attention ，从而使得前面已经计算的 K 和 V 可以缓存起来。<br>一个典型的带有 KV Cache 的推理过程包含以下两个阶段：</p>
-<ol>
-<li>预填充阶段：输入一个 prompt 序列，为每个 transformer 层生成 Key Cache 和 Value Cache（KV cache）。</li>
-<li>解码阶段：使用并更新 KV Cache，一个接一个地生成 token，当前生成的 token 依赖于之前已经生成的token。</li>
-</ol>
-<h3 id="预填充阶段"><a href="#预填充阶段" class="headerlink" title="预填充阶段"></a>预填充阶段</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204023238.png"></p>
-<h3 id="解码阶段"><a href="#解码阶段" class="headerlink" title="解码阶段"></a>解码阶段</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204023814.png"></p>
-<h2 id="MQA与GQA"><a href="#MQA与GQA" class="headerlink" title="MQA与GQA"></a>MQA与GQA</h2><p>在GPU上部署模型时，我们遵循的原则是：能在一张卡上部署的，就不要跨多张卡；能在一台机器上部署的，就不要跨多台机器。这是因为“卡内通信带宽 &gt; 卡间通信带宽 &gt; 机间通信带宽”。由于“木桶效应”，模型部署时跨的设备越多，受到设备间通信带宽的制约就越大。</p>
-<p>因此，减少 KV Cache 的目的是为了在更少的设备上推理更长的 Context，或者在相同的 Context 长度下实现更大的推理 batch size，从而提升推理速度或增加吞吐总量。最终目的都是为了降低推理成本。</p>
-<h3 id="MHA"><a href="#MHA" class="headerlink" title="MHA"></a>MHA</h3><p>MHA（Multi-Head Attention），也就是多头注意力，是 Transformer 中的标准 Attention 形式。在数学上，多头注意力 MHA 等价于多个独立的单头注意力的拼接。其遵循前面所讲的KV Cache 的原理。而后面的 MQA、GQA、都是围绕“如何减少 KV Cache 同时尽可能地保证效果”这个主题发展而来的产物。</p>
-<h3 id="MQA"><a href="#MQA" class="headerlink" title="MQA"></a>MQA</h3><p>MQA，即“Multi-Query Attention”，2019年由 Google 在论文 <a href="chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://arxiv.org/pdf/1911.02150">Fast Transformer Decoding: One Write-Head is All You Need</a> 中提出。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204024825.png"><br>使用 MQA 的模型包括 PaLM、StarCoder、Gemini 等。很明显，MQA 直接将 KV Cache 减少到了原来的 1/head_num。</p>
-<p>效果方面，目前看来大部分任务的损失都比较有限。</p>
-<h3 id="GQA"><a href="#GQA" class="headerlink" title="GQA"></a>GQA</h3><p>也有人担心 MQA 对 KV Cache 的压缩太严重，以至于会影响模型的学习效率以及最终效果。为此，一个 MHA 与 MQA 之间的过渡版本 GQA（Grouped-Query Attention）应运而生，出自 2023 年 Google 的论文 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.13245">GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints</a>。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241203015549.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204025114.png"></p>
-<table>
-<thead>
-<tr>
-<th>模型</th>
-<th>参数量</th>
-<th>非Embedding参数量</th>
-<th>GQA</th>
-<th>上下文长度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Qwen2-0.5B</td>
-<td>0.49B</td>
-<td>0.35B</td>
-<td>√</td>
-<td>32K</td>
-</tr>
-<tr>
-<td>Qwen2-1.5B</td>
-<td>1.54B</td>
-<td>1.31B</td>
-<td>√</td>
-<td>32K</td>
-</tr>
-<tr>
-<td>Qwen2-7B</td>
-<td>7.07B</td>
-<td>5.98B</td>
-<td>√</td>
-<td>128K</td>
-</tr>
-<tr>
-<td>Qwen2-57B-A14B</td>
-<td>57.41B</td>
-<td>56.32B</td>
-<td>√</td>
-<td>64K</td>
-</tr>
-<tr>
-<td>Qwen2-72B</td>
-<td>72.71B</td>
-<td>70.21B</td>
-<td>√</td>
-<td>128K</td>
-</tr>
-</tbody></table>
-<p>在 Llama 2/3-70B 中，GQA 的 g=8 ，其他用了 GQA 的同体量模型基本上也保持了这个设置，这并非偶然，而是同样出于推理效率的考虑。我们知道，70B 这个体量的模型，如果不进行极端的量化，那么不可能部署到单卡（A100/H100 80G）上。单卡不行，那么就能单机了，一般情况下一台机可以装 8 张卡，Attention 的每个Head 实际上是独立运算然后拼接起来的，当 g=8 时，正好可以每张卡负责计算一组 K、V 对应的 Attention Head，这样可以在尽可能保证 K、V 多样性的同时最大程度上减少卡间通信。</p>
-<p>下面看一下 GQA 的实验效果。</p>
-<table>
-<thead>
-<tr>
-<th>模型</th>
-<th>推理时间</th>
-<th>效果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>MHA-Large</td>
-<td>0.37</td>
-<td>46.0</td>
-</tr>
-<tr>
-<td>MHA-XXL</td>
-<td>1.51</td>
-<td>47.2</td>
-</tr>
-<tr>
-<td>MQA-XXL</td>
-<td>0.24</td>
-<td>46.6</td>
-</tr>
-<tr>
-<td>GQA-8-XXL</td>
-<td>0.28</td>
-<td>47.1</td>
-</tr>
-</tbody></table>
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204025823.png"></p>
-<p>参考：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/708120479">https://zhuanlan.zhihu.com/p/708120479</a></p>
-</blockquote>
-<blockquote>
-<p>大模型推理加速：看图学KV Cache <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662498827">https://zhuanlan.zhihu.com/p/662498827</a></p>
+                <blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tzhuwb/article/details/125477001">https://blog.csdn.net/tzhuwb/article/details/125477001</a></p>
 </blockquote>
 
                 
@@ -625,7 +464,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/">http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/</a>
+                    <a href="http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/">http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -662,27 +501,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                    <span class="chip bg-color">深度学习</span>
-                                </a>
-                            
-                                <a href="/tags/LLM/">
-                                    <span class="chip bg-color">LLM</span>
-                                </a>
-                            
-                                <a href="/tags/KV-Cache/">
-                                    <span class="chip bg-color">KV Cache</span>
-                                </a>
-                            
-                                <a href="/tags/MQA/">
-                                    <span class="chip bg-color">MQA</span>
-                                </a>
-                            
-                                <a href="/tags/GQA/">
-                                    <span class="chip bg-color">GQA</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1026,74 +845,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/12/03/da-mo-xing-you-hua-pagedattention/">
+                <a href="/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="大模型优化--PagedAttention">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="个人博客加入谷歌元标记与站点地图">
                         
-                        <span class="card-title">大模型优化--PagedAttention</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-03
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="post-category">
-                                    大模型
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">深度学习</span>
-                    </a>
-                    
-                    <a href="/tags/LLM/">
-                        <span class="chip bg-color">LLM</span>
-                    </a>
-                    
-                    <a href="/tags/PagedAttention/">
-                        <span class="chip bg-color">PagedAttention</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="大模型显存占用分析">
-                        
-                        <span class="card-title">大模型显存占用分析</span>
+                        <span class="card-title">个人博客加入谷歌元标记与站点地图</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1104,7 +867,45 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            庞贝堡垒
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="大模型高效微调方法PEFT--LoRA/QLoRA">
+                        
+                        <span class="card-title">大模型高效微调方法PEFT--LoRA/QLoRA</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-04
                             </span>
                         <span class="publish-author">
                             
@@ -1125,24 +926,12 @@
                         <span class="chip bg-color">深度学习</span>
                     </a>
                     
-                    <a href="/tags/LLM/">
-                        <span class="chip bg-color">LLM</span>
-                    </a>
-                    
-                    <a href="/tags/KV-Cache/">
-                        <span class="chip bg-color">KV Cache</span>
-                    </a>
-                    
-                    <a href="/tags/AI/">
-                        <span class="chip bg-color">AI</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
-                        <span class="chip bg-color">大模型</span>
-                    </a>
-                    
                     <a href="/tags/LoRA/">
                         <span class="chip bg-color">LoRA</span>
+                    </a>
+                    
+                    <a href="/tags/PEFT/">
+                        <span class="chip bg-color">PEFT</span>
                     </a>
                     
                 </div>
