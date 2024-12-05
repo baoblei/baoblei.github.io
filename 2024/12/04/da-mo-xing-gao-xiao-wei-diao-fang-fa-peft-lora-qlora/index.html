@@ -439,21 +439,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-05
+                    2024-12-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.4k
+                    4.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    16 分
+                    17 分
                 </div>
                 
 
@@ -615,13 +615,59 @@ c4 = max(|-9.641638854625175|, |7.696158363188889|, |-5.323939281255154|, |5.971
  [-0.816793898052648, 3.0313783372030603, 2.2078302737800004, -8.970824523299282],
  [-9.641638854625175, 6.970488722350373, -5.062564734402345, 5.424549965245643]]</code></pre>
 
+
+
 <h3 id="双量化"><a href="#双量化" class="headerlink" title="双量化"></a>双量化</h3><p>在上面我们介绍到，当我们保存模型时我们不仅要保存量化后的结果，还要保存每个块的量化常数。虽然量化后的参数只有4bit的精度，但是这个量化常量的精度是float32。</p>
 <p><strong>在QLoRA中，每个块的大小是64，块中的每个值占4比特。这相当于为了存储量化常数，模型要额外占用 32/（64*4）=12.5% 的显存。</strong></p>
 <p>QLoRA的双重量化就是对这个量化常数再做一次8bit的量化，在进行量化常数的量化时，QLoRA以每256个量化常数为一组再做一次量化。因此它额外增加的内存消耗有两部分组成，一部分是量化后的8bit的第一层的量化常数，它额外增加的显存占比是 8/（64x4）= 3.125%， 第二部分是为量化常数做量化的第二层的32bit的量化常数，它额外增加的显存占比是32/（256x64x4）= 0.049%，额外显存增加只有3.17%。</p>
 <h3 id="分页优化器"><a href="#分页优化器" class="headerlink" title="分页优化器"></a>分页优化器</h3><p>分页优化是针对梯度检查点做的进一步优化，以防止在显存使用峰值时发生显存OOM的问题。QLoRA分页优化其实就是当显存不足是，将保存的部分梯度检查点转移到CPU内存上，和计算机的内存数据转移到硬盘上的常规内存分页一个道理。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>要使用 HuggingFace 进行 QLoRA 微调，您需要安装BitsandBytes 库和 PEFT 库。BitsandBytes 库负责 4 位量化以及整个低精度存储和高精度计算部分。PEFT 库将用于 LoRA 微调部分。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+from peft import prepare_model_for_kbit_training, LoraConfig, get_peft_model
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+
+model_id = "EleutherAI/gpt-neox-20b"
+bnb_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16
+) # setup bits and bytes config
+
+model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map={"":0})
+
+model.gradient_checkpointing_enable()
+model = prepare_model_for_kbit_training(model) # prepares the whole model for kbit training
+
+config = LoraConfig(
+    r=8, 
+    lora_alpha=32, 
+    target_modules=["query_key_value"], 
+    lora_dropout=0.05, 
+    bias="none", 
+    task_type="CAUSAL_LM"
+)
+
+model = get_peft_model(model, config) # Now you get a model ready for QLoRA training</code></pre>
+<p>在模型的微调过程中，虽然主干参数以 4-bit 精度存储，但计算（例如前向传播、反向传播和梯度计算）可以使用更高精度的数据类型<code>bnb_4bit_compute_dtype</code>，以减少由于低精度存储引起的累积误差。</p>
 <p>参考资料：</p>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.09685">https://arxiv.org/pdf/2106.09685</a><br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.14314">https://arxiv.org/abs/2305.14314</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/623543497">https://zhuanlan.zhihu.com/p/623543497</a><br><a target="_blank" rel="noopener" href="https://mingchao.wang/ShYWOOwr/">https://mingchao.wang/ShYWOOwr/</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/690739797">https://zhuanlan.zhihu.com/p/690739797</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666234324">https://zhuanlan.zhihu.com/p/666234324</a></p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.09685">https://arxiv.org/pdf/2106.09685</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.14314">https://arxiv.org/abs/2305.14314</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/623543497">https://zhuanlan.zhihu.com/p/623543497</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mingchao.wang/ShYWOOwr/">https://mingchao.wang/ShYWOOwr/</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/690739797">https://zhuanlan.zhihu.com/p/690739797</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/666234324">https://zhuanlan.zhihu.com/p/666234324</a></p>
 </blockquote>
 
                 
@@ -1377,7 +1423,7 @@ c4 = max(|-9.641638854625175|, |7.696158363188889|, |-5.323939281255154|, |5.971
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">10.6k</span>
+                        class="white-color">15.9k</span>
             
             
             

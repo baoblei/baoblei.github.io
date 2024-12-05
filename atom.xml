@@ -48,7 +48,7 @@
     <link href="http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/"/>
     <id>http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/</id>
     <published>2024-12-03T19:04:31.000Z</published>
-    <updated>2024-12-04T18:37:19.917Z</updated>
+    <updated>2024-12-05T16:40:40.870Z</updated>
     
     
       
@@ -77,15 +77,15 @@
     <link href="http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/"/>
     <id>http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/</id>
     <published>2024-12-02T17:52:42.000Z</published>
-    <updated>2024-12-02T18:19:20.456Z</updated>
+    <updated>2024-12-05T17:38:05.822Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;&lt;a</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;基于KV Cache的大模型推理过程通常分为两个阶段：Prefill 和 Decoding。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
         
       
     
@@ -107,7 +107,7 @@
     <link href="http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/"/>
     <id>http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/</id>
     <published>2024-12-01T20:28:19.000Z</published>
-    <updated>2024-12-03T18:59:46.985Z</updated>
+    <updated>2024-12-05T09:48:43.581Z</updated>
     
     
       

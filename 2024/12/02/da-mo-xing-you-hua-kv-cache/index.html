@@ -446,21 +446,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-04
+                    2024-12-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
 
@@ -528,6 +528,7 @@
 </ol>
 <h3 id="预填充阶段"><a href="#预填充阶段" class="headerlink" title="预填充阶段"></a>预填充阶段</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204023238.png"></p>
 <h3 id="解码阶段"><a href="#解码阶段" class="headerlink" title="解码阶段"></a>解码阶段</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204023814.png"></p>
+<p>KV Cache采用动态分配缓冲区大小，当超过当前容量时，内存大小会翻倍。这种方法虽然可行，但在 GPU 上频繁申请和释放内存的开销较大，导致效率较低。目前流行的解决办法是数据拆分与元数据管理：将数据按最小单元存储，并使用元数据记录每一块数据的位置，称为 PageAttention。程序在初始化时申请一块较大的显存区域（例如 4GB），然后按照 KVCache 的大小将显存划分成多个小块，并记录每个 token 在推理过程中需要访问的小块。显存的分配、释放和管理类似于操作系统对物理内存的虚拟化过程。这一思路被 vLLM（具体参见论文 Efficient Memory Management for Large Language Model Serving with PagedAttention）所采用，并广泛应用于大规模语言模型的推理中。</p>
 <h2 id="MQA与GQA"><a href="#MQA与GQA" class="headerlink" title="MQA与GQA"></a>MQA与GQA</h2><p>在GPU上部署模型时，我们遵循的原则是：能在一张卡上部署的，就不要跨多张卡；能在一台机器上部署的，就不要跨多台机器。这是因为“卡内通信带宽 &gt; 卡间通信带宽 &gt; 机间通信带宽”。由于“木桶效应”，模型部署时跨的设备越多，受到设备间通信带宽的制约就越大。</p>
 <p>因此，减少 KV Cache 的目的是为了在更少的设备上推理更长的 Context，或者在相同的 Context 长度下实现更大的推理 batch size，从而提升推理速度或增加吞吐总量。最终目的都是为了降低推理成本。</p>
 <h3 id="MHA"><a href="#MHA" class="headerlink" title="MHA"></a>MHA</h3><p>MHA（Multi-Head Attention），也就是多头注意力，是 Transformer 中的标准 Attention 形式。在数学上，多头注意力 MHA 等价于多个独立的单头注意力的拼接。其遵循前面所讲的KV Cache 的原理。而后面的 MQA、GQA、都是围绕“如何减少 KV Cache 同时尽可能地保证效果”这个主题发展而来的产物。</p>
@@ -1399,7 +1400,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">10.6k</span>
+                        class="white-color">15.9k</span>
             
             
             
