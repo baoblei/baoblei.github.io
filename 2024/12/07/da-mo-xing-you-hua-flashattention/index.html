@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="相册, 庞贝堡垒｜ Pompeii BL">
-    <meta name="description" content="日拱一卒 功不唐捐">
+    <meta name="keywords" content="大模型优化-FlashAttention, 庞贝堡垒｜ Pompeii BL">
+    <meta name="description" content="前言在传统的自注意力机制中，注意力矩阵的计算复杂度为 O(N²)，其中 N 是序列的长度。对于长序列的输入（如文本或图像中的像素点），这种计算代价极高，特别是在训练大型语言模型或视觉模型时，内存占用和计算开销随着序列长度的增加而急剧上升。此">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>相册 | 庞贝堡垒｜ Pompeii BL</title>
+    <title>大模型优化-FlashAttention | 庞贝堡垒｜ Pompeii BL</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -369,12 +369,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">相册</h1>
+                    <h1 class="description center-align post-title">大模型优化-FlashAttention</h1>
                 </div>
             </div>
         </div>
@@ -396,12 +396,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/LLMs/">
+                                <span class="chip bg-color">LLMs</span>
+                            </a>
+                        
+                            <a href="/tags/FlashAttention/">
+                                <span class="chip bg-color">FlashAttention</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/LLMs/" class="post-category">
+                                LLMs
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -410,28 +427,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-11-29
+                    2024-12-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-11-29
+                    2024-12-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    8 分
                 </div>
                 
 
@@ -454,7 +471,73 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在传统的自注意力机制中，注意力矩阵的<strong>计算复杂度为 O(N²)<strong>，其中 N 是序列的长度。对于长序列的输入（如文本或图像中的像素点），这种计算代价极高，特别是在训练大型语言模型或视觉模型时，内存占用和计算开销随着序列长度的增加而急剧上升。此外，</strong>注意力矩阵的大小为 N×N</strong>，这也对 GPU 内存消耗极大。自注意力机制不仅在计算时消耗大量内存，还需要存储所有中间变量（如 Q、K、V 矩阵及注意力权重），以支持后续的反向传播。</p>
+<p>因此，找到有效降低 Transformer 模型 O(N²) 复杂度的方案至关重要。理想情况下，若能将复杂度降至 O(N)，将大大提升模型效率。即使无法完全实现 O(N)，逼近这一复杂度也是十分有价值的。在这一背景下，Flash Attention 应运而生，成为解决该问题的有效方案。</p>
+<p>从 Flash Attention（Fast and Memory Efficient Exact Attention with IO-Awareness）的命名可见其优势：</p>
+<ul>
+<li>Fast：在Flash Attention之前，也出现过一些加速Transformer计算的方法，这些方法的着眼点是“减少计算量FLOPs”，例如用一个稀疏attention做近似计算。而FlashAttention发现：<strong>计算慢的卡点不在运算能力，而是在读写速度上。</strong> 所以它通过降低对显存（HBM）的访问次数来加快整体运算速度，这种方法又被称为<strong>O-Awareness</strong>。</li>
+<li>Memory Efficient：在 Flash Attention 中，内存使用压力从 O(N²) 降至 O(N)，显著节省内存。</li>
+<li>Exact Attention：与稀疏 Attention 不同，Flash Attention 完全等效于标准 Attention。</li>
+</ul>
+<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="计算限制与内存限制"><a href="#计算限制与内存限制" class="headerlink" title="计算限制与内存限制"></a>计算限制与内存限制</h3><h4 id="受限原因分析"><a href="#受限原因分析" class="headerlink" title="受限原因分析"></a>受限原因分析</h4><p>首先介绍几个关键概念：</p>
+<ul>
+<li>$\pi$：<strong>硬件算力上限</strong>，表示一个计算平台在全负荷情况下每秒能够执行的浮点运算次数，单位为 FLOPS（浮点运算次数每秒）。</li>
+<li>$\beta$：<strong>硬件带宽上限</strong>，表示一个计算平台在全负荷情况下每秒能够完成的数据交换量，单位为 Byte/s。</li>
+<li>$\pi_t$：<strong>某算法所需的总运算量</strong>，单位为 FLOPs。（t 表示 total）</li>
+<li>$\beta_t$：<strong>某算法所需的总数据读取和存储量</strong>，单位为 Byte。</li>
+</ul>
+<blockquote>
+<p>这里强调一下对FLOPS和FLOPs的解释：</p>
+</blockquote>
+<p>FLOPS：等同于FLOP/s，表示Floating Point Operations Per Second，即每秒执行的浮点数操作次数，用于衡量硬件计算性能。</p>
+<p>FLOPs：表示Floating Point Operations，表示某个算法的总计算量（即总浮点运算次数），用于衡量一个算法的复杂度。</p>
+<p>在实际执行过程中，时间不仅消耗在计算上，也消耗在数据读取和存储上。因此，我们定义：</p>
+<ul>
+<li>$T_{cal}$：算法执行所需的计算时间，其公式为$\pi_t / \pi$。</li>
+<li>$T_{load}$：算法执行所需的数据读取与存储时间，公式为 $\beta_t / \beta$。</li>
+</ul>
+<p>由于计算和数据传输可以同时进行，我们定义算法的总执行时间：$T = max(T_{cal}, T_{load})$</p>
+<ul>
+<li>当 $T_{cal}&gt;T_{load}$ 时，算法的瓶颈在计算部分，称为<strong>计算限制（math-bound）。</strong>此时，$\pi_t / \pi &gt; \beta_t / \beta$，即 $\pi_t/\beta_t &gt; \pi/\beta$。</li>
+<li>当 $T_{cal}&lt;T_{load}$ 时，瓶颈在数据读取部分，称为<strong>内存限制</strong>（memory-bound）。此时，$\pi_t / \pi &lt; \beta_t / \beta$，即 $\pi_t/\beta_t &lt; \pi/\beta$。</li>
+</ul>
+<p>算法的<strong>计算强度</strong>（Operational Intensity）定义为 $\pi_t/\beta_t$，表示每个数据读取操作对应的计算量。当算法的计算强度越高，说明计算部分的工作量越大，反之则说明数据读取部分的工作量越大。</p>
+<p>假设我们现在采用的硬件为A100-40GB SXM，同时采用混合精度训练（可理解为训练过程中的计算和存储都是fp16形式的，一个元素占用2byte），则：<br>$$ \pi/\beta = 312<em>10^12 / 1555</em>10^9 = 201 FLOPs/Bytes $$</p>
+<p>对于一个模型，$Q, K \in \mathbb{R}^{n \times d}$，其中N为序列长度，d为embedding dim。现在计算$S = QK^T$，则有：<br>$$<br>\frac{\pi_t}{\beta_t} = \frac{2N^2d}{2Nd + 2Nd + 2N^2} = \frac{N^2d}{2Nd + N^2}<br>$$</p>
+<p>下表记录了不同的N，d下的受限类型：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207024735.png"></p>
+<p>根据这个表格，我们可以来做下总结：</p>
+<ul>
+<li>计算限制（math-bound）：大矩阵乘法（N和d都非常大）、通道数很大的卷积运算。相对而言，读得快，算得慢。</li>
+<li>内存限制（memory-bound）：逐点运算操作。例如：激活函数、dropout、mask、softmax、BN和LN。相对而言，算得快，读得慢。</li>
+</ul>
+<p>所以，“Transformer计算受限于数据读取”也不是绝对的，要综合硬件本身和模型大小来综合判断。但从表中的结果我们可知，memory-bound的情况还是普遍存在的，所以Flash attention的改进思想在很多场景下依然适用。</p>
+<p>在Flash attention中，<strong>计算注意力矩阵时的softmax计算就受到了内存限制，这也是flash attention的重点优化对象</strong>，我们会在下文来详细看这一点。</p>
+<h4 id="roof-line-模型"><a href="#roof-line-模型" class="headerlink" title="roof-line 模型"></a>roof-line 模型</h4><p>一个算法运行的效率是离不开硬件本身的。我们往往想知道：对于一个运算量为 $\pi_t$，数据读取存储量为 $\beta_t$ 的算法，它在算力上限为 $\pi$，带宽上限为 $\beta$ 的硬件上，能达到的最大性能 $P$（Attanable Performance）是多少？</p>
+<p>这里最大性能 $P$ 指的是当前算法实际运行在硬件上时，每秒最多能达到的计算次数，单位是FLOP/s。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207025413.png"></p>
+<p>从图中可以直观的看出，当计算强度达到了硬件的上限时，算法的性能达到最大值。而在之前的计算强度范围内，都属于内存限制。</p>
+<h3 id="GPU存储与计算"><a href="#GPU存储与计算" class="headerlink" title="GPU存储与计算"></a>GPU存储与计算</h3><h4 id="GPU存储分类"><a href="#GPU存储分类" class="headerlink" title="GPU存储分类"></a>GPU存储分类</h4><p>通常，GPU 存储分为片上内存（on-chip memory）和片下内存（off-chip memory），这主要取决于存储单元是否位于芯片内部。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207030019.png"></p>
+<ul>
+<li><strong>片上内存</strong>：用于缓存等，容量小但带宽极高。如上图中的 <strong>SRAM</strong>，容量仅 20MB，带宽却达 19TB/s。</li>
+<li><strong>片下内存</strong>：用于全局存储（即显存），容量大但带宽相对较小。如 HBM，容量可达 40GB，带宽为 1.5TB/s。</li>
+</ul>
+<h4 id="GPU的计算"><a href="#GPU的计算" class="headerlink" title="GPU的计算"></a>GPU的计算</h4><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md/20240826055530.png"><br>如图，负责GPU计算的一个核心组件叫SM（Streaming Multiprocessors，流式多处理器），可以将其理解成GPU的计算单元，一个SM又可以由若干个SMP（SM Partition）组成，例如图中就由4个SMP组成。SM就好比CPU中的一个核，但不同的是一个CPU核一般运行一个线程，但是一个SM却可以运行多个轻量级线程（由Warp Scheduler控制，一个Warp Scheduler会抓一束线程（32个）放入cuda core（图中绿色小块）中进行计算）。</p>
+<p>现在，我们将GPU的计算核心SM及不同层级GPU存储结构综合起来，绘制一张简化图：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241207030737.png"></p>
+<ul>
+<li>HBM2：即是我们的显存。</li>
+<li>L1缓存/shared memory：每个SM都有自己的L1缓存，用于存储SM内的数据，被SM内所有的cuda cores共享。SM间不能互相访问彼此的L1。NV Volta架构后，L1和shared memory合并（Volta架构前只有Kepler做过合并），目的是为了进一步降低延迟。合并过后，用户能写代码直接控制的依然是shared memory，同时可控制从L1中分配多少存储给shared memory。<strong>Flash attention中SRAM指的就是L1 cache/shared memory</strong>。</li>
+<li>L2缓存：所有SM共享L2缓存。L2缓存不直接由用户代码控制。L1/L2缓存的带宽都要比显存的带宽要大，也就是读写速度更快，但是它们的存储量更小。</li>
+</ul>
+<p>GPU 的计算流程可以理解为：数据从显存（HBM）加载到片上内存（SRAM），由 SM（Streaming Multiprocessor）读取并进行计算，计算结果再通过 SRAM 返回显存。具体可参考：<a target="_blank" rel="noopener" href="https://www.yidoo.xyz/nvidia-gpu-principles">NVIDIA GPU 原理详解</a>。</p>
+<p>显存带宽远低于 SRAM，因此从显存读取数据往往较耗时。为了优化读取效率，我们会<strong>尽量将数据填满 SRAM，从而减少频繁读取</strong>。</p>
+<h4 id="kernel-fusion"><a href="#kernel-fusion" class="headerlink" title="kernel fusion"></a>kernel fusion</h4><p>为减少显存读取次数，若 SRAM 容量允许，多个计算步骤可合并在一次数据加载中完成。这被称为kernel 融合。</p>
+<p>举例来说，我现在要做计算A和计算B。在老方法里，我做完A后得到一个中间结果，写回显存，然后再从显存中把这个结果加载到SRAM，做计算B。但是现在我发现SRAM完全有能力存下我的中间结果，那我就可以把A和B放在一起做了，这样就能节省很多读取时间，我们管这样的操作叫kernel融合。</p>
+<p>对于kernel可以粗犷地理解成是“函数”，它包含对线程结构（grid-block-thread）的定义，以及结构中具体计算逻辑的定义。理解到这一层已不妨碍我们对flash attention的解读了，想要更近一步了解的朋友，推荐阅读这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34587739">小小将：CUDA编程入门极简教程</a>。</p>
+<p>参考资料</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669926191">https://zhuanlan.zhihu.com/p/669926191</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p>
+</blockquote>
+
                 
             </div>
             <hr/>
@@ -480,7 +563,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/gallery/index.html">http://baoblei.github.io/gallery/index.html</a>
+                    <a href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/">http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -517,7 +600,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/LLMs/">
+                                    <span class="chip bg-color">LLMs</span>
+                                </a>
+                            
+                                <a href="/tags/FlashAttention/">
+                                    <span class="chip bg-color">FlashAttention</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -861,18 +952,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/gallery/index.html">
+                <a href="/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="相册">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="hexo正确渲染md/latex公式">
                         
-                        <span class="card-title">相册</span>
+                        <span class="card-title">hexo正确渲染md/latex公式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -882,9 +972,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-29
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-07
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -893,7 +983,18 @@
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hexo/">
+                        <span class="chip bg-color">hexo</span>
+                    </a>
+                    
+                    <a href="/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/">
+                        <span class="chip bg-color">hexo公式渲染</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -901,16 +1002,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/gallery/index.html">
+                <a href="/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="相册">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="个人博客加入谷歌元标记与站点地图">
                         
-                        <span class="card-title">相册</span>
+                        <span class="card-title">个人博客加入谷歌元标记与站点地图</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -921,17 +1022,36 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-04
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            庞贝堡垒
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/google-search-console/" class="post-category">
+                                    google search console
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hexo/">
+                        <span class="chip bg-color">hexo</span>
+                    </a>
+                    
+                    <a href="/tags/sitemap/">
+                        <span class="chip bg-color">sitemap</span>
+                    </a>
+                    
+                    <a href="/tags/google-search-console/">
+                        <span class="chip bg-color">google search console</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1089,6 +1209,13 @@
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 

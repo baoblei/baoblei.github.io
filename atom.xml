@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-04T20:05:30.821Z</updated>
+  <updated>2024-12-06T17:38:18.207Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,67 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>hexo正确渲染md/latex公式</title>
+    <link href="http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/"/>
+    <id>http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/</id>
+    <published>2024-12-06T17:27:30.000Z</published>
+    <updated>2024-12-06T17:38:18.207Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;使用 hexo-render-pandoc, 步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;安装配置hexo-render-pandoc&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&quot;line-numbers language-bash&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
+    
+    <category term="hexo公式渲染" scheme="http://baoblei.github.io/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大模型优化-FlashAttention</title>
+    <link href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/"/>
+    <id>http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/</id>
+    <published>2024-12-06T17:03:23.000Z</published>
+    <updated>2024-12-06T19:13:32.934Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在传统的自注意力机制中，注意力矩阵的&lt;strong&gt;计算复杂度为 O(N²)&lt;strong&gt;，其中 N</summary>
+        
+      
+    
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
+    
+    <category term="FlashAttention" scheme="http://baoblei.github.io/tags/FlashAttention/"/>
+    
+  </entry>
+  
+  <entry>
     <title>个人博客加入谷歌元标记与站点地图</title>
     <link href="http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/"/>
     <id>http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/</id>
     <published>2024-12-03T19:34:00.000Z</published>
-    <updated>2024-12-04T20:05:30.821Z</updated>
+    <updated>2024-12-06T17:28:59.153Z</updated>
     
     
       
@@ -34,12 +90,14 @@
     
     
     
-    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="google search console" scheme="http://baoblei.github.io/categories/google-search-console/"/>
     
     
     <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
     
     <category term="sitemap" scheme="http://baoblei.github.io/tags/sitemap/"/>
+    
+    <category term="google search console" scheme="http://baoblei.github.io/tags/google-search-console/"/>
     
   </entry>
   
@@ -48,7 +106,7 @@
     <link href="http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/"/>
     <id>http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/</id>
     <published>2024-12-03T19:04:31.000Z</published>
-    <updated>2024-12-05T16:40:40.870Z</updated>
+    <updated>2024-12-06T17:40:21.165Z</updated>
     
     
       
@@ -61,7 +119,7 @@
     
     
     
-    <category term="大模型" scheme="http://baoblei.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
     
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
@@ -77,7 +135,7 @@
     <link href="http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/"/>
     <id>http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/</id>
     <published>2024-12-02T17:52:42.000Z</published>
-    <updated>2024-12-05T17:38:05.822Z</updated>
+    <updated>2024-12-06T17:40:31.611Z</updated>
     
     
       
@@ -91,7 +149,7 @@
     
     
     
-    <category term="大模型" scheme="http://baoblei.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
     
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
@@ -107,7 +165,7 @@
     <link href="http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/"/>
     <id>http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/</id>
     <published>2024-12-01T20:28:19.000Z</published>
-    <updated>2024-12-05T09:48:43.581Z</updated>
+    <updated>2024-12-06T17:40:01.042Z</updated>
     
     
       
@@ -120,7 +178,7 @@
     
     
     
-    <category term="大模型" scheme="http://baoblei.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
     
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
@@ -140,7 +198,7 @@
     <link href="http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/"/>
     <id>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</id>
     <published>2024-11-29T21:13:20.000Z</published>
-    <updated>2024-12-04T19:19:42.143Z</updated>
+    <updated>2024-12-06T17:40:56.859Z</updated>
     
     
       
@@ -153,18 +211,16 @@
     
     
     
-    <category term="大模型" scheme="http://baoblei.github.io/categories/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
     
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
     
     <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
     
     <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
-    
-    <category term="大模型" scheme="http://baoblei.github.io/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
     
     <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
@@ -175,7 +231,7 @@
     <link href="http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
     <id>http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/</id>
     <published>2024-11-27T18:11:12.000Z</published>
-    <updated>2024-12-01T20:29:56.036Z</updated>
+    <updated>2024-12-06T17:28:33.016Z</updated>
     
     
       
@@ -188,14 +244,14 @@
     
     
     
-    <category term="技术" scheme="http://baoblei.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    <category term="hexo" scheme="http://baoblei.github.io/categories/hexo/"/>
     
     
     <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
     
     <category term="next" scheme="http://baoblei.github.io/tags/next/"/>
     
-    <category term="静态网站搭建" scheme="http://baoblei.github.io/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/"/>
+    <category term="个人静态博客搭建" scheme="http://baoblei.github.io/tags/%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   

@@ -436,21 +436,21 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">6</a></span>
+    <span class="count"><a href="/">8</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">2</a></span>
+    <span class="count"><a href="/categories">3</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">14</a></span>
+    <span class="count"><a href="/tags">17</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -466,21 +466,21 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">6</a></span>
+    <span class="count"><a href="/">8</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">2</a></span>
+    <span class="count"><a href="/categories">3</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">14</a></span>
+    <span class="count"><a href="/tags">17</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -624,7 +624,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,2,4],
+                data: [0,0,0,0,0,0,0,0,0,0,0,2,6],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -666,7 +666,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"技术","value":2},{"name":"大模型","value":4}],
+                data: [{"name":"hexo","value":1},{"name":"LLMs","value":5},{"name":"google search console","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -690,7 +690,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["深度学习","LLM","hexo","KV Cache","LoRA","next","静态网站搭建","sitemap","MQA","GQA"]
+                data: ["深度学习","hexo","LLMs","LLM","KV Cache","LoRA","next","个人静态博客搭建","hexo公式渲染","FlashAttention"]
             }
         ],
         yAxis: [
@@ -703,7 +703,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [4,3,2,2,2,1,1,1,1,1],
+                data: [4,3,2,2,2,2,1,1,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -833,14 +833,38 @@
             
             
             
-            <a href="/tags/%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/">
-                <span class="chip center-align waves-effect waves-light chip-default">静态网站搭建</span>
+            <a href="/tags/%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
+                <span class="chip center-align waves-effect waves-light chip-default">个人静态博客搭建</span>
+            </a>
+            
+            
+            
+            <a href="/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/">
+                <span class="chip center-align waves-effect waves-light chip-default">hexo公式渲染</span>
+            </a>
+            
+            
+            
+            <a href="/tags/LLMs/">
+                <span class="chip center-align waves-effect waves-light chip-default">LLMs</span>
+            </a>
+            
+            
+            
+            <a href="/tags/FlashAttention/">
+                <span class="chip center-align waves-effect waves-light chip-default">FlashAttention</span>
             </a>
             
             
             
             <a href="/tags/sitemap/">
                 <span class="chip center-align waves-effect waves-light chip-default">sitemap</span>
+            </a>
+            
+            
+            
+            <a href="/tags/google-search-console/">
+                <span class="chip center-align waves-effect waves-light chip-default">google search console</span>
             </a>
             
             
@@ -875,26 +899,20 @@
             
             
             
-            <a href="/tags/PagedAttention/">
-                <span class="chip center-align waves-effect waves-light chip-default">PagedAttention</span>
-            </a>
-            
-            
-            
             <a href="/tags/AI/">
                 <span class="chip center-align waves-effect waves-light chip-default">AI</span>
             </a>
             
             
             
-            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
-                <span class="chip center-align waves-effect waves-light chip-default">大模型</span>
+            <a href="/tags/LoRA/">
+                <span class="chip center-align waves-effect waves-light chip-default">LoRA</span>
             </a>
             
             
             
-            <a href="/tags/LoRA/">
-                <span class="chip center-align waves-effect waves-light chip-default">LoRA</span>
+            <a href="/tags/PagedAttention/">
+                <span class="chip center-align waves-effect waves-light chip-default">PagedAttention</span>
             </a>
             
             
@@ -1035,7 +1053,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">15.9k</span>
+                        class="white-color">18.3k</span>
             
             
             

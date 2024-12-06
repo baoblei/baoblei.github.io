@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="相册, 庞贝堡垒｜ Pompeii BL">
-    <meta name="description" content="日拱一卒 功不唐捐">
+    <meta name="keywords" content="hexo正确渲染md/latex公式, 庞贝堡垒｜ Pompeii BL">
+    <meta name="description" content="使用 hexo-render-pandoc, 步骤如下：
+
+安装配置hexo-render-pandoc
+
+npm un hexo-renderer-marked --save
+#or npm un hexo-renderer-kramed">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +23,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>相册 | 庞贝堡垒｜ Pompeii BL</title>
+    <title>hexo正确渲染md/latex公式 | 庞贝堡垒｜ Pompeii BL</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -369,12 +374,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">相册</h1>
+                    <h1 class="description center-align post-title">hexo正确渲染md/latex公式</h1>
                 </div>
             </div>
         </div>
@@ -396,9 +401,17 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/hexo/">
+                                <span class="chip bg-color">hexo</span>
+                            </a>
+                        
+                            <a href="/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/">
+                                <span class="chip bg-color">hexo公式渲染</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -410,21 +423,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-11-29
+                    2024-12-07
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-11-29
+                    2024-12-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    156
                 </div>
                 
 
@@ -454,7 +467,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>使用 hexo-render-pandoc, 步骤如下：</p>
+<ol>
+<li>安装配置hexo-render-pandoc</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npm un hexo-renderer-marked --save
+#or npm un hexo-renderer-kramed --save (如果安装的是kramed的话)
+
+# 在安装之前，建议先删除node_modules文件夹下所有文件
+# 并运行命令 npm install
+
+npm i hexo-renderer-pandoc --save</code></pre>
+<p>前去官网安装pandoc，并保证能在命令行中运行 pandoc -v.</p>
+<ol start="2">
+<li>主题配置打开mathjax开关</li>
+</ol>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># MathJax Support
+mathjax:
+  enable: true
+  per_page: true</code></pre>
+
+<ol start="3">
+<li>文章的Front-matter里打开mathjax开关(一定要打开，不然不会渲染)</li>
+</ol>
+<hr>
+<h2 id="title-index-htmldate-2016-12-28-21-01-30tags-mathjax-true"><a href="#title-index-htmldate-2016-12-28-21-01-30tags-mathjax-true" class="headerlink" title="title: index.htmldate: 2016-12-28 21:01:30tags:mathjax: true"></a>title: index.html<br>date: 2016-12-28 21:01:30<br>tags:<br>mathjax: true</h2><p>参考资料：</p>
+<blockquote>
+<p>Hexo博客搭建与个性化: <a target="_blank" rel="noopener" href="https://ljmeng.site/posts/2864/">https://ljmeng.site/posts/2864/</a></p>
+</blockquote>
+
                 
             </div>
             <hr/>
@@ -480,7 +521,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/gallery/index.html">http://baoblei.github.io/gallery/index.html</a>
+                    <a href="http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/">http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -517,7 +558,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/hexo/">
+                                    <span class="chip bg-color">hexo</span>
+                                </a>
+                            
+                                <a href="/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/">
+                                    <span class="chip bg-color">hexo公式渲染</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -866,13 +915,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/gallery/index.html">
+                <a href="/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="相册">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="hexo正确渲染md/latex公式">
                         
-                        <span class="card-title">相册</span>
+                        <span class="card-title">hexo正确渲染md/latex公式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -883,7 +932,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-07
                             </span>
                         <span class="publish-author">
                             
@@ -895,22 +944,34 @@
                 </div>
 
                 
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hexo/">
+                        <span class="chip bg-color">hexo</span>
+                    </a>
+                    
+                    <a href="/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/">
+                        <span class="chip bg-color">hexo公式渲染</span>
+                    </a>
+                    
+                </div>
+                
             </div>
         </div>
         
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/gallery/index.html">
+                <a href="/2024/12/07/da-mo-xing-you-hua-flashattention/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="相册">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="大模型优化-FlashAttention">
                         
-                        <span class="card-title">相册</span>
+                        <span class="card-title">大模型优化-FlashAttention</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -921,17 +982,32 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-11-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-07
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            庞贝堡垒
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/LLMs/" class="post-category">
+                                    LLMs
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/LLMs/">
+                        <span class="chip bg-color">LLMs</span>
+                    </a>
+                    
+                    <a href="/tags/FlashAttention/">
+                        <span class="chip bg-color">FlashAttention</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
