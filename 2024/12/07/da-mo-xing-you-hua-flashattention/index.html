@@ -601,7 +601,26 @@ for 1 &lt;= j &lt;= Tc:
 <h4 id="分块计算中的-O"><a href="#分块计算中的-O" class="headerlink" title="分块计算中的$O$"></a>分块计算中的$O$</h4><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209024821.png"><br>上图中画的6个$O$并不是我们最终想要的结果。我们期望维护并更新 $O_i$，当该 $i$下的所有 $j$ 遍历完毕后，我们的 $O_i$就应该和标准场景下的 $O_i$完全相等。</p>
 <p>在图中，$O_i$应该是红圈部分的乘积，但是我们只存了$m_i, l_i, O$，但是没有存$S, P$，所以到了最后一块我们也无法计算出$O_i$。</p>
 <p>所以这里我们换个思路： $O_i$不是每遍历一块就更新一次吗？那有没有一种办法，<strong>不断用当前最新的rowmax和rowsum去更新 $O_i$，直到遍历完最后一块，这时的 $O_i$不就和标准场景下的结果完全一致了吗？也就是我们想构造形如下面这样的更新等式：</strong><br>$$<br>O_i = O_i + 当前最新结果<br>$$</p>
-<p>因此我们有了伪代码中12行的推导：<br>$$<br>\begin{aligned}<br>O_i^{(j+1)} &amp;= P_{i, j+1} V_{:j+1} \<br>            &amp;= \text{softmax}(S_{i, :j+1}) V_{:j+1} \<br>            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[ \exp\left([S_{i, :j}, S_{i(j+1)}] - m^{(j+1)}\right) \right]<br>            \begin{bmatrix}<br>                V_{:j} \<br>                V_{j+1}<br>            \end{bmatrix} \<br>            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\exp(S_{i, :j} - m^{(j+1)})V_{:j} + \exp(S_{i(j+1)} - m^{(j+1)})V_{j+1}\right] \<br>            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\exp(S_{i, :j} - m^{(j)})V_{:j} + e^{-m^{(j+1)}}\exp(S_{i(j+1)})V_{j+1}\right] \<br>            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\text{diag}(l^{(j)})e^{m^{(j)} - m^{(j+1)}}O_i^{(j)} + e^{-m^{(j+1)}}\exp(S_{i(j+1)})V_{j+1}\right] \<br>            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\text{diag}(l^{(j)})e^{m^{(j)} - m^{(j+1)}}O_i^{(j)} + e^{m^{(j)} - m^{(j+1)}} \tilde{P}<em>{i(j+1)} V</em>{j+1}\right]<br>\end{aligned}<br>$$<br>推导过程中的符号上下标的含义：</p>
+<p>因此我们有了伪代码中12行的推导：</p>
+
+$$
+\begin{aligned}
+O_i^{(j+1)} &amp;= P_{i, j+1} V_{:j+1} \\
+            &amp;= \text{softmax}(S_{i, :j+1}) V_{:j+1} \\
+            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[ \exp\left([S_{i, :j}, S_{i(j+1)}] - m^{(j+1)}\right) \right] 
+            \begin{bmatrix} 
+                V_{:j} \\ 
+                V_{j+1}
+            \end{bmatrix} \\
+            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\exp(S_{i, :j} - m^{(j+1)})V_{:j} + \exp(S_{i(j+1)} - m^{(j+1)})V_{j+1}\right] \\
+            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\exp(S_{i, :j} - m^{(j)})V_{:j} + e^{-m^{(j+1)}}\exp(S_{i(j+1)})V_{j+1}\right] \\ 
+            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\text{diag}(l^{(j)})e^{m^{(j)} - m^{(j+1)}}O_i^{(j)} + e^{-m^{(j+1)}}\exp(S_{i(j+1)})V_{j+1}\right] \\ 
+            &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\text{diag}(l^{(j)})e^{m^{(j)} - m^{(j+1)}}O_i^{(j)} + e^{m^{(j)} - m^{(j+1)}} \tilde{P}_{i(j+1)} V_{j+1}\right]
+\end{aligned}
+$$
+
+
+<p>推导过程中的符号上下标的含义：</p>
 <ul>
 <li>$i$：这个大家应该很熟悉了。例如图例中，$i=0, 1, 2$ 分别对应着深浅绿、深浅蓝、深浅黄块。</li>
 <li>$(j+1)$：表示当前分块的相关结果。</li>
@@ -614,14 +633,69 @@ for 1 &lt;= j &lt;= Tc:
 <p>(2) $\frac{\partial y}{\partial z_j}$<br>我们知道，对于某个 $z_j$ 来说，在 $\text{softmax}$ 的操作下，它参与了 $y_1, y_2, y_3$ 三者的计算，<br>因此它的偏导和这三者密切切相关，这里我们分成两种情况：<br>$$<br>\begin{cases}<br>\frac{\partial y_i}{\partial z_j} = y_i (1 - y_i), &amp; \text{当 } i = j \<br>\frac{\partial y_i}{\partial z_j} = -y_i y_j, &amp; \text{当 } i \neq j<br>\end{cases}<br>$$</p>
 <p>具体的推倒过程可以看这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuliytTaotao/p/10787510.html">对 softmax 和 cross-entropy 求导 
 </a></p>
-<h2 id="有了这个理解，我们再来谈谈基于-y-softmax-z-的-Jacobian-矩阵-diag-y-y-T-y-：-begin-aligned-diag-y-y-T-y-begin-bmatrix-y-1-0-0-0-y-2-0-0-0-y-3-end-bmatrix"><a href="#有了这个理解，我们再来谈谈基于-y-softmax-z-的-Jacobian-矩阵-diag-y-y-T-y-：-begin-aligned-diag-y-y-T-y-begin-bmatrix-y-1-0-0-0-y-2-0-0-0-y-3-end-bmatrix" class="headerlink" title="有了这个理解，我们再来谈谈基于 $y = softmax(z)$ 的 Jacobian 矩阵 $diag(y) - y^T y$：$$\begin{aligned}diag(y) - y^T y &amp;=\begin{bmatrix}y_1 &amp; 0 &amp; 0 \0 &amp; y_2 &amp; 0 \0 &amp; 0 &amp; y_3\end{bmatrix}"></a>有了这个理解，我们再来谈谈基于 $y = softmax(z)$ 的 Jacobian 矩阵 $diag(y) - y^T y$：<br>$$<br>\begin{aligned}<br>diag(y) - y^T y &amp;=<br>\begin{bmatrix}<br>y_1 &amp; 0 &amp; 0 \<br>0 &amp; y_2 &amp; 0 \<br>0 &amp; 0 &amp; y_3<br>\end{bmatrix}</h2><p>\begin{bmatrix}<br>y_1 \ y_2 \ y_3<br>\end{bmatrix}<br>*<br>\begin{bmatrix}<br>y_1 &amp; y_2 &amp; y_3<br>\end{bmatrix} \<br>&amp;=<br>\begin{bmatrix}<br>y_1 - y_1^2 &amp; -y_1 y_2 &amp; -y_1 y_3 \<br>-y_2 y_1 &amp; y_2 - y_2^2 &amp; -y_2 y_3 \<br>-y_3 y_1 &amp; -y_3 y_2 &amp; y_3 - y_3^2<br>\end{bmatrix}<br>\end{aligned}<br>$$</p>
+<p>有了这个理解，我们再来谈谈基于 $y = softmax(z)$ 的 Jacobian 矩阵 $diag(y) - y^T y$：</p>
+
+$$
+\begin{aligned}
+diag(y) - y^T y &amp;=
+\begin{bmatrix}
+y_1 &amp; 0 &amp; 0 \\
+0 &amp; y_2 &amp; 0 \\
+0 &amp; 0 &amp; y_3
+\end{bmatrix}
+-
+\begin{bmatrix}
+y_1 \\ y_2 \\ y_3
+\end{bmatrix}
+*
+\begin{bmatrix}
+y_1 &amp; y_2 &amp; y_3
+\end{bmatrix} \\
+&amp;=
+\begin{bmatrix}
+y_1 - y_1^2 &amp; -y_1 y_2 &amp; -y_1 y_3 \\
+-y_2 y_1 &amp; y_2 - y_2^2 &amp; -y_2 y_3 \\
+-y_3 y_1 &amp; -y_3 y_2 &amp; y_3 - y_3^2
+\end{bmatrix}
+\end{aligned}
+$$
+
+
+
 <p>很容易发现只要把每行/每列相加，就能得到对应 $z$ 的偏导。别着急求和，我们继续往下看。</p>
 <p>(3) $ \frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z_j}$</p>
 <p>有了 (1) (2) 的结果，现在就可以来推导 $\frac{\partial L}{\partial z_j}$，我们有：<br>$$<br>\frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z_j}<br>= \sum_{i=1}^l \frac{\partial L}{\partial y_i} \frac{\partial y_i}{\partial z_j} = y_j (d y_j - \sum_{j=1}^l y_j d y_j)<br>$$</p>
 <p>举个例子，若我们现在想求 $\frac{\partial L}{\partial z_1}$，我们将 $\frac{\partial L}{\partial y} = [m_1 ; m_2 ; m_3]$ 代入上面公式，则有：</p>
 <p>$$<br>\frac{\partial L}{\partial z_1} = m_1 (y_1 - y_1^2) - m_2 y_1 y_2 - m_3 y_1 y_3<br>$$</p>
 <p>现在，针对所有的 $z$，我们将 $\frac{\partial L}{\partial z}$ 写成矩阵表达式有：</p>
-<h2 id="begin-aligned-frac-partial-L-partial-z-frac-partial-L-partial-y-frac-partial-y-partial-z-dy-diag-y-y-T-y-m-1-m-2-m-3-begin-bmatrix-y-1-0-0-0-y-2-0-0-0-y-3-end-bmatrix"><a href="#begin-aligned-frac-partial-L-partial-z-frac-partial-L-partial-y-frac-partial-y-partial-z-dy-diag-y-y-T-y-m-1-m-2-m-3-begin-bmatrix-y-1-0-0-0-y-2-0-0-0-y-3-end-bmatrix" class="headerlink" title="$$\begin{aligned}\frac{\partial L}{\partial z} &amp;= \frac{\partial L}{\partial y} \frac{\partial y}{\partial z} = dy(diag(y) - y^T y) \&amp;= [m_1 ; m_2 ; m_3]\begin{bmatrix}y_1 &amp; 0 &amp; 0 \0 &amp; y_2 &amp; 0 \0 &amp; 0 &amp; y_3\end{bmatrix}"></a>$$<br>\begin{aligned}<br>\frac{\partial L}{\partial z} &amp;= \frac{\partial L}{\partial y} \frac{\partial y}{\partial z} = dy(diag(y) - y^T y) \<br>&amp;= [m_1 ; m_2 ; m_3]<br>\begin{bmatrix}<br>y_1 &amp; 0 &amp; 0 \<br>0 &amp; y_2 &amp; 0 \<br>0 &amp; 0 &amp; y_3<br>\end{bmatrix}</h2><p>\begin{bmatrix}<br>y_1 \ y_2 \ y_3<br>\end{bmatrix}<br>\begin{bmatrix}<br>y_1 &amp; y_2 &amp; y_3<br>\end{bmatrix} \<br>&amp;= [m_1 ; m_2 ; m_3]<br>\begin{bmatrix}<br>y_1 - y_1^2 &amp; -y_1 y_2 &amp; -y_1 y_3 \<br>-y_2 y_1 &amp; y_2 - y_2^2 &amp; -y_2 y_3 \<br>-y_3 y_1 &amp; -y_3 y_2 &amp; y_3 - y_3^2<br>\end{bmatrix}<br>\end{aligned}<br>$$</p>
+
+$$
+\begin{aligned}
+\frac{\partial L}{\partial z} &amp;= \frac{\partial L}{\partial y} \frac{\partial y}{\partial z} = dy(diag(y) - y^T y) \\
+&amp;= [m_1 \; m_2 \; m_3]
+\begin{bmatrix}
+y_1 &amp; 0 &amp; 0 \\
+0 &amp; y_2 &amp; 0 \\
+0 &amp; 0 &amp; y_3
+\end{bmatrix}
+-
+\begin{bmatrix}
+y_1 \\ y_2 \\ y_3
+\end{bmatrix}
+\begin{bmatrix}
+y_1 &amp; y_2 &amp; y_3
+\end{bmatrix} \\ 
+&amp;= [m_1 \; m_2 \; m_3]
+\begin{bmatrix}
+y_1 - y_1^2 &amp; -y_1 y_2 &amp; -y_1 y_3 \\
+-y_2 y_1 &amp; y_2 - y_2^2 &amp; -y_2 y_3 \\
+-y_3 y_1 &amp; -y_3 y_2 &amp; y_3 - y_3^2
+\end{bmatrix}
+\end{aligned}
+$$
+
+
+
 <p><strong>至此，大家记住这两个重要的结论：</strong></p>
 <p>$$<br>\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z} = dy(diag(y) - y^T y)<br>$$</p>
 <p>$$<br>\frac{\partial L}{\partial z_j} = y_j \left( dy_j - \sum_{j=1}^l y_j dy_j \right)<br>$$</p>
@@ -1440,7 +1514,7 @@ for 1 &lt;= j &lt;= Tc:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">22.6k</span>
+                        class="white-color">23.2k</span>
             
             
             

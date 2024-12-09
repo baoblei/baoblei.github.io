@@ -5,12 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="hexo正确渲染md/latex公式, 庞贝堡垒｜ Pompeii BL">
-    <meta name="description" content="使用 hexo-render-pandoc, 步骤如下：
+    <meta name="description" content="我们平时使用markdown写文档的时候，免不了会碰到数学公式，好在有强大的Mathjax，可以解析网页上的数学公式，大部分情况下都是可以的，但是Markdwon本身的特殊符号与Latex中的符号会出现冲突的时候:
 
-安装配置hexo-render-pandoc
-
-npm un hexo-renderer-marked --save
-#or npm un hexo-renderer-kramed">
+_的转义，在markd">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -430,21 +427,21 @@ npm un hexo-renderer-marked --save
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-07
+                    2024-12-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    156
+                    674
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -467,7 +464,13 @@ npm un hexo-renderer-marked --save
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>使用 hexo-render-pandoc, 步骤如下：</p>
+                <p>我们平时使用markdown写文档的时候，免不了会碰到数学公式，好在有强大的Mathjax，可以解析网页上的数学公式，大部分情况下都是可以的，但是Markdwon本身的特殊符号与Latex中的符号会出现冲突的时候:</p>
+<ul>
+<li><code>_</code>的转义，在markdown中，<code>_斜体_</code>是 _斜体_，但是在latex中，却有下标的意思，就会出现问题。</li>
+<li><code>\\</code>的换行，在markdown中，<code>\\</code>会被转义为<code>\</code>这样也会影响影响mathjax对公式中的<code>\\</code>进行渲染</li>
+</ul>
+<p>我从网上找到的解决办法大多都是使用pandoc提换markdown的渲染引擎：</p>
+<h2 id="hexo-render-pandoc"><a href="#hexo-render-pandoc" class="headerlink" title="hexo-render-pandoc"></a>hexo-render-pandoc</h2><p>使用 hexo-render-pandoc, 可以避免上述提到的很多歧义问题步骤如下：</p>
 <ol>
 <li>安装配置hexo-render-pandoc</li>
 </ol>
@@ -478,23 +481,58 @@ npm un hexo-renderer-marked --save
 # 并运行命令 npm install
 
 npm i hexo-renderer-pandoc --save</code></pre>
+
 <p>前去官网安装pandoc，并保证能在命令行中运行 pandoc -v.</p>
 <ol start="2">
 <li>主题配置打开mathjax开关</li>
 </ol>
 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># MathJax Support
 mathjax:
-  enable: true
-  per_page: true</code></pre>
+  enable: true</code></pre>
 
 <ol start="3">
 <li>文章的Front-matter里打开mathjax开关(一定要打开，不然不会渲染)</li>
 </ol>
 <hr>
-<h2 id="title-index-htmldate-2016-12-28-21-01-30tags-mathjax-true"><a href="#title-index-htmldate-2016-12-28-21-01-30tags-mathjax-true" class="headerlink" title="title: index.htmldate: 2016-12-28 21:01:30tags:mathjax: true"></a>title: index.html<br>date: 2016-12-28 21:01:30<br>tags:<br>mathjax: true</h2><p>参考资料：</p>
-<blockquote>
-<p>Hexo博客搭建与个性化: <a target="_blank" rel="noopener" href="https://ljmeng.site/posts/2864/">https://ljmeng.site/posts/2864/</a></p>
-</blockquote>
+<h2 id="title-index-htmldate-2016-12-28-21-01-30tags-mathjax-true"><a href="#title-index-htmldate-2016-12-28-21-01-30tags-mathjax-true" class="headerlink" title="title: index.htmldate: 2016-12-28 21:01:30tags:mathjax: true"></a>title: index.html<br>date: 2016-12-28 21:01:30<br>tags:<br>mathjax: true</h2><p>但是pandoc比较笨重，需要首先安装Pandoc, 不过的确可以完美解决上述的不兼容问题，另外它的语法与markdown有些微的差异，需要注意。</p>
+<h2 id="分离markdown和latex"><a href="#分离markdown和latex" class="headerlink" title="分离markdown和latex"></a>分离markdown和latex</h2><h3 id="使用或者标签"><a href="#使用或者标签" class="headerlink" title="使用<div>或者<span>标签"></a>使用<code>&lt;div&gt;</code>或者<code>&lt;span&gt;</code>标签</h3><p>针对有可能被转义的公式（如带换行符的），用<code>&lt;span&gt;</code>或者<code>&lt;div&gt;</code>标签将LaTeX公式包裹起来，这样公式内容就不会被markdown渲染器识别为转义字符。</p>
+<p>比如：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">$$
+\begin{pmatrix}  
+  a_{11} &amp; a_{12} &amp; a_{13} \\  
+  a_{21} &amp; a_{22} &amp; a_{23} \\  
+  a_{31} &amp; a_{32} &amp; a_{33}  
+\end{pmatrix} 
+$$</code></pre>
+<p><code>\\</code>会无法识别导致不能换行，可以写成：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">&lt;span&gt;
+$$
+\begin{pmatrix}  
+  a_{11} &amp; a_{12} &amp; a_{13} \\  
+  a_{21} &amp; a_{22} &amp; a_{23} \\  
+  a_{31} &amp; a_{32} &amp; a_{33}  
+\end{pmatrix}
+$$
+&lt;/span&gt;</code></pre>
+<p>渲染结果就正常了。</p>
+<h3 id="使用hexo自带的分离标记（推荐，简单）"><a href="#使用hexo自带的分离标记（推荐，简单）" class="headerlink" title="使用hexo自带的分离标记（推荐，简单）"></a>使用hexo自带的分离标记（推荐，简单）</h3><p>在官方文档中提到了可以为hexo提供标记，阻止其按照自己的规则解释我们的字符串，显示其原本的含义</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">{% raw %}
+...
+{% endraw %}</code></pre>
+
+<p>这样就可以避免markdown解释器对我们的字符串进行转义，而是直接输出原本的字符串。</p>
+<p>比如：</p>
+<pre class="line-numbers language-latex" data-language="latex"><code class="language-latex">{% raw %}
+$$
+\begin{align*}
+a &amp;= b + c \\
+    &amp;= d + e \\
+    &amp;= f + g
+\end{align*}
+$$
+{% endraw %}</code></pre>
+
+<p>我测试使用<code>&lt;div&gt;</code>或者<code>&lt;span&gt;</code>在多行公式渲染时依旧会出现异常，而使用<code></code>则可以正常渲染。</p>
 
                 
             </div>
@@ -1239,7 +1277,7 @@ mathjax:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">22.6k</span>
+                        class="white-color">23.2k</span>
             
             
             

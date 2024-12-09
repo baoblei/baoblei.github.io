@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-06T17:38:18.207Z</updated>
+  <updated>2024-12-09T13:55:48.668Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -21,18 +21,16 @@
     <link href="http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/"/>
     <id>http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/</id>
     <published>2024-12-06T17:27:30.000Z</published>
-    <updated>2024-12-06T17:38:18.207Z</updated>
+    <updated>2024-12-09T13:55:48.668Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;使用 hexo-render-pandoc, 步骤如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;安装配置hexo-render-pandoc&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre class=&quot;line-numbers language-bash&quot;</summary>
+    <summary type="html">&lt;p&gt;我们平时使用markdown写文档的时候，免不了会碰到数学公式，好在有强大的Mathjax，可以解析网页上的数学公式，大部分情况下都是可以的，但是Markdwon本身的特殊符号与Latex中的符号会出现冲突的时候:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;_&lt;/code&gt;的转</summary>
         
       
     
@@ -50,7 +48,7 @@
     <link href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/"/>
     <id>http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/</id>
     <published>2024-12-06T17:03:23.000Z</published>
-    <updated>2024-12-09T10:39:35.764Z</updated>
+    <updated>2024-12-09T13:53:42.074Z</updated>
     
     
       
@@ -218,9 +216,9 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
-    
     <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
+    
+    <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
     
     <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
