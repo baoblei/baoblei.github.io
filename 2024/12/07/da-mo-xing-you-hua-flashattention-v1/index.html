@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
 </head>
 
 
@@ -434,21 +434,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-09
+                    2024-12-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.6k
+                    8.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    26 分
+                    33 分
                 </div>
                 
 
@@ -752,8 +752,66 @@ $$
 <p>只要看了流程图，就不难得知：某块 $K_j$ 和对应的 $Q_i$ 共同计算出了对应的 $S_{ij}$，因此有：</p>
 <p>$$<br>dK_j = \sum_i dS_{ij}^T Q_i<br>$$</p>
 <p>这就是伪代码第 22 行做的事情。</p>
-<h2 id="计算量与显存占用"><a href="#计算量与显存占用" class="headerlink" title="计算量与显存占用"></a>计算量与显存占用</h2><p>待更新</p>
-<h2 id="IO复杂度分析"><a href="#IO复杂度分析" class="headerlink" title="IO复杂度分析"></a>IO复杂度分析</h2><p>待更新</p>
+<h2 id="计算量与显存占用"><a href="#计算量与显存占用" class="headerlink" title="计算量与显存占用"></a>计算量与显存占用</h2><h3 id="矩阵相乘的计算量"><a href="#矩阵相乘的计算量" class="headerlink" title="矩阵相乘的计算量"></a>矩阵相乘的计算量</h3><p>我们先来看一个前置知识：两个矩阵相乘，要怎么统计它们的计算量？</p>
+<p>我们一般用<strong>FLOPs（floating point operations，浮点运算次数）</strong>来表示运算量的大小。对于“两矩阵相乘”这个操作而言，其**运算量 = <strong>乘法运算的次数 + 加法运算的次数</strong>。</p>
+<p>来看一个具体例子：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209224248.png"></p>
+<p>两矩阵相乘，为了获取图中深橘色部分的元素，我们一共需要进行<strong>n次乘法运算和n-1次加法运算</strong>。</p>
+<p>对于示例矩阵，我们需要进行：$mp \cdot (n + n - 1)$ 次浮点计算。</p>
+<p>再进一步，假设此时在蓝色和绿色的矩阵外，我们还有一个bias矩阵，意味着计算单个橘色方块时我们需要进行<em>n次乘法和n-1+1次加法运算</em>，那么此时总计算量为：$mp \cdot (n+n) = 2mnp$。当然，即使不加这个bias，我们也可以把-1项给忽略，得到相同的结果。</p>
+<p>总结一下：</p>
+<ul>
+<li>假设有两个矩阵A和B，它们的维度分别为(m, n)和(n, p)，则这两矩阵相乘的运算量为<strong>2mnp</strong>。</li>
+<li>由于乘法运算的时间要高于加法运算的时间，因此有时在统计运算量时，我们只考虑乘法运算的次数，则此时两矩阵相乘的运算量可近似为<strong>mnp</strong>。</li>
+</ul>
+<h3 id="Flash-Attention的计算量"><a href="#Flash-Attention的计算量" class="headerlink" title="Flash Attention的计算量"></a>Flash Attention的计算量</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209021146.png"></p>
+<p>我们知道矩阵相乘运算占据了运算量的大头，因此我们把分析目光集中到所有的矩阵运算上来。</p>
+<p>(1) 在代码第 9 行，我们有 $S_{ij} = Q_i K_j^T$，其中 $Q_i \in \mathbb{R}^{B_r \times d}$，$K_j^T \in \mathbb{R}^{d \times B_c}$。根据前置知识，求 $S_{ij}$ 的计算量为 $O(B_r B_c d)$。</p>
+<p>(2) 在代码第 12 行，我们有 $\tilde{P}<em>{ij} V_j$，其中 $\tilde{P}</em>{ij} \in \mathbb{R}^{B_r \times B_c}$，$V_j \in \mathbb{R}^{B_c \times d}$。则这里的计算量同样为 $O(B_r B_c d)$。</p>
+<p>(3) 接下来我们看一共计算了多少次 (1) 和 (2)，也就是执行了多少次内循环：</p>
+<p>$$<br>T_c T_r = \frac{N}{B_c} \cdot \frac{N}{B_r}<br>$$</p>
+<p>(4) 综合以上三点，<strong>flash attention 的 forward 计算量为</strong>：</p>
+<p>$$<br>O\left(\frac{N^2}{B_r B_c} B_r B_c d \right) = O(N^2 d)<br>$$</p>
+<p>注意，因为计算量是用大 O 阶表示的，所以这里我们把常数项都省略了。</p>
+<p>同理大家可以自行推一下 backward 中的计算量，在论文里给出的结论是 $O(N^2)$，d 远小于 N，因此 d 也可以略去不表述。</p>
+<h3 id="Flash-Attention的显存占用"><a href="#Flash-Attention的显存占用" class="headerlink" title="Flash Attention的显存占用"></a>Flash Attention的显存占用</h3><p>和标准 attention 相比，如果不考虑 $O$ 的话，Flash Attention 只需要存储 $m, l$，其显存需求为 $O(N)$。</p>
+<p>而标准 attention 需要存储 $S, P$，其显存需求为 $O(N^2)$。</p>
+<p>FlashAttention 将显存需求降低到 O(N)，通过分块处理和重计算，<strong>显著减少了显存使用</strong>。实验显示，其显存消耗可减少至标准 Attention 的 1/20。</p>
+<h2 id="IO复杂度分析"><a href="#IO复杂度分析" class="headerlink" title="IO复杂度分析"></a>IO复杂度分析</h2><p>flash attention相比于标准attention的最大优势，就是其<strong>减少了对显存（HBM）的访问次数</strong>，一定程度上解决了memory bound的问题。所以这一节我们就来具体分析这两者对显存的访问次数（同样都是以forward为例，backward部分论文中也有给出相关推导过程，大家可以类比forward自行阅读）。</p>
+<h3 id="标准Attention的IO复杂度"><a href="#标准Attention的IO复杂度" class="headerlink" title="标准Attention的IO复杂度"></a>标准Attention的IO复杂度</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209233647.png"></p>
+<ol>
+<li><p><strong>从 HBM 中读取 $Q, K \in \mathbb{R}^{N \times d}$，计算 $S = Q K^T$，$S \in \mathbb{R}^{N \times N}$ 并将 $S$ 写回 HBM</strong>。</p>
+<ul>
+<li>一读一写的 IO 复杂度为：$O(2Nd + N^2)$。</li>
+</ul>
+</li>
+<li><p><strong>从 HBM 中读取 $S \in \mathbb{R}^{N \times N}$，同时计算 $P \in \mathbb{R}^{N \times N}$ 并将其写回 HBM</strong>。</p>
+<ul>
+<li>一读一写的 IO 复杂度为：$O(2N^2)$。</li>
+</ul>
+</li>
+<li><p><strong>从 HBM 中读取 $P \in \mathbb{R}^{N \times N}, V \in \mathbb{R}^{N \times d}$，计算 $O = P V, O \in \mathbb{R}^{N \times d}$ 并将 $O$ 写回 HBM</strong>。</p>
+<ul>
+<li>两读一写的 IO 复杂度为：$O((N^2 + Nd) + Nd)$。</li>
+</ul>
+</li>
+</ol>
+<p><strong>因此，总体来说标准 attention 的 IO 复杂度为：$O(Nd + N^2)$。</strong></p>
+<h3 id="Flash-Attention的IO复杂度"><a href="#Flash-Attention的IO复杂度" class="headerlink" title="Flash Attention的IO复杂度"></a>Flash Attention的IO复杂度</h3><ol>
+<li><p>我们来看伪代码的第 6 行，在每个外循环中，我们都会加载 $K, V$ 的 block。所有外循环结束后，相当于我们加载了完整的 $K, V \in \mathbb{R}^{N \times d}$，因此这里的 IO 复杂度为：$O(2Nd)$。</p>
+</li>
+<li><p>再看伪代码第 8 行，在每个内循环中，我们都加载部分 $Q, O, m, l$ block。由于 $m, l$ 本身比较小（IO 复杂度是 $O(N)$），因此我们暂时忽略它们，只考虑 $Q, O$（原论文也是这么分析的）。<br>固定某个小循环，对于所有内循环结束后，我们相当于完整遍历了 $Q, O \in \mathbb{R}^{N \times d}$。同时我们经历了 $T_c$ 次外循环。因此这里最终的 IO 复杂度为：$O(T_c Nd)$。</p>
+</li>
+<li><p><strong>将 $O, m, l$ 写回 HBM</strong>，这里近似后 IO 复杂度为：$O(Nd)$。</p>
+</li>
+</ol>
+<p>不过在原论文的分析中并没有考虑写回的复杂度，不过省略一些常数项不会影响我们最终的分析。</p>
+<p>总体来说，<strong>flash attention 的 IO 复杂度为</strong>：<br>$$<br>O(T_c Nd + Nd) = O\left(\frac{N}{B_c} Nd \right) = O\left(\frac{4N^2}{M} Nd \right) = O\left(N^2 d \frac{d}{M} \right)<br>$$<br>在文章中提到，一般的 $d$ 取值在 64～128，$M$ 的取值在 100KB 左右，因此有 $\frac{d^2}{M} \ll 1$。因此可以看出，<strong>Flash Attention 的 IO 复杂度是显著小于标准 attention 的 IO 复杂度的</strong>。</p>
+<h3 id="复杂度总结"><a href="#复杂度总结" class="headerlink" title="复杂度总结"></a>复杂度总结</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000354.png"></p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000654.png"></p>
+<p>Flash attention 的作者将 $N = 1024$, $d = 64$, $B = 64$ 的 GPT2-medium 部署在 A100 GPU 上，来观察采用 flash attention 前后的模型的计算性能。</p>
+<p>我们先看最左侧图表，标准 attention 下，**计算强度 $I = \frac{66.6}{40.3} \approx 1.6 &lt; 201$**，说明 GPT2 在 A100 上的训练是受到内存限制的。而在采用 flash attention 后得到明显改善，runtime 也呈现了显著下降。</p>
+<p>我们再来看中间的图表，它表示在使用 flash attention 的前提下，以 forward 过程为例，每个数据块的大小对 HBM 读写次数（绿色）和耗时（蓝色）的影响。可以发现，数据块越大，读写次数越少，而随着读写次数的减少，runtime 也整体下降了（复习一下，读写复杂度为 $O(T_c Nd)$，数据块越大意味着 $T_c$ 越小）。<strong>但有趣的是，当数据块大小 $&gt; 256$ 后，runtime 的下降不明显了，这是因为随着矩阵的变大，计算耗时也更大了，会抵平读写节省下来的时间</strong>。</p>
 <p>参考资料</p>
 <blockquote>
 <p>图解大模型计算加速系列：FlashAttention V1，从硬件到计算逻辑:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669926191">https://zhuanlan.zhihu.com/p/669926191</a></p>
@@ -787,7 +845,7 @@ $$
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/">http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/</a>
+                    <a href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/">http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1514,7 +1572,7 @@ $$
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">23.2k</span>
+                        class="white-color">24.8k</span>
             
             
             

@@ -45,10 +45,10 @@
   
   <entry>
     <title>大模型优化-FlashAttention</title>
-    <link href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/"/>
-    <id>http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention/</id>
+    <link href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/"/>
+    <id>http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/</id>
     <published>2024-12-06T17:03:23.000Z</published>
-    <updated>2024-12-09T13:53:42.074Z</updated>
+    <updated>2024-12-09T16:15:23.730Z</updated>
     
     
       
@@ -122,9 +122,9 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
-    
     <category term="PEFT" scheme="http://baoblei.github.io/tags/PEFT/"/>
+    
+    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
   </entry>
   
@@ -216,11 +216,11 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
-    
     <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
     
     <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
+    
+    <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
     
   </entry>
   
