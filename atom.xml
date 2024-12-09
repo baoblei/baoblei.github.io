@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-09T16:37:15.073Z</updated>
+  <updated>2024-12-09T18:18:54.901Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>大模型优化-FlashAttention-v2/v3</title>
+    <link href="http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/"/>
+    <id>http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/</id>
+    <published>2024-12-09T18:05:29.000Z</published>
+    <updated>2024-12-09T18:18:54.901Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;FlashAttention-v1回顾&quot;&gt;&lt;a href=&quot;#FlashAttention-v1回顾&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
+    
+    <category term="FlashAttention" scheme="http://baoblei.github.io/tags/FlashAttention/"/>
+    
+  </entry>
   
   <entry>
     <title>hexo正确渲染md/latex公式</title>
@@ -50,7 +77,7 @@
     <link href="http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/"/>
     <id>http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/</id>
     <published>2024-12-06T17:03:23.000Z</published>
-    <updated>2024-12-09T16:23:57.681Z</updated>
+    <updated>2024-12-09T17:25:53.306Z</updated>
     
     
       
@@ -214,13 +241,13 @@
     <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
     
     
+    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
+    
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
     
     <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
-    
-    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
     
     <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     

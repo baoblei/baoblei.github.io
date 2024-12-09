@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
 </head>
 
 
@@ -753,7 +753,7 @@ $$
 <p>$$<br>dK_j = \sum_i dS_{ij}^T Q_i<br>$$</p>
 <p>这就是伪代码第 22 行做的事情。</p>
 <h2 id="计算量与显存占用"><a href="#计算量与显存占用" class="headerlink" title="计算量与显存占用"></a>计算量与显存占用</h2><h3 id="矩阵相乘的计算量"><a href="#矩阵相乘的计算量" class="headerlink" title="矩阵相乘的计算量"></a>矩阵相乘的计算量</h3><p>我们先来看一个前置知识：两个矩阵相乘，要怎么统计它们的计算量？</p>
-<p>我们一般用<strong>FLOPs（floating point operations，浮点运算次数）</strong>来表示运算量的大小。对于“两矩阵相乘”这个操作而言，其**运算量 = <strong>乘法运算的次数 + 加法运算的次数</strong>。</p>
+<p>我们一般用<strong>FLOPs（floating point operations，浮点运算次数）</strong>来表示运算量的大小。对于“两矩阵相乘”这个操作而言，其 **运算量 = <strong>乘法运算的次数 + 加法运算的次数</strong>。</p>
 <p>来看一个具体例子：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209224248.png"></p>
 <p>两矩阵相乘，为了获取图中深橘色部分的元素，我们一共需要进行<strong>n次乘法运算和n-1次加法运算</strong>。</p>
@@ -806,7 +806,7 @@ $$
 </li>
 </ol>
 <p>不过在原论文的分析中并没有考虑写回的复杂度，不过省略一些常数项不会影响我们最终的分析。</p>
-<p>总体来说，<strong>flash attention 的 IO 复杂度为</strong>：<br>$$<br>O(T_c Nd + Nd) = O\left(\frac{N}{B_c} Nd \right) = O\left(\frac{4N^2}{M} Nd \right) = O\left(N^2 d \frac{d}{M} \right)<br>$$<br>在文章中提到，一般的 $d$ 取值在 64～128，$M$ 的取值在 100KB 左右，因此有 $\frac{d^2}{M} \ll 1$。因此可以看出，<strong>Flash Attention 的 IO 复杂度是显著小于标准 attention 的 IO 复杂度的</strong>。</p>
+<p>总体来说，<strong>flash attention 的 IO 复杂度为</strong>：<br>$$<br>O(T_c Nd + Nd) = O\left(\frac{N}{B_c} Nd \right) = O\left(\frac{4Nd}{M} Nd \right) = O\left(N^2 d \frac{d}{M} \right)<br>$$<br>在文章中提到，一般的 $d$ 取值在 64～128，$M$ 的取值在 100KB 左右，因此有 $\frac{d^2}{M} \ll 1$。因此可以看出，<strong>Flash Attention 的 IO 复杂度是显著小于标准 attention 的 IO 复杂度的</strong>。</p>
 <h3 id="复杂度总结"><a href="#复杂度总结" class="headerlink" title="复杂度总结"></a>复杂度总结</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000354.png"></p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000654.png"></p>
 <p>Flash attention 的作者将 $N = 1024$, $d = 64$, $B = 64$ 的 GPT2-medium 部署在 A100 GPU 上，来观察采用 flash attention 前后的模型的计算性能。</p>
@@ -1573,7 +1573,7 @@ $$
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">24.8k</span>
+                        class="white-color">25k</span>
             
             
             
