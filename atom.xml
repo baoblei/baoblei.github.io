@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-09T13:55:48.668Z</updated>
+  <updated>2024-12-09T16:37:15.073Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/"/>
     <id>http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/</id>
     <published>2024-12-06T17:27:30.000Z</published>
-    <updated>2024-12-09T13:55:48.668Z</updated>
+    <updated>2024-12-09T16:37:15.073Z</updated>
     
     
       
@@ -35,6 +35,8 @@
       
     
     
+    
+    <category term="hexo" scheme="http://baoblei.github.io/categories/hexo/"/>
     
     
     <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
