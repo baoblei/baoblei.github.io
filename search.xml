@@ -99,9 +99,9 @@
             
             <tag> 深度学习 </tag>
             
-            <tag> PEFT </tag>
-            
             <tag> LoRA </tag>
+            
+            <tag> PEFT </tag>
             
         </tags>
       
@@ -188,15 +188,15 @@
       
         <tags>
             
+            <tag> LLMs </tag>
+            
             <tag> 深度学习 </tag>
             
             <tag> KV Cache </tag>
             
-            <tag> LLMs </tag>
+            <tag> AI </tag>
             
             <tag> LoRA </tag>
-            
-            <tag> AI </tag>
             
         </tags>
       
