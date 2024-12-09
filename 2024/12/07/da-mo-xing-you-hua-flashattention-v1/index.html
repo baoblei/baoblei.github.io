@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒｜ Pompeii BL" type="application/atom+xml">
 </head>
 
 
@@ -814,10 +814,7 @@ $$
 <p>我们再来看中间的图表，它表示在使用 flash attention 的前提下，以 forward 过程为例，每个数据块的大小对 HBM 读写次数（绿色）和耗时（蓝色）的影响。可以发现，数据块越大，读写次数越少，而随着读写次数的减少，runtime 也整体下降了（复习一下，读写复杂度为 $O(T_c Nd)$，数据块越大意味着 $T_c$ 越小）。<strong>但有趣的是，当数据块大小 $&gt; 256$ 后，runtime 的下降不明显了，这是因为随着矩阵的变大，计算耗时也更大了，会抵平读写节省下来的时间</strong>。</p>
 <p>参考资料</p>
 <blockquote>
-<p>图解大模型计算加速系列：FlashAttention V1，从硬件到计算逻辑:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669926191">https://zhuanlan.zhihu.com/p/669926191</a></p>
-</blockquote>
-<blockquote>
-<p>图解大模型计算加速系列：Flash Attention V2，从原理到并行计算:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p>
+<p>图解大模型计算加速系列：FlashAttention V1，从硬件到计算逻辑:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669926191">https://zhuanlan.zhihu.com/p/669926191</a><br>图解大模型计算加速系列：Flash Attention V2，从原理到并行计算:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p>
 </blockquote>
 
                 
