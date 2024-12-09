@@ -153,6 +153,20 @@
   </url>
   
   <url>
+    <loc>http://baoblei.github.io/tags/sitemap/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://baoblei.github.io/tags/google-search-console/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://baoblei.github.io/tags/next/</loc>
     <lastmod>2024-12-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -161,13 +175,6 @@
   
   <url>
     <loc>http://baoblei.github.io/tags/%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/</loc>
     <lastmod>2024-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -188,56 +195,7 @@
   </url>
   
   <url>
-    <loc>http://baoblei.github.io/tags/PagedAttention/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/tags/AI/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/tags/LLMs/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://baoblei.github.io/tags/KV-Cache/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/tags/LoRA/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/tags/PEFT/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/tags/sitemap/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/tags/google-search-console/</loc>
     <lastmod>2024-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -258,13 +216,62 @@
   </url>
   
   <url>
+    <loc>http://baoblei.github.io/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://baoblei.github.io/tags/AI/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://baoblei.github.io/tags/LLMs/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://baoblei.github.io/tags/LoRA/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://baoblei.github.io/tags/PagedAttention/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://baoblei.github.io/tags/FlashAttention/</loc>
     <lastmod>2024-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>http://baoblei.github.io/tags/PEFT/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>http://baoblei.github.io/categories/google-search-console/</loc>
+    <lastmod>2024-12-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
   <url>
     <loc>http://baoblei.github.io/categories/hexo/</loc>
@@ -275,13 +282,6 @@
   
   <url>
     <loc>http://baoblei.github.io/categories/LLMs/</loc>
-    <lastmod>2024-12-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/categories/google-search-console/</loc>
     <lastmod>2024-12-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
