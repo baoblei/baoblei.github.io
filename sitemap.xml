@@ -1,168 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/</loc>
     
     <lastmod>2024-12-10</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/</loc>
     
     <lastmod>2024-12-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/</loc>
     
     <lastmod>2024-12-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/</loc>
     
     <lastmod>2024-12-09</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</loc>
     
     <lastmod>2024-12-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/</loc>
     
     <lastmod>2024-12-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/</loc>
     
     <lastmod>2024-12-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/</loc>
     
     <lastmod>2024-12-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/</loc>
     
     <lastmod>2024-12-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/</loc>
     
     <lastmod>2024-12-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/404.html</loc>
     
     <lastmod>2024-11-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/friends/index.html</loc>
     
     <lastmod>2024-11-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/contact/index.html</loc>
     
     <lastmod>2024-11-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/tags/index.html</loc>
     
     <lastmod>2024-11-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/about/index.html</loc>
     
     <lastmod>2024-11-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/categories/index.html</loc>
     
     <lastmod>2024-11-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/gallery/index.html</loc>
     
     <lastmod>2024-11-28</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
+  </sitemap>
   
 
-  <url>
+  <sitemap>
     <loc>http://baoblei.github.io/</loc>
-    <lastmod>2024-12-13</lastmod>
+    <lastmod>2024-12-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-  </url>
+  </sitemap>
 
   
 
   
-</urlset>
+</sitemapindex>
