@@ -176,9 +176,9 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
-    
     <category term="PEFT" scheme="http://baoblei.github.io/tags/PEFT/"/>
+    
+    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
   </entry>
   
@@ -272,9 +272,9 @@
     
     <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
     
-    <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
-    
     <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
+    
+    <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
     
   </entry>
   
