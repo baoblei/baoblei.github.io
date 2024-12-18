@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>在宇宙最强编辑器上使用latex</title>
+      <link href="/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/"/>
+      <url>/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/</url>
+      
+        <content type="html"><![CDATA[<h2 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h2><ul><li>TeXLive / MacTeX / MiKTeX等LaTeX发行版</li><li>VSCode</li></ul><h2 id="Vscode-配置"><a href="#Vscode-配置" class="headerlink" title="Vscode 配置"></a>Vscode 配置</h2><h3 id="安装插件："><a href="#安装插件：" class="headerlink" title="安装插件："></a>安装插件：</h3><ul><li><p>LaTeX Workshop （必装）</p><p>  <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241218201018.png"><br>  LaTeX Workshop 支持 LaTeX 的编译、预览、语法检查等功能。</p></li><li><p>English Word Hint</p><p>  <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241218201116.png"><br>  English Word Hint 是一个英语单词提示插件，可以在编写英语文档时，自动提示相关英语单词，并显示对应的中文翻译，提高英文文档编写效率。</p></li><li><p>Path Auto Complete</p><p>  <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241218201156.png"><br>  Path Auto Complete 可以自动补全路径，方便快速插入图片。</p></li><li><p>indent rainbow</p><p>  <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241218201245.png"><br>  indent rainbow 可以为不同层级的缩进添加不同的颜色，方便阅读。</p></li><li><p>Word Count CJK</p><p>  Word Count CJK 可以统计中文文档的字数。</p></li><li><p>Material Icon Theme</p><p>  Material Icon Theme 可以为不同类型的文件添加不同的图标，方便区分。</p></li></ul><h3 id="LaTeX-Workshop-配置"><a href="#LaTeX-Workshop-配置" class="headerlink" title="LaTeX Workshop 配置"></a>LaTeX Workshop 配置</h3><h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><pre class="line-numbers language-json" data-language="json"><code class="language-json">// 鼠标悬停，预览公式时，支持 boldsymbol 宏"latex-workshop.hover.preview.mathjax.extensions": [    "boldsymbol"],// 是否启用 IntelliSense，自动补全引用的包中的环境和命令"latex-workshop.intellisense.package.enabled": true,// 编译后的文件输出目录"latex-workshop.latex.outDir": "./tmp",// 默认编译引擎为上次使用的"latex-workshop.latex.recipe.default": "lastUsed",// 预览复杂公式，使用时需要通过 command palette (命令面板) 打开"latex-workshop.mathpreviewpanel.cursor.enabled": true,// 不允许弹窗显示错误信息"latex-workshop.message.error.show": false,// 不允许弹窗显示警告信息"latex-workshop.message.warning.show": false,// 预览 PDF 时，反转颜色"latex-workshop.view.pdf.invert": 1,// 预览 PDF 时，自动检测是否需要反转颜色"latex-workshop.view.pdf.invertMode.enabled": "auto",</code></pre><h4 id="编译工具链配置"><a href="#编译工具链配置" class="headerlink" title="编译工具链配置"></a>编译工具链配置</h4><p>推荐使用 latexmk 进行编译，latexmk 可以自动检测文档中的变化，自动进行编译，并且同时支持多种编译引擎，包括 XeLaTeX、PdfLaTeX。</p><p>在 settings.json 文件中找到 latex-workshop.latex.tools 和 latex-workshop.latex.recipes 配置项，将其全部删除，并修改为如下配置</p><pre class="line-numbers language-json" data-language="json"><code class="language-json">"latex-workshop.latex.recipes": [    {        "name": "XeLaTeX",        "tools": [            "xelatexmk"        ]    },    {        "name": "PdfLaTeX",        "tools": [            "pdflatexmk"        ]    }],"latex-workshop.latex.tools": [    {        "args": [            "-synctex=1",            "-pdfxe",            "-interaction=nonstopmode",            "-file-line-error",            "-outdir=%OUTDIR%",            "%DOC%"        ],        "command": "latexmk",        "env": {},        "name": "xelatexmk"    },    {        "args": [            "-synctex=1",            "-pdf",            "-interaction=nonstopmode",            "-file-line-error",            "-outdir=%OUTDIR%",            "%DOC%"        ],        "command": "latexmk",        "env": {},        "name": "pdflatexmk"    }],</code></pre><h4 id="预览与同步TeX"><a href="#预览与同步TeX" class="headerlink" title="预览与同步TeX"></a>预览与同步TeX</h4><p><a href="https://github.com/James-Yu/LaTeX-Workshop/wiki/View#internal-pdf-viewer%EF%BC%8C">https://github.com/James-Yu/LaTeX-Workshop/wiki/View#internal-pdf-viewer，</a> 官网上有详细配置说明，这里简单介绍通过内置的pdf预览器的前向与反向搜索的快捷键：</p><ul><li><p>Forward/Direct search: 在编辑器中点击某个位置，window通过<code>ctrl+alt+j</code> 跳转，mac通过<code>cmd+option+j</code> 跳转。</p></li><li><p>Backward/Inverse search: 使用内部查看器时，指向 pdf 预览中的元素的默认键绑定是 <code>ctrl+click</code>。可以使用设置 <code>latex-workshop.view.pdf.internal.synctex.keybinding</code> 将其更改为<code>double-click</code> 。</p><pre class="line-numbers language-json" data-language="json"><code class="language-json">"latex-workshop.view.pdf.internal.synctex.keybinding": "double-click"</code></pre></li></ul><p>参考：</p><blockquote><p>在 VSCode 中配置 LaTeX 环境 <a href="https://github.com/shinyypig/latex-vscode-config">https://github.com/shinyypig/latex-vscode-config</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Latex </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Latex </tag>
+            
+            <tag> VSCode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>日本-消失的三十年-启示与借鉴</title>
       <link href="/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/"/>
       <url>/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/</url>
@@ -33,7 +60,7 @@
       <link href="/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/"/>
       <url>/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/</url>
       
-        <content type="html"><![CDATA[<h2 id="FlashAttention-v1回顾"><a href="#FlashAttention-v1回顾" class="headerlink" title="FlashAttention-v1回顾"></a>FlashAttention-v1回顾</h2><p>我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210021847.png"></p><h2 id="FlashAttention-v2"><a href="#FlashAttention-v2" class="headerlink" title="FlashAttention-v2"></a>FlashAttention-v2</h2><p>FlashAttention V2 出自论文(《FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning》)[<a href="https://arxiv.org/pdf/2307.08691]%EF%BC%8C%E4%B8%BB%E8%A6%81%E6%94%B9%E8%BF%9B%E5%8C%85%E6%8B%AC%EF%BC%9A">https://arxiv.org/pdf/2307.08691]，主要改进包括：</a></p><ul><li>优化计算次序，减少非矩阵计算量。</li><li>增加 seq_len 维度的并行计算，提升 SM 利用率。</li><li>优化 warp 级工作模式，减少内部通信和 shared memory 访问。</li></ul><h2 id="FlashAttention-v3"><a href="#FlashAttention-v3" class="headerlink" title="FlashAttention-v3"></a>FlashAttention-v3</h2><p>Flash Attention V3 出自论文(《FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision》)[<a href="https://arxiv.org/pdf/2407.08608]%EF%BC%8C%E4%B8%BB%E8%A6%81%E6%94%B9%E8%BF%9B%E5%A6%82%E4%B8%8B%EF%BC%9A">https://arxiv.org/pdf/2407.08608]，主要改进如下：</a></p><p>引入生产者-消费者异步机制，提升并行度。<br>优化 GEMM 和 Softmax 操作的重叠计算。<br>支持 FP8 低精度硬件加速，提升吞吐量并减少精度损失。</p><p>参考：</p><blockquote><p>图解大模型计算加速系列：Flash Attention V2，从原理到并行计算: <a href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h2 id="FlashAttention-v1回顾"><a href="#FlashAttention-v1回顾" class="headerlink" title="FlashAttention-v1回顾"></a>FlashAttention-v1回顾</h2><p>我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210021847.png"></p><h2 id="FlashAttention-v2"><a href="#FlashAttention-v2" class="headerlink" title="FlashAttention-v2"></a>FlashAttention-v2</h2><p>FlashAttention V2 出自论文(《FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning》)[<a href="https://arxiv.org/pdf/2307.08691]%EF%BC%8C">https://arxiv.org/pdf/2307.08691]，</a><br>主要改进包括：</p><ul><li>优化计算次序，减少非矩阵计算量。</li><li>增加 seq_len 维度的并行计算，提升 SM 利用率。</li><li>优化 warp 级工作模式，减少内部通信和 shared memory 访问。</li></ul><h2 id="FlashAttention-v3"><a href="#FlashAttention-v3" class="headerlink" title="FlashAttention-v3"></a>FlashAttention-v3</h2><p>Flash Attention V3 出自论文(《FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision》)[<a href="https://arxiv.org/pdf/2407.08608]%EF%BC%8C%E4%B8%BB%E8%A6%81%E6%94%B9%E8%BF%9B%E5%A6%82%E4%B8%8B%EF%BC%9A">https://arxiv.org/pdf/2407.08608]，主要改进如下：</a></p><p>引入生产者-消费者异步机制，提升并行度。<br>优化 GEMM 和 Softmax 操作的重叠计算。<br>支持 FP8 低精度硬件加速，提升吞吐量并减少精度损失。</p><p>参考：</p><blockquote><p>图解大模型计算加速系列：Flash Attention V2，从原理到并行计算: <a href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p></blockquote>]]></content>
       
       
       <categories>
@@ -157,9 +184,9 @@
             
             <tag> 深度学习 </tag>
             
-            <tag> PEFT </tag>
-            
             <tag> LoRA </tag>
+            
+            <tag> PEFT </tag>
             
         </tags>
       
@@ -252,9 +279,9 @@
             
             <tag> KV Cache </tag>
             
-            <tag> LoRA </tag>
-            
             <tag> AI </tag>
+            
+            <tag> LoRA </tag>
             
         </tags>
       

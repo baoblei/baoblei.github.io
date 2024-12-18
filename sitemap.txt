@@ -1,5 +1,6 @@
-http://baoblei.github.io/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/
+http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/
 http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/
+http://baoblei.github.io/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/
 http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/
 http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/
 http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/

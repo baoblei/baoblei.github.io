@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-10T13:15:11.471Z</updated>
+  <updated>2024-12-18T12:30:02.555Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在宇宙最强编辑器上使用latex</title>
+    <link href="http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/"/>
+    <id>http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/</id>
+    <published>2024-12-18T11:47:12.000Z</published>
+    <updated>2024-12-18T12:30:02.555Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;安装准备&quot;&gt;&lt;a href=&quot;#安装准备&quot; class=&quot;headerlink&quot; title=&quot;安装准备&quot;&gt;&lt;/a&gt;安装准备&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;TeXLive / MacTeX /</summary>
+        
+      
+    
+    
+    
+    <category term="Latex" scheme="http://baoblei.github.io/categories/Latex/"/>
+    
+    
+    <category term="Latex" scheme="http://baoblei.github.io/tags/Latex/"/>
+    
+    <category term="VSCode" scheme="http://baoblei.github.io/tags/VSCode/"/>
+    
+  </entry>
   
   <entry>
     <title>日本-消失的三十年-启示与借鉴</title>
@@ -46,7 +74,7 @@
     <link href="http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/"/>
     <id>http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/</id>
     <published>2024-12-09T18:05:29.000Z</published>
-    <updated>2024-12-09T18:18:54.901Z</updated>
+    <updated>2024-12-17T15:57:59.596Z</updated>
     
     
       
@@ -176,9 +204,9 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="PEFT" scheme="http://baoblei.github.io/tags/PEFT/"/>
-    
     <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
+    
+    <category term="PEFT" scheme="http://baoblei.github.io/tags/PEFT/"/>
     
   </entry>
   
@@ -272,9 +300,9 @@
     
     <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
     
-    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
-    
     <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
+    
+    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
   </entry>
   
