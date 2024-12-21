@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-18T12:30:02.555Z</updated>
+  <updated>2024-12-21T11:02:53.944Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>好用的大模型prompt分享</title>
+    <link href="http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/"/>
+    <id>http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/</id>
+    <published>2024-12-21T10:51:51.000Z</published>
+    <updated>2024-12-21T11:02:53.944Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;中文写作&quot;&gt;&lt;a href=&quot;#中文写作&quot; class=&quot;headerlink&quot; title=&quot;中文写作&quot;&gt;&lt;/a&gt;中文写作&lt;/h1&gt;&lt;h2 id=&quot;校对与完善&quot;&gt;&lt;a href=&quot;#校对与完善&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Prompt" scheme="http://baoblei.github.io/categories/Prompt/"/>
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
+    
+    <category term="Prompt" scheme="http://baoblei.github.io/tags/Prompt/"/>
+    
+  </entry>
   
   <entry>
     <title>在宇宙最强编辑器上使用latex</title>

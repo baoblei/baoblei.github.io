@@ -4,9 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="大模型优化-FlashAttention-v2/v3, 庞贝堡垒">
-    <meta name="description" content="FlashAttention-v1回顾我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。
-FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
+    <meta name="keywords" content="好用的大模型prompt分享, 庞贝堡垒">
+    <meta name="description" content="中文写作校对与完善假设你是一位专注于学术写作的校审专家。你的主要工作是检查和修改一篇题为“[PAPER TITLE]”的论文段落，目标是让论文的表达更加清晰、条理清楚。找出所有不明确、复杂或冗余的句子或短语，并提供更加精确和简洁的选择方案。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +18,7 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>大模型优化-FlashAttention-v2/v3 | 庞贝堡垒</title>
+    <title>好用的大模型prompt分享 | 庞贝堡垒</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -375,7 +374,7 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">大模型优化-FlashAttention-v2/v3</h1>
+                    <h1 class="description center-align post-title">好用的大模型prompt分享</h1>
                 </div>
             </div>
         </div>
@@ -403,8 +402,8 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                                 <span class="chip bg-color">LLMs</span>
                             </a>
                         
-                            <a href="/tags/FlashAttention/">
-                                <span class="chip bg-color">FlashAttention</span>
+                            <a href="/tags/Prompt/">
+                                <span class="chip bg-color">Prompt</span>
                             </a>
                         
                     </div>
@@ -415,8 +414,8 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/LLMs/" class="post-category">
-                                LLMs
+                            <a href="/categories/Prompt/" class="post-category">
+                                Prompt
                             </a>
                         
                     </div>
@@ -428,28 +427,28 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-10
+                    2024-12-21
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-17
+                    2024-12-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    220
+                    709
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -472,18 +471,14 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="FlashAttention-v1回顾"><a href="#FlashAttention-v1回顾" class="headerlink" title="FlashAttention-v1回顾"></a>FlashAttention-v1回顾</h2><p>我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210021847.png"></p>
-<h2 id="FlashAttention-v2"><a href="#FlashAttention-v2" class="headerlink" title="FlashAttention-v2"></a>FlashAttention-v2</h2><p>FlashAttention V2 出自论文(《FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning》)[<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2307.08691]%EF%BC%8C">https://arxiv.org/pdf/2307.08691]，</a><br>主要改进包括：</p>
-<ul>
-<li>优化计算次序，减少非矩阵计算量。</li>
-<li>增加 seq_len 维度的并行计算，提升 SM 利用率。</li>
-<li>优化 warp 级工作模式，减少内部通信和 shared memory 访问。</li>
+                <h1 id="中文写作"><a href="#中文写作" class="headerlink" title="中文写作"></a>中文写作</h1><h2 id="校对与完善"><a href="#校对与完善" class="headerlink" title="校对与完善"></a>校对与完善</h2><pre class="line-numbers language-none"><code class="language-none">假设你是一位专注于学术写作的校审专家。你的主要工作是检查和修改一篇题为“[PAPER TITLE]”的论文段落，目标是让论文的表达更加清晰、条理清楚。找出所有不明确、复杂或冗余的句子或短语，并提供更加精确和简洁的选择方案。特别注意文章的逻辑流动，确保每个句子都能有效支持主旨或叙述。全文要保持术语、风格和语调的统一。对于可能需要对预期读者进行说明的行业术语或专业词汇，要给出清晰的解释。完成校审后，确保该段落符合学术规范，使得论文整体上更加易读，从而提高其影响力。
+接下来我会逐个给你展示这篇论文的段落，你需要根据上述要求对每个段落进行校审，注意你要保留原有的引用。请在每个段落的下方写下你的修改建议。</code></pre>
+<h2 id="综述协助"><a href="#综述协助" class="headerlink" title="综述协助"></a>综述协助</h2><ul>
+<li>全职版<pre class="line-numbers language-none"><code class="language-none">假设你是正在对某一学术领域的[RESEARCH TOPIC]进行深入研究的研究者。你的任务是从广泛的文献中识别、分析和综合关键的发现、理论和研究方法。首先，确定一个简单的研究问题或论点，以此为基础指导你的文献回顾。寻找相关的学术期刊、会议论文、书籍以及可靠的网络资源。对每项资源的可信度、相关性和对领域贡献进行评估。摘要每个资源的主要论点、证据和结论，注意观察文献中的一致性、差异或空缺。批判性地审视所研究的方法、其局限性及其发现的意义。根据主题或时间顺序安排文献综述，确保逻辑连贯，围绕研究主题构建出一篇有条理的综述文章。最后，强调你的研究是如何填补已识别的空白或对该学科领域提供新见解的。确保你的文献综述遵循所在机构要求的引用风格和学术写作标准。</code></pre></li>
+<li>润色版<pre class="line-numbers language-none"><code class="language-none">假设你是正在对某一学术领域的[RESEARCH TOPIC]进行深入研究的研究者。你的任务是将我给你的相关段落进行完善与展开。你需要批判性地审视所研究的方法、其局限性及其发现的意义，确保逻辑连贯，保持术语、风格和语调的统一。对于可能需要对预期读者进行说明的行业术语或专业词汇，要给出清晰的解释。</code></pre></li>
 </ul>
-<h2 id="FlashAttention-v3"><a href="#FlashAttention-v3" class="headerlink" title="FlashAttention-v3"></a>FlashAttention-v3</h2><p>Flash Attention V3 出自论文(《FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision》)[<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.08608]%EF%BC%8C%E4%B8%BB%E8%A6%81%E6%94%B9%E8%BF%9B%E5%A6%82%E4%B8%8B%EF%BC%9A">https://arxiv.org/pdf/2407.08608]，主要改进如下：</a></p>
-<p>引入生产者-消费者异步机制，提升并行度。<br>优化 GEMM 和 Softmax 操作的重叠计算。<br>支持 FP8 低精度硬件加速，提升吞吐量并减少精度损失。</p>
-<p>参考：</p>
-<blockquote>
-<p>图解大模型计算加速系列：Flash Attention V2，从原理到并行计算: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p>
+<h1 id="英文写作"><a href="#英文写作" class="headerlink" title="英文写作"></a>英文写作</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://domyweb.org/chatgpt/#act-as-an-essay-writer">https://domyweb.org/chatgpt/#act-as-an-essay-writer</a></p>
 </blockquote>
 
                 
@@ -511,7 +506,7 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/">http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/</a>
+                    <a href="http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/">http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -553,8 +548,8 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                                     <span class="chip bg-color">LLMs</span>
                                 </a>
                             
-                                <a href="/tags/FlashAttention/">
-                                    <span class="chip bg-color">FlashAttention</span>
+                                <a href="/tags/Prompt/">
+                                    <span class="chip bg-color">Prompt</span>
                                 </a>
                             
                         </div>
@@ -900,17 +895,18 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/">
+                <a href="/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="日本-消失的三十年-启示与借鉴">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="好用的大模型prompt分享">
                         
-                        <span class="card-title">日本-消失的三十年-启示与借鉴</span>
+                        <span class="card-title">好用的大模型prompt分享</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -920,26 +916,31 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%9D%82%E8%B0%88/" class="post-category">
-                                    杂谈
+                            <a href="/categories/Prompt/" class="post-category">
+                                    Prompt
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BB%8F%E6%B5%8E%E5%8F%91%E5%B1%95/">
-                        <span class="chip bg-color">经济发展</span>
+                    <a href="/tags/LLMs/">
+                        <span class="chip bg-color">LLMs</span>
+                    </a>
+                    
+                    <a href="/tags/Prompt/">
+                        <span class="chip bg-color">Prompt</span>
                     </a>
                     
                 </div>
@@ -953,13 +954,13 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/">
+                <a href="/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="hexo正确渲染md/latex公式">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="在宇宙最强编辑器上使用latex">
                         
-                        <span class="card-title">hexo正确渲染md/latex公式</span>
+                        <span class="card-title">在宇宙最强编辑器上使用latex</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -970,14 +971,14 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-18
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/hexo/" class="post-category">
-                                    hexo
+                            <a href="/categories/Latex/" class="post-category">
+                                    Latex
                                 </a>
                             
                             
@@ -987,12 +988,12 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
+                    <a href="/tags/Latex/">
+                        <span class="chip bg-color">Latex</span>
                     </a>
                     
-                    <a href="/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/">
-                        <span class="chip bg-color">hexo公式渲染</span>
+                    <a href="/tags/VSCode/">
+                        <span class="chip bg-color">VSCode</span>
                     </a>
                     
                 </div>
@@ -1153,13 +1154,6 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 

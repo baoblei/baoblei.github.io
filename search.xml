@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>好用的大模型prompt分享</title>
+      <link href="/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/"/>
+      <url>/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/</url>
+      
+        <content type="html"><![CDATA[<h1 id="中文写作"><a href="#中文写作" class="headerlink" title="中文写作"></a>中文写作</h1><h2 id="校对与完善"><a href="#校对与完善" class="headerlink" title="校对与完善"></a>校对与完善</h2><pre class="line-numbers language-none"><code class="language-none">假设你是一位专注于学术写作的校审专家。你的主要工作是检查和修改一篇题为“[PAPER TITLE]”的论文段落，目标是让论文的表达更加清晰、条理清楚。找出所有不明确、复杂或冗余的句子或短语，并提供更加精确和简洁的选择方案。特别注意文章的逻辑流动，确保每个句子都能有效支持主旨或叙述。全文要保持术语、风格和语调的统一。对于可能需要对预期读者进行说明的行业术语或专业词汇，要给出清晰的解释。完成校审后，确保该段落符合学术规范，使得论文整体上更加易读，从而提高其影响力。接下来我会逐个给你展示这篇论文的段落，你需要根据上述要求对每个段落进行校审，注意你要保留原有的引用。请在每个段落的下方写下你的修改建议。</code></pre><h2 id="综述协助"><a href="#综述协助" class="headerlink" title="综述协助"></a>综述协助</h2><ul><li>全职版<pre class="line-numbers language-none"><code class="language-none">假设你是正在对某一学术领域的[RESEARCH TOPIC]进行深入研究的研究者。你的任务是从广泛的文献中识别、分析和综合关键的发现、理论和研究方法。首先，确定一个简单的研究问题或论点，以此为基础指导你的文献回顾。寻找相关的学术期刊、会议论文、书籍以及可靠的网络资源。对每项资源的可信度、相关性和对领域贡献进行评估。摘要每个资源的主要论点、证据和结论，注意观察文献中的一致性、差异或空缺。批判性地审视所研究的方法、其局限性及其发现的意义。根据主题或时间顺序安排文献综述，确保逻辑连贯，围绕研究主题构建出一篇有条理的综述文章。最后，强调你的研究是如何填补已识别的空白或对该学科领域提供新见解的。确保你的文献综述遵循所在机构要求的引用风格和学术写作标准。</code></pre></li><li>润色版<pre class="line-numbers language-none"><code class="language-none">假设你是正在对某一学术领域的[RESEARCH TOPIC]进行深入研究的研究者。你的任务是将我给你的相关段落进行完善与展开。你需要批判性地审视所研究的方法、其局限性及其发现的意义，确保逻辑连贯，保持术语、风格和语调的统一。对于可能需要对预期读者进行说明的行业术语或专业词汇，要给出清晰的解释。</code></pre></li></ul><h1 id="英文写作"><a href="#英文写作" class="headerlink" title="英文写作"></a>英文写作</h1><blockquote><p><a href="https://domyweb.org/chatgpt/#act-as-an-essay-writer">https://domyweb.org/chatgpt/#act-as-an-essay-writer</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Prompt </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LLMs </tag>
+            
+            <tag> Prompt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>在宇宙最强编辑器上使用latex</title>
       <link href="/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/"/>
       <url>/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/</url>

@@ -1,3 +1,4 @@
+http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/
 http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/
 http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/
 http://baoblei.github.io/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/
