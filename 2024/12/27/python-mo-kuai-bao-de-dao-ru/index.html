@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -626,20 +626,22 @@ from module import func_b
 print("Calling func_b() in main.py")
 result = func_b()
 print(f"Result: {result}")</code></pre>
-<p>执行过程：<br>1.	from module import func_b</p>
-<pre><code>Python 会先找到 module.py 文件并加载整个模块：
-- Python 会解释并执行 module.py 文件的顶层代码。
-- value = 1 会被执行并存储到 module 的命名空间中。
-- 函数 func_a 和 func_b 的定义会被加载，并绑定到 module 的命名空间。
-- 然后，func_b 会被绑定到当前模块（main.py）的命名空间。
-
-**注意：**
-- 虽然整个模块被加载，但只有 func_b 被绑定到 main.py 的命名空间中。
-- 在加载过程中，module 的顶层代码（如赋值语句、类定义等）都会被执行一次。
-</code></pre>
+<p>执行过程：<br>1.	<br>from module import func_b</p>
+<p>Python 会先找到 module.py 文件并加载整个模块：</p>
+<ul>
+<li>Python 会解释并执行 module.py 文件的顶层代码。</li>
+<li>value = 1 会被执行并存储到 module 的命名空间中。</li>
+<li>函数 func_a 和 func_b 的定义会被加载，并绑定到 module 的命名空间。</li>
+<li>然后，func_b 会被绑定到当前模块（main.py）的命名空间。</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ul>
+<li>虽然整个模块被加载，但只有 func_b 被绑定到 main.py 的命名空间中。</li>
+<li>在加载过程中，module 的顶层代码（如赋值语句、类定义等）都会被执行一次。</li>
+</ul>
 <ol start="2">
-<li><pre><code>调用 func_b()
-</code></pre>
+<li>调用 func_b()</li>
+</ol>
 <ul>
 <li>Python 跳转到 module.py 中 func_b 的定义，并开始执行该函数的内容。</li>
 <li>在 func_b 中，func_a 被调用，导致 func_a 的代码被执行。<br>完整输出：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Calling func_b() in main.py
@@ -647,8 +649,7 @@ Function func_b is being executed
 Function func_a is being executed
 Result: 0</code></pre></li>
 </ul>
-</li>
-<li><p><strong><strong>init</strong>.py文件的的规范</strong><br>加入存在以下目录结构：</p>
+<p>2.<br><strong><strong>init</strong>.py文件的的规范</strong><br>加入存在以下目录结构：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
 ├── my_package/
 │   ├── module1.py
@@ -656,8 +657,6 @@ Result: 0</code></pre></li>
 │   └── __init__.py
 └── main.py</code></pre>
 <p><code>__init__.py</code> 文件的一些写法的解释：</p>
-</li>
-</ol>
 <ul>
 <li>空：仅标记为包，导入需要显式地指明模块和内容。所以使用时也是<code>import my_package.module1</code>，本质上是模块，包中的定义的__all__列表不会生效。</li>
 <li><code>from . import module2</code>: 导入完整模块到包命名空间，使用时需通过模块名访问，本质上是模块，包中的定义的__all__列表不会生效。</li>
