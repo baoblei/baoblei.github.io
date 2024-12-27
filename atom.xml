@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-23T15:01:30.885Z</updated>
+  <updated>2024-12-27T18:06:05.627Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python-模块/包的导入</title>
+    <link href="http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/"/>
+    <id>http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/</id>
+    <published>2024-12-27T15:28:32.000Z</published>
+    <updated>2024-12-27T18:06:05.627Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;模块Module和包Package&quot;&gt;&lt;a href=&quot;#模块Module和包Package&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="python" scheme="http://baoblei.github.io/categories/python/"/>
+    
+    
+    <category term="python" scheme="http://baoblei.github.io/tags/python/"/>
+    
+    <category term="ImportError" scheme="http://baoblei.github.io/tags/ImportError/"/>
+    
+    <category term="python模块" scheme="http://baoblei.github.io/tags/python%E6%A8%A1%E5%9D%97/"/>
+    
+    <category term="python包" scheme="http://baoblei.github.io/tags/python%E5%8C%85/"/>
+    
+  </entry>
   
   <entry>
     <title>好用的大模型prompt分享</title>
@@ -231,9 +262,9 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
-    
     <category term="PEFT" scheme="http://baoblei.github.io/tags/PEFT/"/>
+    
+    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
   </entry>
   
@@ -290,9 +321,9 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
-    
     <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
+    
+    <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
     
     <category term="MQA" scheme="http://baoblei.github.io/tags/MQA/"/>
     
@@ -325,11 +356,11 @@
     
     <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
-    <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
+    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
     <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
     
-    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
+    <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
     
   </entry>
   

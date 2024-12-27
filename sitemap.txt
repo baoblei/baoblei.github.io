@@ -1,3 +1,5 @@
+http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/
+http://baoblei.github.io/tmp/%E7%A7%91%E7%A0%94%E7%BB%98%E5%9B%BE.html
 http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/
 http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/
 http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/
