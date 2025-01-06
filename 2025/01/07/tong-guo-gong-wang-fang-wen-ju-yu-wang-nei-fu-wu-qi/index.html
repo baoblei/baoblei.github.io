@@ -10,7 +10,10 @@
 MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固定的内网IP地址。
 
 端口映射：在路由器中设置端口映射，将公网IP的某个端口映射到服务器的内网IP的某个端口上。
- •	找到路由器管理页面中的 ">
+
+
+
+找到路由器管理页面中的 ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -446,7 +449,7 @@ MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    843
+                    839
                 </div>
                 
 
@@ -481,19 +484,20 @@ MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固�
 <li><p>MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固定的内网IP地址。</p>
 </li>
 <li><p>端口映射：在路由器中设置端口映射，将公网IP的某个端口映射到服务器的内网IP的某个端口上。</p>
-<p> •	找到路由器管理页面中的 转发规则、NAT 设置 或类似选项（名称因品牌而异）。</p>
-<p> •	添加一条新的端口转发规则：</p>
-<pre><code> •	外部端口（External Port）：在公网访问时使用的端口（例如 80）。
-
- •	内部端口（Internal Port）：服务器监听的端口（例如 80）。
-
- •	内部 IP 地址（Internal IP）：服务器的 IP 地址（例如 192.168.1.100）。
-
- •	协议类型（Protocol）：选择 TCP、UDP 或 TCP/UDP（通常选择 TCP 或 TCP/UDP）。
-
- •	保存设置。
-</code></pre>
 </li>
+</ol>
+<ul>
+<li>找到路由器管理页面中的 转发规则、NAT 设置 或类似选项（名称因品牌而异）。</li>
+<li>添加一条新的端口转发规则：<ul>
+<li>外部端口（External Port）：在公网访问时使用的端口（例如 80）。</li>
+<li>内部端口（Internal Port）：服务器监听的端口（例如 80）。</li>
+<li>内部 IP 地址（Internal IP）：服务器的 IP 地址（例如</li>
+<li>协议类型（Protocol）：选择 TCP、UDP 或 TCP/UDP（通常选择 TCP 或 TCP/UDP）。</li>
+<li>保存设置。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
 <li><p>查看公网ip地址：在路由器状态页或通过IP 检测网站查看路由器的公网 IP 地址。</p>
 </li>
 <li><p>测试，例如ssh登录：<code>ssh -p &lt;公网端口&gt; user@&lt;公网IP&gt;</code>（端口转发设置的内网端口为22）。</p>
@@ -509,8 +513,9 @@ echo "当前公网IP是：$IP"
 curl -X POST -d "ip=$IP" http://yourserver.com/update_ip</code></pre></li>
 </ul>
 <blockquote>
-<p>动态域名解析（DDNS）服务<br>动态域名解析（DDNS）允许你将动态公网 IP 绑定到一个固定的域名，当 IP 变化时，DDNS 服务会自动更新域名指向的 IP 地址。<br>配置步骤：<br>1.	注册 DDNS 服务</p>
+<p>动态域名解析（DDNS）服务<br>动态域名解析（DDNS）允许你将动态公网 IP 绑定到一个固定的域名，当 IP 变化时，DDNS 服务会自动更新域名指向的 IP 地址。</p>
 </blockquote>
+<p>配置步骤：<br>1.	注册 DDNS 服务</p>
 <ul>
 <li>选择一个 DDNS 提供商（通常是免费的或附带在路由器服务中），如：<ul>
 <li>No-IP</li>
