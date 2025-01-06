@@ -618,18 +618,12 @@ MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固�
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    Linux和Windows在磁盘分区管理上的区别分区类型和布局
+                                    预备知识文件系统类型通过df -T /home或者lsblk -f命令可以查看文件系统类型。
 
-
-系统
-分区类型
-分区结构
-挂载点
-
-
-
-Linux
-- 使用主分区（Primary）、扩展分区（Extended）和逻辑分区（Logical）的结构- GPT（GUID分区
+ext4：Linux 常用的文件系统，支持大文件和高性能。
+XFS：用于高性能、高并发的场景。
+btrfs：支持高级功能，如快照和子卷。
+FAT
                                 
                             </div>
                             <div class="publish-info">
@@ -1281,7 +1275,7 @@ _的转义，在markd
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">34.4k</span>
+                        class="white-color">37.1k</span>
             
             
             
