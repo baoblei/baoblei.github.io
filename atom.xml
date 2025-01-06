@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-06T16:41:49.310Z</updated>
+  <updated>2025-01-06T17:45:33.829Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>通过公网访问局域网内服务器</title>
+    <link href="http://baoblei.github.io/2025/01/07/tong-guo-gong-wang-fang-wen-ju-yu-wang-nei-fu-wu-qi/"/>
+    <id>http://baoblei.github.io/2025/01/07/tong-guo-gong-wang-fang-wen-ju-yu-wang-nei-fu-wu-qi/</id>
+    <published>2025-01-06T17:17:02.000Z</published>
+    <updated>2025-01-06T17:45:33.829Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;分为两种情况：&lt;/p&gt;
+&lt;h2 id=&quot;拥有路由器管理权限&quot;&gt;&lt;a href=&quot;#拥有路由器管理权限&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络配置" scheme="http://baoblei.github.io/categories/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
+    
+    
+    <category term="端口转发" scheme="http://baoblei.github.io/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
+    
+    <category term="内网穿透" scheme="http://baoblei.github.io/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux文件、磁盘以及扩容方式</title>
     <link href="http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/"/>
     <id>http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/</id>
     <published>2025-01-06T16:11:31.000Z</published>
-    <updated>2025-01-06T16:41:49.310Z</updated>
+    <updated>2025-01-06T17:27:06.512Z</updated>
     
     
       
