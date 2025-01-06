@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Linux文件、磁盘以及扩容方式</title>
+      <link href="/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/"/>
+      <url>/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Linux和Windows在磁盘分区管理上的区别"><a href="#Linux和Windows在磁盘分区管理上的区别" class="headerlink" title="Linux和Windows在磁盘分区管理上的区别"></a>Linux和Windows在磁盘分区管理上的区别</h2><h3 id="分区类型和布局"><a href="#分区类型和布局" class="headerlink" title="分区类型和布局"></a>分区类型和布局</h3><table><thead><tr><th><strong>系统</strong></th><th><strong>分区类型</strong></th><th><strong>分区结构</strong></th><th><strong>挂载点</strong></th></tr></thead><tbody><tr><td><strong>Linux</strong></td><td>- 使用主分区（Primary）、扩展分区（Extended）和逻辑分区（Logical）的结构<br>- GPT（GUID分区表）支持 128 个以上的分区</td><td>- 分区通常用设备文件表示，如 <code>/dev/sda1</code>（表示第一个硬盘的第一个分区）<br>- 文件系统可以跨越多个分区（如通过 LVM 实现逻辑卷管理）</td><td>- 无固定的驱动器符号（如 Windows 的 C:、D:）<br>- 所有分区整合到一个目录树下，例如根目录 <code>/</code></td></tr><tr><td><strong>Windows</strong></td><td>- 支持 MBR（最多 4 个主分区）和 GPT（支持更多分区）</td><td>- 分区通常表示为独立的驱动器符号，如 C:、D:</td><td>- 每个分区是独立的逻辑单元<br>- 支持通过挂载点功能将分区挂载为 NTFS 文件系统下的文件夹，但不常用</td></tr></tbody></table><h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><table><thead><tr><th><strong>系统</strong></th><th><strong>常见文件系统</strong></th><th><strong>灵活性</strong></th></tr></thead><tbody><tr><td><strong>Linux</strong></td><td>- <strong>ext4</strong>: 现代 Linux 的默认文件系统，支持大文件和高性能<br>- <strong>XFS</strong>: 用于高性能、高并发的场景<br>- <strong>btrfs</strong>: 支持高级功能，如快照和子卷<br>- <strong>FAT32 和 NTFS</strong>: 可用作跨平台兼容，但通常用于外部设备</td><td>- 多种文件系统可选，支持格式化为几乎任何文件系统<br>- 支持网络文件系统（如 NFS、CIFS）</td></tr><tr><td><strong>Windows</strong></td><td>- <strong>NTFS</strong>: 默认的主文件系统，支持高性能和安全功能<br>- <strong>FAT32 和 exFAT</strong>: 用于外部设备或某些特殊用途</td><td>- 不支持直接格式化为 Linux 原生文件系统（如 ext4）<br>- 文件系统选项相对较少</td></tr></tbody></table><h3 id="引导加载"><a href="#引导加载" class="headerlink" title="引导加载"></a>引导加载</h3><table><thead><tr><th><strong>系统</strong></th><th><strong>特点</strong></th></tr></thead><tbody><tr><td><strong>Linux</strong></td><td>- 使用 GRUB（或其他引导程序）管理启动项<br>- 支持从多种分区或系统启动，灵活性高<br>- 根分区（/）和引导分区（如 /boot）可以分离<br>- 支持双系统或多系统并存</td></tr><tr><td><strong>Windows</strong></td><td>- 使用 Windows Boot Manager 管理引导<br>- 通常依赖特定的系统分区（System Reserved 或 EFI 分区）<br>- 双系统支持有限，需第三方引导管理器（如 GRUB）协助</td></tr></tbody></table><h3 id="分区工具"><a href="#分区工具" class="headerlink" title="分区工具"></a>分区工具</h3><table><thead><tr><th><strong>系统</strong></th><th><strong>特点</strong></th></tr></thead><tbody><tr><td><strong>Linux</strong></td><td>- 命令行工具丰富：<br>  - <strong>fdisk</strong>: 适用于 MBR 分区表<br>  - <strong>gdisk</strong>: 适用于 GPT 分区表<br>  - <strong>parted 和 gparted</strong>: 高级分区管理工具<br>- 灵活支持命令行和图形界面<br>- 提供 LVM（逻辑卷管理）支持，便于动态调整分区大小</td></tr><tr><td><strong>Windows</strong></td><td>- 图形化工具为主：<br>  - <strong>磁盘管理</strong>（Disk Management）是主要的分区工具<br>  - 命令行工具如 <strong>diskpart</strong><br>- 相较 Linux，动态调整分区大小的灵活性较低</td></tr></tbody></table><h3 id="文件路径和符号"><a href="#文件路径和符号" class="headerlink" title="文件路径和符号"></a>文件路径和符号</h3><table><thead><tr><th><strong>系统</strong></th><th><strong>特点</strong></th></tr></thead><tbody><tr><td><strong>Linux</strong></td><td>- 文件路径区分大小写，例如 <code>/home</code> 和 <code>/Home</code> 是不同的路径<br>- 使用正斜杠 <code>/</code> 作为路径分隔符<br>- 支持符号链接和硬链接</td></tr><tr><td><strong>Windows</strong></td><td>- 文件路径不区分大小写，例如 <code>C:\Users</code> 和 <code>C:\users</code> 是同一路径<br>- 使用反斜杠 <code>\</code> 作为路径分隔符<br>- 支持快捷方式（功能类似于符号链接）</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> 磁盘 </tag>
+            
+            <tag> 扩容 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python-模块/包的导入</title>
       <link href="/2024/12/27/python-mo-kuai-bao-de-dao-ru/"/>
       <url>/2024/12/27/python-mo-kuai-bao-de-dao-ru/</url>

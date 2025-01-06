@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2024-12-27T18:20:26.019Z</updated>
+  <updated>2025-01-06T16:41:49.310Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux文件、磁盘以及扩容方式</title>
+    <link href="http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/"/>
+    <id>http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/</id>
+    <published>2025-01-06T16:11:31.000Z</published>
+    <updated>2025-01-06T16:41:49.310Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Linux和Windows在磁盘分区管理上的区别&quot;&gt;&lt;a href=&quot;#Linux和Windows在磁盘分区管理上的区别&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://baoblei.github.io/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="http://baoblei.github.io/tags/Linux/"/>
+    
+    <category term="磁盘" scheme="http://baoblei.github.io/tags/%E7%A3%81%E7%9B%98/"/>
+    
+    <category term="扩容" scheme="http://baoblei.github.io/tags/%E6%89%A9%E5%AE%B9/"/>
+    
+  </entry>
   
   <entry>
     <title>python-模块/包的导入</title>
