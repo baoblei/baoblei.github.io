@@ -67,9 +67,9 @@ FAT">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -443,21 +443,21 @@ FAT">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-07
+                    2025-01-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.5k
+                    4.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    16 分
+                    17 分
                 </div>
                 
 
@@ -979,7 +979,10 @@ sudo xfs_growfs /home</code></pre>
 <li>迁移数据：<code>sudo rsync -aXS /home/ /mnt/new_home/</code><br><strong>非常重要，迁移完成后一定要检查一下数据是否完整，确认无误后再进行下一步操作。</strong><br>-a：归档模式，保留权限、时间戳等。	-X：保留扩展属性。-S：处理稀疏文件。</li>
 </ul>
 <h4 id="更新挂载点"><a href="#更新挂载点" class="headerlink" title="更新挂载点"></a>更新挂载点</h4><ul>
-<li>卸载原有 /home 分区：<code>sudo umount /home</code></li>
+<li>卸载原有 /home 分区：<code>sudo umount /home</code><ul>
+<li>此时可能遇到/home忙碌的问题，可以使用<code>lsof /home</code>查看一下/home目录下的进程，但是如果有系统进程的话就无法卸载了，所以还是Live环境或者单用户模式比较方便。</li>
+</ul>
+</li>
 <li>挂载新分区到 /home：<code>sudo mount /dev/nvme1n1p1 /home</code></li>
 <li>获取新分区 UUID：<code>sudo blkid /dev/nvme1n1p1</code></li>
 <li>持久化挂载：编辑 /etc/fstab，添加新分区的 UUID 信息。<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">UUID=xxxx-xxxx-xxxx-xxxx /home ext4 defaults 0 2</code></pre></li>
@@ -1744,7 +1747,7 @@ df -h /home</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">38.2k</span>
+                        class="white-color">39k</span>
             
             
             

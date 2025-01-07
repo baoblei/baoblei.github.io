@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-06T18:23:54.860Z</updated>
+  <updated>2025-01-07T20:01:17.162Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用CodeWithGPU实现模型的开箱即用</title>
+    <link href="http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/"/>
+    <id>http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/</id>
+    <published>2025-01-07T19:04:55.000Z</published>
+    <updated>2025-01-07T20:01:17.162Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CodeWithGPU简介&quot;&gt;&lt;a href=&quot;#CodeWithGPU简介&quot; class=&quot;headerlink&quot; title=&quot;CodeWithGPU简介&quot;&gt;&lt;/a&gt;CodeWithGPU简介&lt;/h1&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="CG" scheme="http://baoblei.github.io/categories/CG/"/>
+    
+    <category term="docker" scheme="http://baoblei.github.io/categories/CG/docker/"/>
+    
+    
+    <category term="CG" scheme="http://baoblei.github.io/tags/CG/"/>
+    
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>通过公网访问局域网内服务器</title>
@@ -49,7 +78,7 @@
     <link href="http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/"/>
     <id>http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/</id>
     <published>2025-01-06T16:11:31.000Z</published>
-    <updated>2025-01-07T12:50:23.398Z</updated>
+    <updated>2025-01-07T19:03:51.904Z</updated>
     
     
       
