@@ -450,14 +450,14 @@ FAT">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.4k
+                    4.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    16 分
                 </div>
                 
 
@@ -628,8 +628,8 @@ blkid 查看分区的文件系统和 UUID。</code></pre>
 <td>- 文件路径不区分大小写，例如 <code>C:\Users</code> 和 <code>C:\users</code> 是同一路径<br>- 使用反斜杠 <code>\</code> 作为路径分隔符<br>- 支持快捷方式（功能类似于符号链接）</td>
 </tr>
 </tbody></table>
-<h2 id="Linux-根目录"><a href="#Linux-根目录" class="headerlink" title="Linux 根目录"></a>Linux 根目录</h2><h1 id="Linux-根目录结构及其作用"><a href="#Linux-根目录结构及其作用" class="headerlink" title="Linux 根目录结构及其作用"></a>Linux 根目录结构及其作用</h1><p>根据 **Filesystem Hierarchy Standard (FHS)**，Linux 的根目录 <code>/</code> 下存在一系列标准化的目录，以下是常见目录及其作用说明。</p>
-<h2 id="根目录结构"><a href="#根目录结构" class="headerlink" title="根目录结构"></a>根目录结构</h2><h3 id="1-bin-（Binary）"><a href="#1-bin-（Binary）" class="headerlink" title="1. /bin （Binary）"></a>1. <code>/bin</code> （Binary）</h3><ul>
+<h2 id="Linux-根目录"><a href="#Linux-根目录" class="headerlink" title="Linux 根目录"></a>Linux 根目录</h2><p>根据 **Filesystem Hierarchy Standard (FHS)**，Linux 的根目录 <code>/</code> 下存在一系列标准化的目录，以下是常见目录及其作用说明。</p>
+<h3 id="1-bin-（Binary）"><a href="#1-bin-（Binary）" class="headerlink" title="1. /bin （Binary）"></a>1. <code>/bin</code> （Binary）</h3><ul>
 <li>存放系统启动时或单用户模式下的基本用户命令。</li>
 <li>包括常用的命令，如 <code>ls</code>、<code>cp</code>、<code>mv</code>、<code>cat</code> 等。</li>
 <li>可供所有用户访问。</li>
@@ -841,145 +841,7 @@ blkid 查看分区的文件系统和 UUID。</code></pre>
 <li><strong>建议大小</strong>：根据需求调整。</li>
 </ul>
 <hr>
-<h3 id="常见的分区方案"><a href="#常见的分区方案" class="headerlink" title="常见的分区方案"></a>常见的分区方案</h3><h3 id="方案-1-简单分区方案（适合普通用户）"><a href="#方案-1-简单分区方案（适合普通用户）" class="headerlink" title="方案 1: 简单分区方案（适合普通用户）"></a>方案 1: 简单分区方案（适合普通用户）</h3><table>
-<thead>
-<tr>
-<th>分区/挂载点</th>
-<th>推荐大小</th>
-<th>文件系统</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>/</code></td>
-<td>30-50GB</td>
-<td>ext4</td>
-<td>根分区，系统和软件文件存储。</td>
-</tr>
-<tr>
-<td><code>swap</code></td>
-<td>4-8GB</td>
-<td>-</td>
-<td>交换分区，用于虚拟内存。</td>
-</tr>
-<tr>
-<td><code>/home</code></td>
-<td>剩余所有空间</td>
-<td>ext4</td>
-<td>用户数据和配置文件。</td>
-</tr>
-</tbody></table>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>简单易用，适合新手和桌面用户。</li>
-<li>系统与用户数据分离，便于系统重装时保留数据。</li>
-</ul>
-<hr>
-<h3 id="方案-2-高级分区方案（适合开发或多用户）"><a href="#方案-2-高级分区方案（适合开发或多用户）" class="headerlink" title="方案 2: 高级分区方案（适合开发或多用户）"></a>方案 2: 高级分区方案（适合开发或多用户）</h3><table>
-<thead>
-<tr>
-<th>分区/挂载点</th>
-<th>推荐大小</th>
-<th>文件系统</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>/</code></td>
-<td>30-50GB</td>
-<td>ext4</td>
-<td>根分区，存储系统文件。</td>
-</tr>
-<tr>
-<td><code>swap</code></td>
-<td>4-8GB</td>
-<td>-</td>
-<td>交换分区。</td>
-</tr>
-<tr>
-<td><code>/home</code></td>
-<td>100GB+</td>
-<td>ext4</td>
-<td>用户数据和配置文件。</td>
-</tr>
-<tr>
-<td><code>/boot</code></td>
-<td>1GB</td>
-<td>ext4</td>
-<td>引导文件。</td>
-</tr>
-<tr>
-<td><code>/var</code></td>
-<td>10GB</td>
-<td>ext4</td>
-<td>日志文件和服务缓存。</td>
-</tr>
-<tr>
-<td><code>/tmp</code></td>
-<td>5-10GB</td>
-<td>ext4</td>
-<td>临时文件。</td>
-</tr>
-</tbody></table>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>分区更精细，便于管理。</li>
-<li>适合需要独立管理日志文件、大量临时文件或多用户环境的用户。</li>
-</ul>
-<hr>
-<h3 id="方案-3-LVM-分区方案（灵活调整空间）"><a href="#方案-3-LVM-分区方案（灵活调整空间）" class="headerlink" title="方案 3: LVM 分区方案（灵活调整空间）"></a>方案 3: LVM 分区方案（灵活调整空间）</h3><table>
-<thead>
-<tr>
-<th>分区/挂载点</th>
-<th>初始大小</th>
-<th>文件系统</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>/boot</code></td>
-<td>500MB-1GB</td>
-<td>ext4</td>
-<td>引导文件。</td>
-</tr>
-<tr>
-<td><code>/</code></td>
-<td>30GB</td>
-<td>ext4</td>
-<td>系统文件。</td>
-</tr>
-<tr>
-<td><code>swap</code></td>
-<td>4-8GB</td>
-<td>-</td>
-<td>交换分区。</td>
-</tr>
-<tr>
-<td><code>/home</code></td>
-<td>50GB</td>
-<td>ext4</td>
-<td>用户数据和配置文件。</td>
-</tr>
-<tr>
-<td><code>/var</code></td>
-<td>10GB</td>
-<td>ext4</td>
-<td>日志文件和缓存。</td>
-</tr>
-<tr>
-<td><strong>剩余空间</strong></td>
-<td>动态分配</td>
-<td>ext4/LVM</td>
-<td>可随时调整大小分配给 <code>/home</code> 或 <code>/var</code>。</td>
-</tr>
-</tbody></table>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>使用 LVM（逻辑卷管理），分区大小可动态调整。</li>
-<li>适合对空间需求变化较大的用户。</li>
-</ul>
-<hr>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ol>
+<h3 id="分区建议"><a href="#分区建议" class="headerlink" title="分区建议"></a>分区建议</h3><ol>
 <li><p><strong>根分区大小要合理</strong>：</p>
 <ul>
 <li>根分区存放系统和软件文件，除单独分配空间的挂载点，其余内容都存储在根分区中。</li>
@@ -1009,7 +871,121 @@ blkid 查看分区的文件系统和 UUID。</code></pre>
 </li>
 </ol>
 <hr>
-<p>更新中。。。。</p>
+<h1 id="扩容方式"><a href="#扩容方式" class="headerlink" title="扩容方式"></a>扩容方式</h1><h2 id="新建磁盘分区并挂载到新的挂载点上"><a href="#新建磁盘分区并挂载到新的挂载点上" class="headerlink" title="新建磁盘分区并挂载到新的挂载点上"></a>新建磁盘分区并挂载到新的挂载点上</h2><p>主要使用的命令：<code>fdisk</code>、<code>mkfs</code>、<code>mount</code>、<code>umount</code>、<code>df</code>、<code>lsblk</code></p>
+<ol>
+<li><p><strong>查看磁盘</strong>：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lsblk</code></pre>
+<p> <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250107172719.png"><br> 可以看出里面有三个硬盘：sda/nvme0n1/nvme1n1，目前我的Linux文件系统全部都在sda中的部分分区中，另外nvme0n1只设置了一个/boot/efi的挂载点。现在我想从nvme1n1中分配一部分空间给sda/ada6的/home分区。</p>
+</li>
+<li><p><strong>磁盘分区并挂载</strong>：<br> 首先可以查看一下这个磁盘的使用情况</p>
+ <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo fdisk -l /dev/nvme1n1</code></pre>
+<p> <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250107173236.png"><br> 这个盘之前在windows系统上使用，目前的分区也已经占满了全部空间，所以需要删除一些分区或者直接使用之前的分区，如果要删除的话我们可以重新对这个盘进行分区，借助fdisk或者parted应该都可以：</p>
+<ul>
+<li>删除分区：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo fdisk /dev/nvme1n1</code></pre>
+<ul>
+<li>输入 d， 逐一删除所有分区。</li>
+<li>输入 w 保存更改。</li>
+</ul>
+</li>
+<li>新建分区  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo fdisk /dev/nvme1n1</code></pre>
+<ul>
+<li>输入 n 创建新分区</li>
+<li>按提示选择分区类型（通常是主分区）。</li>
+<li>提供起始扇区和结束扇区（默认值即可使用未分配的全部空间）。</li>
+<li>确认并完成创建。</li>
+</ul>
+</li>
+<li>格式化分区  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo mkfs.ext4 /dev/nvme1n1p1</code></pre></li>
+<li>挂载分区  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo mount /dev/nvme1n1 /mnt/new_home</code></pre>
+  注意前面我们说过/mnt是临时挂载点，我们可以新建一个/home/data挂载点来实现对/home目录的扩容，但是其实这样在系统重启后依旧是临时的，每次都重启需要手动挂载才能正常使用分区内容。</li>
+<li>持久化挂载<ul>
+<li>获取分区 UUID：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo blkid /dev/nvme1n1p1</code></pre></li>
+<li>编辑 /etc/fstab 文件：<br>  添加以下行，将新分区挂载到 /home/data：  <pre class="line-numbers language-none"><code class="language-none">UUID=xxxx-xxxx-xxxx-xxxx /home/data ext4 defaults 0 2</code></pre></li>
+<li>测试 /etc/fstab 配置：  <pre class="line-numbers language-none"><code class="language-none">sudo mount -a</code></pre></li>
+<li>验证是否挂载：<code>df -h</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>新挂载点权限设置<br> 上面的案例中/home 下的子目录（ /home/data）会独立使用新分区的存储空间，不会直接扩展 /home 主目录的可用空间。<br> 默认情况下，挂载后的 /home/data 可能由 root 用户拥有。根据需要修改目录权限：</p>
+ <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo chown -R &lt;username&gt;:&lt;group&gt; /home/data 
+或者
+chmod -R 权限 /home/data   
+（权限由三位数字组成，分别对应所有者/组/其他用户的权限，单个数字权限为r=4，w=2，x=1的和）</code></pre>
+</li>
+<li><p>数据迁移<br> 如果 /home 中已有需要迁移到 /home/data 的数据，可以使用 rsync 进行迁移：</p>
+ <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rsync -av /home/old_data /home/data</code></pre></li>
+</ol>
+<h2 id="LVM扩容"><a href="#LVM扩容" class="headerlink" title="LVM扩容"></a>LVM扩容</h2><p>更新中。。。。</p>
+<h2 id="直接扩容现有分区"><a href="#直接扩容现有分区" class="headerlink" title="直接扩容现有分区"></a>直接扩容现有分区</h2><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li>备份数据</li>
+</ul>
+<p>调整分区可能会导致数据丢失，建议备份 /home 分区和其他重要数据。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rsync -aXS /home/ /backup/home/</code></pre>
+<ul>
+<li>查看分区布局<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">lsblk
+sudo fdisk -l</code></pre>
+看看 /home 分区（如 /dev/sda6）的后方存在未分配空间。</li>
+<li>确保分区未挂载：<ul>
+<li>如果 /home 是活动分区，需要在单用户模式或通过 Live CD/USB 执行操作。</li>
+<li>在 Live 环境中挂载根分区，并使用 chroot 进入系统环境。</li>
+</ul>
+</li>
+</ul>
+<h3 id="如果-home-分区（如-dev-sda6）的后方位置存在未分配空间"><a href="#如果-home-分区（如-dev-sda6）的后方位置存在未分配空间" class="headerlink" title="如果/home 分区（如 /dev/sda6）的后方位置存在未分配空间"></a>如果/home 分区（如 /dev/sda6）的后方位置存在未分配空间</h3><p>因为我是想在在另一个磁盘上扩充，所以后面的方法不适用于我的这个需求，如果满足挂载/home的后方还有连续空间的话优先推荐这种方式，可以直接扩容 /dev/sda6 分区大小即可，有以下两种方式：</p>
+<h4 id="使用gparted（图形化界面）"><a href="#使用gparted（图形化界面）" class="headerlink" title="使用gparted（图形化界面）"></a>使用gparted（图形化界面）</h4><p>gparted 是调整分区的图形化工具，操作简单且更安全。</p>
+<ul>
+<li>安装：<code>sudo apt install gparted</code></li>
+<li>启动：<code>sudo gparted</code></li>
+<li>选择 /dev/sda6 分区，右键选择 Resize/Move。</li>
+</ul>
+<h4 id="使用fdisk"><a href="#使用fdisk" class="headerlink" title="使用fdisk"></a>使用fdisk</h4><ul>
+<li>启动 fdisk：<br> <code>sudo fdisk /dev/sda</code></li>
+<li>删除并重新创建分区：<ul>
+<li>输入 d，选择 /dev/sda6 分区。</li>
+<li>输入 n，创建新分区，起始扇区与旧分区相同，结束扇区扩大到未分配空间末尾。</li>
+<li>输入 w 保存更改。</li>
+</ul>
+</li>
+<li>刷新分区表：<br>  <code>sudo partprobe</code></li>
+</ul>
+<h4 id="扩展文件系统"><a href="#扩展文件系统" class="headerlink" title="扩展文件系统"></a>扩展文件系统</h4><p>在采用上面的某一种方式后调整分区后，文件系统大小仍然是原来的大小，需要扩展文件系统以使用新的空间。</p>
+<ul>
+<li>扩展 ext4 文件系统</li>
+</ul>
+<p>如果 /home 分区是 ext4，使用 resize2fs 扩展：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo resize2fs /dev/sda6
+```   
+- 扩展 xfs 文件系统
+
+如果 /home 分区是 xfs，确保分区已挂载，然后使用 xfs_growfs 扩展：
+```shell
+sudo mount /dev/sda6 /home
+sudo xfs_growfs /home</code></pre>
+
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><ul>
+<li>检查分区大小是否扩展成功：<code>df -h /home</code></li>
+<li>确认分区的文件系统健康状态：<code>sudo fsck /dev/sda6</code></li>
+</ul>
+<h3 id="如果-home-分区（如-dev-sda6）的后方位置不存在未分配空间"><a href="#如果-home-分区（如-dev-sda6）的后方位置不存在未分配空间" class="headerlink" title="如果/home 分区（如 /dev/sda6）的后方位置不存在未分配空间"></a>如果/home 分区（如 /dev/sda6）的后方位置不存在未分配空间</h3><p>如果原有的留给/home挂载点的分区已经空间不足且原来空间很小，可以考虑换一个更大的硬盘然后对/home进行迁移。</p>
+<h4 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h4><p>因为我们现在要扩充/home分区，所以需要切换到root用户下进行操作，使用命令<code>sudo -i</code>切换到root用户。</p>
+<p>另外，Live环境或者单用户模式也都可以。</p>
+<h4 id="准备新分区"><a href="#准备新分区" class="headerlink" title="准备新分区"></a>准备新分区</h4><ul>
+<li>如果新硬盘还没有新分区的话可以新建一个分区：<code>sudo fdisk /dev/nvme1n1</code>, 输入n新建分区，输入w保存更改。</li>
+<li>格式化分区：<code>sudo mkfs.ext4 /dev/nvme1n1p1</code></li>
+<li>挂载分区：<code>sudo mount /dev/nvme1n1p1 /mnt/new_home</code>, 将其挂载到/mnt/new_home目录下。</li>
+</ul>
+<h4 id="迁移数据"><a href="#迁移数据" class="headerlink" title="迁移数据"></a>迁移数据</h4><ul>
+<li>迁移数据：<code>sudo rsync -aXS /home/ /mnt/new_home/</code><br><strong>非常重要，迁移完成后一定要检查一下数据是否完整，确认无误后再进行下一步操作。</strong><br>-a：归档模式，保留权限、时间戳等。	-X：保留扩展属性。-S：处理稀疏文件。</li>
+</ul>
+<h4 id="更新挂载点"><a href="#更新挂载点" class="headerlink" title="更新挂载点"></a>更新挂载点</h4><ul>
+<li>卸载原有 /home 分区：<code>sudo umount /home</code></li>
+<li>挂载新分区到 /home：<code>sudo mount /dev/nvme1n1p1 /home</code></li>
+<li>获取新分区 UUID：<code>sudo blkid /dev/nvme1n1p1</code></li>
+<li>持久化挂载：编辑 /etc/fstab，添加新分区的 UUID 信息。<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">UUID=xxxx-xxxx-xxxx-xxxx /home ext4 defaults 0 2</code></pre></li>
+</ul>
+<h4 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo mount -a
+df -h /home</code></pre>
 
                 
             </div>
@@ -1768,7 +1744,7 @@ blkid 查看分区的文件系统和 UUID。</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">37.1k</span>
+                        class="white-color">38.2k</span>
             
             
             
