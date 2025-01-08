@@ -445,14 +445,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    733
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    6 分
                 </div>
                 
 
@@ -486,7 +486,70 @@
 <li>代码中集成<pre class="line-numbers language-python" data-language="python"><code class="language-python">import codewithgpu as cg 
 cg.model.download("模型文件的KEY", target_directory="下载目标路径，可选"))</code></pre></li>
 </ol>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="cg-client"><a href="#cg-client" class="headerlink" title="cg-client"></a>cg-client</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 下载客户端并添加可执行权限
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="cuda检查"><a href="#cuda检查" class="headerlink" title="cuda检查"></a>cuda检查</h2><p>检查电脑的nvidia驱动以及cuda toolkit。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvidia-smi
+nvcc -V</code></pre>
+<p>如果显示有：<code>Failed to initialize NVML: Driver/library version mismatch。</code>则说明驱动和cuda toolkit版本不匹配，需要重新安装驱动或者cuda toolkit。</p>
+<p>或者你的cuda版本过低，建议也升级一下，不然CG很多新的镜像都无法使用。</p>
+<p>如果你的cuda版本ok且驱动都正常的话，那么跳过这里直接看下面的安装cg-client。</p>
+<h2 id="卸载旧版本nvida驱动和cuda-toolkit"><a href="#卸载旧版本nvida驱动和cuda-toolkit" class="headerlink" title="卸载旧版本nvida驱动和cuda toolkit"></a>卸载旧版本nvida驱动和cuda toolkit</h2><ul>
+<li><p>卸载nvidia驱动：<code>sudo nvidia-uninstall</code></p>
+</li>
+<li><p>卸载cuda toolkit：找到 CUDA 工具包的安装目录（例如 /usr/local/cuda-10.1/），然后执行：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cd /usr/local/cuda-10.1/bin/
+sudo ./cuda-uninstaller</code></pre>
+<p>如果你忘记了 CUDA 工具包的安装目录，可以使用以下命令找到：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">where nvcc</code></pre>
+<p>或者通过之前安装cuda设置的环境变量查看：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo $PATH | tr ':' '\n' | grep cuda
+echo $LD_LIBRARY_PATH | tr ':' '\n' | grep cuda</code></pre>
+<p>如果没有找到cuda-uninstaller，可以手动删除：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rm -rf /usr/local/cuda-11.8/   # 删除目录
+# 清理其他残留文件：
+sudo apt-get remove --purge '^nvidia-.*'
+sudo apt-get remove cuda*
+sudo apt-get autoremove
+
+# 查看剩余残留
+sudo dpkg -l |grep cuda
+
+# 继续卸载哈哈
+sudo dpkg -P 残留文件全称
+
+# 环境变量删除：编辑～/.bashrc 或者  /etc/profile文件中是否有 CUDA 相关路径， 删除以下内容
+export PATH=/usr/local/cuda-11.8/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH
+# 保存
+source ~/.bashrc
+</code></pre>
+
+
+
+</li>
+<li><p>完成卸载后，删除 CUDA 工具包的目录：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rm -rf /usr/local/cuda-10.1/</code></pre></li>
+</ul>
+<h2 id="安装新版本nvidia驱动"><a href="#安装新版本nvidia驱动" class="headerlink" title="安装新版本nvidia驱动"></a>安装新版本nvidia驱动</h2><ul>
+<li>前往 NVIDIA <a target="_blank" rel="noopener" href="https://www.nvidia.cn/Download/index.aspx">官方网站</a>，根据显卡型号（例如 2080Ti）下载最新的驱动程序。</li>
+<li>将下载的驱动程序（例如 NVIDIA-Linux-x86_64-550.54.14.run）上传到服务器的某个目录，然后执行：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo sh NVIDIA-Linux-x86_64-550.54.14.run</code></pre></li>
+<li>安装完成后，重启服务器：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo reboot</code></pre></li>
+<li>重启后，检查驱动是否安装成功：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvidia-smi</code></pre></li>
+</ul>
+<h2 id="安装新版本cuda-toolkit"><a href="#安装新版本cuda-toolkit" class="headerlink" title="安装新版本cuda toolkit"></a>安装新版本cuda toolkit</h2><p>注意安装的cuda toolkit版本要和nvidia驱动版本匹配：</p>
+<pre class="line-numbers language-none"><code class="language-none">- nvidia-smi属于driver API、nvcc属于runtime API。
+- 用于支持driver API的必要文件(如libcuda.so)是由GPU driver installer安装的。
+- 用于支持runtime API的必要文件(如libcudart.so以及nvcc)是由CUDA Toolkit installer安装的。
+- 如果只安装driver API，不安装runtime API（cuda toolkit），也能正常使用pytorch，但涉及到一些需要编译安装的更底层的工具，比如apex、deepspeed，就会报错，这时还需要床runtime API。</code></pre>
+<ul>
+<li>前往 NVIDIA <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads">开发者网站</a>，根据操作系统和需求下载与新驱动兼容的 CUDA 工具包（例如 CUDA 12.1.1）。</li>
+<li>将下载的 CUDA 安装包（例如 cuda_12.1.1_530.30.02_linux.run）上传到服务器的某个目录，然后执行：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo sh cuda_12.1.1_530.30.02_linux.run</code></pre>
+<strong>注意</strong>：由于已经有CUDA Driver12.4了，因此在安装过程中不需要勾选CUDA Driver。</li>
+<li>安装完成后，设置环境变量：<br>（如果之前安装过旧版本记得删除旧版本的环境变量）<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo 'export PATH=/usr/local/cuda-12.1/bin:$PATH' &gt;&gt; ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64:$LD_LIBRARY_PATH' &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre></li>
+<li>检查CUDA是否安装成功：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvcc -V</code></pre></li>
+</ul>
+<h2 id="cg-client"><a href="#cg-client" class="headerlink" title="cg-client"></a>cg-client</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 下载客户端并添加可执行权限
 wget -O cg-client https://codewithgpu.ks3-cn-beijing.ksyuncs.com/cg-client
 chmod +x cg-client
 
@@ -1263,7 +1326,7 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">39k</span>
+                        class="white-color">39.8k</span>
             
             
             
