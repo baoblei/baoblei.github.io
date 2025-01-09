@@ -63,9 +63,9 @@ Volumes（卷）Volumes 是 Docker 推荐的持久化存储方式，可以将容
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -438,14 +438,14 @@ Volumes（卷）Volumes 是 Docker 推荐的持久化存储方式，可以将容
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    951
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 
@@ -476,10 +476,17 @@ C:\ProgramData\Docker\volumes\&lt;volume_name&gt;\_data # Windows</code></pre>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume inspect my_volume</code></pre>
 <p>如果希望将卷存储到非默认路径，可以通过修改 Docker 的配置文件（通常位于 /etc/docker/daemon.json，没有的话可以新建）来实现：</p>
 <pre class="line-numbers language-json" data-language="json"><code class="language-json">{
-    # 将 Docker 数据目录修改为 /custom/path/docker。
-    "data-root": "/custom/path/docker"
+    # 将 Docker 数据目录修改为 /home/docker。
+    "data-root": "/home/docker"
 }</code></pre>
-<p>设置后重启 Docker 服务:<code>sudo systemctl restart docker</code>，所有新创建的卷都会存储在新的数据目录中。</p>
+<p>其实这里本质上是修改了 Docker 的数据目录，卷的数据也会存储在这个目录中，我们可以通过<code>docker info</code>查看 Docker 的根目录。</p>
+<p><strong>切记</strong>如果之前已经有数据，需要将数据从<code>/var/lib/docker</code>迁移到新的目录<code>/home/docker</code>中。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl stop docker # 停止 Docker 服务
+rsync -avz /var/lib/docker /home/docker # 迁移数据
+systemctl start docker # 启动 Docker 服务</code></pre>
+
+<p>设置后重启 Docker 服务:<code>sudo systemctl restart docker</code>，所有新创建的卷都会存储在新的数据目录<code>/home/docker/volumes</code>中。可以在通过<code>docker volume inspect my_volume</code>查看卷的具体路径，或者<code>docker info</code>查看 Docker 的根目录。</p>
+<p><strong>卷可以被不同的容器共享，也可以在多个容器之间传递数据。</strong></p>
 <p><strong>注意</strong></p>
 <ol>
 <li>不要直接修改卷目录中的文件：如果直接修改主机上的卷目录中的数据，可能导致数据损坏或无法被容器识别。</li>
@@ -947,18 +954,17 @@ C:\ProgramData\Docker\volumes\&lt;volume_name&gt;\_data # Windows</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/01/09/docker-de-cun-chu/">
+                <a href="/2025/01/09/docker-chang-jian-ming-ling/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="docker的存储">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="docker常见命令">
                         
-                        <span class="card-title">docker的存储</span>
+                        <span class="card-title">docker常见命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -968,9 +974,9 @@ C:\ProgramData\Docker\volumes\&lt;volume_name&gt;\_data # Windows</code></pre>
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-09
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-09
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -983,7 +989,6 @@ C:\ProgramData\Docker\volumes\&lt;volume_name&gt;\_data # Windows</code></pre>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1280,7 +1285,7 @@ C:\ProgramData\Docker\volumes\&lt;volume_name&gt;\_data # Windows</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">41.1k</span>
+                        class="white-color">42.3k</span>
             
             
             
