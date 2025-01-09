@@ -445,14 +445,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    7 分
                 </div>
                 
 
@@ -574,69 +574,16 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
 <h2 id="docker的存储"><a href="#docker的存储" class="headerlink" title="docker的存储"></a>docker的存储</h2><p>在容器内我们会发现系统盘大小为本地根目录的大小，这是因为Docker 默认安装的情况下，会使用<code>/var/lib/docker/</code>目录作为存储目录，用以存放拉取的镜像和创建的容器等。</p>
 <p>而autodl-tmp未挂载，虽然CG提供了网盘的支持，但是如果我们想适用宿主机中的磁盘分区的话，还得会一些docker的存储知识（见博客-<a href="https://baoblei.github.io/2025/01/09/docker-de-cun-chu/">docker的存储</a>）</p>
 <p>在了解了docker的存储后，我们可以通过<code>docker run</code>命令的<code>-v</code>参数来挂载宿主机的磁盘分区到容器中，这样就可以在容器中使用宿主机的磁盘分区了。在web界面创建容器时也提供了挂载的选项，可以直接在web界面中挂载。</p>
-<h2 id="镜像与容器的基本用法"><a href="#镜像与容器的基本用法" class="headerlink" title="镜像与容器的基本用法"></a>镜像与容器的基本用法</h2><p>见博客-<a href="">docker的常见命令</a></p>
-<ol>
-<li><p>拉取镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker pull [镜像地址]
-#【镜像地址]一般由[镜像名]:[标签]组成，标签一般指的版本号，默认为latest。例如：ubuntu:20.04</code></pre>
-</li>
-<li><p>创建并运行新容器</p>
-</li>
-</ol>
-<p>使用拉取的镜像创建并运行容器：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name &lt;容器名&gt; -p &lt;主机端口&gt;:&lt;容器端口&gt; -v &lt;宿主机目录或卷名&gt;:&lt;容器目录&gt; &lt;镜像名&gt;
-# -d: 后台运行容器
-# --name: 指定容器名称
-# -p: 将主机端口映射到容器端口，格式为 主机端口:容器端口
-# -v: 将宿主机目录或数据卷挂载到容器目录。宿主机目录用于直接挂载本地文件系统，而数据卷提供更高的灵活性和隔离性。</code></pre>
+<h2 id="镜像与容器的基本用法"><a href="#镜像与容器的基本用法" class="headerlink" title="镜像与容器的基本用法"></a>镜像与容器的基本用法</h2><p>具体见博客-<a href="https://baoblei.github.io/2025/01/09/docker-chang-jian-ming-ling/">docker的常见命令</a>，这里简单通过本地终端创建并运行一个容器来说明：</p>
+<ul>
+<li>拉取镜像<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker pull registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ</code></pre></li>
+<li>查看镜像<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker images</code></pre></li>
+<li>创建并运行容器<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo docker run -d --name quizzical_wilson -v data80:/root/autodl-tmp registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ sleep infinity
+# 这里我挂载了一个卷data80到容器的/root/autodl-tmp目录
 
-<ol start="3">
-<li><p>查看容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker ps # 查看正在运行的容器
-docker ps -a # 查看所有容器，包括已停止的</code></pre>
-</li>
-<li><p>进入容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker exec -it &lt;容器名&gt; /bin/bash # 或者 /bin/sh </code></pre>
-</li>
-<li><p>停止和删除容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker stop &lt;容器名或ID&gt;
-docker rm &lt;容器名或ID&gt;
-
-docker stop $(docker ps -aq) # 停止所有容器
-docker rm $(docker ps -aq) # 删除所有容器</code></pre>
-</li>
-<li><p>保存容器状态为新镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker commit &lt;容器名或ID&gt; &lt;新镜像名&gt;:&lt;标签&gt;</code></pre>
-</li>
-<li><p>查看镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker images</code></pre>
-</li>
-<li><p>删除镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker rmi &lt;镜像名或ID&gt;
-docker rmi -f &lt;镜像名或ID&gt; # 强制删除</code></pre>
-</li>
-<li><p>导出和导入镜像</p>
-</li>
-</ol>
-<ul>
-<li>导出镜像为文件：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker save -o &lt;文件名&gt;.tar &lt;镜像名或ID&gt;</code></pre></li>
-<li>从文件导入镜像：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker load -i &lt;文件名&gt;.tar</code></pre></li>
-</ul>
-<ol start="10">
-<li>检查容器日志</li>
-</ol>
-<ul>
-<li>查看容器运行日志：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker logs &lt;容器名或ID&gt;</code></pre></li>
-<li>实时查看日志：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker logs -f &lt;容器名或ID&gt;</code></pre></li>
-<li>查看容器内进程：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker top &lt;容器名或ID&gt;</code></pre></li>
-<li>检查容器的详细信息：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker inspect &lt;容器名或ID&gt;</code></pre></li>
-</ul>
-<ol start="11">
-<li>清理无用的资源</li>
-</ol>
-<ul>
-<li>清理未使用的镜像、容器、网络和卷：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker system prune</code></pre></li>
-<li>清理未使用的卷：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume prune</code></pre></li>
+sudo docker exec -it quizzical_wilson /bin/bash</code></pre>
+到这里就可以在容器中进行操作了，可以使用<code>exit</code>退出容器。</li>
+<li>停止容器<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker stop quizzical_wilson</code></pre></li>
 </ul>
 <p><strong>参考:</strong></p>
 <blockquote>
@@ -1387,7 +1334,7 @@ docker rmi -f &lt;镜像名或ID&gt; # 强制删除</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">42.3k</span>
+                        class="white-color">42k</span>
             
             
             

@@ -446,7 +446,7 @@ docker r">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    507
+                    573
                 </div>
                 
 
@@ -485,11 +485,15 @@ docker r">
 </li>
 </ol>
 <p>使用拉取的镜像创建并运行容器：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name &lt;容器名&gt; -p &lt;主机端口&gt;:&lt;容器端口&gt; -v &lt;宿主机目录或卷名&gt;:&lt;容器目录&gt; &lt;镜像名&gt;
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name &lt;容器名&gt; -p &lt;主机端口&gt;:&lt;容器端口&gt; -v &lt;宿主机目录或卷名&gt;:&lt;容器目录&gt; &lt;镜像名&gt; sleep infinity
 # -d: 后台运行容器
 # --name: 指定容器名称
 # -p: 将主机端口映射到容器端口，格式为 主机端口:容器端口
-# -v: 将宿主机目录或数据卷挂载到容器目录。宿主机目录用于直接挂载本地文件系统，而数据卷提供更高的灵活性和隔离性。</code></pre>
+# -v: 将宿主机目录或数据卷挂载到容器目录。宿主机目录用于直接挂载本地文件系统，而数据卷提供更高的灵活性和隔离性。
+# sleep infinity: 保持容器运行
+
+# 如果容器以创建可以使用以下命令启动容器：
+docker start &lt;容器名或ID&gt;</code></pre>
 
 <ol start="3">
 <li><p>查看容器</p>
@@ -497,7 +501,10 @@ docker r">
 docker ps -a # 查看所有容器，包括已停止的</code></pre>
 </li>
 <li><p>进入容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker exec -it &lt;容器名&gt; /bin/bash # 或者 /bin/sh </code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker exec -it &lt;容器名&gt; /bin/bash # 或者 /bin/sh 
+# it: 是两个选项的组合: --interactive --tty
+# -i: 交互式操作
+# -t: 为容器分配一个伪终端</code></pre>
 </li>
 <li><p>停止和删除容器</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker stop &lt;容器名或ID&gt;
@@ -1275,7 +1282,7 @@ docker rmi -f &lt;镜像名或ID&gt; # 强制删除</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">42.3k</span>
+                        class="white-color">42k</span>
             
             
             
