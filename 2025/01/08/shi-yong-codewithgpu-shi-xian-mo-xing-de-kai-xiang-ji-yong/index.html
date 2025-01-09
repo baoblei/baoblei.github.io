@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -445,7 +445,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    1.8k
                 </div>
                 
 
@@ -571,7 +571,9 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
 <p>CG开始使用时需要安装docker/nvidia-docker环境，web界面会自动检测是否有Docker环境，点击安装nvidia-docker按钮自动安装相关环境，但是我使用时发现我原本安装的docker环境在使用CG提供的脚本安装后就失效了，所以建议还是卸载原有的docker环境后再使用CG提供的脚本安装</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250108033158.png"><br>这样就成功啦</p>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>在web界面可以实现容器的创建、启动、停止、删除等操作，也可以上传文件到容器中，也可以在容器中打开终端，执行命令，查看日志等操作。</p>
-<h2 id="docker的存储"><a href="#docker的存储" class="headerlink" title="docker的存储"></a>docker的存储</h2><p>在容器内我们会发现系统盘大小为本地根目录的大小，而autodl-tmp未挂载，CG提供了网盘的支持，但是如果我们想适用宿主机中的磁盘分区的话，还得会一些docker的存储知识（见博客-）</p>
+<h2 id="docker的存储"><a href="#docker的存储" class="headerlink" title="docker的存储"></a>docker的存储</h2><p>在容器内我们会发现系统盘大小为本地根目录的大小，这是因为Docker 默认安装的情况下，会使用/var/lib/docker/目录作为存储目录，用以存放拉取的镜像和创建的容器等。</p>
+<p>而autodl-tmp未挂载，虽然CG提供了网盘的支持，但是如果我们想适用宿主机中的磁盘分区的话，还得会一些docker的存储知识（见博客-<a href="https://baoblei.github.io/2025/01/09/docker-de-cun-chu/">docker的存储</a>）</p>
+<p>为了保证容器内空间充足，我们可以采取两钟方案，一种是直接修改docker的存储目录，另一种是采取卷或者绑定挂载的方式。</p>
 <p>更新中</p>
 <p><strong>参考:</strong></p>
 <blockquote>
@@ -1322,7 +1324,7 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">41k</span>
+                        class="white-color">41.1k</span>
             
             
             
