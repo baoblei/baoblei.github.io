@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-09T12:46:10.789Z</updated>
+  <updated>2025-01-09T16:36:09.180Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git&amp;GitHub日常使用方法</title>
+    <link href="http://baoblei.github.io/2025/01/09/git-github-ri-chang-shi-yong-fang-fa/"/>
+    <id>http://baoblei.github.io/2025/01/09/git-github-ri-chang-shi-yong-fang-fa/</id>
+    <published>2025-01-09T15:03:16.000Z</published>
+    <updated>2025-01-09T16:36:09.180Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;应该学过计算机的人都知道git和github，基本上伴随我们的整个编程生涯。但是博主由于并非科班出身，虽然日常都在用，但是一直对里面的一些概念和操作不是很清楚，每次遇到问题都是百度一下，解决了就忘记了。&lt;br&gt;所以想通过这篇文章来梳理记录一下git和github的日常使用方</summary>
+        
+      
+    
+    
+    
+    <category term="git" scheme="http://baoblei.github.io/categories/git/"/>
+    
+    
+    <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
+    
+    <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
+    
+  </entry>
   
   <entry>
     <title>docker常见命令</title>
@@ -74,7 +101,7 @@
     <link href="http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/"/>
     <id>http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/</id>
     <published>2025-01-07T19:04:55.000Z</published>
-    <updated>2025-01-09T12:50:35.048Z</updated>
+    <updated>2025-01-09T14:50:50.507Z</updated>
     
     
       
