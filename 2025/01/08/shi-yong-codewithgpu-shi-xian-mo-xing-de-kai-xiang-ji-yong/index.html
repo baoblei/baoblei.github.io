@@ -438,14 +438,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-08
+                    2025-01-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.7k
                 </div>
                 
 
@@ -570,9 +570,15 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
 <p>-L:<br>本地端口转发。格式为 -L [本地端口]:[目标地址]:[目标端口]</p>
 <p>CG开始使用时需要安装docker/nvidia-docker环境，web界面会自动检测是否有Docker环境，点击安装nvidia-docker按钮自动安装相关环境，但是我使用时发现我原本安装的docker环境在使用CG提供的脚本安装后就失效了，所以建议还是卸载原有的docker环境后再使用CG提供的脚本安装</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250108033158.png"><br>这样就成功啦</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>更新中</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>在web界面可以实现容器的创建、启动、停止、删除等操作，也可以上传文件到容器中，也可以在容器中打开终端，执行命令，查看日志等操作。</p>
+<h2 id="docker的存储"><a href="#docker的存储" class="headerlink" title="docker的存储"></a>docker的存储</h2><p>在容器内我们会发现系统盘大小为本地根目录的大小，而autodl-tmp未挂载，CG提供了网盘的支持，但是如果我们想适用宿主机中的磁盘分区的话，还得会一些docker的存储知识（见博客-）</p>
+<p>更新中</p>
+<p><strong>参考:</strong></p>
 <blockquote>
 <p>CG官方文档：<a target="_blank" rel="noopener" href="https://www.codewithgpu.com/docs/">https://www.codewithgpu.com/docs/</a></p>
+</blockquote>
+<blockquote>
+<p>docker engine文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/">https://docs.docker.com/engine/</a></p>
 </blockquote>
 
                 
@@ -989,18 +995,17 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/">
+                <a href="/2025/01/09/docker-de-cun-chu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="使用CodeWithGPU实现模型的开箱即用">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="docker的存储">
                         
-                        <span class="card-title">使用CodeWithGPU实现模型的开箱即用</span>
+                        <span class="card-title">docker的存储</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1010,18 +1015,14 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-08
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-09
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CG/" class="post-category">
-                                    CG
-                                </a>
-                            
-                            <a href="/categories/CG/docker/" class="post-category">
+                            <a href="/categories/docker/" class="post-category">
                                     docker
                                 </a>
                             
@@ -1029,13 +1030,8 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/CG/">
-                        <span class="chip bg-color">CG</span>
-                    </a>
                     
                     <a href="/tags/docker/">
                         <span class="chip bg-color">docker</span>
@@ -1326,7 +1322,7 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">39.8k</span>
+                        class="white-color">41k</span>
             
             
             

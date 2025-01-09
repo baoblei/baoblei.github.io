@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-08T14:08:14.103Z</updated>
+  <updated>2025-01-09T10:04:37.192Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>docker的存储</title>
+    <link href="http://baoblei.github.io/2025/01/09/docker-de-cun-chu/"/>
+    <id>http://baoblei.github.io/2025/01/09/docker-de-cun-chu/</id>
+    <published>2025-01-09T10:03:19.000Z</published>
+    <updated>2025-01-09T10:04:37.192Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/engine/storage/&quot;&gt;Docker 的存储功能&lt;/a&gt;分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：&lt;/p&gt;
+&lt;h2 id=&quot;Volumes（卷）&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
+    
+    
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用CodeWithGPU实现模型的开箱即用</title>
     <link href="http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/"/>
     <id>http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/</id>
     <published>2025-01-07T19:04:55.000Z</published>
-    <updated>2025-01-08T14:08:14.103Z</updated>
+    <updated>2025-01-09T10:18:50.382Z</updated>
     
     
       
@@ -78,7 +104,7 @@
     <link href="http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/"/>
     <id>http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/</id>
     <published>2025-01-06T16:11:31.000Z</published>
-    <updated>2025-01-08T15:25:28.148Z</updated>
+    <updated>2025-01-08T16:40:56.725Z</updated>
     
     
       

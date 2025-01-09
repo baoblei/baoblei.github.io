@@ -443,14 +443,14 @@ FAT">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-08
+                    2025-01-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.6k
+                    4.7k
                 </div>
                 
 
@@ -983,13 +983,17 @@ sudo xfs_growfs /home</code></pre>
 <li>此时可能遇到/home忙碌的问题，可以使用<code>lsof /home</code>查看一下/home目录下的进程，但是如果有系统进程的话就无法卸载了，所以还是Live环境或者单用户模式比较方便。</li>
 </ul>
 </li>
-<li>卸载临时的new_home：<code>sudo umount /mnt/new_home</code>，这个如果不卸载的话会可能导致/home和new_home都在同一个分区下，非常不安全。</li>
+<li>如果之前临时挂载点设置了永久挂载，需要卸载临时的new_home：<code>sudo umount /mnt/new_home</code>，这个如果不卸载的话会可能导致/home和new_home都在同一个分区下，非常不安全。</li>
 <li>挂载新分区到 /home：<code>sudo mount /dev/nvme1n1p1 /home</code></li>
 <li>获取新分区 UUID：<code>sudo blkid /dev/nvme1n1p1</code></li>
 <li>持久化挂载：编辑 /etc/fstab，添加新分区的 UUID 信息。<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">UUID=xxxx-xxxx-xxxx-xxxx /home ext4 defaults 0 2</code></pre></li>
 </ul>
-<h4 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo mount -a
-df -h /home</code></pre>
+<h4 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h4><ul>
+<li>/home 分区是否正常挂载：<code>df -h /home</code><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo mount -a
+df -h /home</code></pre></li>
+<li>旧的临时目录下内容和新的/home目录下内容是否是在一个分区下：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">df /mnt/new_home</code></pre>
+检查清楚后可以删除/mnt/new_home目录下的内容。</li>
+</ul>
 
                 
             </div>
@@ -1748,7 +1752,7 @@ df -h /home</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">39.8k</span>
+                        class="white-color">41k</span>
             
             
             
