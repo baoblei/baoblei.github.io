@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="python-模块/包的导入, 庞贝堡垒">
-    <meta name="description" content="模块Module和包Package在Python中，一个 .py文件 就称之为一个模块（Module）。Module的目的是代码的划分、管理以及代码重用，在一个Module中可以存在多个类、函数甚至是需要预执行的脚本。模块一共三种：pyth">
+    <meta name="keywords" content="在docker容器中使用宿主机密钥, 庞贝堡垒">
+    <meta name="description" content="在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的 SSH 密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：
+1. 使用宿主机已有的 SSH 密钥">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>python-模块/包的导入 | 庞贝堡垒</title>
+    <title>在docker容器中使用宿主机密钥 | 庞贝堡垒</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -369,12 +370,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">python-模块/包的导入</h1>
+                    <h1 class="description center-align post-title">在docker容器中使用宿主机密钥</h1>
                 </div>
             </div>
         </div>
@@ -398,20 +399,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/python/">
-                                <span class="chip bg-color">python</span>
+                            <a href="/tags/docker/">
+                                <span class="chip bg-color">docker</span>
                             </a>
                         
-                            <a href="/tags/ImportError/">
-                                <span class="chip bg-color">ImportError</span>
+                            <a href="/tags/git/">
+                                <span class="chip bg-color">git</span>
                             </a>
                         
-                            <a href="/tags/python%E6%A8%A1%E5%9D%97/">
-                                <span class="chip bg-color">python模块</span>
+                            <a href="/tags/github/">
+                                <span class="chip bg-color">github</span>
                             </a>
                         
-                            <a href="/tags/python%E5%8C%85/">
-                                <span class="chip bg-color">python包</span>
+                            <a href="/tags/ssh/">
+                                <span class="chip bg-color">ssh</span>
                             </a>
                         
                     </div>
@@ -422,8 +423,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/python/" class="post-category">
-                                python
+                            <a href="/categories/docker/" class="post-category">
+                                docker
                             </a>
                         
                     </div>
@@ -435,28 +436,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-27
+                    2025-01-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-28
+                    2025-01-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    455
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    1 分
                 </div>
                 
 
@@ -479,236 +480,34 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="模块Module和包Package"><a href="#模块Module和包Package" class="headerlink" title="模块Module和包Package"></a>模块Module和包Package</h1><p>在Python中，一个 <strong>.py文件</strong> 就称之为一个模块（Module）。Module的目的是代码的划分、管理以及代码重用，在一个Module中可以存在多个类、函数甚至是需要预执行的脚本。<br>模块一共三种：python标准库、第三方模块、应用程序自定义模块。<br>相同名字的函数和变量完全可以分别存在不同的模块中，不必考虑名字会与其他模块冲突。但是<strong>不要与内置函数名字冲突</strong>。</p>
-<p>相关概念：</p>
+                <p>在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的 SSH 密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：</p>
+<h2 id="1-使用宿主机已有的-SSH-密钥"><a href="#1-使用宿主机已有的-SSH-密钥" class="headerlink" title="1. 使用宿主机已有的 SSH 密钥"></a>1. 使用宿主机已有的 SSH 密钥</h2><p>将宿主机中已经配置好的 SSH 密钥挂载到容器中，而不是在容器内生成新的密钥。这种方式可以避免密钥泄漏。</p>
 <ul>
-<li><code>_pycache__</code>：Python3.2版本引入的，用于存放模块的编译后的字节码文件，以提高模块的加载速度。</li>
-<li><code>__init__.py</code>：模块的初始化文件，可以为空，也可以有代码。<strong>当一个文件夹下有__init__.py文件时，这个文件夹就会被当作一个包来处理。</strong></li>
-<li><code>dir()</code>：查看模块的所有属性和方法。比如：  <pre class="line-numbers language-python" data-language="python"><code class="language-python">import math
-print(dir(math))</code></pre></li>
-<li><code>__name__</code>：模块的内置属性，用于判断模块是被导入还是直接当作脚本执行。比如：  <pre class="line-numbers language-python" data-language="python"><code class="language-python">if __name__ == '__main__':
-    print('This is a module')</code></pre></li>
+<li>在宿主机上确认已有的 SSH 密钥，通常路径是 ~/.ssh/id_rsa 和 ~/.ssh/id_rsa.pub。</li>
+<li>在启动容器时将宿主机的 SSH 密钥挂载到容器中：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it \
+    -v ~/.ssh:/root/.ssh:ro \
+     your_image_name</code></pre>
+  -v ~/.ssh:/root/.ssh:ro：将宿主机的 .ssh 目录挂载到容器中的 /root/.ssh，并设置为只读（ro），避免容器篡改密钥文件。</li>
+<li>在容器中验证 SSH 连接：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh -T git@github.com</code></pre></li>
 </ul>
-<h2 id="模块的查找路径"><a href="#模块的查找路径" class="headerlink" title="模块的查找路径"></a>模块的查找路径</h2><p>在 Python 中，当运行一个项目时，模块的查找路径遵循特定的顺序。这是由 <code>sys.path</code> 列表定义的，该列表按顺序列出了 Python 在查找模块时会搜索的路径。</p>
-<p>模块查找路径的顺序</p>
+<h2 id="2-使用-SSH-Agent-Forwarding"><a href="#2-使用-SSH-Agent-Forwarding" class="headerlink" title="2. 使用 SSH Agent Forwarding"></a>2. 使用 SSH Agent Forwarding</h2><p>通过 SSH Agent 转发（SSH_AUTH_SOCK），让容器使用宿主机的 SSH Agent，而不直接暴露密钥文件。</p>
 <ul>
-<li>当前目录：运行脚本所在的目录。如果你执行了一个脚本，那么 Python 会首先尝试从该脚本所在的目录加载模块。</li>
-<li>环境变量 PYTHONPATH 指定的目录：如果设置了 PYTHONPATH 环境变量，其值中列出的目录将被加入查找路径。</li>
-<li>标准库目录：Python 自带的标准库路径（例如 lib 或 Lib 目录）。</li>
-<li>第三方包路径：通常是安装在 site-packages 目录下的路径。</li>
-<li>内置模块：如果以上路径都找不到，Python 会尝试加载内置模块（如 sys、os）。</li>
+<li>启动 SSH Agent，确保宿主机中 SSH Agent 正在运行：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa</code></pre></li>
+<li>添加密钥到 SSH Agent：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-add ~/.ssh/id_rsa</code></pre></li>
+<li>启动容器时，将宿主机的 SSH Agent Socket 挂载到容器：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it --rm \
+    -v $SSH_AUTH_SOCK:/ssh-agent \
+    -e SSH_AUTH_SOCK=/ssh-agent \
+    your_image_name</code></pre></li>
 </ul>
-<p>示例及详细解释:<br>比如一个项目的目录结构如下：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-│
-├── script.py          # 主运行脚本
-├── module1.py         # 自定义模块
-└── subdir/
-    ├── module2.py     # 自定义模块
-    └── __init__.py    # 将 subdir 标记为包</code></pre>
-
-<p>其中 <code>script.py</code> 代码如下：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import sys
-print("Module search paths:")
-for path in sys.path:
-    print(path)
-
-import module1         # 自定义模块，位于当前目录
-from subdir import module2  # 从子目录中导入模块</code></pre>
-
-<p>模块查找过程如下：</p>
-<ol>
-<li>当前目录：<ul>
-<li>运行 python script.py 时，Python 首先查看当前目录（project/）。</li>
-<li>找到 module1.py，并成功导入。</li>
-</ul>
-</li>
-<li>   子目录导入：<ul>
-<li>对于 from subdir import module2，Python 进入 project/subdir/ 并找到 module2.py。</li>
-<li>因为 subdir 包含 <strong>init</strong>.py，它被认为是一个包。</li>
-</ul>
-</li>
-<li>   标准库：<ul>
-<li>如果你尝试导入如 os、sys 等模块，Python 会从标准库路径中加载。</li>
-</ul>
-</li>
-<li>   第三方包：<ul>
-<li>如果尝试导入第三方库（如 numpy），Python 会在 site-packages 目录中查找。</li>
-</ul>
-</li>
-</ol>
-<h2 id="修改模块查找路径"><a href="#修改模块查找路径" class="headerlink" title="修改模块查找路径"></a>修改模块查找路径</h2><p>可以动态修改 sys.path 来影响模块的查找路径。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import sys
-import os
-
-# 查看当前路径
-print("Before modification:", sys.path)
-
-# 添加新路径
-new_path = os.path.join(os.getcwd(), 'subdir')
-sys.path.insert(0, new_path)
-
-print("After modification:", sys.path)
-
-# 导入模块
-import module2</code></pre>
-
-<h2 id="与包package的关系"><a href="#与包package的关系" class="headerlink" title="与包package的关系"></a>与包package的关系</h2><p>包所在的目录需要包含一个空文件__init__.py来表明这个是一个包，所以说<strong>包是一个包含了多个模块的目录</strong>。包的目的是为了组织模块，以便更好地管理和维护代码。</p>
-<p>在<code>__init__.py</code>文件中可以声明一些描述性的代码来变更package的特性。比如针对import *的__all__，如果某个package下有你明确不希望被引用的py文件，可以通过__all__明确说明哪些是希望引入的，这样在python处理import *时会忽略掉不在__all__列表的内容。比如：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">__all__ = ['module1', 'module2'] # 只允许导入module1和module2</code></pre>
-<h2 id="模块的导入"><a href="#模块的导入" class="headerlink" title="模块的导入"></a>模块的导入</h2><h3 id="同级目录下的模块导入"><a href="#同级目录下的模块导入" class="headerlink" title="同级目录下的模块导入"></a>同级目录下的模块导入</h3><p>如果你要使用的模块（py文件）和当前模块在同一目录，只要import相应的文件名就好，比如在当前目录下有一个module1.py文件，那么在另一个文件中可以直接使用import module1来导入。</p>
+<h2 id="3-使用环境变量传递-GIT-Token"><a href="#3-使用环境变量传递-GIT-Token" class="headerlink" title="3.使用环境变量传递 GIT Token"></a>3.使用环境变量传递 GIT Token</h2><p>如果只需要使用 Git 而不需要完整的 SSH 功能，可以使用 GitHub 提供的 Personal Access Token (PAT)。</p>
 <ul>
-<li><strong>一个模块可以在当前位置import多次，但是只有第一次导入会执行内容，其他的都为引用内存</strong></li>
-<li><strong>更改调用名称：<code>import module1 as m1</code></strong></li>
-<li><strong>只导入模块中的部分内容：<code>from module1 import func1</code></strong></li>
+<li>Settings &gt; Developer settings &gt; Personal access tokens。在 GitHub 上生成 Personal Access Token，勾选 repo 权限。</li>
+<li>在运行容器时，将 Token 作为环境变量传递：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it --rm \
+    -e GITHUB_TOKEN=your_personal_access_token \
+    your_image_name</code></pre></li>
+<li>在容器中，使用 HTTPS URL 结合 Token：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git clone https://&lt;your_username&gt;:${GITHUB_TOKEN}@github.com/&lt;repo_owner&gt;/&lt;repo_name&gt;.git</code></pre></li>
 </ul>
-<h3 id="不同目录下的模块导入"><a href="#不同目录下的模块导入" class="headerlink" title="不同目录下的模块导入"></a>不同目录下的模块导入</h3><h4 id="子目录下的模块导入"><a href="#子目录下的模块导入" class="headerlink" title="子目录下的模块导入"></a>子目录下的模块导入</h4><p>假设目录结构如下：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── main.py
-├── subdir/
-│   ├── module2.py
-│   └── __init__.py</code></pre>
-<p>方法 1：直接导入（如果子目录是一个包）<br>如果子目录包含 <code>__init__.py</code> 文件（即被视为包），可以使用以下方式导入：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from subdir import module2  # 导入子目录中的模块
-module2.some_function()    # 调用 module2 中的函数</code></pre>
-
-<p>方法 2：修改 sys.path<br>如果子目录中没有 <code>__init__.py</code>，或者希望在没有包的情况下导入，可以通过添加子目录到 sys.path：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-import sys
-import os
-
-# 将子目录路径添加到 sys.path
-sys.path.append(os.path.join(os.getcwd(), 'subdir'))
-
-import module2  # 现在可以直接导入
-module2.some_function()</code></pre>
-
-<h4 id="父目录下的模块导入"><a href="#父目录下的模块导入" class="headerlink" title="父目录下的模块导入"></a>父目录下的模块导入</h4><p>假设目录结构如下：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── parent_module.py
-└── subdir/
-    ├── main.py
-    ├── module3.py
-    └── __init__.py</code></pre>
-<p>方法 1：使用 sys.path</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-import sys
-import os
-
-# 将父目录路径添加到 sys.path
-sys.path.append(os.path.dirname(os.getcwd()))
-
-import parent_module  # 现在可以导入父目录的模块
-parent_module.some_function()</code></pre>
-
-<p>方法 2：相对导入（仅适用于包结构）</p>
-<p>如果 subdir 是一个包（包含 <strong>init</strong>.py），可以使用相对导入：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from .. import parent_module  # 相对导入父目录的模块
-parent_module.some_function()</code></pre>
-<p><strong>注意：相对导入仅在包结构中有效，且不能直接运行该脚本（需要通过 python -m 的方式运行）。</strong></p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>1.<br><strong>当使用 <code>from module import func_b</code> 时，整个模块会被加载和执行一次(包括下划线开头的私有对象)，但只有你导入的部分会被绑定到当前的命名空间</strong><br>例如：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># module.py
-value = 1
-def func_a():
-    print("Function func_a is being executed")
-    return 0
-
-def func_b():
-    print("Function func_b is being executed")
-    b = func_a()
-    return b</code></pre>
-
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from module import func_b
-
-print("Calling func_b() in main.py")
-result = func_b()
-print(f"Result: {result}")</code></pre>
-<p>执行过程：<br>1.	<br>from module import func_b</p>
-<p>Python 会先找到 module.py 文件并加载整个模块：</p>
-<ul>
-<li>Python 会解释并执行 module.py 文件的顶层代码。</li>
-<li>value = 1 会被执行并存储到 module 的命名空间中。</li>
-<li>函数 func_a 和 func_b 的定义会被加载，并绑定到 module 的命名空间。</li>
-<li>然后，func_b 会被绑定到当前模块（main.py）的命名空间。</li>
-</ul>
-<p><strong>注意：</strong></p>
-<ul>
-<li>虽然整个模块被加载，但只有 func_b 被绑定到 main.py 的命名空间中。</li>
-<li>在加载过程中，module 的顶层代码（如赋值语句、类定义等）都会被执行一次。</li>
-</ul>
-<ol start="2">
-<li>调用 func_b()</li>
-</ol>
-<ul>
-<li>Python 跳转到 module.py 中 func_b 的定义，并开始执行该函数的内容。</li>
-<li>在 func_b 中，func_a 被调用，导致 func_a 的代码被执行。<br>完整输出：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Calling func_b() in main.py
-Function func_b is being executed
-Function func_a is being executed
-Result: 0</code></pre></li>
-</ul>
-<p>2.<br><strong><strong>init</strong>.py文件的的规范</strong><br>加入存在以下目录结构：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── my_package/
-│   ├── module1.py
-│   ├── module2.py
-│   └── __init__.py
-└── main.py</code></pre>
-<p><code>__init__.py</code> 文件的一些写法的解释：</p>
-<ul>
-<li>空：仅标记为包，导入需要显式地指明模块和内容。所以使用时也是<code>import my_package.module1</code>，本质上是模块，包中的定义的__all__列表不会生效。</li>
-<li><code>from . import module2</code>: 导入完整模块到包命名空间，使用时需通过模块名访问，本质上是模块，包中的定义的__all__列表不会生效。</li>
-<li><code>from my_package import *</code>: 导入完整模块到包命名空间，使用时无需模块名访问，</li>
-<li><code>from .module2 import *</code>: 将整个模块内容导入到包命名空间，使用时无需模块名。</li>
-<li><code>from my_package.module2 import *</code>: 将整个模块内容导入到包命名空间，使用时无需模块名。</li>
-<li><code>from module2 import *</code>: 这是种错误写法，无法找到模块。</li>
-</ul>
-<ol start="3">
-<li><code>__all__</code>在<code>__init__.py</code>中的作用：</li>
-</ol>
-<ul>
-<li>当你使用 from my_package import * 时，<code>__all__</code> 定义了哪些名称会被导入到当前命名空间。</li>
-<li>如果__all__没有定义，那么默认会导入所有非以下划线 _ 开头的对象。</li>
-</ul>
-<p>调用时的区别：</p>
-<ul>
-<li>如果在 <code>main.py</code> 中需要写模块名（例如 my_package.module2.func2()），那么 <code>__all__</code>不会限制模块中的内容。</li>
-<li><code>__all__</code> 只在 from my_package import * 时生效，而不会影响显式导入<br>例如：<br>目录结构：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">my_package/
-├── __init__.py
-├── module1.py
-├── module2.py # 包含 func2 函数</code></pre>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">#__init__.py：
-from .module2 import *
-__all__ = []  # 不对外暴露任何内容</code></pre>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from my_package import *
-func2()  # 报错，因为 __all__=[] 限制了导出的内容
-
-from my_package.module2 import func2 
-func2()  # 正常运行
-
-from my_package import func2
-func2()  # 正常运行， 比较奇怪哈，但是测试了这样子是可以的</code></pre></li>
-</ul>
-<p>4.<br><strong>通过<code>-m</code>运行一个模块</strong><br>对于一些项目，我们可能需要通过命令行来运行一个模块，这时候可以使用<code>-m</code>参数，以支持模块的相对导入。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── my_package/
-│   ├── module1.py
-│   ├── module2.py
-│   └── __init__.py
-└── subdir/
-    ├── module3.py
-    └── __init__.py</code></pre>
-<p>对于moulde3.py中的内容，如果写成：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from my_package import func1 # module1.py中的函数 
-func1()</code></pre>
-<p>需要通过<code>-m</code>参数来运行：<code>python -m subdir.module3</code>，这样才能正确导入my_package中的内容。</p>
-<p>参考：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Uncle_GUO/article/details/80867086">https://blog.csdn.net/Uncle_GUO/article/details/80867086</a></p>
-</blockquote>
 
                 
             </div>
@@ -735,7 +534,7 @@ func1()</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/">http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/</a>
+                    <a href="http://baoblei.github.io/2025/01/10/zai-docker-rong-qi-zhong-shi-yong-su-zhu-ji-mi-yao/">http://baoblei.github.io/2025/01/10/zai-docker-rong-qi-zhong-shi-yong-su-zhu-ji-mi-yao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -773,20 +572,20 @@ func1()</code></pre>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/python/">
-                                    <span class="chip bg-color">python</span>
+                                <a href="/tags/docker/">
+                                    <span class="chip bg-color">docker</span>
                                 </a>
                             
-                                <a href="/tags/ImportError/">
-                                    <span class="chip bg-color">ImportError</span>
+                                <a href="/tags/git/">
+                                    <span class="chip bg-color">git</span>
                                 </a>
                             
-                                <a href="/tags/python%E6%A8%A1%E5%9D%97/">
-                                    <span class="chip bg-color">python模块</span>
+                                <a href="/tags/github/">
+                                    <span class="chip bg-color">github</span>
                                 </a>
                             
-                                <a href="/tags/python%E5%8C%85/">
-                                    <span class="chip bg-color">python包</span>
+                                <a href="/tags/ssh/">
+                                    <span class="chip bg-color">ssh</span>
                                 </a>
                             
                         </div>
@@ -1132,17 +931,18 @@ func1()</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/">
+                <a href="/2025/01/10/zai-docker-rong-qi-zhong-shi-yong-su-zhu-ji-mi-yao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Linux文件、磁盘以及扩容方式">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="在docker容器中使用宿主机密钥">
                         
-                        <span class="card-title">Linux文件、磁盘以及扩容方式</span>
+                        <span class="card-title">在docker容器中使用宿主机密钥</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1152,34 +952,39 @@ func1()</code></pre>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/docker/" class="post-category">
+                                    docker
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/docker/">
+                        <span class="chip bg-color">docker</span>
                     </a>
                     
-                    <a href="/tags/%E7%A3%81%E7%9B%98/">
-                        <span class="chip bg-color">磁盘</span>
+                    <a href="/tags/git/">
+                        <span class="chip bg-color">git</span>
                     </a>
                     
-                    <a href="/tags/%E6%89%A9%E5%AE%B9/">
-                        <span class="chip bg-color">扩容</span>
+                    <a href="/tags/github/">
+                        <span class="chip bg-color">github</span>
+                    </a>
+                    
+                    <a href="/tags/ssh/">
+                        <span class="chip bg-color">ssh</span>
                     </a>
                     
                 </div>
@@ -1193,13 +998,13 @@ func1()</code></pre>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/">
+                <a href="/2025/01/09/git-github-ri-chang-shi-yong-fang-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="好用的大模型prompt分享">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Git&amp;GitHub日常使用方法">
                         
-                        <span class="card-title">好用的大模型prompt分享</span>
+                        <span class="card-title">Git&amp;GitHub日常使用方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1210,14 +1015,14 @@ func1()</code></pre>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-09
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Prompt/" class="post-category">
-                                    Prompt
+                            <a href="/categories/git/" class="post-category">
+                                    git
                                 </a>
                             
                             
@@ -1227,12 +1032,12 @@ func1()</code></pre>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/LLMs/">
-                        <span class="chip bg-color">LLMs</span>
+                    <a href="/tags/git/">
+                        <span class="chip bg-color">git</span>
                     </a>
                     
-                    <a href="/tags/Prompt/">
-                        <span class="chip bg-color">Prompt</span>
+                    <a href="/tags/github/">
+                        <span class="chip bg-color">github</span>
                     </a>
                     
                 </div>
@@ -1393,13 +1198,6 @@ func1()</code></pre>
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 

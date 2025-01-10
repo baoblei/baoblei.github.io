@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-09T16:36:09.180Z</updated>
+  <updated>2025-01-10T08:40:19.365Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在docker容器中使用宿主机密钥</title>
+    <link href="http://baoblei.github.io/2025/01/10/zai-docker-rong-qi-zhong-shi-yong-su-zhu-ji-mi-yao/"/>
+    <id>http://baoblei.github.io/2025/01/10/zai-docker-rong-qi-zhong-shi-yong-su-zhu-ji-mi-yao/</id>
+    <published>2025-01-10T08:24:23.000Z</published>
+    <updated>2025-01-10T08:40:19.365Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的 SSH 密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：&lt;/p&gt;
+&lt;h2 id=&quot;1-使用宿主机已有的-SSH-密钥&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
+    
+    
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
+    
+    <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
+    
+    <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
+    
+    <category term="ssh" scheme="http://baoblei.github.io/tags/ssh/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Git&amp;GitHub日常使用方法</title>
     <link href="http://baoblei.github.io/2025/01/09/git-github-ri-chang-shi-yong-fang-fa/"/>
     <id>http://baoblei.github.io/2025/01/09/git-github-ri-chang-shi-yong-fang-fa/</id>
     <published>2025-01-09T15:03:16.000Z</published>
-    <updated>2025-01-09T16:36:09.180Z</updated>
+    <updated>2025-01-10T08:26:23.013Z</updated>
     
     
       
