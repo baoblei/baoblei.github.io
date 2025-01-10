@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-10T08:40:19.365Z</updated>
+  <updated>2025-01-10T09:33:05.511Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pip和conda的镜像配置</title>
+    <link href="http://baoblei.github.io/2025/01/10/pip-he-conda-de-jing-xiang-pei-zhi/"/>
+    <id>http://baoblei.github.io/2025/01/10/pip-he-conda-de-jing-xiang-pei-zhi/</id>
+    <published>2025-01-10T09:28:52.000Z</published>
+    <updated>2025-01-10T09:33:05.511Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;pip&quot;&gt;&lt;a href=&quot;#pip&quot; class=&quot;headerlink&quot; title=&quot;pip&quot;&gt;&lt;/a&gt;pip&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;文件路径：&lt;code&gt;~/.pip/pip.conf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;配置内容：&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="python" scheme="http://baoblei.github.io/categories/python/"/>
+    
+    
+    <category term="pip" scheme="http://baoblei.github.io/tags/pip/"/>
+    
+    <category term="conda" scheme="http://baoblei.github.io/tags/conda/"/>
+    
+  </entry>
   
   <entry>
     <title>在docker容器中使用宿主机密钥</title>
@@ -559,35 +588,6 @@
     <category term="AI" scheme="http://baoblei.github.io/tags/AI/"/>
     
     <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo博客搭建</title>
-    <link href="http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/"/>
-    <id>http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/</id>
-    <published>2024-11-27T18:11:12.000Z</published>
-    <updated>2024-12-06T17:28:33.016Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;基础搭建&quot;&gt;&lt;a href=&quot;#基础搭建&quot; class=&quot;headerlink&quot; title=&quot;基础搭建&quot;&gt;&lt;/a&gt;基础搭建&lt;/h1&gt;&lt;h2 id=&quot;Hexo&quot;&gt;&lt;a href=&quot;#Hexo&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="hexo" scheme="http://baoblei.github.io/categories/hexo/"/>
-    
-    
-    <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
-    
-    <category term="next" scheme="http://baoblei.github.io/tags/next/"/>
-    
-    <category term="个人静态博客搭建" scheme="http://baoblei.github.io/tags/%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   
