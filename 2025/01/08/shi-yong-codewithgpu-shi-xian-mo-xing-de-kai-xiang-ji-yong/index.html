@@ -438,21 +438,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-09
+                    2025-01-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    8 分
                 </div>
                 
 
@@ -562,6 +562,17 @@ cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeI
 
 **************</code></pre>
 <p>在浏览器中打开该地址后，客户端会自动检测是否有Docker环境，点击安装nvidia-docker按钮自动安装相关环境</p>
+<p><strong>docker的权限配置</strong></p>
+<p>在使用docker时，如果不想每次都使用sudo，可以将当前用户加入docker组：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo groupadd docker # 添加docker组
+sudo gpasswd -a ${USER} docker # 将当前用户加入docker组
+sudo systemctl restart docker # 重启docker服务
+
+sudo chmod a+rw /var/run/docker.sock # 修改docker.sock权限</code></pre>
+
+
+
+
 <p><strong>如果使用ssh连接的服务器使用则需要设置端口转发</strong></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh -CNg -L 2022:localhost:2022 user@host -p port</code></pre>
 <p>参数说明：<br>-C:<br>启用压缩。这对于减少传输数据量有帮助，特别是在带宽较低的情况下。</p>
@@ -1334,7 +1345,7 @@ sudo docker exec -it quizzical_wilson /bin/bash</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">43.7k</span>
+                        class="white-color">43.8k</span>
             
             
             
