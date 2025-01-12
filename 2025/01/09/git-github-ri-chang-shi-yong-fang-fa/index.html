@@ -441,14 +441,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    8 分
                 </div>
                 
 
@@ -510,9 +510,10 @@ chmod 644 ~/.ssh/id_ed25519.pub</code></pre></li>
 <li>添加远程仓库地址：<code>git remote add origin &lt;仓库地址&gt;  # 添加远程仓库</code></li>
 <li>基本命令：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git add .          # 添加所有文件到暂存区
 git commit -m "提交信息"  # 提交到本地仓库
-git push origin main  # 推送到远程仓库</code></pre></li>
+git push origin main  # 推送到远程仓库</code></pre>
+<strong>submodule</strong></li>
 </ul>
-<h2 id="典型工作流程"><a href="#典型工作流程" class="headerlink" title="典型工作流程"></a>典型工作流程</h2><ol>
+<h2 id="在-Git-中，子模块（submodule）-是一个-Git-仓库嵌套在另一个-Git-仓库中的工具。将另一个仓库的特定分支作为子模块加入当前仓库的流程如下：-在主仓库中添加子模块：git-submodule-add-b-b-指定目标仓库的分支。-如：https-github-com-example-target-repo-git-submodules-target-repo-：子模块在当前仓库中的存储路径-如submodules-target-repo-初始化并更新子模块：git-submodule-update-init-recursive"><a href="#在-Git-中，子模块（submodule）-是一个-Git-仓库嵌套在另一个-Git-仓库中的工具。将另一个仓库的特定分支作为子模块加入当前仓库的流程如下：-在主仓库中添加子模块：git-submodule-add-b-b-指定目标仓库的分支。-如：https-github-com-example-target-repo-git-submodules-target-repo-：子模块在当前仓库中的存储路径-如submodules-target-repo-初始化并更新子模块：git-submodule-update-init-recursive" class="headerlink" title="在 Git 中，子模块（submodule） 是一个 Git 仓库嵌套在另一个 Git 仓库中的工具。将另一个仓库的特定分支作为子模块加入当前仓库的流程如下：- 在主仓库中添加子模块：git submodule add -b <分支名> <目标仓库地址> <子模块路径>    - -b <分支名>: 指定目标仓库的分支。    - <目标仓库地址>:  如：https://github.com/example/target-repo.git submodules/target-repo    - <子模块路径>：子模块在当前仓库中的存储路径, 如submodules/target-repo- 初始化并更新子模块：git submodule update --init --recursive"></a>在 Git 中，子模块（submodule） 是一个 Git 仓库嵌套在另一个 Git 仓库中的工具。将另一个仓库的特定分支作为子模块加入当前仓库的流程如下：<br>- 在主仓库中添加子模块：<code>git submodule add -b &lt;分支名&gt; &lt;目标仓库地址&gt; &lt;子模块路径&gt;</code><br>    - -b &lt;分支名&gt;: 指定目标仓库的分支。<br>    - &lt;目标仓库地址&gt;:  如：<a target="_blank" rel="noopener" href="https://github.com/example/target-repo.git">https://github.com/example/target-repo.git</a> submodules/target-repo<br>    - &lt;子模块路径&gt;：子模块在当前仓库中的存储路径, 如submodules/target-repo<br>- 初始化并更新子模块：<code>git submodule update --init --recursive</code></h2><h2 id="典型工作流程"><a href="#典型工作流程" class="headerlink" title="典型工作流程"></a>典型工作流程</h2><ol>
 <li>克隆仓库：<code>git clone &lt;仓库地址&gt;</code></li>
 <li>同步更新：<code>git pull origin main</code></li>
 <li>分支管理：<ul>
@@ -1436,7 +1437,7 @@ build:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">46.2k</span>
+                        class="white-color">46.4k</span>
             
             
             
