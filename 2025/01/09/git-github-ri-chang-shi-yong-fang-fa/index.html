@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -441,7 +441,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    2k
                 </div>
                 
 
@@ -530,7 +530,7 @@ git push origin main</code></pre></li>
 <ol>
 <li>在 GitHub 上点击仓库页面右上角的 Fork 按钮，创建一个你的副本仓库。</li>
 <li>将 Fork 的仓库克隆到本地： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git clone &lt;你的 Fork 仓库地址&gt;</code></pre></li>
-<li>创建新分支： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git checkout -b feature-branch</code></pre></li>
+<li>创建新分支： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git checkout -b feature-branch # -b 表示创建并切换到新分支</code></pre></li>
 <li>提交更改： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git add .
 git commit -m "添加新功能"
 git push origin feature-branch</code></pre></li>
@@ -547,7 +547,15 @@ upstream  &lt;原仓库地址&gt; (fetch)</code></pre></li>
 <li>从 upstream 拉取最新代码：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git fetch upstream</code></pre></li>
 <li>合并原仓库的主分支代码到你的主分支：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git checkout main
 git merge upstream/main</code></pre></li>
-<li>推送更新到你的 Fork 仓库：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git push origin main</code></pre></li>
+<li>推送更新到你的 Fork 仓库：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git push origin main</code></pre>
+<strong>如果 Fork 仓库是用作完全独立的项目，且不再需要原仓库的更新或提交历史，可以清除.git重新初始化</strong>：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rm -rf .git
+git init
+git remote add origin &lt;你的 Fork 仓库地址&gt;
+git add .
+git commit -m "初始化"
+git push origin main
+
+# 此时Fork 仓库已经是一个全新的仓库，你没有办法再跟踪原仓库的更新了，也不能提交pull request</code></pre></li>
 </ul>
 <h3 id="Pull-Requests"><a href="#Pull-Requests" class="headerlink" title="Pull Requests"></a>Pull Requests</h3><p>Pull Request (PR) 是协作开发的重要工具，用于在分支之间或不同开发者的仓库之间合并代码改动，同时提供审阅、讨论和测试的机会。</p>
 <ol>
@@ -1428,7 +1436,7 @@ build:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">46.1k</span>
+                        class="white-color">46.2k</span>
             
             
             
