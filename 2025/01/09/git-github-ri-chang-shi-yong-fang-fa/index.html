@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -434,7 +434,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-10
+                    2025-01-12
                 </div>
                 
 
@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
 
@@ -497,7 +497,9 @@
 <li>注册 GitHub 账户</li>
 <li>生成 SSH 密钥：<code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></li>
 <li>将 SSH 密钥添加到 GitHub 账户：将 <code>~/.ssh/id_ed25519.pub</code> 文件中的内容添加到 GitHub 账户的 SSH keys 中。</li>
-<li>验证GitHub连接：<code>ssh -T git@github.com</code><br><strong>如果你是在docker容器中连接github，为了避免SSH 密钥的泄漏风险应该<a href="">使用宿主机已有的 SSH 密钥</a></strong></li>
+<li>验证GitHub连接：<code>ssh -T git@github.com</code><br><strong>如果你是在docker容器中连接github，为了避免SSH 密钥的泄漏风险应该<a href="">使用宿主机已有的 SSH 密钥</a></strong><br><strong>注意.ssh目录中的权限不能修改，如果出现权限太过开放，则需要修改.ssh目录的权限</strong><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub</code></pre></li>
 </ul>
 <ol start="4">
 <li>Git 与 GitHub 的连接</li>
@@ -1426,7 +1428,7 @@ build:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">46k</span>
+                        class="white-color">46.1k</span>
             
             
             
