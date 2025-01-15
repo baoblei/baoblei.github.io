@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-15T13:06:56.655Z</updated>
+  <updated>2025-01-15T16:00:55.432Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Otsu 阈值算法</title>
+    <link href="http://baoblei.github.io/2025/01/15/otsu-yu-zhi-suan-fa/"/>
+    <id>http://baoblei.github.io/2025/01/15/otsu-yu-zhi-suan-fa/</id>
+    <published>2025-01-15T14:27:59.000Z</published>
+    <updated>2025-01-15T16:00:55.432Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Otsu 阈值算法的简单实现&lt;/p&gt;
+&lt;h2 id=&quot;1-什么是-Otsu-阈值算法&quot;&gt;&lt;a href=&quot;#1-什么是-Otsu-阈值算法&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是 Otsu 阈值算法&quot;&gt;&lt;/a&gt;1. 什么是 Otsu</summary>
+        
+      
+    
+    
+    
+    <category term="image-processing" scheme="http://baoblei.github.io/categories/image-processing/"/>
+    
+    
+    <category term="otsu" scheme="http://baoblei.github.io/tags/otsu/"/>
+    
+    <category term="threshold" scheme="http://baoblei.github.io/tags/threshold/"/>
+    
+    <category term="image-processing" scheme="http://baoblei.github.io/tags/image-processing/"/>
+    
+  </entry>
+  
+  <entry>
     <title>硬菜收集</title>
     <link href="http://baoblei.github.io/2025/01/11/ying-cai-shou-ji/"/>
     <id>http://baoblei.github.io/2025/01/11/ying-cai-shou-ji/</id>
     <published>2025-01-11T12:00:32.000Z</published>
-    <updated>2025-01-15T13:06:56.655Z</updated>
+    <updated>2025-01-15T13:12:53.837Z</updated>
     
     
       
@@ -549,39 +579,6 @@
     <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
     
     <category term="PagedAttention" scheme="http://baoblei.github.io/tags/PagedAttention/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大模型优化--KV Cache</title>
-    <link href="http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/"/>
-    <id>http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/</id>
-    <published>2024-12-01T20:28:19.000Z</published>
-    <updated>2024-12-06T17:40:01.042Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;KV-Cache-介绍&quot;&gt;&lt;a href=&quot;#KV-Cache-介绍&quot; class=&quot;headerlink&quot; title=&quot;KV Cache 介绍&quot;&gt;&lt;/a&gt;KV Cache 介绍&lt;/h2&gt;&lt;p&gt;KV</summary>
-        
-      
-    
-    
-    
-    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
-    
-    
-    <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="KV Cache" scheme="http://baoblei.github.io/tags/KV-Cache/"/>
-    
-    <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
-    
-    <category term="MQA" scheme="http://baoblei.github.io/tags/MQA/"/>
-    
-    <category term="GQA" scheme="http://baoblei.github.io/tags/GQA/"/>
     
   </entry>
   
