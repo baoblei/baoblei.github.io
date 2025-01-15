@@ -515,8 +515,8 @@ Otsu 阈值算法的基本思想是：通过计算图像的灰度直方图，找
 <li><p>类间方差：$\sigma_b^2 = w_1 w_2 (u_1 - u_2)^2$</p>
 </li>
 </ul>
-<h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4. 代码实现"></a>4. 代码实现</h2><ul>
-<li><p>简介实现，使用opencv计算灰度直方图</p>
+<h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4. 代码实现"></a>4. <a target="_blank" rel="noopener" href="https://github.com/baoblei/otsu">代码实现</a></h2><ul>
+<li><p>简洁实现，使用opencv计算灰度直方图</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def otsu_threshold(image):
     # 计算灰度直方图
     hist = cv2.calcHist([image], [0], None, [256], [0, 256]) # 计算灰度直方图
@@ -538,7 +538,7 @@ return best_threshold</code></pre>
 </li>
 <li><p>一般数据的分割</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def _otsu_threshold(data):
-    hist, bins = np.histogram(data, bins=50) # 可以指定bins的数量
+    hist, bins = np.histogram(data, bins=50) # 可以指定bins的数量t
     bin_centers = (bins[:-1] + bins[1:]) / 2
     
     # OTSU算法实现
