@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-15T16:10:55.412Z</updated>
+  <updated>2025-01-16T10:53:27.696Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vscode 快捷键</title>
+    <link href="http://baoblei.github.io/2025/01/16/vscode-kuai-jie-jian/"/>
+    <id>http://baoblei.github.io/2025/01/16/vscode-kuai-jie-jian/</id>
+    <published>2025-01-16T09:06:48.000Z</published>
+    <updated>2025-01-16T10:53:27.696Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;MacOS 系统上 Visual Studio Code (VSCode) 一些常用的快捷键&lt;/p&gt;
+&lt;p&gt;参考：&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="vscode" scheme="http://baoblei.github.io/categories/vscode/"/>
+    
+    
+    <category term="vscode" scheme="http://baoblei.github.io/tags/vscode/"/>
+    
+  </entry>
   
   <entry>
     <title>Otsu 阈值算法</title>
@@ -549,36 +576,6 @@
     <category term="PEFT" scheme="http://baoblei.github.io/tags/PEFT/"/>
     
     <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大模型优化--PagedAttention</title>
-    <link href="http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/"/>
-    <id>http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/</id>
-    <published>2024-12-02T17:52:42.000Z</published>
-    <updated>2024-12-06T17:40:31.611Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;基于KV Cache的大模型推理过程通常分为两个阶段：Prefill 和 Decoding。&lt;/p&gt;
-&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
-    
-    
-    <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="LLM" scheme="http://baoblei.github.io/tags/LLM/"/>
-    
-    <category term="PagedAttention" scheme="http://baoblei.github.io/tags/PagedAttention/"/>
     
   </entry>
   
