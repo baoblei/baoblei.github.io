@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-16T11:15:46.792Z</updated>
+  <updated>2025-01-26T19:41:04.733Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>transformers-源码学习</title>
+    <link href="http://baoblei.github.io/2025/01/21/transformers-yuan-ma-xue-xi/"/>
+    <id>http://baoblei.github.io/2025/01/21/transformers-yuan-ma-xue-xi/</id>
+    <published>2025-01-20T16:42:36.000Z</published>
+    <updated>2025-01-26T19:41:04.733Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch 框架之上（Tensorflow</summary>
+        
+      
+    
+    
+    
+    <category term="transformer" scheme="http://baoblei.github.io/categories/transformer/"/>
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/transformer/LLMs/"/>
+    
+    
+    <category term="transformer" scheme="http://baoblei.github.io/tags/transformer/"/>
+    
+    <category term="huggingface" scheme="http://baoblei.github.io/tags/huggingface/"/>
+    
+    <category term="qwen" scheme="http://baoblei.github.io/tags/qwen/"/>
+    
+  </entry>
+  
+  <entry>
     <title>vscode 快捷键</title>
     <link href="http://baoblei.github.io/2025/01/16/vscode-kuai-jie-jian/"/>
     <id>http://baoblei.github.io/2025/01/16/vscode-kuai-jie-jian/</id>
     <published>2025-01-16T09:06:48.000Z</published>
-    <updated>2025-01-16T11:15:46.792Z</updated>
+    <updated>2025-01-16T11:53:42.815Z</updated>
     
     
       
@@ -547,35 +578,6 @@
     <category term="sitemap" scheme="http://baoblei.github.io/tags/sitemap/"/>
     
     <category term="google search console" scheme="http://baoblei.github.io/tags/google-search-console/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大模型高效微调方法PEFT--LoRA/QLoRA</title>
-    <link href="http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/"/>
-    <id>http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/</id>
-    <published>2024-12-03T19:04:31.000Z</published>
-    <updated>2024-12-06T17:40:21.165Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;参数高效微调PEFT&quot;&gt;&lt;a href=&quot;#参数高效微调PEFT&quot; class=&quot;headerlink&quot; title=&quot;参数高效微调PEFT&quot;&gt;&lt;/a&gt;参数高效微调PEFT&lt;/h2&gt;&lt;h4 id=&quot;微调&quot;&gt;&lt;a href=&quot;#微调&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
-    
-    
-    <category term="深度学习" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="PEFT" scheme="http://baoblei.github.io/tags/PEFT/"/>
-    
-    <category term="LoRA" scheme="http://baoblei.github.io/tags/LoRA/"/>
     
   </entry>
   
