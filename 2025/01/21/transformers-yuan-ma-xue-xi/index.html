@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -449,14 +449,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.4k
+                    2.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    11 分
                 </div>
                 
 
@@ -735,40 +735,47 @@ print(tokens)
 #        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 #    ])
 #}
-output = model(**tokens)
+output = model(**tokens) # model(**tokens, labels=labels), 如果提供labels，则计算损失
 print(output)
 # SequenceClassifierOutput(
-#    loss=None, 
-#    logits=tensor([[-1.5607,  1.6123],[-3.6183,  3.9137]], grad_fn=&lt;AddmmBackward0&gt;), 
-#    hidden_states=None, 
-#    attentions=None
-#)</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#     loss=None,  # 损失值，在没有提供标签时为None
+#     logits=tensor([
+#         [-1.5607,  1.6123],  # 第一个序列的预测分数（两个类别）
+#         [-3.6183,  3.9137]   # 第二个序列的预测分数
+#     ]), 
+#     hidden_states=None,  # 隐藏状态，默认不返回
+#     attentions=None      # 注意力权重，默认不返回
+# )</code></pre>
+<h3 id="tokenizer"><a href="#tokenizer" class="headerlink" title="tokenizer"></a>tokenizer</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">tokens = tokenizer(
+    sequences,          # 输入文本，可以是单个字符串或字符串列表
+    padding=True,       # 填充设置
+    truncation=True,    # 截断设置
+    return_tensors="pt" # 返回格式
+)</code></pre>
+<ul>
+<li><p>padding</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 相关参数
+tokens = tokenizer(
+    ["Hello", "Hi there!"],
+    padding=True, # 填充设置
+    max_length=10, # 最大长度限制
+    padding_side='right' # 填充位置：'left'或'right'
+)</code></pre>
+</li>
+<li><p>truncation： 截断设置</p>
+</li>
+<li><p>return_tensors： 返回格式(pt, tf)</p>
+</li>
+<li><p>return_token_type_ids： 是否返回token_type_ids(默认False, 用于区分不同句子)</p>
+</li>
+</ul>
+<p><code>output = model(**tokens)</code> 对于文本分类来说，整段文本输入返回一个标签，也就是SequenceClassifierOutput.logits，</p>
+<p>如果是文本生成模型，整段文本输入返回CausalLMOutputWithPast， 对于 input_ids = [v1,v2,v3] 输出为 [v20,v30,v4]。 v20 是根据v1 生成的下一个token（大概率跟真实的v2 不一样），v4 是根据v1,v2,v3 生成的。</p>
+<ol>
+<li>生成式模型的训练是并行的，靠的attention mask操作。训练的时候只需要调用一次即可，因为attention mask的机制可以保证当前token的loss不包含后面的token。inputs 则是一个dict，包含input_ids  和  attention_mask。</li>
+<li>推理的时候，只能一个字一个字的推理，所以会调用多次。 output = model(inputs)  或者 output = model.forward(inputs)的时候，inputs 其实也不需要包含 attention_mask，inputs 仅仅是token 就可以</li>
+</ol>
+<p>model(xx) ==&gt; <code>Module.__call__</code> ==&gt; Module.forward/model.forward，几乎每一个llm 都会自定义forward 方法，如果向forward 方法传入 labels，还会自动计算loss。</p>
 
                 
             </div>
@@ -1525,7 +1532,7 @@ print(output)
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">50.6k</span>
+                        class="white-color">51.1k</span>
             
             
             
