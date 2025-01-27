@@ -449,14 +449,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    2.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    10 分
                 </div>
                 
 
@@ -720,6 +720,55 @@ print(squad_it_dataset) # 包括 train 和 test 的 DatasetDict 对象
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">dataset = load_dataset("json", data_files="my_file.json", streaming=True)
 # 返回一个迭代器，可以逐个处理数据</code></pre></li>
 </ol>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+model = AutoModelForSequenceClassification.from_pretrained(checkpoint)
+sequences = ["I've been waiting for a HuggingFace course my whole life.", "So have I!"]
+tokens = tokenizer(sequences, padding=True, truncation=True, return_tensors="pt")
+print(tokens)
+#{
+#    'input_ids': tensor([
+#        [  101,  1045,  1005,  2310,  2042,  3403,  2005,  1037, 17662, 12172,2607,  2026,  2878,  2166,  1012,   102],
+#        [  101,  2061,  2031,  1045,   999,   102,     0,     0,     0,     0, 0,     0,     0,     0,     0,     0]
+#    ]),     
+#    'attention_mask': tensor([
+#        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+#        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+#    ])
+#}
+output = model(**tokens)
+print(output)
+# SequenceClassifierOutput(
+#    loss=None, 
+#    logits=tensor([[-1.5607,  1.6123],[-3.6183,  3.9137]], grad_fn=&lt;AddmmBackward0&gt;), 
+#    hidden_states=None, 
+#    attentions=None
+#)</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 
             </div>
@@ -1476,7 +1525,7 @@ print(squad_it_dataset) # 包括 train 和 test 的 DatasetDict 对象
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">50.5k</span>
+                        class="white-color">50.6k</span>
             
             
             
