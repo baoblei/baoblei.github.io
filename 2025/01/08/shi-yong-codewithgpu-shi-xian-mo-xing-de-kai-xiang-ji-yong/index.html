@@ -62,9 +62,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -438,7 +438,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-10
+                    2025-02-11
                 </div>
                 
 
@@ -589,7 +589,7 @@ sudo chmod a+rw /var/run/docker.sock # 修改docker.sock权限</code></pre>
 <ul>
 <li>拉取镜像<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker pull registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ</code></pre></li>
 <li>查看镜像<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker images</code></pre></li>
-<li>创建并运行容器<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo docker run -d --name quizzical_wilson -v data80:/root/autodl-tmp registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ sleep infinity
+<li>创建并运行容器<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo docker run -d --name quizzical_wilson --gpus all -v data80:/root/autodl-tmp registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ sleep infinity
 # 这里我挂载了一个卷data80到容器的/root/autodl-tmp目录
 
 sudo docker exec -it quizzical_wilson /bin/bash</code></pre>
