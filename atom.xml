@@ -182,11 +182,11 @@
     <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
     
     
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
-    
     <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
     
     <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
+    
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
     
     <category term="ssh" scheme="http://baoblei.github.io/tags/ssh/"/>
     
@@ -251,7 +251,7 @@
     <link href="http://baoblei.github.io/2025/01/09/docker-de-cun-chu/"/>
     <id>http://baoblei.github.io/2025/01/09/docker-de-cun-chu/</id>
     <published>2025-01-09T10:03:19.000Z</published>
-    <updated>2025-01-09T11:49:45.389Z</updated>
+    <updated>2025-01-10T08:23:22.921Z</updated>
     
     
       
@@ -295,9 +295,9 @@
     <category term="docker" scheme="http://baoblei.github.io/categories/CG/docker/"/>
     
     
-    <category term="CG" scheme="http://baoblei.github.io/tags/CG/"/>
-    
     <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
+    
+    <category term="CG" scheme="http://baoblei.github.io/tags/CG/"/>
     
   </entry>
   

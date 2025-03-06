@@ -159,11 +159,11 @@
       
         <tags>
             
-            <tag> docker </tag>
-            
             <tag> git </tag>
             
             <tag> github </tag>
+            
+            <tag> docker </tag>
             
             <tag> ssh </tag>
             
@@ -269,9 +269,9 @@
       
         <tags>
             
-            <tag> CG </tag>
-            
             <tag> docker </tag>
+            
+            <tag> CG </tag>
             
         </tags>
       
@@ -574,9 +574,9 @@
             
             <tag> 深度学习 </tag>
             
-            <tag> PEFT </tag>
-            
             <tag> LoRA </tag>
+            
+            <tag> PEFT </tag>
             
         </tags>
       
@@ -632,9 +632,9 @@
             
             <tag> 深度学习 </tag>
             
-            <tag> KV Cache </tag>
-            
             <tag> LLM </tag>
+            
+            <tag> KV Cache </tag>
             
             <tag> MQA </tag>
             
@@ -667,11 +667,11 @@
             
             <tag> 深度学习 </tag>
             
-            <tag> LoRA </tag>
+            <tag> KV Cache </tag>
             
             <tag> AI </tag>
             
-            <tag> KV Cache </tag>
+            <tag> LoRA </tag>
             
         </tags>
       

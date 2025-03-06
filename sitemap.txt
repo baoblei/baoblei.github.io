@@ -5,6 +5,7 @@ http://baoblei.github.io/2025/01/16/vscode-kuai-jie-jian/
 http://baoblei.github.io/2025/01/15/otsu-yu-zhi-suan-fa/
 http://baoblei.github.io/2025/01/11/ying-cai-shou-ji/
 http://baoblei.github.io/2025/01/09/git-github-ri-chang-shi-yong-fang-fa/
+http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/
 http://baoblei.github.io/2025/01/10/pip-he-conda-de-jing-xiang-pei-zhi/
 http://baoblei.github.io/2025/01/10/zai-docker-rong-qi-zhong-shi-yong-su-zhu-ji-mi-yao/
 http://baoblei.github.io/2025/01/09/docker-de-cun-chu/
@@ -21,7 +22,6 @@ http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/
 http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/
 http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/
 http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/
-http://baoblei.github.io/2024/12/02/da-mo-xing-you-hua-kv-cache/
 http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/
 http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/
 http://baoblei.github.io/404.html
