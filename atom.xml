@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-01-27T10:45:56.385Z</updated>
+  <updated>2025-03-06T08:52:59.887Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>3D重建-深度图/网格/体素/点云</title>
+    <link href="http://baoblei.github.io/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/"/>
+    <id>http://baoblei.github.io/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/</id>
+    <published>2025-03-06T08:23:55.000Z</published>
+    <updated>2025-03-06T08:52:59.887Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;深度图&quot;&gt;&lt;a href=&quot;#深度图&quot; class=&quot;headerlink&quot; title=&quot;深度图&quot;&gt;&lt;/a&gt;深度图&lt;/h2&gt;&lt;h3 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="3D重建" scheme="http://baoblei.github.io/categories/3D%E9%87%8D%E5%BB%BA/"/>
+    
+    
+    <category term="3D重建" scheme="http://baoblei.github.io/tags/3D%E9%87%8D%E5%BB%BA/"/>
+    
+    <category term="深度图" scheme="http://baoblei.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%9B%BE/"/>
+    
+    <category term="网格" scheme="http://baoblei.github.io/tags/%E7%BD%91%E6%A0%BC/"/>
+    
+    <category term="体素" scheme="http://baoblei.github.io/tags/%E4%BD%93%E7%B4%A0/"/>
+    
+    <category term="点云" scheme="http://baoblei.github.io/tags/%E7%82%B9%E4%BA%91/"/>
+    
+  </entry>
   
   <entry>
     <title>transformers-源码学习</title>
@@ -182,11 +215,11 @@
     <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
     
     
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
+    
     <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
     
     <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
-    
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
     
     <category term="ssh" scheme="http://baoblei.github.io/tags/ssh/"/>
     
@@ -549,35 +582,6 @@
     <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
     
     <category term="FlashAttention" scheme="http://baoblei.github.io/tags/FlashAttention/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>个人博客加入谷歌元标记与站点地图</title>
-    <link href="http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/"/>
-    <id>http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/</id>
-    <published>2024-12-03T19:34:00.000Z</published>
-    <updated>2024-12-06T17:28:59.153Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="google search console" scheme="http://baoblei.github.io/categories/google-search-console/"/>
-    
-    
-    <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
-    
-    <category term="sitemap" scheme="http://baoblei.github.io/tags/sitemap/"/>
-    
-    <category term="google search console" scheme="http://baoblei.github.io/tags/google-search-console/"/>
     
   </entry>
   
