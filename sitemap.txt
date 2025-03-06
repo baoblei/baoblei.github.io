@@ -1,6 +1,9 @@
+http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/
+http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/
+http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/
+http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/
 http://baoblei.github.io/2025/03/06/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-ying-jian-zhi-shi/
 http://baoblei.github.io/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/
-http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/
 http://baoblei.github.io/2025/01/09/docker-chang-jian-ming-ling/
 http://baoblei.github.io/2025/01/21/transformers-yuan-ma-xue-xi/
 http://baoblei.github.io/2025/01/16/vscode-kuai-jie-jian/
@@ -13,7 +16,6 @@ http://baoblei.github.io/2025/01/10/zai-docker-rong-qi-zhong-shi-yong-su-zhu-ji-
 http://baoblei.github.io/2025/01/09/docker-de-cun-chu/
 http://baoblei.github.io/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/
 http://baoblei.github.io/2025/01/07/tong-guo-gong-wang-fang-wen-ju-yu-wang-nei-fu-wu-qi/
-http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/
 http://baoblei.github.io/tmp/%E7%A7%91%E7%A0%94%E7%BB%98%E5%9B%BE.html
 http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/
 http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/
@@ -21,11 +23,9 @@ http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/
 http://baoblei.github.io/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/
 http://baoblei.github.io/2024/12/07/da-mo-xing-you-hua-flashattention-v1/
 http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/
-http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/
 http://baoblei.github.io/2024/12/03/da-mo-xing-you-hua-pagedattention/
 http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/
 http://baoblei.github.io/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/
-http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/
 http://baoblei.github.io/404.html
 http://baoblei.github.io/friends/index.html
 http://baoblei.github.io/contact/index.html
