@@ -68,9 +68,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -489,35 +489,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="GPU与内存"><a href="#GPU与内存" class="headerlink" title="GPU与内存"></a>GPU与内存</h1><p>深度学习模型的基础计算单元是”算子”，本质上是将输入映射为输出的计算过程，对于古老的CPU-内存体系来说，算子遵循一下步骤：</p>
+                <h2 id="GPU与内存"><a href="#GPU与内存" class="headerlink" title="GPU与内存"></a>GPU与内存</h2><p>深度学习模型的基础计算单元是”算子”，本质上是将输入映射为输出的计算过程，对于古老的CPU-内存体系来说，算子遵循一下步骤：</p>
 <ul>
 <li>从内存中读取输入数据</li>
 <li>对独到的数据调用CPU指令，完成算子计算</li>
 <li>将计算结果写回内存</li>
 </ul>
-<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><p>通常指的是随机访问存储器（RAM），“随机”意味着访问任何位置的数据所需的时间是相同的，与位置无关。<br>RAN可以分为两类：</p>
+<h3 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h3><p>通常指的是随机访问存储器（RAM），“随机”意味着访问任何位置的数据所需的时间是相同的，与位置无关。<br>RAN可以分为两类：</p>
 <ul>
 <li>静态随机访问存储器（SRAM）：基于双稳态触发器（bistable flip-flop），读取时不会丢失数据（<strong>非破坏性读取</strong>）。常用于Cache。</li>
 <li>动态随机访问存储器（DRAM）：基于电容存储，读取数据会丢失数据，需要重写（<strong>破坏性读取</strong>，需刷新）。常用于主存。</li>
 </ul>
 <p>不管是SRAM还是DRAM，都是临时存储，断电后数据会丢失的，数据不会保留（<strong>易失性</strong>）。</p>
 <p>在选用内存时往往会看到DDR4、DDR5等字样，指的是基于DDR的第几代产品，涉及技术标准、芯片结构及控制算法的升级，但是要看主板是否支持最新一代内存规格。</p>
-<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306190238.png"><br>CPU的核心结构包括负责计算的算数逻辑单元(ALU)、负责加速数据读写速度的多级缓存，在此基础上还会采用CPU多核心设计来增加并行度。</p>
-<h1 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h1><p>与RAM不同，硬盘是长期存储设备，断电后数据不会丢失，数据会保留（<strong>非易失性</strong>）。<br>一般常用的硬盘有机械硬盘HDD和固态硬盘SSD。SSD的读写速度远高于HDD，但是价格也更高。</p>
+<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306190238.png"><br>CPU的核心结构包括负责计算的算数逻辑单元(ALU)、负责加速数据读写速度的多级缓存，在此基础上还会采用CPU多核心设计来增加并行度。</p>
+<h2 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h2><p>与RAM不同，硬盘是长期存储设备，断电后数据不会丢失，数据会保留（<strong>非易失性</strong>）。<br>一般常用的硬盘有机械硬盘HDD和固态硬盘SSD。SSD的读写速度远高于HDD，但是价格也更高。</p>
 <p>硬盘的读写行为大致分为两种模式：</p>
 <ul>
 <li>随机读写模式：高频率读写小规模数据。IOPS（Input/Output Operations Per Second）是衡量硬盘随机读写速度的指标。</li>
 <li>连续读写模式：需要读取大文件或顺序访问数据。MB/s（Megabytes per second）是衡量硬盘连续读写速度的指标。</li>
 </ul>
 <p>其中连续读写速度有硬盘连续读写速度和数据传输速度共同决定。随着硬盘读取效率的不断提高，读写效率的瓶颈慢慢开始出现在了数据传输阶段，所以在SATA固态硬盘的基础上，又发展出了NVMe固态硬盘。<strong>NVMe固态硬盘使用传输效率更高的PCIe传输通道</strong>，在读写性能上往往超出SATA固态硬盘许多。</p>
-<h1 id="显卡"><a href="#显卡" class="headerlink" title="显卡"></a>显卡</h1><h2 id="CPU局限性"><a href="#CPU局限性" class="headerlink" title="CPU局限性"></a>CPU局限性</h2><p>CPU可以“全能”的处理各种指令（计算指令、访存指令，也能够处理好跳转等逻辑指令），但在处理计算密集型任务时，CPU的计算速度不如GPU或其他异构芯片高效。</p>
+<h2 id="显卡"><a href="#显卡" class="headerlink" title="显卡"></a>显卡</h2><h3 id="CPU局限性"><a href="#CPU局限性" class="headerlink" title="CPU局限性"></a>CPU局限性</h3><p>CPU可以“全能”的处理各种指令（计算指令、访存指令，也能够处理好跳转等逻辑指令），但在处理计算密集型任务时，CPU的计算速度不如GPU或其他异构芯片高效。</p>
 <p>因此针对计算密集型的额任务，应该让CPU处理复杂的交互逻辑，而采用一个专门的芯片处理密集的计算，<br>这需要我们在软件层面上对程序任务进行划分，将一个程序涉及的所有任务都分为两种类型：</p>
 <ul>
 <li>外围任务：业务代码、API接口、用户交互等逻辑复杂的任务。</li>
 <li>内核任务：高度内聚的计算密集型任务，逻辑分支很少。</li>
 </ul>
 <p>而GPU可以处理密集的计算，例如一个3D游戏，其中用户交互、用户界面(UI)、音频等部分由CPU负责处理，而图形渲染和物理仿真等核心计算任务则由GPU执行。<br>在深度学习领域，核心的计算任务被封装成算子并在GPU上执行，而复杂的逻辑调度、数据搬运等任务则由CPU完成。</p>
-<h2 id="GPU硬件结构"><a href="#GPU硬件结构" class="headerlink" title="GPU硬件结构"></a>GPU硬件结构</h2><p>GPU的计算核心并不能直接从内存读取数据，于是在二者之间又加入了**显存(VRAM)**这个额外的存储元件。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306193624.png"></p>
+<h3 id="GPU硬件结构"><a href="#GPU硬件结构" class="headerlink" title="GPU硬件结构"></a>GPU硬件结构</h3><p>GPU的计算核心并不能直接从内存读取数据，于是在二者之间又加入了**显存(VRAM)**这个额外的存储元件。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306193624.png"></p>
 <p>GPU自顶向下可以分为以下几个部分：</p>
 <ul>
 <li>最外层：显存、L2缓存</li>
@@ -536,7 +536,7 @@
 <p>这里面真正重要的是图中标记为蓝色的几个硬件单元。其中张量计算核心、标量计算核心决定了GPU的整体计算效率；L1缓存、显存决定了GPU存取数据的效率；线程束调度器则与CUDA编程模型中的线程束(warp)概念直接对应，负责线程间的通信和调度。</p>
 <p>A100（Ampere架构）中的SM如下图：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306195211.png"></p>
 <p>A100整体架构图：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306195334.png"></p>
-<h2 id="GPU编程模型及其硬件对应"><a href="#GPU编程模型及其硬件对应" class="headerlink" title="GPU编程模型及其硬件对应"></a>GPU编程模型及其硬件对应</h2><p>Python、C++等程序能够在计算机上运行，是因为它们通过编译器转换成硬件能识别的指令，从而在CPU上执行。<br>基于这一逻辑，如果存在一个能将C++或Python编译成GPU指令的编译器，我们就可以直接在GPU上运行这些代码。<br>然而，遗憾的是，NVIDIA没有提供这种直接的编译器。相反，NVIDIA开发了一套专门的GPU编程模型，称为CUDA语言，来支持在GPU上进行编程。<br>CUDA编程模型本质是对GPU硬件的抽象。</p>
+<h3 id="GPU编程模型及其硬件对应"><a href="#GPU编程模型及其硬件对应" class="headerlink" title="GPU编程模型及其硬件对应"></a>GPU编程模型及其硬件对应</h3><p>Python、C++等程序能够在计算机上运行，是因为它们通过编译器转换成硬件能识别的指令，从而在CPU上执行。<br>基于这一逻辑，如果存在一个能将C++或Python编译成GPU指令的编译器，我们就可以直接在GPU上运行这些代码。<br>然而，遗憾的是，NVIDIA没有提供这种直接的编译器。相反，NVIDIA开发了一套专门的GPU编程模型，称为CUDA语言，来支持在GPU上进行编程。<br>CUDA编程模型本质是对GPU硬件的抽象。</p>
 <p>CUDA编程模型的核心是要求程序员将算法的实现代码，拆分成多个可以独立执行的软件任务。<br>我们将算法拆分得到的每个独立任务，称为一个<strong>线程</strong>。线程是软件层面最小的执行单元。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306212256.png"></p>
 <p>为了尽可能提高并行度，SP中的线程束调度器(warp scheduler)会将每32个线程打包成一个线程束(warp)。<br>在一个时钟周期内，每组线程束会被调度到一个流式处理器上，执行一条相同的GPU指令。<br>SM对应CUDA编程语言中线程块(block)的概念。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306212820.png"></p>
 <p>GPU的并行能力其实分为软件并行和硬件并行两层：</p>
@@ -544,28 +544,28 @@
 <li>软件并行：将算子拆分成多个可以独立执行的线程，使用CUDA语言实现。</li>
 <li>硬件并行：对线程进行分组，然后以线程束(warp)或者线程块(block)为单元，并行执行这些线程。</li>
 </ul>
-<h2 id="GPU的关键指标"><a href="#GPU的关键指标" class="headerlink" title="GPU的关键指标"></a>GPU的关键指标</h2><ul>
+<h3 id="GPU的关键指标"><a href="#GPU的关键指标" class="headerlink" title="GPU的关键指标"></a>GPU的关键指标</h3><ul>
 <li>Tensor core和CUDA core性能：决定了计算效率。</li>
 <li>显存大小：决定了可以承载的模型、数据规模上限。</li>
 <li>显存带宽：决定了显存读写效率。</li>
 <li>卡间通信带宽：决定了多块GPU卡之间数据通信的效率。</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306213416.png"></p>
-<h2 id="显存VRAM与内存DRAM之间的数据传输"><a href="#显存VRAM与内存DRAM之间的数据传输" class="headerlink" title="显存VRAM与内存DRAM之间的数据传输"></a>显存VRAM与内存DRAM之间的数据传输</h2><p>一般来说，VRAM与DRAM之间的传输依靠CPU进行调度，但是如果DRAM中的数据存储在锁页内存（Pinned Memory）中，CPU无法直接访问，此时就需要使用DMA(Direct Memory Access)技术。</p>
+<h3 id="显存VRAM与内存DRAM之间的数据传输"><a href="#显存VRAM与内存DRAM之间的数据传输" class="headerlink" title="显存VRAM与内存DRAM之间的数据传输"></a>显存VRAM与内存DRAM之间的数据传输</h3><p>一般来说，VRAM与DRAM之间的传输依靠CPU进行调度，但是如果DRAM中的数据存储在锁页内存（Pinned Memory）中，CPU无法直接访问，此时就需要使用DMA(Direct Memory Access)技术。</p>
 <p>另外，NVIDIA还提供了依靠DMA的VRAM与硬盘/网络之间数据传输：</p>
 <ul>
 <li>GPU Direct Storage技术：允许GPU借助DMA直接访问NVMe固态硬盘；</li>
 <li>RDMA技术：允许GPU借助DMA直接访问网络存储。</li>
 </ul>
-<h1 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h1><h2 id="单机多卡"><a href="#单机多卡" class="headerlink" title="单机多卡"></a>单机多卡</h2><p>多卡在单机上的通信方式有两种：</p>
+<h2 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h2><h3 id="单机多卡"><a href="#单机多卡" class="headerlink" title="单机多卡"></a>单机多卡</h3><p>多卡在单机上的通信方式有两种：</p>
 <ul>
 <li>通过<strong>PCIe</strong>总线连接</li>
 <li>通过<strong>NVLink</strong>连接</li>
 </ul>
 <p>NVLink是NVIDIA开发的一种高速互连技术，专门用于GPU之间的通信（CPU与GPU之间的通信使用PCIe总线）。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306215759.png"></p>
 <p>NVLink第一代在Pascal架构中被引入，后面逐代升级。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306215956.png"></p>
-<h2 id="多机多卡"><a href="#多机多卡" class="headerlink" title="多机多卡"></a>多机多卡</h2><p>在涉及多机多卡的分布式训练中，不同机器上的GPU通信的硬件不再是NVLink或者PCIe这种高带宽低延迟的互联，而是基于网络设备的传输。<br>两类主流的解决方案分别基于<strong>Ethernet</strong>以及<strong>InfiniBand</strong>。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306220225.png"></p>
-<h2 id="分布式系统的数据存储"><a href="#分布式系统的数据存储" class="headerlink" title="分布式系统的数据存储"></a>分布式系统的数据存储</h2><p>对于分布式训练系统来说，通过每台服务器的本地硬盘存储大规模训练数据并不现实。<br>基于网络的存储方案在分布式系统中更受欢迎。通常也分为两类，即<strong>NFS</strong>（network file system，网络文件系统）和基于<strong>云服务</strong>的存储方案。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306220724.png"></p>
+<h3 id="多机多卡"><a href="#多机多卡" class="headerlink" title="多机多卡"></a>多机多卡</h3><p>在涉及多机多卡的分布式训练中，不同机器上的GPU通信的硬件不再是NVLink或者PCIe这种高带宽低延迟的互联，而是基于网络设备的传输。<br>两类主流的解决方案分别基于<strong>Ethernet</strong>以及<strong>InfiniBand</strong>。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306220225.png"></p>
+<h3 id="分布式系统的数据存储"><a href="#分布式系统的数据存储" class="headerlink" title="分布式系统的数据存储"></a>分布式系统的数据存储</h3><p>对于分布式训练系统来说，通过每台服务器的本地硬盘存储大规模训练数据并不现实。<br>基于网络的存储方案在分布式系统中更受欢迎。通常也分为两类，即<strong>NFS</strong>（network file system，网络文件系统）和基于<strong>云服务</strong>的存储方案。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306220724.png"></p>
 <p>分布式系统的硬件示意图:<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306220853.png"></p>
 
                 
