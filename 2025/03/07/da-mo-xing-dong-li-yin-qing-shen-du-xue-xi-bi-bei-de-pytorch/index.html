@@ -63,9 +63,9 @@ PyTorch的张量数据结构Pytorch通过张量(torch.Tenso">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0">
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -534,10 +534,10 @@ print(f"x = {x}\ny = {y}")
 #         [0., 0., 0.]])
 # y = tensor([1., 0., 0.])</code></pre>
 
-<p>注意一些接口如**reshape()和flatten()**的行为较为特殊，它们根据具体的使用场景返回一个视图张量或一个全新内存的张量。这种行为的不确定性导致这些接口并不是最理想的API设计。</p>
+<p>注意一些接口如 <strong>reshape()和flatten()</strong> 的行为较为特殊，它们根据具体的使用场景返回一个视图张量或一个全新内存的张量。这种行为的不确定性导致这些接口并不是最理想的API设计。</p>
 <h2 id="Pytorch中的算子"><a href="#Pytorch中的算子" class="headerlink" title="Pytorch中的算子"></a>Pytorch中的算子</h2><h3 id="算子库"><a href="#算子库" class="headerlink" title="算子库"></a>算子库</h3><p>PyTorch提供了大量用于构建神经网络的算子，这些算子可以分为以下几类：</p>
 <ul>
-<li>(1)基础数学运算：涵盖了加法(+)、减法(-)、<strong>乘法(*/mul)<strong>、除法(/)、指数(exp)、幂次方(pow)等基本数学操作。（</strong>element-wise操作</strong>）</li>
+<li>(1)基础数学运算：涵盖了加法(+)、减法(-)、 <strong>乘法(*/mul)</strong> 、除法(/)、指数(exp)、幂次方(pow)等基本数学操作。（<strong>element-wise操作</strong>）</li>
 <li>(2)线性代数运算：包括矩阵乘法(**matmul/@)**、点乘(dot)、转置(t)、逆矩阵(inverse)等线性代数相关的运算。</li>
 <li>(3)逻辑和比较运算：例如逻辑与(logical_and)、逻辑或(logical_or)、等于(eq)、大于(gt)、小于(lt)等用于比较和逻辑判断的操作。</li>
 <li>(4)张量操作：涉及张量的索引、切片、拼接(cat)、调整形状(reshape)、调整维度(permute)等操作，用于张量的形状和内容调整。</li>
