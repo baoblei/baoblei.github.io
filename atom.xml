@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-06T14:13:27.085Z</updated>
+  <updated>2025-03-07T14:54:53.444Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>大模型动力引擎-深度学习必备的PyTorch</title>
+    <link href="http://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch/"/>
+    <id>http://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch/</id>
+    <published>2025-03-07T08:40:11.000Z</published>
+    <updated>2025-03-07T14:54:53.444Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本章将从PyTorch的核心概念——张量和算子讲起，逐步深入PyTorch的内存分配、基于动态图的运行机制，以及作为训练框架的杀手锏级特性——自动微分系统的底层原理&lt;/p&gt;
+&lt;h2 id=&quot;PyTorch的张量数据结构&quot;&gt;&lt;a href=&quot;#PyTorch的张量数据结构&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="《大模型动力引擎》阅读笔记" scheme="http://baoblei.github.io/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
+    
+    <category term="《大模型动力引擎》" scheme="http://baoblei.github.io/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/"/>
+    
+    <category term="PyTorch" scheme="http://baoblei.github.io/tags/PyTorch/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大模型动力引擎-深度学习必备硬件知识</title>
     <link href="http://baoblei.github.io/2025/03/06/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-ying-jian-zhi-shi/"/>
     <id>http://baoblei.github.io/2025/03/06/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-ying-jian-zhi-shi/</id>
     <published>2025-03-06T10:11:02.000Z</published>
-    <updated>2025-03-06T14:13:27.085Z</updated>
+    <updated>2025-03-07T13:41:47.042Z</updated>
     
     
       
@@ -34,11 +64,7 @@
     
     
     
-    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
-    
-    <category term="硬件知识" scheme="http://baoblei.github.io/categories/LLMs/%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86/"/>
-    
-    <category term="书籍阅读" scheme="http://baoblei.github.io/categories/LLMs/%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86/%E4%B9%A6%E7%B1%8D%E9%98%85%E8%AF%BB/"/>
+    <category term="《大模型动力引擎》阅读笔记" scheme="http://baoblei.github.io/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
     
     
     <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
@@ -54,7 +80,7 @@
     <link href="http://baoblei.github.io/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/"/>
     <id>http://baoblei.github.io/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/</id>
     <published>2025-03-06T08:23:55.000Z</published>
-    <updated>2025-03-06T08:52:59.887Z</updated>
+    <updated>2025-03-07T13:41:35.737Z</updated>
     
     
       
@@ -559,35 +585,6 @@
     <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
     
     <category term="FlashAttention" scheme="http://baoblei.github.io/tags/FlashAttention/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hexo正确渲染md/latex公式</title>
-    <link href="http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/"/>
-    <id>http://baoblei.github.io/2024/12/07/hexo-zheng-que-xuan-ran-md-latex-gong-shi/</id>
-    <published>2024-12-06T17:27:30.000Z</published>
-    <updated>2024-12-09T16:37:15.073Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;我们平时使用markdown写文档的时候，免不了会碰到数学公式，好在有强大的Mathjax，可以解析网页上的数学公式，大部分情况下都是可以的，但是Markdwon本身的特殊符号与Latex中的符号会出现冲突的时候:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;_&lt;/code&gt;的转</summary>
-        
-      
-    
-    
-    
-    <category term="hexo" scheme="http://baoblei.github.io/categories/hexo/"/>
-    
-    
-    <category term="hexo" scheme="http://baoblei.github.io/tags/hexo/"/>
-    
-    <category term="hexo公式渲染" scheme="http://baoblei.github.io/tags/hexo%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93/"/>
     
   </entry>
   
