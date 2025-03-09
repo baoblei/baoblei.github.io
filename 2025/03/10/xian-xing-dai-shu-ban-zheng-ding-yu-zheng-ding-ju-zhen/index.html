@@ -482,7 +482,9 @@
 <p>半正定矩阵：一个 n×n 的实对称矩阵 $A$，如果对于任何向量 $x \in \mathbb{R}^n$，都满足：$x^TAx \geq 0$，则称 $A$ 为半正定矩阵。</p>
 </blockquote>
 <h3 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h3><p>单位矩阵 $I \in \mathbb{R}^{2 \times 2}$ 是否是正定矩阵？</p>
-<p>解：设向量 $\boldsymbol{x} = \begin{bmatrix}x_1\x_2\end{bmatrix} \in \mathbb{R}^2$ 为非零向量，则<br>$$<br>\boldsymbol{x}^T I\boldsymbol{x} = \boldsymbol{x}^T\boldsymbol{x} = x_1^2 + x_2^2<br>$$<br>由于 $\boldsymbol{x} \neq \boldsymbol{0}$，故 $\boldsymbol{x}^T I\boldsymbol{x} &gt; 0$ 恒成立，即单位矩阵 $I \in \mathbb{R}^{2 \times 2}$ 是正定矩阵。</p>
+<p>解：设向量 $\boldsymbol{x} = \begin{bmatrix}x_1\x_2\end{bmatrix} \in \mathbb{R}^2$ 为非零向量，则</p>
+<p>[<br>\begin{aligned}<br>\boldsymbol{x}^T I\boldsymbol{x} &amp;= \boldsymbol{x}^T\boldsymbol{x} \<br>&amp;= x_1^2 + x_2^2<br>\end{aligned}<br>]</p>
+<p>由于 $\boldsymbol{x} \neq \boldsymbol{0}$，故 $\boldsymbol{x}^T I\boldsymbol{x} &gt; 0$ 恒成立，即单位矩阵 $I \in \mathbb{R}^{2 \times 2}$ 是正定矩阵。</p>
 <p>单位矩阵是正定矩阵 (positive definite)。</p>
 <h4 id="简单证明"><a href="#简单证明" class="headerlink" title="简单证明"></a>简单证明</h4><p>对于任意单位矩阵 $I \in \mathbb{R}^{n \times n}$ 而言，给定任意非零向量 $\boldsymbol{x} \in \mathbb{R}^n$，恒有<br>$$<br>\begin{align*}<br>\boldsymbol{x}^T I\boldsymbol{x} &amp;= \boldsymbol{x}^T\boldsymbol{x}\<br>&amp;= x_1^2 + x_2^2 + \cdots + x_n^2 &gt; 0<br>\end{align*}<br>$$</p>
 <h3 id="例2"><a href="#例2" class="headerlink" title="例2"></a>例2</h3><p>实对称矩阵 $A = \begin{bmatrix}2&amp;-1&amp;0\-1&amp;2&amp;-1\0&amp;-1&amp;2\end{bmatrix} \in \mathbb{R}^{3 \times 3}$ 是否是正定矩阵？</p>
