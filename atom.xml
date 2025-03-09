@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-07T14:58:27.180Z</updated>
+  <updated>2025-03-09T18:08:59.487Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>线性代数-半正定与正定矩阵</title>
+    <link href="http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/"/>
+    <id>http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/</id>
+    <published>2025-03-09T17:35:31.000Z</published>
+    <updated>2025-03-09T18:08:59.487Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;基本定义&quot;&gt;&lt;a href=&quot;#基本定义&quot; class=&quot;headerlink&quot; title=&quot;基本定义&quot;&gt;&lt;/a&gt;基本定义&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;正定矩阵：一个 n×n 的实对称矩阵 $A$，如果对于任何非零向量 $x &#92;in</summary>
+        
+      
+    
+    
+    
+    <category term="线性代数" scheme="http://baoblei.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
+    
+    
+    <category term="线性代数" scheme="http://baoblei.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
+    
+    <category term="正定/半正定矩阵" scheme="http://baoblei.github.io/tags/%E6%AD%A3%E5%AE%9A-%E5%8D%8A%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大模型动力引擎-深度学习必备的PyTorch</title>
     <link href="http://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch/"/>
     <id>http://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch/</id>
     <published>2025-03-07T08:40:11.000Z</published>
-    <updated>2025-03-07T14:58:27.180Z</updated>
+    <updated>2025-03-07T14:58:35.465Z</updated>
     
     
       
@@ -558,33 +586,6 @@
     
     
     <category term="经济发展" scheme="http://baoblei.github.io/tags/%E7%BB%8F%E6%B5%8E%E5%8F%91%E5%B1%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大模型优化-FlashAttention-v2/v3</title>
-    <link href="http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/"/>
-    <id>http://baoblei.github.io/2024/12/10/da-mo-xing-you-hua-flashattention-v2-v3/</id>
-    <published>2024-12-09T18:05:29.000Z</published>
-    <updated>2024-12-17T15:57:59.596Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;FlashAttention-v1回顾&quot;&gt;&lt;a href=&quot;#FlashAttention-v1回顾&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
-    
-    
-    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
-    
-    <category term="FlashAttention" scheme="http://baoblei.github.io/tags/FlashAttention/"/>
     
   </entry>
   
