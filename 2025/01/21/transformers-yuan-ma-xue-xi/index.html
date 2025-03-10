@@ -5,7 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="transformers-源码学习, 庞贝堡垒">
-    <meta name="description" content="前言Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch 框架之上（Tensorflow 的版本功能并不完善），基本上 所有的Transformer 模型都可以在 Hugging Face ">
+    <meta name="description" content="前言
+Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch
+框架之上（Tensorflow 的版本功能并不完善），基本上 所有的Transformer
+模型都可以在 Hugging Face">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -479,10 +482,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch 框架之上（Tensorflow 的版本功能并不完善），基本上 所有的Transformer 模型都可以在 Hugging Face Hub 中找到并且加载使用，包括训练、推理、量化等。</p>
-<p>Huggingface官方提供了<a target="_blank" rel="noopener" href="https://transformers.run/">transformers 快速入门</a>的官方教程，可以快速上手。</p>
+                <h2 id="前言">前言</h2>
+<p>Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch
+框架之上（Tensorflow 的版本功能并不完善），基本上 所有的Transformer
+模型都可以在 Hugging Face Hub
+中找到并且加载使用，包括训练、推理、量化等。</p>
+<p>Huggingface官方提供了<a target="_blank" rel="noopener" href="https://transformers.run/">transformers
+快速入门</a>的官方教程，可以快速上手。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250121004750.png"></p>
-<h2 id="HuggingFace主要部分"><a href="#HuggingFace主要部分" class="headerlink" title="HuggingFace主要部分"></a>HuggingFace主要部分</h2><ul>
+<h2 id="huggingface主要部分">HuggingFace主要部分</h2>
+<ul>
 <li>Models Hub：托管和分享模型。</li>
 <li>Datasets Hub：托管和分享数据集。</li>
 <li>Spaces：托管和运行应用（基于 Gradio 或 Streamlit）。</li>
@@ -490,61 +499,60 @@
 <li>Collections：收藏夹，可以查看最新的热门收藏内容。</li>
 <li>Community：社区，提供一些免费学习课程和博客。</li>
 </ul>
-<p>每个hub提供了对应的标签，按内容分为：</p>
+<p>每个hub提供了对应的标签，按内容分为： -
+tasks：按照Multimodal/Computer Vision/Natural Language
+Processing/Audio/Tabular/Reinforcement Learning等内容又做了具体的细分。
+-
+libraries：指出改仓库使用了哪些库，如Pytorch、Transformers、PEFT、Diffusers等。
+- datasets：指出改仓库使用了哪些数据集，如GLUE、SQuAD、Common
+Crawl、Wikipedia等。 -
+languages：指出改仓库使用了哪些语言，如English、Chinese、Spanish、French等。
+- licenses：指出改仓库使用了哪些许可证，如Apache 2.0、MIT、CC-BY-NC-SA
+4.0等。 - other：如inference status，misc杂项等</p>
+<h2 id="transformers库">Transformers库</h2>
+<p>一个自然语言处理的库，提供了简单易用的API，可以快速地加载、训练和部署模型。并且提供统一的代码风格来使用BERT、XLNet和GPT等等各种不同的模型。
+包含configuration，models和tokenizer三个主要类，并基于这三个类提供更上层的pipeline和Trainer，从而用更少的代码实现模型的预测和微调。</p>
 <ul>
-<li>tasks：按照Multimodal/Computer Vision/Natural Language Processing/Audio/Tabular/Reinforcement Learning等内容又做了具体的细分。</li>
-<li>libraries：指出改仓库使用了哪些库，如Pytorch、Transformers、PEFT、Diffusers等。</li>
-<li>datasets：指出改仓库使用了哪些数据集，如GLUE、SQuAD、Common Crawl、Wikipedia等。</li>
-<li>languages：指出改仓库使用了哪些语言，如English、Chinese、Spanish、French等。</li>
-<li>licenses：指出改仓库使用了哪些许可证，如Apache 2.0、MIT、CC-BY-NC-SA 4.0等。</li>
-<li>other：如inference status，misc杂项等</li>
-</ul>
-<h2 id="Transformers库"><a href="#Transformers库" class="headerlink" title="Transformers库"></a>Transformers库</h2><p>一个自然语言处理的库，提供了简单易用的API，可以快速地加载、训练和部署模型。并且提供统一的代码风格来使用BERT、XLNet和GPT等等各种不同的模型。<br>包含configuration，models和tokenizer三个主要类，并基于这三个类提供更上层的pipeline和Trainer，从而用更少的代码实现模型的预测和微调。</p>
-<ul>
-<li><strong>pipeline</strong> 在底层是由 AutoModel 和 AutoTokenizer 类来实现的。AutoClass（即像 AutoModel 和 AutoTokenizer 这样的通用类）是加载模型的快捷方式，它可以从其名称或路径中自动检索预训练模型。</li>
-<li>需要为每个模型系列使用特定的Transformers和Tokenizer（例如，如果使用T5模型系列，则对应T5Tokenizer和 T5ForConditionalGeneration），对于所有预训练模型，您可以声明一个简单的语句：<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import AutoTokenizer, AutoModelForCausalLM
+<li><strong>pipeline</strong> 在底层是由 AutoModel 和 AutoTokenizer
+类来实现的。AutoClass（即像 AutoModel 和 AutoTokenizer
+这样的通用类）是加载模型的快捷方式，它可以从其名称或路径中自动检索预训练模型。</li>
+<li>需要为每个模型系列使用特定的Transformers和Tokenizer（例如，如果使用T5模型系列，则对应T5Tokenizer和
+T5ForConditionalGeneration），对于所有预训练模型，您可以声明一个简单的语句：
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import AutoTokenizer, AutoModelForCausalLM
 tokenizer = AutoTokenizer.from_pretrained("databricks/dolly-v2-3b")
 model = AutoModelForCausalLM.from_pretrained("databricks/dolly-v2-3b")</code></pre></li>
 </ul>
-<h2 id="下载模型文件"><a href="#下载模型文件" class="headerlink" title="下载模型文件"></a>下载模型文件</h2><p>如果直接使用transformers 库，默认保存位置在：～/.cache文件夹下。</p>
-<p><a target="_blank" rel="noopener" href="https://hf-mirror.com/">HF-Mirror</a>提供了国内的镜像下载，推荐使用“方法三：使用 hfd”更加稳定并且下载进度条更直观。下载时记得使用tmux或screen等工具防止下载中断。</p>
-<h2 id="pipeline"><a href="#pipeline" class="headerlink" title="pipeline"></a>pipeline</h2><p>开箱即用的 pipelines，它封装了预训练模型和对应的前处理和后处理环节。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250124012049.png"></p>
-<ol>
-<li>预处理 (preprocessing)，<strong>Transformer模型无法直接处理原始文本字符串</strong>；具体地，我们会使用每个模型对应的分词器 (tokenizer) 来进行。</li>
-</ol>
-<ul>
-<li><p>将输入切分为词语、子词或者符号（例如标点符号），统称为 tokens；</p>
-</li>
-<li><p>根据模型的词表将每个 token 映射到对应的 token 编号/id；映射通常是通过创建文本语料库中标记的词汇表，并根据每个标记在语料库中的出现频率为其分配一个整数值来执行的(如BPE)。最常见的tokens被分配较低的整数值，而不太常见的标记被分配较高的值。</p>
-</li>
-<li><p>根据模型的需要，添加一些额外的输入。</p>
-<ul>
-<li>[PAD] - 用于填充序列到固定长度</li>
-<li>[CLS] - 分类任务中的起始标记</li>
-<li>[SEP] - 用于分隔不同文本段落</li>
-<li>[MASK] - 用于掩码语言模型预训练</li>
-<li>[BOS] / <s> - 序列开始标记</s></li><s>
-</s><li><s>[EOS] / </s> - 序列结束标记</li>
-<li>[UNK] - 表示词表外的未知词</li>
-</ul>
-<p>PS:除了上述训练推理时用到的特殊token，在chat任务时还有有其他的输入token（看promt template）：</p>
-<ul>
-<li>“&lt;|system|&gt;”    # 系统提示</li>
-<li>“&lt;|user|&gt;”      # 用户输入</li>
-<li>“&lt;|assistant|&gt;” # AI助手回复</li>
-<li>“&lt;|human|&gt;”     # 人类对话者</li>
-</ul>
-<p>还有一些控制相关的token（多模态）：</p>
-<ul>
-<li>“&lt;|endoftext|&gt;”  # 文本结束</li>
-<li>“&lt;|im_start|&gt;”   # 图像开始</li>
-<li>“&lt;|im_end|&gt;”     # 图像结束</li>
-</ul>
-</li>
-</ul>
-<ol start="2">
+<h2 id="下载模型文件">下载模型文件</h2>
+<p>如果直接使用transformers 库，默认保存位置在：～/.cache文件夹下。</p>
+<p><a target="_blank" rel="noopener" href="https://hf-mirror.com/">HF-Mirror</a>提供了国内的镜像下载，推荐使用“方法三：使用
+hfd”更加稳定并且下载进度条更直观。下载时记得使用tmux或screen等工具防止下载中断。</p>
+<h2 id="pipeline">pipeline</h2>
+<p>开箱即用的 pipelines，它封装了预训练模型和对应的前处理和后处理环节。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250124012049.png">
+1. 预处理
+(preprocessing)，<strong>Transformer模型无法直接处理原始文本字符串</strong>；具体地，我们会使用每个模型对应的分词器
+(tokenizer) 来进行。 -
+将输入切分为词语、子词或者符号（例如标点符号），统称为 tokens； -
+根据模型的词表将每个 token 映射到对应的 token
+编号/id；映射通常是通过创建文本语料库中标记的词汇表，并根据每个标记在语料库中的出现频率为其分配一个整数值来执行的(如BPE)。最常见的tokens被分配较低的整数值，而不太常见的标记被分配较高的值。
+- 根据模型的需要，添加一些额外的输入。 - [PAD] - 用于填充序列到固定长度
+- [CLS] - 分类任务中的起始标记 - [SEP] - 用于分隔不同文本段落 - [MASK] -
+用于掩码语言模型预训练 - [BOS] / <s> - 序列开始标记 - [EOS] / </s> -
+序列结束标记 - [UNK] - 表示词表外的未知词</p>
+<pre><code>PS:除了上述训练推理时用到的特殊token，在chat任务时还有有其他的输入token（看promt template）：
+- "&lt;|system|&gt;"    # 系统提示
+- "&lt;|user|&gt;"      # 用户输入
+- "&lt;|assistant|&gt;" # AI助手回复
+- "&lt;|human|&gt;"     # 人类对话者
+
+还有一些控制相关的token（多模态）：
+- "&lt;|endoftext|&gt;"  # 文本结束
+- "&lt;|im_start|&gt;"   # 图像开始
+- "&lt;|im_end|&gt;"     # 图像结束</code></pre>
+<ol start="2" type="1">
 <li>将处理好的输入送入模型；</li>
-<li>对模型的输出进行后处理 (postprocessing)，将其转换为人类方便阅读的格式。<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import pipeline
+<li>对模型的输出进行后处理
+(postprocessing)，将其转换为人类方便阅读的格式。 <pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import pipeline
 # 使用pipeline加载模型
 pipeline = pipeline("text-generation", model="gpt2")
 # 输入文本
@@ -553,16 +561,24 @@ input_text = "Once upon a time"
 output_text = pipeline(input_text)
 print(output_text)</code></pre></li>
 </ol>
-<h2 id="三大组件"><a href="#三大组件" class="headerlink" title="三大组件"></a>三大组件</h2><ol>
-<li>「Conﬁguration」：配置类，通常继承自「PretrainedConﬁg」，保存model或tokenizer的超参数，例如词典大小，隐层维度数，dropout rate等。配置类主要可用于复现模型。</li>
-<li>「Tokenizer」：Model只能处理数字，因此Tokenizer需要将我们的文本输入转换为数字。总体上做三件事情：分词；扩展词汇表；识别并处理特殊token。<ol>
-<li>通常继承自「PreTrainedTokenizer」，主要存储词典（也就是<code>from_pretrained()</code> 的部分），token到index映射关系等。</li>
-<li>此外，还会有一些model-specific的特性，如特殊token，<code>[SEP]</code>, <code>[CLS]</code>等的处理，token的type类型处理，语句最大长度等，<strong>因此tokenizer通常和模型是一对一适配的</strong>。</li>
+<h2 id="三大组件">三大组件</h2>
+<ol type="1">
+<li>「Conﬁguration」：配置类，通常继承自「PretrainedConﬁg」，保存model或tokenizer的超参数，例如词典大小，隐层维度数，dropout
+rate等。配置类主要可用于复现模型。</li>
+<li>「Tokenizer」：Model只能处理数字，因此Tokenizer需要将我们的文本输入转换为数字。总体上做三件事情：分词；扩展词汇表；识别并处理特殊token。
+<ol type="1">
+<li>通常继承自「PreTrainedTokenizer」，主要存储词典（也就是<code>from_pretrained()</code>
+的部分），token到index映射关系等。</li>
+<li>此外，还会有一些model-specific的特性，如特殊token，<code>[SEP]</code>,
+<code>[CLS]</code>等的处理，token的type类型处理，语句最大长度等，<strong>因此tokenizer通常和模型是一对一适配的</strong>。</li>
+</ol></li>
+<li>「Model」:
+模型类。封装了预训练模型的计算图过程，遵循着相同的范式，如根据token
+ids进行embedding
+matrix映射（将token的one-hot编码转换成更dense的embedding编码），紧接着多个self-attention层做编码，最后一层task-specific做预测。</li>
 </ol>
-</li>
-<li>「Model」: 模型类。封装了预训练模型的计算图过程，遵循着相同的范式，如根据token ids进行embedding matrix映射（将token的one-hot编码转换成更dense的embedding编码），紧接着多个self-attention层做编码，最后一层task-specific做预测。</li>
-</ol>
-<p>针对上述三大类，transformer还额外封装了AutoConfig, AutoTokenizer,AutoModel，可通过模型的命名来定位其所属的具体类，比如’bert-base-cased’，就可以知道要加载BERT模型相关的配置、切词器和模型。</p>
+<p>针对上述三大类，transformer还额外封装了AutoConfig,
+AutoTokenizer,AutoModel，可通过模型的命名来定位其所属的具体类，比如’bert-base-cased’，就可以知道要加载BERT模型相关的配置、切词器和模型。</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import BertConfig, BertModel
 # Building the config
 config = BertConfig()
@@ -580,7 +596,6 @@ BertConfig {
 }
 # 加载已经训练过的Transformers模型
 model = BertModel.from_pretrained("bert-base-cased")</code></pre>
-
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"># 加载与保存分词器
 from transformers import BertTokenizer
 
@@ -600,14 +615,11 @@ output = model.generate(**inputs, **gen_kwargs) # 这种生成方式更加可控
 # decode the new tokens
 output = tokenizer.decode(output[0].tolist(), skip_special_tokens=True)
 print(output)</code></pre>
-
-<p>Transformers还将模型分为两个部分：</p>
-<ol>
-<li>基础架构：就像一个通用的引擎，负责理解输入的文本，将文本转换成计算机能理解的向量形式，所有任务都用相同的基础结构。</li>
-<li>任务相关的head：根据任务的不同，将基础架构的输出转换为任务需要的输出变量。</li>
-</ol>
-<p>tranformers中常见的模型类型：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 举例说明不同任务的模型
+<p>Transformers还将模型分为两个部分： 1.
+基础架构：就像一个通用的引擎，负责理解输入的文本，将文本转换成计算机能理解的向量形式，所有任务都用相同的基础结构。
+2.
+任务相关的head：根据任务的不同，将基础架构的输出转换为任务需要的输出变量。</p>
+<p>tranformers中常见的模型类型： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># 举例说明不同任务的模型
 models = {
     "*Model": "只输出基础理解，像原材料",
     "*ForCausalLM": "预测下一个词（像GPT）",
@@ -616,11 +628,10 @@ models = {
     "*ForQuestionAnswering": "回答问题",
     "*ForSequenceClassification": "文本分类",
     "*ForTokenClassification": "标注词语（如实体识别）"
-}</code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250127032047.png"></p>
-<h2 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h2><ol>
-<li><p>介绍</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
+}</code></pre> <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250127032047.png"><p></p>
+<h2 id="datasets">Datasets</h2>
+<ol type="1">
+<li><p>介绍 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
 raw_datasets = load_dataset("glue", "mrpc") # GLUE基准测试中的MRPC任务
 print(raw_datasets)
 # 包含训练集、验证集和测试集。每一个集合都包含几个列(sentence1, sentence2, label, and idx)以及一个代表行数的变量
@@ -637,9 +648,8 @@ print(raw_datasets)
 #        features: ['sentence1', 'sentence2', 'label', 'idx'],
 #        num_rows: 1725
 #    })
-#})</code></pre></li>
-<li><p>简单使用</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 1. 加载内置数据集
+#})</code></pre><p></p></li>
+<li><p>简单使用 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># 1. 加载内置数据集
 dataset = load_dataset("glue", "mrpc")  # GLUE基准测试中的MRPC任务
 
 # 2. 加载本地文件
@@ -648,10 +658,9 @@ dataset = load_dataset("json", data_files="my_file.json")
 
 # 3. 访问数据
 train_data = dataset['train']
-first_example = train_data[0]</code></pre>
-</li>
-<li><p>为了预处理数据集，我们需要将文本转换为模型能够理解的数字，使用Dataset.map()方法</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># example 是一个dict，对应数据集的每个元素，并返回一个包含input_ids、attention_mask 和token_type_ids为key的新dict
+first_example = train_data[0]</code></pre><p></p></li>
+<li><p>为了预处理数据集，我们需要将文本转换为模型能够理解的数字，使用Dataset.map()方法
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># example 是一个dict，对应数据集的每个元素，并返回一个包含input_ids、attention_mask 和token_type_ids为key的新dict
 # 在机器学习任务中，一个example通常定义为模型的输入（也成为特征集合）
 def tokenize_function(example):
     return tokenizer(example["sentence1"], example["sentence2"], truncation=True)
@@ -670,10 +679,9 @@ print(raw_datasets)
 #        features: ['attention_mask', 'idx', 'input_ids', 'label', 'sentence1', 'sentence2', 'token_type_ids'],
 #        num_rows: 1725
 #    })
-#})</code></pre>
-</li>
-<li><p>为了解决句子长度统一的问题，我们必须定义一个collate函数，该函数会将每个batch句子填充到正确的长度。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
+#})</code></pre><p></p></li>
+<li><p>为了解决句子长度统一的问题，我们必须定义一个collate函数，该函数会将每个batch句子填充到正确的长度。
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
 from transformers import AutoTokenizer, DataCollatorWithPadding
 
 raw_datasets = load_dataset("glue", "mrpc")
@@ -681,10 +689,8 @@ tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 def tokenize_function(example):
     return tokenizer(example["sentence1"], example["sentence2"], truncation=True)
 tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
-data_collator = DataCollatorWithPadding(tokenizer=tokenizer)</code></pre>
-</li>
-<li><p>加载本地数据集</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer)</code></pre><p></p></li>
+<li><p>加载本地数据集 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
 #{
 #    "data": [
 #        {
@@ -714,13 +720,12 @@ print(squad_it_dataset) # 包括 train 和 test 的 DatasetDict 对象
 #        features: ['title', 'paragraphs'],
 #        num_rows: 48
 #    })
-#})</code></pre>
-</li>
-<li><p><code>streaming=True</code>：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">dataset = load_dataset("json", data_files="my_file.json", streaming=True)
-# 返回一个迭代器，可以逐个处理数据</code></pre></li>
+#})</code></pre><p></p></li>
+<li><p><code>streaming=True</code>： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">dataset = load_dataset("json", data_files="my_file.json", streaming=True)
+# 返回一个迭代器，可以逐个处理数据</code></pre><p></p></li>
 </ol>
-<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+<h2 id="源码分析">源码分析</h2>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 model = AutoModelForSequenceClassification.from_pretrained(checkpoint)
 sequences = ["I've been waiting for a HuggingFace course my whole life.", "So have I!"]
 tokens = tokenizer(sequences, padding=True, truncation=True, return_tensors="pt")
@@ -746,36 +751,41 @@ print(output)
 #     hidden_states=None,  # 隐藏状态，默认不返回
 #     attentions=None      # 注意力权重，默认不返回
 # )</code></pre>
-<h3 id="tokenizer"><a href="#tokenizer" class="headerlink" title="tokenizer"></a>tokenizer</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">tokens = tokenizer(
+<h3 id="tokenizer">tokenizer</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokens = tokenizer(
     sequences,          # 输入文本，可以是单个字符串或字符串列表
     padding=True,       # 填充设置
     truncation=True,    # 截断设置
     return_tensors="pt" # 返回格式
 )</code></pre>
 <ul>
-<li><p>padding</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 相关参数
+<li><p>padding </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># 相关参数
 tokens = tokenizer(
     ["Hello", "Hi there!"],
     padding=True, # 填充设置
     max_length=10, # 最大长度限制
     padding_side='right' # 填充位置：'left'或'right'
-)</code></pre>
-</li>
-<li><p>truncation： 截断设置</p>
-</li>
-<li><p>return_tensors： 返回格式(pt, tf)</p>
-</li>
-<li><p>return_token_type_ids： 是否返回token_type_ids(默认False, 用于区分不同句子)</p>
-</li>
+)</code></pre><p></p></li>
+<li><p>truncation： 截断设置</p></li>
+<li><p>return_tensors： 返回格式(pt, tf)</p></li>
+<li><p>return_token_type_ids： 是否返回token_type_ids(默认False,
+用于区分不同句子)</p></li>
 </ul>
-<p><code>output = model(**tokens)</code> 对于文本分类来说，整段文本输入返回一个标签，也就是SequenceClassifierOutput.logits，</p>
-<p>如果是文本生成模型，整段文本输入返回CausalLMOutputWithPast， 对于 input_ids = [v1,v2,v3] 输出为 [v20,v30,v4]。 v20 是根据v1 生成的下一个token（大概率跟真实的v2 不一样），v4 是根据v1,v2,v3 生成的。</p>
-<ol>
-<li>生成式模型的训练是并行的，靠的attention mask操作。训练的时候只需要调用一次即可，因为attention mask的机制可以保证当前token的loss不包含后面的token。inputs 则是一个dict，包含input_ids  和  attention_mask。</li>
-<li>推理的时候，只能一个字一个字的推理，所以会调用多次。 output = model(inputs)  或者 output = model.forward(inputs)的时候，inputs 其实也不需要包含 attention_mask，inputs 仅仅是token 就可以</li>
-</ol>
-<p>model(xx) ==&gt; <code>Module.__call__</code> ==&gt; Module.forward/model.forward，几乎每一个llm 都会自定义forward 方法，如果向forward 方法传入 labels，还会自动计算loss。</p>
+<p><code>output = model(**tokens)</code>
+对于文本分类来说，整段文本输入返回一个标签，也就是SequenceClassifierOutput.logits，</p>
+<p>如果是文本生成模型，整段文本输入返回CausalLMOutputWithPast， 对于
+input_ids = [v1,v2,v3] 输出为 [v20,v30,v4]。 v20 是根据v1
+生成的下一个token（大概率跟真实的v2 不一样），v4 是根据v1,v2,v3 生成的。
+1. 生成式模型的训练是并行的，靠的attention
+mask操作。训练的时候只需要调用一次即可，因为attention
+mask的机制可以保证当前token的loss不包含后面的token。inputs
+则是一个dict，包含input_ids 和 attention_mask。 2.
+推理的时候，只能一个字一个字的推理，所以会调用多次。 output =
+model(inputs) 或者 output = model.forward(inputs)的时候，inputs
+其实也不需要包含 attention_mask，inputs 仅仅是token 就可以</p>
+<p>model(xx) ==&gt; <code>Module.__call__</code> ==&gt;
+Module.forward/model.forward，几乎每一个llm 都会自定义forward
+方法，如果向forward 方法传入 labels，还会自动计算loss。</p>
 
                 
             </div>
@@ -1534,7 +1544,7 @@ tokens = tokenizer(
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             

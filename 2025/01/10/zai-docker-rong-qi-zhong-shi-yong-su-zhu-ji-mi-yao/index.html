@@ -5,8 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="在docker容器中使用宿主机密钥, 庞贝堡垒">
-    <meta name="description" content="在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的 SSH 密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：
-1. 使用宿主机已有的 SSH 密钥">
+    <meta name="description" content="在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的
+SSH
+密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：
+## 1. 使用宿主机已有的 SSH">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -480,34 +482,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的 SSH 密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：</p>
-<h2 id="1-使用宿主机已有的-SSH-密钥"><a href="#1-使用宿主机已有的-SSH-密钥" class="headerlink" title="1. 使用宿主机已有的 SSH 密钥"></a>1. 使用宿主机已有的 SSH 密钥</h2><p>将宿主机中已经配置好的 SSH 密钥挂载到容器中，而不是在容器内生成新的密钥。这种方式可以避免密钥泄漏。</p>
-<ul>
-<li>在宿主机上确认已有的 SSH 密钥，通常路径是 ~/.ssh/id_rsa 和 ~/.ssh/id_rsa.pub。</li>
-<li>在启动容器时将宿主机的 SSH 密钥挂载到容器中：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it \
+                <p>在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的
+SSH
+密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：
+## 1. 使用宿主机已有的 SSH 密钥 将宿主机中已经配置好的 SSH
+密钥挂载到容器中，而不是在容器内生成新的密钥。这种方式可以避免密钥泄漏。
+- 在宿主机上确认已有的 SSH 密钥，通常路径是 ~/.ssh/id_rsa 和
+~/.ssh/id_rsa.pub。 - 在启动容器时将宿主机的 SSH 密钥挂载到容器中：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it \
     -v ~/.ssh:/root/.ssh:ro \
-     your_image_name</code></pre>
-  -v ~/.ssh:/root/.ssh:ro：将宿主机的 .ssh 目录挂载到容器中的 /root/.ssh，并设置为只读（ro），避免容器篡改密钥文件。</li>
-<li>在容器中验证 SSH 连接：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh -T git@github.com</code></pre></li>
-</ul>
-<h2 id="2-使用-SSH-Agent-Forwarding"><a href="#2-使用-SSH-Agent-Forwarding" class="headerlink" title="2. 使用 SSH Agent Forwarding"></a>2. 使用 SSH Agent Forwarding</h2><p>通过 SSH Agent 转发（SSH_AUTH_SOCK），让容器使用宿主机的 SSH Agent，而不直接暴露密钥文件。</p>
-<ul>
-<li>启动 SSH Agent，确保宿主机中 SSH Agent 正在运行：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa</code></pre></li>
-<li>添加密钥到 SSH Agent：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-add ~/.ssh/id_rsa</code></pre></li>
-<li>启动容器时，将宿主机的 SSH Agent Socket 挂载到容器：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it --rm \
+     your_image_name</code></pre> -v ~/.ssh:/root/.ssh:ro：将宿主机的 .ssh
+目录挂载到容器中的
+/root/.ssh，并设置为只读（ro），避免容器篡改密钥文件。 - 在容器中验证
+SSH 连接： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh -T git@github.com</code></pre> ## 2. 使用 SSH Agent Forwarding 通过 SSH Agent
+转发（SSH_AUTH_SOCK），让容器使用宿主机的 SSH
+Agent，而不直接暴露密钥文件。 - 启动 SSH Agent，确保宿主机中 SSH Agent
+正在运行： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa</code></pre> - 添加密钥到 SSH Agent： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh-add ~/.ssh/id_rsa</code></pre> -
+启动容器时，将宿主机的 SSH Agent Socket 挂载到容器： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it --rm \
     -v $SSH_AUTH_SOCK:/ssh-agent \
     -e SSH_AUTH_SOCK=/ssh-agent \
-    your_image_name</code></pre></li>
-</ul>
-<h2 id="3-使用环境变量传递-GIT-Token"><a href="#3-使用环境变量传递-GIT-Token" class="headerlink" title="3.使用环境变量传递 GIT Token"></a>3.使用环境变量传递 GIT Token</h2><p>如果只需要使用 Git 而不需要完整的 SSH 功能，可以使用 GitHub 提供的 Personal Access Token (PAT)。</p>
-<ul>
-<li>Settings &gt; Developer settings &gt; Personal access tokens。在 GitHub 上生成 Personal Access Token，勾选 repo 权限。</li>
-<li>在运行容器时，将 Token 作为环境变量传递：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it --rm \
+    your_image_name</code></pre><p></p>
+<h2 id="使用环境变量传递-git-token">3.使用环境变量传递 GIT Token</h2>
+<p>如果只需要使用 Git 而不需要完整的 SSH 功能，可以使用 GitHub 提供的
+Personal Access Token (PAT)。 - Settings &gt; Developer settings &gt;
+Personal access tokens。在 GitHub 上生成 Personal Access Token，勾选
+repo 权限。 - 在运行容器时，将 Token 作为环境变量传递： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -it --rm \
     -e GITHUB_TOKEN=your_personal_access_token \
-    your_image_name</code></pre></li>
-<li>在容器中，使用 HTTPS URL 结合 Token：  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git clone https://&lt;your_username&gt;:${GITHUB_TOKEN}@github.com/&lt;repo_owner&gt;/&lt;repo_name&gt;.git</code></pre></li>
-</ul>
+    your_image_name</code></pre> -
+在容器中，使用 HTTPS URL 结合 Token： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git clone https://&lt;your_username&gt;:${GITHUB_TOKEN}@github.com/&lt;repo_owner&gt;/&lt;repo_name&gt;.git</code></pre><p></p>
 
                 
             </div>
@@ -1262,7 +1265,7 @@ ssh-add ~/.ssh/id_rsa</code></pre></li>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             

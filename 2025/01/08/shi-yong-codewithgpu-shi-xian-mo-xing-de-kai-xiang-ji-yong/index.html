@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="使用CodeWithGPU实现模型的开箱即用, 庞贝堡垒">
-    <meta name="description" content="CodeWithGPU简介CodeWithGPU是一个AI镜像、模型技术社区（今后文档中简称CG)，它以GitHub为基础，在GitHub托管的代码下游，提供额外的镜像环境、算法模型等，解决以往构建环境难、管理与分享模型难的问题，为算法开发">
+    <meta name="description" content="CodeWithGPU简介
+CodeWithGPU是一个AI镜像、模型技术社区（今后文档中简称CG)，它以GitHub为基础，在GitHub托管的代码下游，提供额外的镜像环境、算法模型等，解决以往构建环境难、管理与分享模型难的问题，为算法开">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -475,36 +476,37 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="CodeWithGPU简介"><a href="#CodeWithGPU简介" class="headerlink" title="CodeWithGPU简介"></a>CodeWithGPU简介</h2><p><a target="_blank" rel="noopener" href="https://www.codewithgpu.com/image">CodeWithGPU</a>是一个AI镜像、模型技术社区（今后文档中简称CG)，它以GitHub为基础，在GitHub托管的代码下游，提供额外的镜像环境、算法模型等，解决以往构建环境难、管理与分享模型难的问题，为算法开发者、研究者等提供开箱即用的内容体验。</p>
-<blockquote>
-<p>CodeWithGPU和AutoDL同属于视拓云研发和运营的产品，两者账户通用，可以互相登录使用。</p>
-</blockquote>
-<h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><p>CG上的镜像指能运行Github上某一具体项目代码所需的docker image环境。主要目的为方便其他用户免去构建环境安装依赖的过程，而直接在此基础之上训练模型。镜像来自用户在AutoDL上保存的docker image。(AutoDL是一个GPU算力租用平台，它和CG共用账户，即一个帐号可在两个平台中登录)</p>
-<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>CG上的模型指用户使用算法在某数据集上训练出来的模型文件。<br>使用的话首先需要安装：<code>pip install codewithgpu</code><br>可以由以下两种方式下载模型：</p>
-<ol>
-<li>cli<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cg down GuoFeng3/GuoFeng3.3.safetensors</code></pre></li>
-<li>代码中集成<pre class="line-numbers language-python" data-language="python"><code class="language-python">import codewithgpu as cg 
-cg.model.download("模型文件的KEY", target_directory="下载目标路径，可选"))</code></pre></li>
-</ol>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="cuda检查"><a href="#cuda检查" class="headerlink" title="cuda检查"></a>cuda检查</h3><p>检查电脑的nvidia驱动以及cuda toolkit。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvidia-smi
+                <h2 id="codewithgpu简介">CodeWithGPU简介</h2>
+<p><a target="_blank" rel="noopener" href="https://www.codewithgpu.com/image">CodeWithGPU</a>是一个AI镜像、模型技术社区（今后文档中简称CG)，它以GitHub为基础，在GitHub托管的代码下游，提供额外的镜像环境、算法模型等，解决以往构建环境难、管理与分享模型难的问题，为算法开发者、研究者等提供开箱即用的内容体验。
+&gt;CodeWithGPU和AutoDL同属于视拓云研发和运营的产品，两者账户通用，可以互相登录使用。
+### 镜像 CG上的镜像指能运行Github上某一具体项目代码所需的docker
+image环境。主要目的为方便其他用户免去构建环境安装依赖的过程，而直接在此基础之上训练模型。镜像来自用户在AutoDL上保存的docker
+image。(AutoDL是一个GPU算力租用平台，它和CG共用账户，即一个帐号可在两个平台中登录)</p>
+<h3 id="模型">模型</h3>
+<p>CG上的模型指用户使用算法在某数据集上训练出来的模型文件。
+使用的话首先需要安装：<code>pip install codewithgpu</code>
+可以由以下两种方式下载模型： 1. cli </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cg down GuoFeng3/GuoFeng3.3.safetensors</code></pre> 2. 代码中集成
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import codewithgpu as cg 
+cg.model.download("模型文件的KEY", target_directory="下载目标路径，可选"))</code></pre><p></p>
+<h2 id="安装">安装</h2>
+<h3 id="cuda检查">cuda检查</h3>
+<p>检查电脑的nvidia驱动以及cuda toolkit。 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvidia-smi
 nvcc -V</code></pre>
-<p>如果显示有：<code>Failed to initialize NVML: Driver/library version mismatch。</code>则说明驱动和cuda toolkit版本不匹配，需要重新安装驱动或者cuda toolkit。</p>
+如果显示有：<code>Failed to initialize NVML: Driver/library version mismatch。</code>则说明驱动和cuda
+toolkit版本不匹配，需要重新安装驱动或者cuda toolkit。<p></p>
 <p>或者你的cuda版本过低，建议也升级一下，不然CG很多新的镜像都无法使用。</p>
 <p>如果你的cuda版本ok且驱动都正常的话，那么跳过这里直接看下面的安装cg-client。</p>
-<h3 id="卸载旧版本nvida驱动和cuda-toolkit"><a href="#卸载旧版本nvida驱动和cuda-toolkit" class="headerlink" title="卸载旧版本nvida驱动和cuda toolkit"></a>卸载旧版本nvida驱动和cuda toolkit</h3><ul>
-<li><p>卸载nvidia驱动：<code>sudo nvidia-uninstall</code></p>
-</li>
-<li><p>卸载cuda toolkit：找到 CUDA 工具包的安装目录（例如 /usr/local/cuda-10.1/），然后执行：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cd /usr/local/cuda-10.1/bin/
-sudo ./cuda-uninstaller</code></pre>
-<p>如果你忘记了 CUDA 工具包的安装目录，可以使用以下命令找到：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">where nvcc</code></pre>
-<p>或者通过之前安装cuda设置的环境变量查看：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo $PATH | tr ':' '\n' | grep cuda
+<h3 id="卸载旧版本nvida驱动和cuda-toolkit">卸载旧版本nvida驱动和cuda
+toolkit</h3>
+<ul>
+<li><p>卸载nvidia驱动：<code>sudo nvidia-uninstall</code></p></li>
+<li><p>卸载cuda toolkit：找到 CUDA 工具包的安装目录（例如
+/usr/local/cuda-10.1/），然后执行： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cd /usr/local/cuda-10.1/bin/
+sudo ./cuda-uninstaller</code></pre> 如果你忘记了 CUDA
+工具包的安装目录，可以使用以下命令找到： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">where nvcc</code></pre>
+或者通过之前安装cuda设置的环境变量查看： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo $PATH | tr ':' '\n' | grep cuda
 echo $LD_LIBRARY_PATH | tr ':' '\n' | grep cuda</code></pre>
-<p>如果没有找到cuda-uninstaller，可以手动删除：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rm -rf /usr/local/cuda-11.8/   # 删除目录
+如果没有找到cuda-uninstaller，可以手动删除： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rm -rf /usr/local/cuda-11.8/   # 删除目录
 # 清理其他残留文件：
 sudo apt-get remove --purge '^nvidia-.*'
 sudo apt-get remove cuda*
@@ -521,87 +523,84 @@ export PATH=/usr/local/cuda-11.8/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH
 # 保存
 source ~/.bashrc
-</code></pre>
-
-
-
-</li>
-<li><p>完成卸载后，删除 CUDA 工具包的目录：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rm -rf /usr/local/cuda-10.1/</code></pre></li>
+</code></pre><p></p></li>
+<li><p>完成卸载后，删除 CUDA 工具包的目录： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo rm -rf /usr/local/cuda-10.1/</code></pre> ###
+安装新版本nvidia驱动<p></p></li>
+<li><p>前往 NVIDIA <a target="_blank" rel="noopener" href="https://www.nvidia.cn/Download/index.aspx">官方网站</a>，根据显卡型号（例如
+2080Ti）下载最新的驱动程序。</p></li>
+<li><p>将下载的驱动程序（例如
+NVIDIA-Linux-x86_64-550.54.14.run）上传到服务器的某个目录，然后执行：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo sh NVIDIA-Linux-x86_64-550.54.14.run</code></pre><p></p></li>
+<li><p>安装完成后，重启服务器： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo reboot</code></pre><p></p></li>
+<li><p>重启后，检查驱动是否安装成功： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvidia-smi</code></pre><p></p></li>
 </ul>
-<h3 id="安装新版本nvidia驱动"><a href="#安装新版本nvidia驱动" class="headerlink" title="安装新版本nvidia驱动"></a>安装新版本nvidia驱动</h3><ul>
-<li>前往 NVIDIA <a target="_blank" rel="noopener" href="https://www.nvidia.cn/Download/index.aspx">官方网站</a>，根据显卡型号（例如 2080Ti）下载最新的驱动程序。</li>
-<li>将下载的驱动程序（例如 NVIDIA-Linux-x86_64-550.54.14.run）上传到服务器的某个目录，然后执行：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo sh NVIDIA-Linux-x86_64-550.54.14.run</code></pre></li>
-<li>安装完成后，重启服务器：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo reboot</code></pre></li>
-<li>重启后，检查驱动是否安装成功：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvidia-smi</code></pre></li>
-</ul>
-<h3 id="安装新版本cuda-toolkit"><a href="#安装新版本cuda-toolkit" class="headerlink" title="安装新版本cuda toolkit"></a>安装新版本cuda toolkit</h3><p>注意安装的cuda toolkit版本要和nvidia驱动版本匹配：</p>
-<pre class="line-numbers language-none"><code class="language-none">- nvidia-smi属于driver API、nvcc属于runtime API。
+<h3 id="安装新版本cuda-toolkit">安装新版本cuda toolkit</h3>
+<p>注意安装的cuda toolkit版本要和nvidia驱动版本匹配： </p><pre class="line-numbers language-none"><code class="language-none">- nvidia-smi属于driver API、nvcc属于runtime API。
 - 用于支持driver API的必要文件(如libcuda.so)是由GPU driver installer安装的。
 - 用于支持runtime API的必要文件(如libcudart.so以及nvcc)是由CUDA Toolkit installer安装的。
-- 如果只安装driver API，不安装runtime API（cuda toolkit），也能正常使用pytorch，但涉及到一些需要编译安装的更底层的工具，比如apex、deepspeed，就会报错，这时还需要床runtime API。</code></pre>
-<ul>
-<li>前往 NVIDIA <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads">开发者网站</a>，根据操作系统和需求下载与新驱动兼容的 CUDA 工具包（例如 CUDA 12.1.1）。</li>
-<li>将下载的 CUDA 安装包（例如 cuda_12.1.1_530.30.02_linux.run）上传到服务器的某个目录，然后执行：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo sh cuda_12.1.1_530.30.02_linux.run</code></pre>
-<strong>注意</strong>：由于已经有CUDA Driver12.4了，因此在安装过程中不需要勾选CUDA Driver。</li>
-<li>安装完成后，设置环境变量：<br>（如果之前安装过旧版本记得删除旧版本的环境变量）<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo 'export PATH=/usr/local/cuda-12.1/bin:$PATH' &gt;&gt; ~/.bashrc
+- 如果只安装driver API，不安装runtime API（cuda toolkit），也能正常使用pytorch，但涉及到一些需要编译安装的更底层的工具，比如apex、deepspeed，就会报错，这时还需要床runtime API。</code></pre> -
+前往 NVIDIA <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads">开发者网站</a>，根据操作系统和需求下载与新驱动兼容的
+CUDA 工具包（例如 CUDA 12.1.1）。 - 将下载的 CUDA 安装包（例如
+cuda_12.1.1_530.30.02_linux.run）上传到服务器的某个目录，然后执行：
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo sh cuda_12.1.1_530.30.02_linux.run</code></pre> <strong>注意</strong>：由于已经有CUDA
+Driver12.4了，因此在安装过程中不需要勾选CUDA Driver。 -
+安装完成后，设置环境变量：
+（如果之前安装过旧版本记得删除旧版本的环境变量） <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo 'export PATH=/usr/local/cuda-12.1/bin:$PATH' &gt;&gt; ~/.bashrc
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64:$LD_LIBRARY_PATH' &gt;&gt; ~/.bashrc
-source ~/.bashrc</code></pre></li>
-<li>检查CUDA是否安装成功：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvcc -V</code></pre></li>
-</ul>
-<h3 id="cg-client"><a href="#cg-client" class="headerlink" title="cg-client"></a>cg-client</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 下载客户端并添加可执行权限
+source ~/.bashrc</code></pre> -
+检查CUDA是否安装成功： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nvcc -V</code></pre><p></p>
+<h3 id="cg-client">cg-client</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 下载客户端并添加可执行权限
 wget -O cg-client https://codewithgpu.ks3-cn-beijing.ksyuncs.com/cg-client
 chmod +x cg-client
 
 # 启动客户端，需要使用到sudo权限否则有docker使用上的异常
 sudo ./cg-client</code></pre>
-<h3 id="web上使用"><a href="#web上使用" class="headerlink" title="web上使用"></a>web上使用</h3><p>启动<code>cg-client</code>后会输出类似如下包含访问地址的日志：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">**************
+<h3 id="web上使用">web上使用</h3>
+<p>启动<code>cg-client</code>后会输出类似如下包含访问地址的日志：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">**************
 
 cg-client is running on http://localhost:2022/container?token=E5PR11vT9MMbrpwFeIdLcltRNnUmaY
 
 **************</code></pre>
-<p>在浏览器中打开该地址后，客户端会自动检测是否有Docker环境，点击安装nvidia-docker按钮自动安装相关环境</p>
+在浏览器中打开该地址后，客户端会自动检测是否有Docker环境，点击安装nvidia-docker按钮自动安装相关环境<p></p>
 <p><strong>docker的权限配置</strong></p>
-<p>在使用docker时，如果不想每次都使用sudo，可以将当前用户加入docker组：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo groupadd docker # 添加docker组
+<p>在使用docker时，如果不想每次都使用sudo，可以将当前用户加入docker组：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo groupadd docker # 添加docker组
 sudo gpasswd -a ${USER} docker # 将当前用户加入docker组
 sudo systemctl restart docker # 重启docker服务
 
-sudo chmod a+rw /var/run/docker.sock # 修改docker.sock权限</code></pre>
-
-
-
-
-<p><strong>如果使用ssh连接的服务器使用则需要设置端口转发</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh -CNg -L 2022:localhost:2022 user@host -p port</code></pre>
-<p>参数说明：<br>-C:<br>启用压缩。这对于减少传输数据量有帮助，特别是在带宽较低的情况下。</p>
-<p>-N:<br>不执行远程命令，只建立隧道。适合仅用于端口转发的场景。</p>
-<p>-g:<br>允许其他主机通过本机（运行此命令的机器）的 7890 端口访问隧道。<br>如果不需要其他机器访问，可以省略这个参数。</p>
-<p>-L:<br>本地端口转发。格式为 -L [本地端口]:[目标地址]:[目标端口]</p>
+sudo chmod a+rw /var/run/docker.sock # 修改docker.sock权限</code></pre><p></p>
+<p><strong>如果使用ssh连接的服务器使用则需要设置端口转发</strong>
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ssh -CNg -L 2022:localhost:2022 user@host -p port</code></pre> 参数说明： -C:
+启用压缩。这对于减少传输数据量有帮助，特别是在带宽较低的情况下。<p></p>
+<p>-N: 不执行远程命令，只建立隧道。适合仅用于端口转发的场景。</p>
+<p>-g: 允许其他主机通过本机（运行此命令的机器）的 7890 端口访问隧道。
+如果不需要其他机器访问，可以省略这个参数。</p>
+<p>-L: 本地端口转发。格式为 -L [本地端口]:[目标地址]:[目标端口]</p>
 <p>CG开始使用时需要安装docker/nvidia-docker环境，web界面会自动检测是否有Docker环境，点击安装nvidia-docker按钮自动安装相关环境，但是我使用时发现我原本安装的docker环境在使用CG提供的脚本安装后就失效了，所以建议还是卸载原有的docker环境后再使用CG提供的脚本安装</p>
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250108033158.png"><br>这样就成功啦</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在web界面可以实现容器的创建、启动、停止、删除等操作，也可以上传文件到容器中，也可以在容器中打开终端，执行命令，查看日志等操作。</p>
-<h3 id="docker的存储"><a href="#docker的存储" class="headerlink" title="docker的存储"></a>docker的存储</h3><p>在容器内我们会发现系统盘大小为本地根目录的大小，这是因为Docker 默认安装的情况下，会使用<code>/var/lib/docker/</code>目录作为存储目录，用以存放拉取的镜像和创建的容器等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250108033158.png">
+这样就成功啦</p>
+<h2 id="使用">使用</h2>
+<p>在web界面可以实现容器的创建、启动、停止、删除等操作，也可以上传文件到容器中，也可以在容器中打开终端，执行命令，查看日志等操作。</p>
+<h3 id="docker的存储">docker的存储</h3>
+<p>在容器内我们会发现系统盘大小为本地根目录的大小，这是因为Docker
+默认安装的情况下，会使用<code>/var/lib/docker/</code>目录作为存储目录，用以存放拉取的镜像和创建的容器等。</p>
 <p>而autodl-tmp未挂载，虽然CG提供了网盘的支持，但是如果我们想适用宿主机中的磁盘分区的话，还得会一些docker的存储知识（见博客-<a href="https://baoblei.github.io/2025/01/09/docker-de-cun-chu/">docker的存储</a>）</p>
 <p>在了解了docker的存储后，我们可以通过<code>docker run</code>命令的<code>-v</code>参数来挂载宿主机的磁盘分区到容器中，这样就可以在容器中使用宿主机的磁盘分区了。在web界面创建容器时也提供了挂载的选项，可以直接在web界面中挂载。</p>
-<h3 id="镜像与容器的基本用法"><a href="#镜像与容器的基本用法" class="headerlink" title="镜像与容器的基本用法"></a>镜像与容器的基本用法</h3><p>具体见博客-<a href="https://baoblei.github.io/2025/01/09/docker-chang-jian-ming-ling/">docker的常见命令</a>，这里简单通过本地终端创建并运行一个容器来说明：</p>
-<ul>
-<li>拉取镜像<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker pull registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ</code></pre></li>
-<li>查看镜像<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker images</code></pre></li>
-<li>创建并运行容器<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo docker run -d --name quizzical_wilson --gpus all -v data80:/root/autodl-tmp registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ sleep infinity
+<h3 id="镜像与容器的基本用法">镜像与容器的基本用法</h3>
+<p>具体见博客-<a href="https://baoblei.github.io/2025/01/09/docker-chang-jian-ming-ling/">docker的常见命令</a>，这里简单通过本地终端创建并运行一个容器来说明：
+- 拉取镜像 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker pull registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ</code></pre> - 查看镜像 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker images</code></pre> - 创建并运行容器
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo docker run -d --name quizzical_wilson --gpus all -v data80:/root/autodl-tmp registry.cn-beijing.aliyuncs.com/codewithgpu2/hvision-nku-storydiffusion:n3iFx8w7UJ sleep infinity
 # 这里我挂载了一个卷data80到容器的/root/autodl-tmp目录
 
 sudo docker exec -it quizzical_wilson /bin/bash</code></pre>
-到这里就可以在容器中进行操作了，可以使用<code>exit</code>退出容器。</li>
-<li>停止容器<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker stop quizzical_wilson</code></pre></li>
-</ul>
-<p><strong>参考:</strong></p>
+到这里就可以在容器中进行操作了，可以使用<code>exit</code>退出容器。 -
+停止容器 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker stop quizzical_wilson</code></pre><p></p>
+<p><strong>参考:</strong> &gt;
+CG官方文档：https://www.codewithgpu.com/docs/</p>
 <blockquote>
-<p>CG官方文档：<a target="_blank" rel="noopener" href="https://www.codewithgpu.com/docs/">https://www.codewithgpu.com/docs/</a></p>
-</blockquote>
-<blockquote>
-<p>docker engine文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/">https://docs.docker.com/engine/</a></p>
+<p>docker engine文档：https://docs.docker.com/engine/</p>
 </blockquote>
 
                 
@@ -1345,7 +1344,7 @@ sudo docker exec -it quizzical_wilson /bin/bash</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             

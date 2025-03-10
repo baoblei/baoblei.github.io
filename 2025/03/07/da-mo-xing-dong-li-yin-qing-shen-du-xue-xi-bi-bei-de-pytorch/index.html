@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="大模型动力引擎-深度学习必备的PyTorch, 庞贝堡垒">
     <meta name="description" content="本章将从PyTorch的核心概念——张量和算子讲起，逐步深入PyTorch的内存分配、基于动态图的运行机制，以及作为训练框架的杀手锏级特性——自动微分系统的底层原理
-PyTorch的张量数据结构Pytorch通过张量(torch.Tenso">
+PyTorch的张量数据结构
+Pytorch通过张量(torch.Tens">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -477,15 +478,17 @@ PyTorch的张量数据结构Pytorch通过张量(torch.Tenso">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>本章将从PyTorch的核心概念——张量和算子讲起，逐步深入PyTorch的内存分配、基于动态图的运行机制，以及作为训练框架的杀手锏级特性——自动微分系统的底层原理</p>
-<h2 id="PyTorch的张量数据结构"><a href="#PyTorch的张量数据结构" class="headerlink" title="PyTorch的张量数据结构"></a>PyTorch的张量数据结构</h2><p>Pytorch通过张量(torch.Tensor)作为数据容器提供了统一的方式来处理不同维度和形状的数据(标量、向量、矩阵、张量)。</p>
-<h3 id="张量的基本属性及创建"><a href="#张量的基本属性及创建" class="headerlink" title="张量的基本属性及创建"></a>张量的基本属性及创建</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+<h2 id="pytorch的张量数据结构">PyTorch的张量数据结构</h2>
+<p>Pytorch通过张量(torch.Tensor)作为数据容器提供了统一的方式来处理不同维度和形状的数据(标量、向量、矩阵、张量)。</p>
+<h3 id="张量的基本属性及创建">张量的基本属性及创建</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 x = torch.tensor((3,2), dtype=torch.float32, device=torch.device('cuda'))
 
 print(x.dtype)   # torch.float32
 print(x.device)  # cuda:0
 print(x.shape)   # torch.Size([3,2])</code></pre>
-
-<h3 id="访问张量的数据"><a href="#访问张量的数据" class="headerlink" title="访问张量的数据"></a>访问张量的数据</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"># 创建一个10行20列的连续张量, 并使用contiguous()方法确保张量在内存中是连续的
+<h3 id="访问张量的数据">访问张量的数据</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 创建一个10行20列的连续张量, 并使用contiguous()方法确保张量在内存中是连续的
 x = torch.arange(200).reshape(10,20).contiguous()
 
 # 访问张量中的数据
@@ -495,10 +498,12 @@ print(x[2, :])  # tensor([40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53
 print(x[0, 1:9:3]) # tensor([1, 4, 7])
 print(x[..., 1])   # tensor([1, 21, 41, 61, 81, 101, 121, 141, 161, 181])
 print(x[:, None, :]) # 使用None 插入一个新维度，返回一个形状为(10, 1, 20)的张量</code></pre>
-
-<h3 id="张量的存储方式"><a href="#张量的存储方式" class="headerlink" title="张量的存储方式"></a>张量的存储方式</h3><p>torch.Storage是用于表示数据在物理内存中的存储方式，其实就是一块连续的一维内存空间。每个<strong>torch.Storage对象负责维护存储数据的类型和总长度信息</strong>。<br>在此基础上，<strong>torch.Tensor添加了如形状(shape)、步长(stride)和偏移量(offset)等额外的属性，定义了torch.Tensor访问底层数据的具体方式</strong>。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307170840.png"></p>
-<p><strong>步长</strong>指定了在遍历张量数据时，必须在内存中跳过多少元素才能到达下一个元素。<br>比如我们可以通过改变步长属性来实现一个高效的张量转置操作:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+<h3 id="张量的存储方式">张量的存储方式</h3>
+<p>torch.Storage是用于表示数据在物理内存中的存储方式，其实就是一块连续的一维内存空间。每个<strong>torch.Storage对象负责维护存储数据的类型和总长度信息</strong>。
+在此基础上，<strong>torch.Tensor添加了如形状(shape)、步长(stride)和偏移量(offset)等额外的属性，定义了torch.Tensor访问底层数据的具体方式</strong>。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307170840.png"></p>
+<p><strong>步长</strong>指定了在遍历张量数据时，必须在内存中跳过多少元素才能到达下一个元素。
+比如我们可以通过改变步长属性来实现一个高效的张量转置操作: </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
 # 创建一个3*4的张量, 使用contiguous()确保其连续性
 x = torch.arange(12).reshape(3, 4).contiguous()
@@ -519,11 +524,19 @@ print(f"y = {y}\ny.stride = {y.stride()}")
 
 # 张量x和y共享同一块底层存储
 assert id(x.untyped_storage()) == id(y.untyped_storage())</code></pre>
-<p><strong>as_strided函数</strong>的作用由两方面构成：一方面它重新规定了x张量的访问方式，将其步长从(4, 1)改为了(1, 4)，形状为(4, 3)。这意味着在遍历x的数据时，在第二个维度上每访问一个数据会向后跳四步再访问下一个数据，而在第一个维度上则每访问一个数据向后跳一步。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307172705.png"></p>
-<p>使用stride属性来访问张量是非常高效的，因为它无需复制，直接操作同一个张量的底层数据存储。但它也是把双刃剑，因为会导致“<strong>张量不连续</strong>”​。<br>其次许多PyTorch算法在设计时就预设了张量在内存中是连续存储的，如果遇到不连续的张量，可能会抛出错误提示甚至得到错误的计算结果。<br>PyTorch提供了**tensor.is_contiguous()<strong>方法用于检测张量是否为连续。对于不连续的张量，可以通过调用</strong>tensor.contiguous()**方法生成一个连续的副本。然而天下没有免费的午餐，这个调用会将原始数据复制到一块新的连续内存空间，增加内存占用，因此读者在开发时需要时刻注意内存和性能之间的平衡。</p>
-<h3 id="张量的视图"><a href="#张量的视图" class="headerlink" title="张量的视图"></a>张量的视图</h3><p>不同的张量可以共享同一块底层存储，当这些共享存储的张量互不重叠时，影响较小。但如果它们**不仅共享底层存储，还存在重叠，我们称其中一个张量为另一个张量的视图(view)**。</p>
-<p>以下是pytorch中常见的几种<strong>视图操作</strong>，它们都共享同一块底层存储，但返回的张量形状可能不同。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307174015.png"><br>基于<strong>基础索引的张量读取操作</strong>返回的也是视图：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+<strong>as_strided函数</strong>的作用由两方面构成：一方面它重新规定了x张量的访问方式，将其步长从(4,
+1)改为了(1, 4)，形状为(4,
+3)。这意味着在遍历x的数据时，在第二个维度上每访问一个数据会向后跳四步再访问下一个数据，而在第一个维度上则每访问一个数据向后跳一步。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307172705.png"><p></p>
+<p>使用stride属性来访问张量是非常高效的，因为它无需复制，直接操作同一个张量的底层数据存储。但它也是把双刃剑，因为会导致“<strong>张量不连续</strong>”​。
+其次许多PyTorch算法在设计时就预设了张量在内存中是连续存储的，如果遇到不连续的张量，可能会抛出错误提示甚至得到错误的计算结果。
+PyTorch提供了<strong>tensor.is_contiguous()</strong>方法用于检测张量是否为连续。对于不连续的张量，可以通过调用<strong>tensor.contiguous()</strong>方法生成一个连续的副本。然而天下没有免费的午餐，这个调用会将原始数据复制到一块新的连续内存空间，增加内存占用，因此读者在开发时需要时刻注意内存和性能之间的平衡。</p>
+<h3 id="张量的视图">张量的视图</h3>
+<p>不同的张量可以共享同一块底层存储，当这些共享存储的张量互不重叠时，影响较小。但如果它们<strong>不仅共享底层存储，还存在重叠，我们称其中一个张量为另一个张量的视图(view)</strong>。</p>
+<p>以下是pytorch中常见的几种<strong>视图操作</strong>，它们都共享同一块底层存储，但返回的张量形状可能不同。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307174015.png">
+基于<strong>基础索引的张量读取操作</strong>返回的也是视图：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 x = torch.zeros(3,3)
 y = x[0]
 
@@ -532,34 +545,43 @@ print(f"x = {x}\ny = {y}")
 # x = tensor([[1., 0., 0.],
 #         [0., 0., 0.],
 #         [0., 0., 0.]])
-# y = tensor([1., 0., 0.])</code></pre>
-
-<p>注意一些接口如 <strong>reshape()和flatten()</strong> 的行为较为特殊，它们根据具体的使用场景返回一个视图张量或一个全新内存的张量。这种行为的不确定性导致这些接口并不是最理想的API设计。</p>
-<h2 id="Pytorch中的算子"><a href="#Pytorch中的算子" class="headerlink" title="Pytorch中的算子"></a>Pytorch中的算子</h2><h3 id="算子库"><a href="#算子库" class="headerlink" title="算子库"></a>算子库</h3><p>PyTorch提供了大量用于构建神经网络的算子，这些算子可以分为以下几类：</p>
+# y = tensor([1., 0., 0.])</code></pre><p></p>
+<p>注意一些接口如 <strong>reshape()和flatten()</strong>
+的行为较为特殊，它们根据具体的使用场景返回一个视图张量或一个全新内存的张量。这种行为的不确定性导致这些接口并不是最理想的API设计。</p>
+<h2 id="pytorch中的算子">Pytorch中的算子</h2>
+<h3 id="算子库">算子库</h3>
+<p>PyTorch提供了大量用于构建神经网络的算子，这些算子可以分为以下几类： -
+(1)基础数学运算：涵盖了加法(+)、减法(-)、 **乘法(*/mul)<strong>
+、除法(/)、指数(exp)、幂次方(pow)等基本数学操作。（</strong>element-wise操作<strong>）
+-
+(2)线性代数运算：包括矩阵乘法(</strong>matmul/@)**、点乘(dot)、转置(t)、逆矩阵(inverse)等线性代数相关的运算。
+-
+(3)逻辑和比较运算：例如逻辑与(logical_and)、逻辑或(logical_or)、等于(eq)、大于(gt)、小于(lt)等用于比较和逻辑判断的操作。
+-
+(4)张量操作：涉及张量的索引、切片、拼接(cat)、调整形状(reshape)、调整维度(permute)等操作，用于张量的形状和内容调整。
+-
+(5)其他特殊运算：包括深度学习中使用的各种层（如卷积层、池化层、注意力层）以及损失函数等特定于应用的复杂运算。</p>
+<p><strong>矩阵乘法</strong>
+矩阵乘法是深度学习中非常常见的操作，PyTorch提供了多种矩阵乘法运算符，包括：
+- dot：用于计算两个1D向量之间的点积，返回一个标量。 -
+mm：用于计算两个2D矩阵之间的矩阵乘积。 -
+matmul：用于计算两个张量之间的矩阵乘积。(1D时等价dot，2D时等价mm) -
+bmm：用于批量计算矩阵乘积。</p>
+<h3 id="pytorch算子的返回值内存分配">Pytorch算子的返回值内存分配</h3>
+<p>PyTorch算子操作的输入和返回值都是张量，但返回值是否创建新的内存取决于具体的算子。
+#### 原地操作
+PyTorch也为一些算子提供了原位(inplace)操作，它们直接修改输入张量的数据并返回同一个张量，无须创建新的内存。
+- 原位操作通常在方法名后加下划线
+<strong>(_)表示，例如add_()是add()的原位版本</strong>。 -
+某些语法也会隐式地触发原位操作。比如x+=y将触发原位加法操作，而x = x +
+y就只是普通的加法操作和赋值操作。</p>
+<h4 id="视图操作">视图操作</h4>
+<p>输出张量与输入张量共享底层内存，因此不会造成额外的内存分配。</p>
+<h4 id="读取操作">读取操作</h4>
 <ul>
-<li>(1)基础数学运算：涵盖了加法(+)、减法(-)、 <strong>乘法(*/mul)</strong> 、除法(/)、指数(exp)、幂次方(pow)等基本数学操作。（<strong>element-wise操作</strong>）</li>
-<li>(2)线性代数运算：包括矩阵乘法(**matmul/@)**、点乘(dot)、转置(t)、逆矩阵(inverse)等线性代数相关的运算。</li>
-<li>(3)逻辑和比较运算：例如逻辑与(logical_and)、逻辑或(logical_or)、等于(eq)、大于(gt)、小于(lt)等用于比较和逻辑判断的操作。</li>
-<li>(4)张量操作：涉及张量的索引、切片、拼接(cat)、调整形状(reshape)、调整维度(permute)等操作，用于张量的形状和内容调整。</li>
-<li>(5)其他特殊运算：包括深度学习中使用的各种层（如卷积层、池化层、注意力层）以及损失函数等特定于应用的复杂运算。</li>
-</ul>
-<p><strong>矩阵乘法</strong><br>矩阵乘法是深度学习中非常常见的操作，PyTorch提供了多种矩阵乘法运算符，包括：</p>
-<ul>
-<li>dot：用于计算两个1D向量之间的点积，返回一个标量。</li>
-<li>mm：用于计算两个2D矩阵之间的矩阵乘积。</li>
-<li>matmul：用于计算两个张量之间的矩阵乘积。(1D时等价dot，2D时等价mm)</li>
-<li>bmm：用于批量计算矩阵乘积。</li>
-</ul>
-<h3 id="Pytorch算子的返回值内存分配"><a href="#Pytorch算子的返回值内存分配" class="headerlink" title="Pytorch算子的返回值内存分配"></a>Pytorch算子的返回值内存分配</h3><p>PyTorch算子操作的输入和返回值都是张量，但返回值是否创建新的内存取决于具体的算子。</p>
-<h4 id="原地操作"><a href="#原地操作" class="headerlink" title="原地操作"></a>原地操作</h4><p>PyTorch也为一些算子提供了原位(inplace)操作，它们直接修改输入张量的数据并返回同一个张量，无须创建新的内存。</p>
-<ul>
-<li>原位操作通常在方法名后加下划线 <strong>(_)表示，例如add_()是add()的原位版本</strong>。</li>
-<li>某些语法也会隐式地触发原位操作。比如x+=y将触发原位加法操作，而x = x + y就只是普通的加法操作和赋值操作。</li>
-</ul>
-<h4 id="视图操作"><a href="#视图操作" class="headerlink" title="视图操作"></a>视图操作</h4><p>输出张量与输入张量共享底层内存，因此不会造成额外的内存分配。</p>
-<h4 id="读取操作"><a href="#读取操作" class="headerlink" title="读取操作"></a>读取操作</h4><ul>
 <li>基础索引操作：返回的是视图。</li>
-<li>高级索引操作：类似于NumPy的高级索引，也就是使用布尔或者整数张量作为索引。基于高级索引的读取操作会创建新的内存存储。<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+<li>高级索引操作：类似于NumPy的高级索引，也就是使用布尔或者整数张量作为索引。基于高级索引的读取操作会创建新的内存存储。
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
 # 创建一个10*20的张量, 使用contiguous()确保其连续性
 x = torch.arange(200).reshape(10, 20).contiguous()
@@ -582,9 +604,8 @@ z_adv_index_bool = x[ind]
 
 # (2) 基于高级索引进行读取的返回张量和x的底层存储是分开的
 assert z_adv_index_int.data_ptr() != x.data_ptr()
-assert z_adv_index_bool.data_ptr() != x.data_ptr()</code></pre></li>
-</ul>
-<h4 id="赋值操作"><a href="#赋值操作" class="headerlink" title="赋值操作"></a>赋值操作</h4><p>张量赋值操作是指使用基础索引、高级索引、广播等方式将新的值赋给张量的特定位置。赋值操作直接修改输入张量的内容，没有返回值。</p>
+assert z_adv_index_bool.data_ptr() != x.data_ptr()</code></pre> #### 赋值操作
+张量赋值操作是指使用基础索引、高级索引、广播等方式将新的值赋给张量的特定位置。赋值操作直接修改输入张量的内容，没有返回值。
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
 # 创建一个10*20的张量, 使用contiguous()确保其连续性
@@ -595,26 +616,31 @@ ind = x &lt; 10
 # 通过高级索引对x的部分元素进行赋值
 x[ind] = 1.0
 
-print(x)  # x的对应位置也被更新成1.0</code></pre>
-<h3 id="算子的调用"><a href="#算子的调用" class="headerlink" title="算子的调用"></a>算子的调用</h3><p>以下面代码为例分析一下PyTorch中y = x1 @ x2在整个调用中大致经历了哪些过程：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+print(x)  # x的对应位置也被更新成1.0</code></pre> ### 算子的调用 以下面代码为例分析一下PyTorch中y = x1 @
+x2在整个调用中大致经历了哪些过程： <pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
 x1 = torch.rand(32, 32, dtype=torch.float32, device="cuda:0")
 x2 = torch.rand(32, 32, dtype=torch.float32, device="cuda:0")
 
-y = x1 @ x2</code></pre>
-<ul>
+y = x1 @ x2</code></pre></li>
 <li>(1)函数入口：这个表达式会首先调用Python中Tensor类的__matmul__方法作为“矩阵乘法”算子的入口。</li>
-<li>(2)定位算子：PyTorch核心的<strong>分发系统(dispatcher)<strong>会根据算子类型、输入张量的数据类型、存储后端来找到可以承担该算子计算的</strong>底层算子实现</strong>。<br>比如这个例子中，分发系统找到GPU上float32类型矩阵乘法计算对应的CUDA函数实现。</li>
+<li>(2)定位算子：PyTorch核心的<strong>分发系统(dispatcher)</strong>会根据算子类型、输入张量的数据类型、存储后端来找到可以承担该算子计算的<strong>底层算子实现</strong>。
+比如这个例子中，分发系统找到GPU上float32类型矩阵乘法计算对应的CUDA函数实现。</li>
 <li>(3)创建张量：创建所需的输出张量。</li>
 <li>(4)底层调用：调用我们找到的算子函数，进行类型转换、输出张量的创建等必要步骤，计算并将结果写入输出张量。</li>
-<li>(5)函数返回：创建输出张量的Python对象并返回给用户。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307190932.png"></li>
+<li>(5)函数返回：创建输出张量的Python对象并返回给用户。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307190932.png"></li>
 </ul>
-<p>图3-5展示了在PyTorch调用一个矩阵乘法算子的调用栈，这里面最核心的步骤是底层调用也就是算子计算，但是前后还做了一系列准备工作，这些准备工作统一称为<strong>调用延迟</strong>。<br>虽然少数算子的调用延迟可以接受，但如果频繁调用算子，则累积起来的总调用延迟就不能忽视了。<br>后续通过<strong>CUDA Graph</strong>降低调用延迟。</p>
-<p>在日常开发中应该紧绷一根弦，尽量减少不必要的操作，如<strong>能对张量整体进行操作的时候尽量避免手动操作数组中的单个元素</strong>。<br>因为单个数组元素的读取和赋值都是一次算子调用。<br>比如对于张量加和运算，如果通过在Python中手写循环来完成“读取单个元素→加和→存储回张量”这个过程，所需要的计算时间要远远高于直接使用张量的加法操作。<br>这是因为张量的加法和归约操作能够充分地利用GPU的并行计算能力，在性能上会显著优于对单个张量元素进行的串行操作。</p>
-<h2 id="Pytorch动态图机制"><a href="#Pytorch动态图机制" class="headerlink" title="Pytorch动态图机制"></a>Pytorch动态图机制</h2><h3 id="计算图"><a href="#计算图" class="headerlink" title="计算图"></a>计算图</h3><p>计算图是深度学习框架中用于描述和执行计算过程的抽象模型：一个有向无环图，其中的节点(node)代表各种算子操作，比如加法、乘法或更复杂的操作如卷积等，而边(edge)则代表数据（指张量数据）的流动。</p>
-<h3 id="动态图与静态图的区别"><a href="#动态图与静态图的区别" class="headerlink" title="动态图与静态图的区别"></a>动态图与静态图的区别</h3><ul>
-<li>动态图：运行时构建<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+<p>图3-5展示了在PyTorch调用一个矩阵乘法算子的调用栈，这里面最核心的步骤是底层调用也就是算子计算，但是前后还做了一系列准备工作，这些准备工作统一称为<strong>调用延迟</strong>。
+虽然少数算子的调用延迟可以接受，但如果频繁调用算子，则累积起来的总调用延迟就不能忽视了。
+后续通过<strong>CUDA Graph</strong>降低调用延迟。</p>
+<p>在日常开发中应该紧绷一根弦，尽量减少不必要的操作，如<strong>能对张量整体进行操作的时候尽量避免手动操作数组中的单个元素</strong>。
+因为单个数组元素的读取和赋值都是一次算子调用。
+比如对于张量加和运算，如果通过在Python中手写循环来完成“读取单个元素→加和→存储回张量”这个过程，所需要的计算时间要远远高于直接使用张量的加法操作。
+这是因为张量的加法和归约操作能够充分地利用GPU的并行计算能力，在性能上会显著优于对单个张量元素进行的串行操作。</p>
+<h2 id="pytorch动态图机制">Pytorch动态图机制</h2>
+<h3 id="计算图">计算图</h3>
+<p>计算图是深度学习框架中用于描述和执行计算过程的抽象模型：一个有向无环图，其中的节点(node)代表各种算子操作，比如加法、乘法或更复杂的操作如卷积等，而边(edge)则代表数据（指张量数据）的流动。
+### 动态图与静态图的区别 - 动态图：运行时构建 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
 x = torch.tensor(2)  # 可以尝试不同的值，如 torch.tensor(1.0)
 
@@ -625,8 +651,8 @@ if y == 0:
 else:
     z = x + 10
 
-print(z)</code></pre></li>
-<li>静态图：运行前构建，运行时不能修改(TensorFlow 早期版本)<pre class="line-numbers language-python" data-language="python"><code class="language-python">import tensorflow.compat.v1 as tf
+print(z)</code></pre> -
+静态图：运行前构建，运行时不能修改(TensorFlow 早期版本) <pre class="line-numbers language-python" data-language="python"><code class="language-python">import tensorflow.compat.v1 as tf
 
 x = tf.placeholder(tf.float32, shape=())
 
@@ -645,34 +671,53 @@ z = tf.cond(tf.equal(y, 0), true_fn, false_fn)
 with tf.Session() as sess:
     print(sess.run(z, feed_dict={x: 2}))  # 输出 10 (2 * 10)
     print(sess.run(z, feed_dict={x: 1}))  # 输出 11 (1 + 10)</code></pre>
-可以注意到，TensorFlow 1.0的代码逻辑需要完全由TensorFlow的接口拼接而成，与原生的Python代码写法有很大差别——写的虽然是Python语言，但是却不那么“Pythonic”​。<br>除此以外，代码中的张量y、z在很长一段时间里都只是单纯的符号，没有具体的数值，也因此没有办法打印出来。<br>这个情况一直持续到在TensorFlow的会话(tf.Session)中，<strong>通过sess.run()执行构建出来的计算图。计算图一旦被执行后才会往y、z中填入数值</strong>。<br>但是这时候计算图已经完全固定下来了，后续不能再继续对x、y、z进行任何修改了。</li>
-</ul>
-<h4 id="差别"><a href="#差别" class="headerlink" title="差别"></a>差别</h4><ul>
-<li>(1)执行方式：静态图有明确图的定义和图的运行两个阶段。而动态图则是在定义的同时就执行，立即得到结果。例如，在TensorFlow中，y = x % 2只是向计算图中添加一个运算节点，该运算不会立即执行。但在动态图中，这个语句在添加节点的同时也执行了该运算。</li>
+可以注意到，TensorFlow
+1.0的代码逻辑需要完全由TensorFlow的接口拼接而成，与原生的Python代码写法有很大差别——写的虽然是Python语言，但是却不那么“Pythonic”​。
+除此以外，代码中的张量y、z在很长一段时间里都只是单纯的符号，没有具体的数值，也因此没有办法打印出来。
+这个情况一直持续到在TensorFlow的会话(tf.Session)中，<strong>通过sess.run()执行构建出来的计算图。计算图一旦被执行后才会往y、z中填入数值</strong>。
+但是这时候计算图已经完全固定下来了，后续不能再继续对x、y、z进行任何修改了。<p></p>
+<h4 id="差别">差别</h4>
+<ul>
+<li>(1)执行方式：静态图有明确图的定义和图的运行两个阶段。而动态图则是在定义的同时就执行，立即得到结果。例如，在TensorFlow中，y
+= x %
+2只是向计算图中添加一个运算节点，该运算不会立即执行。但在动态图中，这个语句在添加节点的同时也执行了该运算。</li>
 <li>(2)数据表示：在静态图的定义阶段，x、y、z都是符号，不含具体数据。只有在运行时，我们才对输入x赋值。而在PyTorch的代码中，x、y、z一开始就是带有具体数据的张量。</li>
-<li>(3)中断与调试：静态图一旦运行就不能中断。要在静态图中打印中间变量y的值进行调试，<strong>需要插入tf.Print()语句并重新运行图</strong>。但是在PyTorch中，执行过程可以中断，比如可以用import pdb; pdb.set_trace()使运行暂停，并可以自由地打印或修改张量的内容。</li>
-<li>(4)代码执行：在TensorFlow 1.0中，计算图的执行全都是由TensorFlow的底层运行处理的——包括print语句和条件语句在内。而在PyTorch代码中，条件语句和print语句是由Python解释器执行的，只有与张量相关的操作是由PyTorch的运行处理的。这种设计保持了Python作为解释型语言的灵活性，从而可以支持动态修改代码和交互式编程。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307204736.png"></li>
+<li>(3)中断与调试：静态图一旦运行就不能中断。要在静态图中打印中间变量y的值进行调试，<strong>需要插入tf.Print()语句并重新运行图</strong>。但是在PyTorch中，执行过程可以中断，比如可以用import
+pdb; pdb.set_trace()使运行暂停，并可以自由地打印或修改张量的内容。</li>
+<li>(4)代码执行：在TensorFlow
+1.0中，计算图的执行全都是由TensorFlow的底层运行处理的——包括print语句和条件语句在内。而在PyTorch代码中，条件语句和print语句是由Python解释器执行的，只有与张量相关的操作是由PyTorch的运行处理的。这种设计保持了Python作为解释型语言的灵活性，从而可以支持动态修改代码和交互式编程。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307204736.png"></li>
 </ul>
-<p>由于静态图在执行前就获得了完整的图信息，使得它能够应用更复杂的优化策略，如移除无用操作、进行跨操作优化，甚至执行算子融合等。<br>对于追求极致性能的部署工程师来说，像TensorFlow 1.0这样的框架仍然是首选之一。而对于研究人员，快速迭代和易于调试的特性使得PyTorch具有显著优势。</p>
-<h2 id="Pytorch-的自动微分系统"><a href="#Pytorch-的自动微分系统" class="headerlink" title="Pytorch 的自动微分系统"></a>Pytorch 的自动微分系统</h2><h3 id="自动微分"><a href="#自动微分" class="headerlink" title="自动微分"></a>自动微分</h3><ul>
-<li><p>基于有限差分的数值微分法：通过对输入变量添加一个微小扰动，比如设定h=0.000001，然后观察输出的变化来近似计算梯度值。精度不高，但是实现简单。</p>
-</li>
-<li><p>基于符号微分的梯度求导公式：基于封闭形式表达式(closed-form expression)的梯度求导公式。<br>但是对于程序中涉及基于动态输入或条件变化的循环、复杂递归、动态内存分配及涉及大量非线性数据处理等复杂逻辑，将其转化为封闭形式通常是不可能的。<br>因此，尽管符号微分在计算效率上非常高，其适用性却受到很大限制。</p>
-</li>
-</ul>
-<p>而自动微分(automatic differentiation)则是一种介于数值微分和符号微分之间的方法：</p>
+<p>由于静态图在执行前就获得了完整的图信息，使得它能够应用更复杂的优化策略，如移除无用操作、进行跨操作优化，甚至执行算子融合等。
+对于追求极致性能的部署工程师来说，像TensorFlow
+1.0这样的框架仍然是首选之一。而对于研究人员，快速迭代和易于调试的特性使得PyTorch具有显著优势。</p>
+<h2 id="pytorch-的自动微分系统">Pytorch 的自动微分系统</h2>
+<h3 id="自动微分">自动微分</h3>
 <ul>
-<li>(1)它定义了一系列的“基本操作”​（如加、减、乘、除）​，并且根据手动推导的结果定义了这些操作的梯度。例如，在手动推导z=y×x的微分形式时，我们可以得到 $\frac{\partial z}{\partial x} = y$ 类似这样的基础操作梯度公式会被硬编码在自动微分系统中，是它的核心组成元素。</li>
-<li>(2)在程序运行时，自动微分系统会基于链式法则将复杂运算拆解成基础操作的组合，一步步计算所有中间结果的梯度，并最终计算出输入参数的梯度。注意在运算过程中对于同一个张量的梯度是累加而不是覆写的。而且这里累加的是具体数值而非符号表达式，这一点至关重要，它使得自动微分系统能够自然地兼容程序中出现的逻辑判断，如分支、循环和递归等，而这对符号微分系统是非常困难的。</li>
+<li><p>基于有限差分的数值微分法：通过对输入变量添加一个微小扰动，比如设定h=0.000001，然后观察输出的变化来近似计算梯度值。精度不高，但是实现简单。</p></li>
+<li><p>基于符号微分的梯度求导公式：基于封闭形式表达式(closed-form
+expression)的梯度求导公式。
+但是对于程序中涉及基于动态输入或条件变化的循环、复杂递归、动态内存分配及涉及大量非线性数据处理等复杂逻辑，将其转化为封闭形式通常是不可能的。
+因此，尽管符号微分在计算效率上非常高，其适用性却受到很大限制。</p></li>
 </ul>
-<h3 id="自动微分的实现"><a href="#自动微分的实现" class="headerlink" title="自动微分的实现"></a>自动微分的实现</h3><p>PyTorch的自动微分系统中默认使用<strong>反向微分模式</strong>。它以某个输出张量的梯度作为起点，反向逐层计算出每个输入参数对应的梯度，计算图的执行次数与输出张量的数量有关——M个输出张量就需要执行M次计算图。<br>绝大多数深度学习模型训练的场景都是有w1,w2,…,wN个模型参数，但只有数个甚至一个损失函数(loss)。</p>
-<p>还有一种<strong>前向模式的自动微分</strong>。它以某个输入参数的梯度作为起点，向前逐层计算出每个输出张量对应的梯度，计算图的执行次数与输入参数的数量有关——N个输入参数就需要执行N次计算图。<br>所以前向微分适合输入参数少而输出张量多的场景，比如模型只有一个输入参数w，但是输出M个loss的情况，这一般多见于科学计算相关的场景，尤其在计算高阶导数时。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307211040.png"></p>
-<p>PyTorch自动微分机制依赖于torch.Tensor上的两个额外属性，即grad和requires_grad。</p>
-<ul>
-<li>grad：存储了张量对应的梯度值，初始值为None。</li>
-<li>requires_grad：表示是否需要计算梯度。</li>
-</ul>
-<h3 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+<p>而自动微分(automatic
+differentiation)则是一种介于数值微分和符号微分之间的方法： -
+(1)它定义了一系列的“基本操作”​（如加、减、乘、除）​，并且根据手动推导的结果定义了这些操作的梯度。例如，在手动推导z=y×x的微分形式时，我们可以得到
+<span class="math inline">\(\frac{\partial z}{\partial x} = y\)</span>
+类似这样的基础操作梯度公式会被硬编码在自动微分系统中，是它的核心组成元素。
+-
+(2)在程序运行时，自动微分系统会基于链式法则将复杂运算拆解成基础操作的组合，一步步计算所有中间结果的梯度，并最终计算出输入参数的梯度。注意在运算过程中对于同一个张量的梯度是累加而不是覆写的。而且这里累加的是具体数值而非符号表达式，这一点至关重要，它使得自动微分系统能够自然地兼容程序中出现的逻辑判断，如分支、循环和递归等，而这对符号微分系统是非常困难的。</p>
+<h3 id="自动微分的实现">自动微分的实现</h3>
+<p>PyTorch的自动微分系统中默认使用<strong>反向微分模式</strong>。它以某个输出张量的梯度作为起点，反向逐层计算出每个输入参数对应的梯度，计算图的执行次数与输出张量的数量有关——M个输出张量就需要执行M次计算图。
+绝大多数深度学习模型训练的场景都是有w1,w2,...,wN个模型参数，但只有数个甚至一个损失函数(loss)。</p>
+<p>还有一种<strong>前向模式的自动微分</strong>。它以某个输入参数的梯度作为起点，向前逐层计算出每个输出张量对应的梯度，计算图的执行次数与输入参数的数量有关——N个输入参数就需要执行N次计算图。
+所以前向微分适合输入参数少而输出张量多的场景，比如模型只有一个输入参数w，但是输出M个loss的情况，这一般多见于科学计算相关的场景，尤其在计算高阶导数时。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307211040.png"></p>
+<p>PyTorch自动微分机制依赖于torch.Tensor上的两个额外属性，即grad和requires_grad。
+- grad：存储了张量对应的梯度值，初始值为None。 -
+requires_grad：表示是否需要计算梯度。</p>
+<h3 id="示例">示例：</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
 # 创建一个需要计算梯度的张量
 x = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)
@@ -690,11 +735,14 @@ loss.backward()
 
 # 查看x的梯度
 print(x.grad)</code></pre>
-<p>注意每一个算子在前向调用时，就会当场在反向图中构建一个反向算子，前向计算图是当场构建、当场执行的，但反向计算图则是当场构建、延迟执行的——直到我们调用loss.backward()时才会开始执行反向图。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307212745.png"></p>
+<p>注意每一个算子在前向调用时，就会当场在反向图中构建一个反向算子，前向计算图是当场构建、当场执行的，但反向计算图则是当场构建、延迟执行的——直到我们调用loss.backward()时才会开始执行反向图。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307212745.png"></p>
 <p>需要注意梯度是累加的，如果多次调用backward()，每次调用计算出的梯度也会累积到对应张量的grad属性中，这也是为什么我们需要在每轮训练循环开始前调用optimizer.zero_grad()来手动清零梯度的原因。</p>
-<h3 id="Autograd扩展自定义算子"><a href="#Autograd扩展自定义算子" class="headerlink" title="Autograd扩展自定义算子"></a>Autograd扩展自定义算子</h3><p>在实际开发过程中，当我们遇到需要使用一些非标准或特殊的数学操作，而这些操作又不在PyTorch库的支持范围内时，可以利用PyTorch自动微分系统提供的扩展模块来自定义新的算子。新定义的操作能够像PyTorch中的任何其他操作一样被使用，并能自然而然地融入PyTorch的自动微分机制中。</p>
-<p>举例来说，假如我们要实现一个计算 $input1 \times input1 \times input2$ 的算子，其实现方法如下所示：</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+<h3 id="autograd扩展自定义算子">Autograd扩展自定义算子</h3>
+<p>在实际开发过程中，当我们遇到需要使用一些非标准或特殊的数学操作，而这些操作又不在PyTorch库的支持范围内时，可以利用PyTorch自动微分系统提供的扩展模块来自定义新的算子。新定义的操作能够像PyTorch中的任何其他操作一样被使用，并能自然而然地融入PyTorch的自动微分机制中。</p>
+<p>举例来说，假如我们要实现一个计算 <span class="math inline">\(input1
+\times input1 \times input2\)</span> 的算子，其实现方法如下所示：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
 class MyMul(torch.autograd.Function):
     @staticmethod
@@ -716,20 +764,32 @@ z = MyMul.apply(x, y)
 z.backward(torch.tensor([1.0, 1.0]))
 
 print(f"x.grad={x.grad}, y.grad={y.grad}")
-# x.grad=tensor([12., 24.]), y.grad=tensor([4., 9.])</code></pre>
-
-<h3 id="Pytorch的异步执行"><a href="#Pytorch的异步执行" class="headerlink" title="Pytorch的异步执行"></a>Pytorch的异步执行</h3><p>PyTorch支持不同的计算后端，模型训练主要依赖其中的CPU和GPU后端。<br>在使用PyTorch的不同计算后端时，主要会影响以下三个方面：</p>
-<ul>
-<li><strong>张量的存储位置</strong>。</li>
-<li><strong>算子的执行硬件</strong>。</li>
-<li><strong>执行机制</strong>。</li>
-</ul>
-<p>前两者比较容易理解：使用CPU后端时张量存放在内存中，算子在CPU上执行；而使用GPU后端时张量存放在显存里，算子在GPU上执行。<br>但是第三点“执行机制”的变化则更为复杂。</p>
-<h4 id="CPU后端执行机制"><a href="#CPU后端执行机制" class="headerlink" title="CPU后端执行机制"></a>CPU后端执行机制</h4><p>每一个Python指令都对应一个CPU算子任务。每个算子在CPU上完全执行完毕，得到输出结果后，才跳转到下一条Python指令，开始执行后续的算子任务。这种执行机制被称为<strong>同步执行机制</strong>。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307224514.png"></p>
-<h4 id="GPU后端执行机制"><a href="#GPU后端执行机制" class="headerlink" title="GPU后端执行机制"></a>GPU后端执行机制</h4><p>PyTorch也只会把核心的算子计算任务放在GPU上，而类型提升、输出信息推导、输出张量的创建、定位算子等任务依然还留在CPU上。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307224705.png"></p>
-<p>GPU内部维护了一系列任务队列(stream)，CPU会将算子任务（一般是一个CUDA函数）提交到GPU的任务队列上，之后就可以撒手不管了，GPU会自行从任务队列中依次拿出计算任务然后执行。<br>不仅如此，CPU将算子任务提交给GPU之后，不会等GPU完成计算，而是直接返回并开始执行下一条Python指令。<br>这种执行机制被称为<strong>异步执行机制</strong>。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307225018.png"></p>
-<h4 id="运行时间陷阱"><a href="#运行时间陷阱" class="headerlink" title="运行时间陷阱"></a>运行时间陷阱</h4><p>如果我们在CPU任务结束后立即停止计时，并惊讶地发现程序运行得出奇地快，这就不免中了CPU的圈套。<br>如图3-13所示，当我们打印出“CPU Finished”的时候，GPU还在后台默默地负重前行呢。<br>上述CPU - GPU协同工作机制被称为异步执行机制，其核心特点在于CPU提交任务给GPU后，不等待GPU任务完成而直接返回，继续执行下一个CPU任务或下一条Python代码。<br>然而在很多任务中我们还是希望等待GPU完成计算的，包括而不限于测试程序的运行时间、打印计算结果等。<br>这时我们就需要手动调用PyTorch提供的CPU-GPU同步接口，比如**torch.cuda.synchronize()**，如图3-14所示。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307225226.png"></p>
-<p>除了来自用户的手动显式调用同步操作，PyTorch的一些操作也会隐式地调用同步操作。<br>比如，当我们调用torch.nn.functional.softmax()时，PyTorch会自动将计算任务提交给GPU，并隐式地调用torch.cuda.synchronize()。</p>
+# x.grad=tensor([12., 24.]), y.grad=tensor([4., 9.])</code></pre><p></p>
+<h3 id="pytorch的异步执行">Pytorch的异步执行</h3>
+<p>PyTorch支持不同的计算后端，模型训练主要依赖其中的CPU和GPU后端。
+在使用PyTorch的不同计算后端时，主要会影响以下三个方面： -
+<strong>张量的存储位置</strong>。 - <strong>算子的执行硬件</strong>。 -
+<strong>执行机制</strong>。</p>
+<p>前两者比较容易理解：使用CPU后端时张量存放在内存中，算子在CPU上执行；而使用GPU后端时张量存放在显存里，算子在GPU上执行。
+但是第三点“执行机制”的变化则更为复杂。 #### CPU后端执行机制
+每一个Python指令都对应一个CPU算子任务。每个算子在CPU上完全执行完毕，得到输出结果后，才跳转到下一条Python指令，开始执行后续的算子任务。这种执行机制被称为<strong>同步执行机制</strong>。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307224514.png">
+#### GPU后端执行机制
+PyTorch也只会把核心的算子计算任务放在GPU上，而类型提升、输出信息推导、输出张量的创建、定位算子等任务依然还留在CPU上。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307224705.png"></p>
+<p>GPU内部维护了一系列任务队列(stream)，CPU会将算子任务（一般是一个CUDA函数）提交到GPU的任务队列上，之后就可以撒手不管了，GPU会自行从任务队列中依次拿出计算任务然后执行。
+不仅如此，CPU将算子任务提交给GPU之后，不会等GPU完成计算，而是直接返回并开始执行下一条Python指令。
+这种执行机制被称为<strong>异步执行机制</strong>。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307225018.png">
+#### 运行时间陷阱
+如果我们在CPU任务结束后立即停止计时，并惊讶地发现程序运行得出奇地快，这就不免中了CPU的圈套。
+如图3-13所示，当我们打印出“CPU
+Finished”的时候，GPU还在后台默默地负重前行呢。 上述CPU -
+GPU协同工作机制被称为异步执行机制，其核心特点在于CPU提交任务给GPU后，不等待GPU任务完成而直接返回，继续执行下一个CPU任务或下一条Python代码。
+然而在很多任务中我们还是希望等待GPU完成计算的，包括而不限于测试程序的运行时间、打印计算结果等。
+这时我们就需要手动调用PyTorch提供的CPU-GPU同步接口，比如<strong>torch.cuda.synchronize()</strong>，如图3-14所示。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250307225226.png"></p>
+<p>除了来自用户的手动显式调用同步操作，PyTorch的一些操作也会隐式地调用同步操作。
+比如，当我们调用torch.nn.functional.softmax()时，PyTorch会自动将计算任务提交给GPU，并隐式地调用torch.cuda.synchronize()。</p>
 
                 
             </div>
@@ -1491,7 +1551,7 @@ print(f"x.grad={x.grad}, y.grad={y.grad}")
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             

@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-09T18:14:58.259Z</updated>
+  <updated>2025-03-09T18:16:52.683Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -21,15 +21,16 @@
     <link href="http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/"/>
     <id>http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/</id>
     <published>2025-03-09T17:35:31.000Z</published>
-    <updated>2025-03-09T18:14:58.259Z</updated>
+    <updated>2025-03-09T18:16:52.683Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;基本定义&quot;&gt;&lt;a href=&quot;#基本定义&quot; class=&quot;headerlink&quot; title=&quot;基本定义&quot;&gt;&lt;/a&gt;基本定义&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;正定矩阵：一个 n×n 的实对称矩阵 $A$，如果对于任何非零向量 $x &#92;in</summary>
+    <summary type="html">&lt;h2 id=&quot;基本定义&quot;&gt;基本定义&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;正定矩阵：一个 n×n 的实对称矩阵 &lt;span class=&quot;math inline&quot;&gt;&#92;(A&#92;)&lt;/span&gt;，如果对于任何非零向量 &lt;span class=&quot;math inline&quot;&gt;&#92;(x</summary>
         
       
     
@@ -57,7 +58,7 @@
         
         
     <summary type="html">&lt;p&gt;本章将从PyTorch的核心概念——张量和算子讲起，逐步深入PyTorch的内存分配、基于动态图的运行机制，以及作为训练框架的杀手锏级特性——自动微分系统的底层原理&lt;/p&gt;
-&lt;h2 id=&quot;PyTorch的张量数据结构&quot;&gt;&lt;a href=&quot;#PyTorch的张量数据结构&quot;</summary>
+&lt;h2</summary>
         
       
     
@@ -86,7 +87,9 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;GPU与内存&quot;&gt;&lt;a href=&quot;#GPU与内存&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;gpu与内存&quot;&gt;GPU与内存&lt;/h2&gt;
+&lt;p&gt;深度学习模型的基础计算单元是&quot;算子&quot;，本质上是将输入映射为输出的计算过程，对于古老的CPU-内存体系来说，算子遵循一下步骤：
+- 从内存中读取输入数据 - 对独到的数据调用CPU指令，完成算子计算</summary>
         
       
     
@@ -115,7 +118,10 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;深度图&quot;&gt;&lt;a href=&quot;#深度图&quot; class=&quot;headerlink&quot; title=&quot;深度图&quot;&gt;&lt;/a&gt;深度图&lt;/h2&gt;&lt;h3 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;深度图&quot;&gt;深度图&lt;/h2&gt;
+&lt;h3 id=&quot;定义&quot;&gt;定义&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250306162901.png&quot;&gt;
+Depth</summary>
         
       
     
@@ -148,7 +154,10 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch 框架之上（Tensorflow</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch
+框架之上（Tensorflow 的版本功能并不完善），基本上 所有的Transformer
+模型都可以在 Hugging</summary>
         
       
     
@@ -179,9 +188,7 @@
       
         
         
-    <summary type="html">&lt;p&gt;MacOS 系统上 Visual Studio Code (VSCode) 一些常用的快捷键&lt;/p&gt;
-&lt;p&gt;参考：&lt;/p&gt;
-&lt;p&gt;&lt;a</summary>
+    <summary type="html">&lt;p&gt;MacOS 系统上 Visual Studio Code (VSCode)</summary>
         
       
     
@@ -207,7 +214,7 @@
         
         
     <summary type="html">&lt;p&gt;Otsu 阈值算法的简单实现&lt;/p&gt;
-&lt;h2 id=&quot;1-什么是-Otsu-阈值算法&quot;&gt;&lt;a href=&quot;#1-什么是-Otsu-阈值算法&quot; class=&quot;headerlink&quot; title=&quot;1. 什么是 Otsu 阈值算法&quot;&gt;&lt;/a&gt;1. 什么是 Otsu</summary>
+&lt;h2 id=&quot;什么是-otsu-阈值算法&quot;&gt;1. 什么是 Otsu</summary>
         
       
     
@@ -236,7 +243,9 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;菜肴&quot;&gt;&lt;a href=&quot;#菜肴&quot; class=&quot;headerlink&quot; title=&quot;菜肴&quot;&gt;&lt;/a&gt;菜肴&lt;/h2&gt;&lt;h3 id=&quot;酱汁扒鸡&quot;&gt;&lt;a href=&quot;#酱汁扒鸡&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;菜肴&quot;&gt;菜肴&lt;/h2&gt;
+&lt;h3 id=&quot;酱汁扒鸡&quot;&gt;酱汁扒鸡&lt;/h3&gt;
+&lt;p&gt;(6.97 F@u.Sl 03/28</summary>
         
       
     
@@ -263,9 +272,10 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;pip&quot;&gt;&lt;a href=&quot;#pip&quot; class=&quot;headerlink&quot; title=&quot;pip&quot;&gt;&lt;/a&gt;pip&lt;/h2&gt;&lt;ul&gt;
+    <summary type="html">&lt;h2 id=&quot;pip&quot;&gt;pip&lt;/h2&gt;
+&lt;ul&gt;
 &lt;li&gt;文件路径：&lt;code&gt;~/.pip/pip.conf&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;配置内容：&lt;pre</summary>
+&lt;li&gt;配置内容： &lt;pre class=&quot;line-numbers language-bash&quot;</summary>
         
       
     
@@ -292,8 +302,10 @@
       
         
         
-    <summary type="html">&lt;p&gt;在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的 SSH 密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：&lt;/p&gt;
-&lt;h2 id=&quot;1-使用宿主机已有的-SSH-密钥&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;p&gt;在 Docker 容器中与远程 GitHub 建立安全连接时，直接在容器内生成新的
+SSH
+密钥存在一定的泄漏风险，特别是如果容器生命周期较短或需要共享容器的情况下。以下是几种安全的方法来处理这种场景：
+## 1. 使用宿主机已有的 SSH 密钥 将宿主机中已经配置好的</summary>
         
       
     
@@ -324,7 +336,8 @@
       
         
         
-    <summary type="html">&lt;p&gt;应该学过计算机的人都知道git和github，基本上伴随我们的整个编程生涯。但是博主由于并非科班出身，虽然日常都在用，但是一直对里面的一些概念和操作不是很清楚，每次遇到问题都是百度一下，解决了就忘记了。&lt;br&gt;所以想通过这篇文章来梳理记录一下git和github的日常使用方</summary>
+    <summary type="html">&lt;p&gt;应该学过计算机的人都知道git和github，基本上伴随我们的整个编程生涯。但是博主由于并非科班出身，虽然日常都在用，但是一直对里面的一些概念和操作不是很清楚，每次遇到问题都是百度一下，解决了就忘记了。
+所以想通过这篇文章来梳理记录一下git和github的日常使用方法，方</summary>
         
       
     
@@ -351,9 +364,8 @@
       
         
         
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;拉取镜像&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-bash&quot; data-language=&quot;bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker pull</summary>
+    <summary type="html">&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt;拉取镜像 &lt;/p&gt;&lt;pre class=&quot;line-numbers language-bash&quot; data-language=&quot;bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker pull</summary>
         
       
     
@@ -378,8 +390,9 @@
       
         
         
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/engine/storage/&quot;&gt;Docker 的存储功能&lt;/a&gt;分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：&lt;/p&gt;
-&lt;h2 id=&quot;Volumes（卷）&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/engine/storage/&quot;&gt;Docker
+的存储功能&lt;/a&gt;分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：
+## Volumes（卷） Volumes 是</summary>
         
       
     
@@ -404,7 +417,8 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;CodeWithGPU简介&quot;&gt;&lt;a href=&quot;#CodeWithGPU简介&quot; class=&quot;headerlink&quot; title=&quot;CodeWithGPU简介&quot;&gt;&lt;/a&gt;CodeWithGPU简介&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
+    <summary type="html">&lt;h2 id=&quot;codewithgpu简介&quot;&gt;CodeWithGPU简介&lt;/h2&gt;
+&lt;p&gt;&lt;a</summary>
         
       
     
@@ -433,8 +447,9 @@
       
         
         
-    <summary type="html">&lt;p&gt;分为两种情况：&lt;/p&gt;
-&lt;h2 id=&quot;拥有路由器管理权限&quot;&gt;&lt;a href=&quot;#拥有路由器管理权限&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;p&gt;分为两种情况： ## 拥有路由器管理权限 1.
+MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固定的内网IP地址。&lt;/p&gt;
+&lt;ol start=&quot;2&quot;</summary>
         
       
     
@@ -461,7 +476,10 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;预备知识&quot;&gt;&lt;a href=&quot;#预备知识&quot; class=&quot;headerlink&quot; title=&quot;预备知识&quot;&gt;&lt;/a&gt;预备知识&lt;/h2&gt;&lt;h3 id=&quot;文件系统类型&quot;&gt;&lt;a href=&quot;#文件系统类型&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;预备知识&quot;&gt;预备知识&lt;/h2&gt;
+&lt;h3 id=&quot;文件系统类型&quot;&gt;文件系统类型&lt;/h3&gt;
+&lt;p&gt;通过
+&lt;code&gt;df -T /home&lt;/code&gt;或者&lt;code&gt;lsblk</summary>
         
       
     
@@ -490,7 +508,8 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;模块Module和包Package&quot;&gt;&lt;a href=&quot;#模块Module和包Package&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;模块module和包package&quot;&gt;模块Module和包Package&lt;/h2&gt;
+&lt;p&gt;在Python中，一个</summary>
         
       
     
@@ -521,7 +540,9 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;中文写作&quot;&gt;&lt;a href=&quot;#中文写作&quot; class=&quot;headerlink&quot; title=&quot;中文写作&quot;&gt;&lt;/a&gt;中文写作&lt;/h1&gt;&lt;h2 id=&quot;润色&quot;&gt;&lt;a href=&quot;#润色&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;中文写作&quot;&gt;中文写作&lt;/h1&gt;
+&lt;h2 id=&quot;润色&quot;&gt;润色&lt;/h2&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code</summary>
         
       
     
@@ -548,8 +569,13 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;安装准备&quot;&gt;&lt;a href=&quot;#安装准备&quot; class=&quot;headerlink&quot; title=&quot;安装准备&quot;&gt;&lt;/a&gt;安装准备&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;TeXLive / MacTeX /</summary>
+    <summary type="html">&lt;h2 id=&quot;安装准备&quot;&gt;安装准备&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;TeXLive / MacTeX / MiKTeX等LaTeX发行版&lt;/li&gt;
+&lt;li&gt;VSCode&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;vscode-配置&quot;&gt;Vscode 配置&lt;/h2&gt;
+&lt;h3</summary>
         
       
     
@@ -576,7 +602,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;二战后日本经济奇迹&quot;&gt;&lt;a href=&quot;#二战后日本经济奇迹&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2</summary>
         
       
     

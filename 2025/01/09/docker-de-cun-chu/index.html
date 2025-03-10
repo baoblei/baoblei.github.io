@@ -5,8 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="docker的存储, 庞贝堡垒">
-    <meta name="description" content="Docker 的存储功能分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：
-Volumes（卷）Volumes 是 Docker 推荐的持久化存储方式，可以将容器数据独立存储在主机文件系统中。即使容器被删除，数">
+    <meta name="description" content="Docker
+的存储功能分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：
+## Volumes（卷） Volumes 是 Docker
+推荐的持久化存储方式，可以将容器数据独立存储在主机文件系统中。即使容器被">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -468,81 +470,75 @@ Volumes（卷）Volumes 是 Docker 推荐的持久化存储方式，可以将容
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/">Docker 的存储功能</a>分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：</p>
-<h2 id="Volumes（卷）"><a href="#Volumes（卷）" class="headerlink" title="Volumes（卷）"></a>Volumes（卷）</h2><p>Volumes 是 Docker 推荐的持久化存储方式，可以将容器数据独立存储在主机文件系统中。即使容器被删除，数据也不会丢失。<br><strong>设置卷的存储位置</strong><br>卷会被存储在 Docker 的默认数据目录中：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/var/lib/docker/volumes/&lt;volume_name&gt;/_data # Linux
-C:\ProgramData\Docker\volumes\&lt;volume_name&gt;\_data # Windows</code></pre>
-<p>运行以下命令查看某个卷的具体路径：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume inspect my_volume</code></pre>
-<p>如果希望将卷存储到非默认路径，可以通过修改 Docker 的配置文件（通常位于 /etc/docker/daemon.json，没有的话可以新建）来实现：</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json">{
+                <p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/">Docker
+的存储功能</a>分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：
+## Volumes（卷） Volumes 是 Docker
+推荐的持久化存储方式，可以将容器数据独立存储在主机文件系统中。即使容器被删除，数据也不会丢失。
+<strong>设置卷的存储位置</strong> 卷会被存储在 Docker 的默认数据目录中：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/var/lib/docker/volumes/&lt;volume_name&gt;/_data # Linux
+C:\ProgramData\Docker\volumes\&lt;volume_name&gt;\_data # Windows</code></pre> 运行以下命令查看某个卷的具体路径： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume inspect my_volume</code></pre>
+如果希望将卷存储到非默认路径，可以通过修改 Docker 的配置文件（通常位于
+/etc/docker/daemon.json，没有的话可以新建）来实现： <pre class="line-numbers language-json" data-language="json"><code class="language-json">{
     # 将 Docker 数据目录修改为 /home/docker。
     "data-root": "/home/docker"
 }</code></pre>
-<p>其实这里本质上是修改了 Docker 的数据目录，卷的数据也会存储在这个目录中，我们可以通过<code>docker info</code>查看 Docker 的根目录。</p>
-<p><strong>切记</strong>如果之前已经有数据，需要将数据从<code>/var/lib/docker</code>迁移到新的目录<code>/home/docker</code>中。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl stop docker # 停止 Docker 服务
+其实这里本质上是修改了 Docker
+的数据目录，卷的数据也会存储在这个目录中，我们可以通过<code>docker info</code>查看
+Docker 的根目录。<p></p>
+<p><strong>切记</strong>如果之前已经有数据，需要将数据从<code>/var/lib/docker</code>迁移到新的目录<code>/home/docker</code>中。
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl stop docker # 停止 Docker 服务
 rsync -avz /var/lib/docker /home/docker # 迁移数据
-systemctl start docker # 启动 Docker 服务</code></pre>
-
-<p>设置后重启 Docker 服务:<code>sudo systemctl restart docker</code>，所有新创建的卷都会存储在新的数据目录<code>/home/docker/volumes</code>中。可以在通过<code>docker volume inspect my_volume</code>查看卷的具体路径，或者<code>docker info</code>查看 Docker 的根目录。</p>
+systemctl start docker # 启动 Docker 服务</code></pre><p></p>
+<p>设置后重启 Docker
+服务:<code>sudo systemctl restart docker</code>，所有新创建的卷都会存储在新的数据目录<code>/home/docker/volumes</code>中。可以在通过<code>docker volume inspect my_volume</code>查看卷的具体路径，或者<code>docker info</code>查看
+Docker 的根目录。</p>
 <p><strong>卷可以被不同的容器共享，也可以在多个容器之间传递数据。</strong></p>
-<p><strong>注意</strong></p>
-<ol>
-<li>不要直接修改卷目录中的文件：如果直接修改主机上的卷目录中的数据，可能导致数据损坏或无法被容器识别。</li>
-<li>备份与迁移：可以通过主机上的路径对卷数据进行备份或迁移。</li>
-</ol>
-<p><strong>使用方式</strong></p>
+<p><strong>注意</strong> 1.
+不要直接修改卷目录中的文件：如果直接修改主机上的卷目录中的数据，可能导致数据损坏或无法被容器识别。
+2. 备份与迁移：可以通过主机上的路径对卷数据进行备份或迁移。</p>
+<p><strong>使用方式</strong> - 创建一个 volume </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume create my_volume</code></pre><p></p>
 <ul>
-<li><p>创建一个 volume</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume create my_volume</code></pre>
-</li>
-<li><p>在容器中挂载 volume，<strong>通过挂载卷可以实现数据持久化，即使容器被删除，卷中的数据仍然保留。</strong></p>
+<li>在容器中挂载
+volume，<strong>通过挂载卷可以实现数据持久化，即使容器被删除，卷中的数据仍然保留。</strong>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name my_container -v my_volume:/app/data my_image
 # -d: 分离模式，后台运行容器
 # --name: 容器名称
 # -v: 挂载 volume
 # my_image: 镜像名称</code></pre></li>
-<li><p>查看 volume</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume ls</code></pre></li>
-<li><p>删除 volume</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume rm my_volume</code></pre></li>
+<li>查看 volume <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume ls</code></pre></li>
+<li>删除 volume <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume rm my_volume</code></pre></li>
 </ul>
-<h2 id="Bind-mounts（绑定挂载）"><a href="#Bind-mounts（绑定挂载）" class="headerlink" title="Bind mounts（绑定挂载）"></a>Bind mounts（绑定挂载）</h2><p>Bind Mount 将主机上的文件或目录直接挂载到容器中，主机上的数据可以实时更新到容器中，反之亦然。</p>
-<p><strong>使用方式</strong>-在运行容器时指定绑定挂载：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name my_container -v /path/on/host:/path/in/container my_image</code></pre>
-<p><strong>适用场景</strong>：</p>
-<ol>
-<li>开发环境中需要实时同步主机和容器数据。</li>
-<li>在主机上有特定目录需要容器访问（如配置文件）。</li>
-</ol>
-<p><strong>注意</strong>：<br>绑定挂载没有卷的隔离性和安全性，需谨慎操作主机文件。</p>
-<h2 id="tmpfs-Mounts（临时文件系统挂载）"><a href="#tmpfs-Mounts（临时文件系统挂载）" class="headerlink" title="tmpfs Mounts（临时文件系统挂载）"></a>tmpfs Mounts（临时文件系统挂载）</h2><p>tmpfs 挂载将数据存储在内存中，而不是磁盘上。数据是临时的，容器停止后数据会丢失。</p>
-<p><strong>使用方式</strong>-在运行容器时使用 –tmpfs 选项：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name my_container --tmpfs /app/data my_image
-# /app/data 是容器内部的路径，应用程序在该路径下操作数据。</code></pre>
-<p><strong>适用场景：</strong></p>
-<ol>
-<li>临时数据存储，例如缓存或临时文件。</li>
-<li>对性能要求较高且数据无需持久化的场景。</li>
-</ol>
-<h2 id="Storage-Drivers（存储驱动）"><a href="#Storage-Drivers（存储驱动）" class="headerlink" title="Storage Drivers（存储驱动）"></a>Storage Drivers（存储驱动）</h2><p>存储驱动管理容器和镜像的底层存储。每种存储驱动适用于不同的文件系统和操作场景。<br>可以详情查看<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/drivers/">官方文档</a>，有具体的图示和说明，对镜像和容器的存储方式有更深入的了解。</p>
-<p><strong>常用驱动：</strong></p>
-<ol>
-<li>OverlayFS：默认驱动，适用于大多数 Linux 发行版。</li>
-<li>BTRFS：支持高级功能，如快照和压缩。</li>
-<li>ZFS：高性能存储驱动，适用于复杂存储需求。</li>
-<li>Device Mapper 和 AUFS：较老的存储驱动。</li>
-</ol>
-<p><strong>使用方式：</strong>- 检查当前存储驱动：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker info | grep Storage</code></pre>
-
-<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><p>Docker 提供了一些存储管理的建议：</p>
-<ol>
-<li>优先使用 Volumes：推荐用 Volumes 来替代 Bind Mount，确保数据隔离性和安全性。</li>
-<li>避免直接使用容器层存储：容器层的存储是临时的，适用于短期任务，不建议用于持久化数据。</li>
-<li>定期清理未使用的卷：<code>docker volume prune</code> 命令可以清理未使用的卷，释放磁盘空间。</li>
-</ol>
+<h2 id="bind-mounts绑定挂载">Bind mounts（绑定挂载）</h2>
+<p>Bind Mount
+将主机上的文件或目录直接挂载到容器中，主机上的数据可以实时更新到容器中，反之亦然。</p>
+<p><strong>使用方式</strong>-在运行容器时指定绑定挂载： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name my_container -v /path/on/host:/path/in/container my_image</code></pre>
+<strong>适用场景</strong>： 1. 开发环境中需要实时同步主机和容器数据。 2.
+在主机上有特定目录需要容器访问（如配置文件）。<p></p>
+<p><strong>注意</strong>：
+绑定挂载没有卷的隔离性和安全性，需谨慎操作主机文件。</p>
+<h2 id="tmpfs-mounts临时文件系统挂载">tmpfs
+Mounts（临时文件系统挂载）</h2>
+<p>tmpfs
+挂载将数据存储在内存中，而不是磁盘上。数据是临时的，容器停止后数据会丢失。</p>
+<p><strong>使用方式</strong>-在运行容器时使用 --tmpfs 选项：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name my_container --tmpfs /app/data my_image
+# /app/data 是容器内部的路径，应用程序在该路径下操作数据。</code></pre> <strong>适用场景：</strong> 1.
+临时数据存储，例如缓存或临时文件。 2.
+对性能要求较高且数据无需持久化的场景。<p></p>
+<h2 id="storage-drivers存储驱动">Storage Drivers（存储驱动）</h2>
+<p>存储驱动管理容器和镜像的底层存储。每种存储驱动适用于不同的文件系统和操作场景。
+可以详情查看<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/storage/drivers/">官方文档</a>，有具体的图示和说明，对镜像和容器的存储方式有更深入的了解。</p>
+<p><strong>常用驱动：</strong> 1. OverlayFS：默认驱动，适用于大多数
+Linux 发行版。 2. BTRFS：支持高级功能，如快照和压缩。 3.
+ZFS：高性能存储驱动，适用于复杂存储需求。 4. Device Mapper 和
+AUFS：较老的存储驱动。</p>
+<p><strong>使用方式：</strong>- 检查当前存储驱动： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker info | grep Storage</code></pre><p></p>
+<h2 id="建议">建议</h2>
+<p>Docker 提供了一些存储管理的建议： 1. 优先使用 Volumes：推荐用 Volumes
+来替代 Bind Mount，确保数据隔离性和安全性。 2.
+避免直接使用容器层存储：容器层的存储是临时的，适用于短期任务，不建议用于持久化数据。
+3. 定期清理未使用的卷：<code>docker volume prune</code>
+命令可以清理未使用的卷，释放磁盘空间。</p>
 
                 
             </div>
@@ -1285,7 +1281,7 @@ systemctl start docker # 启动 Docker 服务</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             

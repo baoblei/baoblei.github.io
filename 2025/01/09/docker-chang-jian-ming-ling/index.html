@@ -6,15 +6,11 @@
     <meta charset="utf-8">
     <meta name="keywords" content="docker常见命令, 庞贝堡垒">
     <meta name="description" content="
-拉取镜像
-docker pull [镜像地址]
+拉取镜像 docker pull [镜像地址]
 #【镜像地址]一般由[镜像名]:[标签]组成，标签一般指的版本号，默认为latest。例如：ubuntu:20.04
-
 创建并运行新容器
 
-
-使用拉取的镜像创建并运行容器：
-docker r">
+使用拉取的镜像创建并运行容器： docker run">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -476,16 +472,12 @@ docker r">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ol>
-<li><p>拉取镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker pull [镜像地址]
-#【镜像地址]一般由[镜像名]:[标签]组成，标签一般指的版本号，默认为latest。例如：ubuntu:20.04</code></pre>
-</li>
-<li><p>创建并运行新容器</p>
-</li>
+                <ol type="1">
+<li><p>拉取镜像 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker pull [镜像地址]
+#【镜像地址]一般由[镜像名]:[标签]组成，标签一般指的版本号，默认为latest。例如：ubuntu:20.04</code></pre><p></p></li>
+<li><p>创建并运行新容器</p></li>
 </ol>
-<p>使用拉取的镜像创建并运行容器：</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name &lt;容器名&gt; --gpus all -p &lt;主机端口&gt;:&lt;容器端口&gt; -v &lt;宿主机目录或卷名&gt;:&lt;容器目录&gt; &lt;镜像名&gt; sleep infinity
+<p>使用拉取的镜像创建并运行容器： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d --name &lt;容器名&gt; --gpus all -p &lt;主机端口&gt;:&lt;容器端口&gt; -v &lt;宿主机目录或卷名&gt;:&lt;容器目录&gt; &lt;镜像名&gt; sleep infinity
 # -d: 后台运行容器
 # --name: 指定容器名称
 # --gpus: 指定GPU
@@ -494,58 +486,44 @@ docker r">
 # sleep infinity: 保持容器运行
 
 # 如果容器以创建可以使用以下命令启动容器：
-docker start &lt;容器名或ID&gt;</code></pre>
-
-<ol start="3">
-<li><p>查看容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker ps # 查看正在运行的容器
-docker ps -a # 查看所有容器，包括已停止的</code></pre>
-</li>
-<li><p>进入容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker exec -it &lt;容器名&gt; /bin/bash # 或者 /bin/sh 
+docker start &lt;容器名或ID&gt;</code></pre><p></p>
+<ol start="3" type="1">
+<li><p>查看容器 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker ps # 查看正在运行的容器
+docker ps -a # 查看所有容器，包括已停止的</code></pre><p></p></li>
+<li><p>进入容器 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker exec -it &lt;容器名&gt; /bin/bash # 或者 /bin/sh 
 # it: 是两个选项的组合: --interactive --tty
 # -i: 交互式操作
-# -t: 为容器分配一个伪终端</code></pre>
-</li>
-<li><p>停止和删除容器</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker stop &lt;容器名或ID&gt;
+# -t: 为容器分配一个伪终端</code></pre><p></p></li>
+<li><p>停止和删除容器 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker stop &lt;容器名或ID&gt;
 docker rm &lt;容器名或ID&gt;
 
 docker stop $(docker ps -aq) # 停止所有容器
-docker rm $(docker ps -aq) # 删除所有容器</code></pre>
-</li>
-<li><p>保存容器状态为新镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker commit &lt;容器名或ID&gt; &lt;新镜像名&gt;:&lt;标签&gt;</code></pre>
-</li>
-<li><p>查看镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker images</code></pre>
-</li>
-<li><p>删除镜像</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker rmi &lt;镜像名或ID&gt;
-docker rmi -f &lt;镜像名或ID&gt; # 强制删除</code></pre>
-</li>
-<li><p>导出和导入镜像</p>
-</li>
+docker rm $(docker ps -aq) # 删除所有容器</code></pre><p></p></li>
+<li><p>保存容器状态为新镜像 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker commit &lt;容器名或ID&gt; &lt;新镜像名&gt;:&lt;标签&gt;</code></pre><p></p></li>
+<li><p>查看镜像 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker images</code></pre><p></p></li>
+<li><p>删除镜像 </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker rmi &lt;镜像名或ID&gt;
+docker rmi -f &lt;镜像名或ID&gt; # 强制删除</code></pre><p></p></li>
+<li><p>导出和导入镜像</p></li>
 </ol>
 <ul>
-<li>导出镜像为文件：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker save -o &lt;文件名&gt;.tar &lt;镜像名或ID&gt;</code></pre></li>
-<li>从文件导入镜像：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker load -i &lt;文件名&gt;.tar</code></pre></li>
+<li>导出镜像为文件： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker save -o &lt;文件名&gt;.tar &lt;镜像名或ID&gt;</code></pre></li>
+<li>从文件导入镜像： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker load -i &lt;文件名&gt;.tar</code></pre></li>
 </ul>
-<ol start="10">
+<ol start="10" type="1">
 <li>检查容器日志</li>
 </ol>
 <ul>
-<li>查看容器运行日志：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker logs &lt;容器名或ID&gt;</code></pre></li>
-<li>实时查看日志：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker logs -f &lt;容器名或ID&gt;</code></pre></li>
-<li>查看容器内进程：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker top &lt;容器名或ID&gt;</code></pre></li>
-<li>检查容器的详细信息：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker inspect &lt;容器名或ID&gt;</code></pre></li>
+<li>查看容器运行日志： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker logs &lt;容器名或ID&gt;</code></pre></li>
+<li>实时查看日志： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker logs -f &lt;容器名或ID&gt;</code></pre></li>
+<li>查看容器内进程： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker top &lt;容器名或ID&gt;</code></pre></li>
+<li>检查容器的详细信息： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker inspect &lt;容器名或ID&gt;</code></pre></li>
 </ul>
-<ol start="11">
+<ol start="11" type="1">
 <li>清理无用的资源</li>
 </ol>
 <ul>
-<li>清理未使用的镜像、容器、网络和卷：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker system prune</code></pre></li>
-<li>清理未使用的卷：<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume prune</code></pre></li>
+<li>清理未使用的镜像、容器、网络和卷： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker system prune</code></pre></li>
+<li>清理未使用的卷： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker volume prune</code></pre></li>
 </ul>
 
                 
@@ -1285,7 +1263,7 @@ docker rmi -f &lt;镜像名或ID&gt; # 强制删除</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             

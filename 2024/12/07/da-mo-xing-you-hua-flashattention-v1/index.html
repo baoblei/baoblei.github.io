@@ -5,7 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="大模型优化-FlashAttention-v1, 庞贝堡垒">
-    <meta name="description" content="前言在传统的自注意力机制中，注意力矩阵的计算复杂度为 O(N²)，其中 N 是序列的长度。对于长序列的输入（如文本或图像中的像素点），这种计算代价极高，特别是在训练大型语言模型或视觉模型时，内存占用和计算开销随着序列长度的增加而急剧上升。此">
+    <meta name="description" content="前言
+在传统的自注意力机制中，注意力矩阵的计算复杂度为
+O(N²)，其中 N
+是序列的长度。对于长序列的输入（如文本或图像中的像素点），这种计算代价极高，特别是在训练大型语言模型或视觉模型时，内存占用和计算开销随着序列长度的增加而急剧上升。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -441,7 +444,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    8.3k
+                    8.2k
                 </div>
                 
 
@@ -471,138 +474,273 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在传统的自注意力机制中，注意力矩阵的<strong>计算复杂度为 O(N²)<strong>，其中 N 是序列的长度。对于长序列的输入（如文本或图像中的像素点），这种计算代价极高，特别是在训练大型语言模型或视觉模型时，内存占用和计算开销随着序列长度的增加而急剧上升。此外，</strong>注意力矩阵的大小为 N×N</strong>，这也对 GPU 内存消耗极大。自注意力机制不仅在计算时消耗大量内存，还需要存储所有中间变量（如 Q、K、V 矩阵及注意力权重），以支持后续的反向传播。</p>
-<p>因此，找到有效降低 Transformer 模型 O(N²) 复杂度的方案至关重要。理想情况下，若能将复杂度降至 O(N)，将大大提升模型效率。即使无法完全实现 O(N)，逼近这一复杂度也是十分有价值的。在这一背景下，Flash Attention 应运而生，成为解决该问题的有效方案。</p>
-<p>从 Flash Attention（Fast and Memory Efficient Exact Attention with IO-Awareness）的命名可见其优势：</p>
+                <h2 id="前言">前言</h2>
+<p>在传统的自注意力机制中，注意力矩阵的<strong>计算复杂度为
+O(N²)</strong>，其中 N
+是序列的长度。对于长序列的输入（如文本或图像中的像素点），这种计算代价极高，特别是在训练大型语言模型或视觉模型时，内存占用和计算开销随着序列长度的增加而急剧上升。此外，<strong>注意力矩阵的大小为
+N×N</strong>，这也对 GPU
+内存消耗极大。自注意力机制不仅在计算时消耗大量内存，还需要存储所有中间变量（如
+Q、K、V 矩阵及注意力权重），以支持后续的反向传播。</p>
+<p>因此，找到有效降低 Transformer 模型 O(N²)
+复杂度的方案至关重要。理想情况下，若能将复杂度降至
+O(N)，将大大提升模型效率。即使无法完全实现
+O(N)，逼近这一复杂度也是十分有价值的。在这一背景下，Flash Attention
+应运而生，成为解决该问题的有效方案。</p>
+<p>从 Flash Attention（Fast and Memory Efficient Exact Attention with
+IO-Awareness）的命名可见其优势：</p>
 <ul>
-<li>Fast：在Flash Attention之前，也出现过一些加速Transformer计算的方法，这些方法的着眼点是“减少计算量FLOPs”，例如用一个稀疏attention做近似计算。而FlashAttention发现：<strong>计算慢的卡点不在运算能力，而是在读写速度上。</strong> 所以它通过降低对显存（HBM）的访问次数来加快整体运算速度，这种方法又被称为<strong>O-Awareness</strong>。</li>
-<li>Memory Efficient：在 Flash Attention 中，内存使用压力从 O(N²) 降至 O(N)，显著节省内存。</li>
-<li>Exact Attention：与稀疏 Attention 不同，Flash Attention 完全等效于标准 Attention。</li>
+<li>Fast：在Flash
+Attention之前，也出现过一些加速Transformer计算的方法，这些方法的着眼点是“减少计算量FLOPs”，例如用一个稀疏attention做近似计算。而FlashAttention发现：<strong>计算慢的卡点不在运算能力，而是在读写速度上。</strong>
+所以它通过降低对显存（HBM）的访问次数来加快整体运算速度，这种方法又被称为<strong>O-Awareness</strong>。</li>
+<li>Memory Efficient：在 Flash Attention 中，内存使用压力从 O(N²) 降至
+O(N)，显著节省内存。</li>
+<li>Exact Attention：与稀疏 Attention 不同，Flash Attention
+完全等效于标准 Attention。</li>
 </ul>
-<h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><h3 id="计算限制与内存限制"><a href="#计算限制与内存限制" class="headerlink" title="计算限制与内存限制"></a>计算限制与内存限制</h3><h4 id="受限原因分析"><a href="#受限原因分析" class="headerlink" title="受限原因分析"></a>受限原因分析</h4><p>首先介绍几个关键概念：</p>
+<h2 id="背景知识">背景知识</h2>
+<h3 id="计算限制与内存限制">计算限制与内存限制</h3>
+<h4 id="受限原因分析">受限原因分析</h4>
+<p>首先介绍几个关键概念：</p>
 <ul>
-<li>$\pi$：<strong>硬件算力上限</strong>，表示一个计算平台在全负荷情况下每秒能够执行的浮点运算次数，单位为 FLOPS（浮点运算次数每秒）。</li>
-<li>$\beta$：<strong>硬件带宽上限</strong>，表示一个计算平台在全负荷情况下每秒能够完成的数据交换量，单位为 Byte/s。</li>
-<li>$\pi_t$：<strong>某算法所需的总运算量</strong>，单位为 FLOPs。（t 表示 total）</li>
-<li>$\beta_t$：<strong>某算法所需的总数据读取和存储量</strong>，单位为 Byte。</li>
+<li><span class="math inline">\(\pi\)</span>：<strong>硬件算力上限</strong>，表示一个计算平台在全负荷情况下每秒能够执行的浮点运算次数，单位为
+FLOPS（浮点运算次数每秒）。</li>
+<li><span class="math inline">\(\beta\)</span>：<strong>硬件带宽上限</strong>，表示一个计算平台在全负荷情况下每秒能够完成的数据交换量，单位为
+Byte/s。</li>
+<li><span class="math inline">\(\pi_t\)</span>：<strong>某算法所需的总运算量</strong>，单位为
+FLOPs。（t 表示 total）</li>
+<li><span class="math inline">\(\beta_t\)</span>：<strong>某算法所需的总数据读取和存储量</strong>，单位为
+Byte。</li>
 </ul>
 <blockquote>
 <p>这里强调一下对FLOPS和FLOPs的解释：</p>
 </blockquote>
-<p>FLOPS：等同于FLOP/s，表示Floating Point Operations Per Second，即每秒执行的浮点数操作次数，用于衡量硬件计算性能。</p>
-<p>FLOPs：表示Floating Point Operations，表示某个算法的总计算量（即总浮点运算次数），用于衡量一个算法的复杂度。</p>
+<p>FLOPS：等同于FLOP/s，表示Floating Point Operations Per
+Second，即每秒执行的浮点数操作次数，用于衡量硬件计算性能。</p>
+<p>FLOPs：表示Floating Point
+Operations，表示某个算法的总计算量（即总浮点运算次数），用于衡量一个算法的复杂度。</p>
 <p>在实际执行过程中，时间不仅消耗在计算上，也消耗在数据读取和存储上。因此，我们定义：</p>
 <ul>
-<li>$T_{cal}$：算法执行所需的计算时间，其公式为$\pi_t / \pi$。</li>
-<li>$T_{load}$：算法执行所需的数据读取与存储时间，公式为 $\beta_t / \beta$。</li>
+<li><span class="math inline">\(T_{cal}\)</span>：算法执行所需的计算时间，其公式为<span class="math inline">\(\pi_t / \pi\)</span>。</li>
+<li><span class="math inline">\(T_{load}\)</span>：算法执行所需的数据读取与存储时间，公式为
+<span class="math inline">\(\beta_t / \beta\)</span>。</li>
 </ul>
-<p>由于计算和数据传输可以同时进行，我们定义算法的总执行时间：$T = max(T_{cal}, T_{load})$</p>
+<p>由于计算和数据传输可以同时进行，我们定义算法的总执行时间：<span class="math inline">\(T = max(T_{cal}, T_{load})\)</span></p>
 <ul>
-<li>当 $T_{cal}&gt;T_{load}$ 时，算法的瓶颈在计算部分，称为<strong>计算限制（math-bound）。</strong>此时，$\pi_t / \pi &gt; \beta_t / \beta$，即 $\pi_t/\beta_t &gt; \pi/\beta$。</li>
-<li>当 $T_{cal}&lt;T_{load}$ 时，瓶颈在数据读取部分，称为<strong>内存限制</strong>（memory-bound）。此时，$\pi_t / \pi &lt; \beta_t / \beta$，即 $\pi_t/\beta_t &lt; \pi/\beta$。</li>
+<li>当 <span class="math inline">\(T_{cal}&gt;T_{load}\)</span>
+时，算法的瓶颈在计算部分，称为<strong>计算限制（math-bound）。</strong>此时，<span class="math inline">\(\pi_t / \pi &gt; \beta_t / \beta\)</span>，即
+<span class="math inline">\(\pi_t/\beta_t &gt; \pi/\beta\)</span>。</li>
+<li>当 <span class="math inline">\(T_{cal}&lt;T_{load}\)</span>
+时，瓶颈在数据读取部分，称为<strong>内存限制</strong>（memory-bound）。此时，<span class="math inline">\(\pi_t / \pi &lt; \beta_t / \beta\)</span>，即
+<span class="math inline">\(\pi_t/\beta_t &lt; \pi/\beta\)</span>。</li>
 </ul>
-<p>算法的<strong>计算强度</strong>（Operational Intensity）定义为 $\pi_t/\beta_t$，表示每个数据读取操作对应的计算量。当算法的计算强度越高，说明计算部分的工作量越大，反之则说明数据读取部分的工作量越大。</p>
-<p>假设我们现在采用的硬件为A100-40GB SXM，同时采用混合精度训练（可理解为训练过程中的计算和存储都是fp16形式的，一个元素占用2byte），则：<br>$$ \pi/\beta = 312<em>10^{12} / 1555</em>10^9 = 201 FLOPs/Bytes $$</p>
-<p>对于一个模型，$Q, K \in \mathbb{R}^{n \times d}$，其中N为序列长度，d为embedding dim。现在计算$S = QK^T$，则有：<br>$$<br>\frac{\pi_t}{\beta_t} = \frac{2N^2d}{2Nd + 2Nd + 2N^2} = \frac{N^2d}{2Nd + N^2}<br>$$</p>
-<p>下表记录了不同的N，d下的受限类型：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207024735.png"></p>
-<p>根据这个表格，我们可以来做下总结：</p>
-<ul>
-<li>计算限制（math-bound）：大矩阵乘法（N和d都非常大）、通道数很大的卷积运算。相对而言，读得快，算得慢。</li>
-<li>内存限制（memory-bound）：逐点运算操作。例如：激活函数、dropout、mask、softmax、BN和LN。相对而言，算得快，读得慢。</li>
-</ul>
-<p>所以，“Transformer计算受限于数据读取”也不是绝对的，要综合硬件本身和模型大小来综合判断。但从表中的结果我们可知，memory-bound的情况还是普遍存在的，所以Flash attention的改进思想在很多场景下依然适用。</p>
-<p>在Flash attention中，<strong>计算注意力矩阵时的softmax计算就受到了内存限制，这也是flash attention的重点优化对象</strong>，我们会在下文来详细看这一点。</p>
-<h4 id="roof-line-模型"><a href="#roof-line-模型" class="headerlink" title="roof-line 模型"></a>roof-line 模型</h4><p>一个算法运行的效率是离不开硬件本身的。我们往往想知道：对于一个运算量为 $\pi_t$，数据读取存储量为 $\beta_t$ 的算法，它在算力上限为 $\pi$，带宽上限为 $\beta$ 的硬件上，能达到的最大性能 $P$（Attanable Performance）是多少？</p>
-<p>这里最大性能 $P$ 指的是当前算法实际运行在硬件上时，每秒最多能达到的计算次数，单位是FLOP/s。</p>
+<p>算法的<strong>计算强度</strong>（Operational Intensity）定义为 <span class="math inline">\(\pi_t/\beta_t\)</span>，表示每个数据读取操作对应的计算量。当算法的计算强度越高，说明计算部分的工作量越大，反之则说明数据读取部分的工作量越大。</p>
+<p>假设我们现在采用的硬件为A100-40GB
+SXM，同时采用混合精度训练（可理解为训练过程中的计算和存储都是fp16形式的，一个元素占用2byte），则：
+<span class="math display">\[ \pi/\beta = 312*10^{12} / 1555*10^9 = 201
+FLOPs/Bytes \]</span></p>
+<p>对于一个模型，<span class="math inline">\(Q, K \in \mathbb{R}^{n
+\times d}\)</span>，其中N为序列长度，d为embedding dim。现在计算<span class="math inline">\(S = QK^T\)</span>，则有： <span class="math display">\[
+\frac{\pi_t}{\beta_t} = \frac{2N^2d}{2Nd + 2Nd + 2N^2} = \frac{N^2d}{2Nd
++ N^2}
+\]</span></p>
+<p>下表记录了不同的N，d下的受限类型： <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207024735.png"></p>
+<p>根据这个表格，我们可以来做下总结： -
+计算限制（math-bound）：大矩阵乘法（N和d都非常大）、通道数很大的卷积运算。相对而言，读得快，算得慢。
+-
+内存限制（memory-bound）：逐点运算操作。例如：激活函数、dropout、mask、softmax、BN和LN。相对而言，算得快，读得慢。</p>
+<p>所以，“Transformer计算受限于数据读取”也不是绝对的，要综合硬件本身和模型大小来综合判断。但从表中的结果我们可知，memory-bound的情况还是普遍存在的，所以Flash
+attention的改进思想在很多场景下依然适用。</p>
+<p>在Flash
+attention中，<strong>计算注意力矩阵时的softmax计算就受到了内存限制，这也是flash
+attention的重点优化对象</strong>，我们会在下文来详细看这一点。</p>
+<h4 id="roof-line-模型">roof-line 模型</h4>
+<p>一个算法运行的效率是离不开硬件本身的。我们往往想知道：对于一个运算量为
+<span class="math inline">\(\pi_t\)</span>，数据读取存储量为 <span class="math inline">\(\beta_t\)</span> 的算法，它在算力上限为 <span class="math inline">\(\pi\)</span>，带宽上限为 <span class="math inline">\(\beta\)</span> 的硬件上，能达到的最大性能 <span class="math inline">\(P\)</span>（Attanable Performance）是多少？</p>
+<p>这里最大性能 <span class="math inline">\(P\)</span>
+指的是当前算法实际运行在硬件上时，每秒最多能达到的计算次数，单位是FLOP/s。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207025413.png"></p>
 <p>从图中可以直观的看出，当计算强度达到了硬件的上限时，算法的性能达到最大值。而在之前的计算强度范围内，都属于内存限制。</p>
-<h3 id="GPU存储与计算"><a href="#GPU存储与计算" class="headerlink" title="GPU存储与计算"></a>GPU存储与计算</h3><h4 id="GPU存储分类"><a href="#GPU存储分类" class="headerlink" title="GPU存储分类"></a>GPU存储分类</h4><p>通常，GPU 存储分为片上内存（on-chip memory）和片下内存（off-chip memory），这主要取决于存储单元是否位于芯片内部。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207030019.png"></p>
+<h3 id="gpu存储与计算">GPU存储与计算</h3>
+<h4 id="gpu存储分类">GPU存储分类</h4>
+<p>通常，GPU 存储分为片上内存（on-chip memory）和片下内存（off-chip
+memory），这主要取决于存储单元是否位于芯片内部。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241207030019.png"></p>
 <ul>
-<li><strong>片上内存</strong>：用于缓存等，容量小但带宽极高。如上图中的 <strong>SRAM</strong>，容量仅 20MB，带宽却达 19TB/s。</li>
-<li><strong>片下内存</strong>：用于全局存储（即显存），容量大但带宽相对较小。如 HBM，容量可达 40GB，带宽为 1.5TB/s。</li>
+<li><strong>片上内存</strong>：用于缓存等，容量小但带宽极高。如上图中的
+<strong>SRAM</strong>，容量仅 20MB，带宽却达 19TB/s。</li>
+<li><strong>片下内存</strong>：用于全局存储（即显存），容量大但带宽相对较小。如
+HBM，容量可达 40GB，带宽为 1.5TB/s。</li>
 </ul>
-<h4 id="GPU的计算"><a href="#GPU的计算" class="headerlink" title="GPU的计算"></a>GPU的计算</h4><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md/20240826055530.png"><br>如图，负责GPU计算的一个核心组件叫SM（Streaming Multiprocessors，流式多处理器），可以将其理解成GPU的计算单元，一个SM又可以由若干个SMP（SM Partition）组成，例如图中就由4个SMP组成。SM就好比CPU中的一个核，但不同的是一个CPU核一般运行一个线程，但是一个SM却可以运行多个轻量级线程（由Warp Scheduler控制，一个Warp Scheduler会抓一束线程（32个）放入cuda core（图中绿色小块）中进行计算）。</p>
-<p>现在，我们将GPU的计算核心SM及不同层级GPU存储结构综合起来，绘制一张简化图：<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241207030737.png"></p>
-<ul>
-<li>HBM2：即是我们的显存。</li>
-<li>L1缓存/shared memory：每个SM都有自己的L1缓存，用于存储SM内的数据，被SM内所有的cuda cores共享。SM间不能互相访问彼此的L1。NV Volta架构后，L1和shared memory合并（Volta架构前只有Kepler做过合并），目的是为了进一步降低延迟。合并过后，用户能写代码直接控制的依然是shared memory，同时可控制从L1中分配多少存储给shared memory。<strong>Flash attention中SRAM指的就是L1 cache/shared memory</strong>。</li>
-<li>L2缓存：所有SM共享L2缓存。L2缓存不直接由用户代码控制。L1/L2缓存的带宽都要比显存的带宽要大，也就是读写速度更快，但是它们的存储量更小。</li>
-</ul>
-<p>GPU 的计算流程可以理解为：数据从显存（HBM）加载到片上内存（SRAM），由 SM（Streaming Multiprocessor）读取并进行计算，计算结果再通过 SRAM 返回显存。具体可参考：<a target="_blank" rel="noopener" href="https://www.yidoo.xyz/nvidia-gpu-principles">NVIDIA GPU 原理详解</a>。</p>
-<p>显存带宽远低于 SRAM，因此从显存读取数据往往较耗时。为了优化读取效率，我们会<strong>尽量将数据填满 SRAM，从而减少频繁读取</strong>。</p>
-<h4 id="kernel-fusion"><a href="#kernel-fusion" class="headerlink" title="kernel fusion"></a>kernel fusion</h4><p>为减少显存读取次数，若 SRAM 容量允许，多个计算步骤可合并在一次数据加载中完成。这被称为kernel 融合。</p>
+<h4 id="gpu的计算">GPU的计算</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md/20240826055530.png">
+如图，负责GPU计算的一个核心组件叫SM（Streaming
+Multiprocessors，流式多处理器），可以将其理解成GPU的计算单元，一个SM又可以由若干个SMP（SM
+Partition）组成，例如图中就由4个SMP组成。SM就好比CPU中的一个核，但不同的是一个CPU核一般运行一个线程，但是一个SM却可以运行多个轻量级线程（由Warp
+Scheduler控制，一个Warp Scheduler会抓一束线程（32个）放入cuda
+core（图中绿色小块）中进行计算）。</p>
+<p>现在，我们将GPU的计算核心SM及不同层级GPU存储结构综合起来，绘制一张简化图：
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main/images/20241207030737.png">
+- HBM2：即是我们的显存。 - L1缓存/shared
+memory：每个SM都有自己的L1缓存，用于存储SM内的数据，被SM内所有的cuda
+cores共享。SM间不能互相访问彼此的L1。NV Volta架构后，L1和shared
+memory合并（Volta架构前只有Kepler做过合并），目的是为了进一步降低延迟。合并过后，用户能写代码直接控制的依然是shared
+memory，同时可控制从L1中分配多少存储给shared memory。<strong>Flash
+attention中SRAM指的就是L1 cache/shared memory</strong>。 -
+L2缓存：所有SM共享L2缓存。L2缓存不直接由用户代码控制。L1/L2缓存的带宽都要比显存的带宽要大，也就是读写速度更快，但是它们的存储量更小。</p>
+<p>GPU 的计算流程可以理解为：数据从显存（HBM）加载到片上内存（SRAM），由
+SM（Streaming Multiprocessor）读取并进行计算，计算结果再通过 SRAM
+返回显存。具体可参考：<a target="_blank" rel="noopener" href="https://www.yidoo.xyz/nvidia-gpu-principles">NVIDIA GPU
+原理详解</a>。</p>
+<p>显存带宽远低于
+SRAM，因此从显存读取数据往往较耗时。为了优化读取效率，我们会<strong>尽量将数据填满
+SRAM，从而减少频繁读取</strong>。</p>
+<h4 id="kernel-fusion">kernel fusion</h4>
+<p>为减少显存读取次数，若 SRAM
+容量允许，多个计算步骤可合并在一次数据加载中完成。这被称为kernel
+融合。</p>
 <p>举例来说，我现在要做计算A和计算B。在老方法里，我做完A后得到一个中间结果，写回显存，然后再从显存中把这个结果加载到SRAM，做计算B。但是现在我发现SRAM完全有能力存下我的中间结果，那我就可以把A和B放在一起做了，这样就能节省很多读取时间，我们管这样的操作叫kernel融合。</p>
-<p>对于kernel可以粗犷地理解成是“函数”，它包含对线程结构（grid-block-thread）的定义，以及结构中具体计算逻辑的定义。理解到这一层已不妨碍我们对flash attention的解读了，想要更近一步了解的朋友，推荐阅读这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34587739">小小将：CUDA编程入门极简教程</a>。</p>
-<h3 id="标准Attention计算"><a href="#标准Attention计算" class="headerlink" title="标准Attention计算"></a>标准Attention计算</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208192423.png"><br>其中， $S=QK^T, P=softmax(S)$。在GPT类的模型中，还需要对$P$做mask处理。为了表达方便，诸如mask、dropout之类的操作，我们都忽略掉，下文也是同理。</p>
-<h3 id="标准safe-softmax"><a href="#标准safe-softmax" class="headerlink" title="标准safe softmax"></a>标准safe softmax</h3><p>在$softmax(x_i) = \frac{e^{x_i}}{\sum_{j=1}^d e^{x_j}}$的计算中，如果$x_i$的值很大，那么$e^{x_i}$会变得非常大，这样就会导致数值溢出。为了解决这个问题，我们可以对$x_i$做一个平移，即$x_i - max(x)$，这样就能保证$e^{x_i}$不会溢出。</p>
-<p>下图展示了safe softmax的过程，这里 $\tilde{P}, P$ 分别表示平移前后的softmax结果。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208194350.png"></p>
-<h2 id="Flash-Attention"><a href="#Flash-Attention" class="headerlink" title="Flash Attention"></a>Flash Attention</h2><h3 id="Flash-Attention的核心思想"><a href="#Flash-Attention的核心思想" class="headerlink" title="Flash Attention的核心思想"></a>Flash Attention的核心思想</h3><ul>
-<li><strong>分块计算</strong>：将输入矩阵划分为小块，并逐块在 SRAM 上计算注意力，避免将整个 N×N 矩阵存储于显存。</li>
-<li><strong>重计算</strong>：通过前向传播时保存归一化因子，避免在反向传播中存储中间结果，而是通过重计算得出注意力矩阵。这虽然增加了浮点运算次数，但通过减少 HBM 访问，提升了整体效率。</li>
+<p>对于kernel可以粗犷地理解成是“函数”，它包含对线程结构（grid-block-thread）的定义，以及结构中具体计算逻辑的定义。理解到这一层已不妨碍我们对flash
+attention的解读了，想要更近一步了解的朋友，推荐阅读这篇<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34587739">小小将：CUDA编程入门极简教程</a>。</p>
+<h3 id="标准attention计算">标准Attention计算</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208192423.png">
+其中， <span class="math inline">\(S=QK^T,
+P=softmax(S)\)</span>。在GPT类的模型中，还需要对<span class="math inline">\(P\)</span>做mask处理。为了表达方便，诸如mask、dropout之类的操作，我们都忽略掉，下文也是同理。</p>
+<h3 id="标准safe-softmax">标准safe softmax</h3>
+<p>在<span class="math inline">\(softmax(x_i) =
+\frac{e^{x_i}}{\sum_{j=1}^d e^{x_j}}\)</span>的计算中，如果<span class="math inline">\(x_i\)</span>的值很大，那么<span class="math inline">\(e^{x_i}\)</span>会变得非常大，这样就会导致数值溢出。为了解决这个问题，我们可以对<span class="math inline">\(x_i\)</span>做一个平移，即<span class="math inline">\(x_i - max(x)\)</span>，这样就能保证<span class="math inline">\(e^{x_i}\)</span>不会溢出。</p>
+<p>下图展示了safe softmax的过程，这里 <span class="math inline">\(\tilde{P}, P\)</span>
+分别表示平移前后的softmax结果。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208194350.png"></p>
+<h2 id="flash-attention">Flash Attention</h2>
+<h3 id="flash-attention的核心思想">Flash Attention的核心思想</h3>
+<ul>
+<li><strong>分块计算</strong>：将输入矩阵划分为小块，并逐块在 SRAM
+上计算注意力，避免将整个 N×N 矩阵存储于显存。</li>
+<li><strong>重计算</strong>：通过前向传播时保存归一化因子，避免在反向传播中存储中间结果，而是通过重计算得出注意力矩阵。这虽然增加了浮点运算次数，但通过减少
+HBM 访问，提升了整体效率。</li>
 </ul>
-<h3 id="前向计算"><a href="#前向计算" class="headerlink" title="前向计算"></a>前向计算</h3><h4 id="分块计算tiling"><a href="#分块计算tiling" class="headerlink" title="分块计算tiling"></a>分块计算tiling</h4><p>我们先来了解分块计算的整体流程（帮助大家理解数据块是怎么流转的），然后我们再针对其中的细节做一一讲解。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208195502.png"></p>
+<h3 id="前向计算">前向计算</h3>
+<h4 id="分块计算tiling">分块计算tiling</h4>
+<p>我们先来了解分块计算的整体流程（帮助大家理解数据块是怎么流转的），然后我们再针对其中的细节做一一讲解。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208195502.png"></p>
 <p>在计算这些分块时，GPU是可以做并行计算的，这也提升了计算效率。</p>
-<p>好！现在你已经知道了单块的计算方式，现在让我们把整个流程流转起来把。在上图中，我们注明了 j 是外循环， i 是内循环，在论文里，又称为K，V是外循环，Q是内循环。写成代码就是:</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># ---------------------
+<p>好！现在你已经知道了单块的计算方式，现在让我们把整个流程流转起来把。在上图中，我们注明了
+j 是外循环， i
+是内循环，在论文里，又称为K，V是外循环，Q是内循环。写成代码就是:
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># ---------------------
 # Tc: K和V的分块数
 # Tr: Q的分块数量
 # ---------------------
 for 1 &lt;= j &lt;= Tc:
     for 1 &lt;= i &lt;= Tr:
-        do....</code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208201454.png"><br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208201509.png"></p>
-<p>这里的 $O$ 还需要经过一定的处理，才能和不分块场景下的 $O$完全等价。这里我们将每一块的 $O$ 单独画出，是为了帮助大家更好理解分块计算的整体流程，不代表它是最终的输出结果。</p>
-<h4 id="tiliing中的safe-softmax"><a href="#tiliing中的safe-softmax" class="headerlink" title="tiliing中的safe softmax"></a>tiliing中的safe softmax</h4><p>回顾之前绘制的标准safe softmax流程图，我们知道 m、l都是针对完整的一行做rowmax、rowsum后的结果，那么在分块场景下，会变成什么样呢？<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208201852.png"><br>以上图红圈内的数据为例，在标准场景下，我们是对红圈内的每一行做rowmax、rowsum后得到 $\tilde{P}$的。而分块后这部分数据会被分到不同的块中。</p>
+        do....</code></pre><p></p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208201454.png">
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208201509.png"></p>
+<p>这里的 <span class="math inline">\(O\)</span>
+还需要经过一定的处理，才能和不分块场景下的 <span class="math inline">\(O\)</span>完全等价。这里我们将每一块的 <span class="math inline">\(O\)</span>
+单独画出，是为了帮助大家更好理解分块计算的整体流程，不代表它是最终的输出结果。</p>
+<h4 id="tiliing中的safe-softmax">tiliing中的safe softmax</h4>
+<p>回顾之前绘制的标准safe softmax流程图，我们知道
+m、l都是针对完整的一行做rowmax、rowsum后的结果，那么在分块场景下，会变成什么样呢？
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241208201852.png">
+以上图红圈内的数据为例，在标准场景下，我们是对红圈内的每一行做rowmax、rowsum后得到
+<span class="math inline">\(\tilde{P}\)</span>的。而分块后这部分数据会被分到不同的块中。</p>
 <p>所以Flash Attention中采用如下方式实现safe softmax：</p>
-<p>(1) 我们假设标准场景下，$S$ 矩阵某一行的向量为 $x = [x_1, x_2, \dots, x_d]$，因为分块的原因，<br>它被我们切成了两部分 $x = \begin{bmatrix} x^{(1)}, x^{(2)} \end{bmatrix}$。</p>
-<p>(2) 我们定义：</p>
+<ol type="1">
+<li><p>我们假设标准场景下，<span class="math inline">\(S\)</span>
+矩阵某一行的向量为 <span class="math inline">\(x = [x_1, x_2, \dots,
+x_d]\)</span>，因为分块的原因， 它被我们切成了两部分 <span class="math inline">\(x = \begin{bmatrix} x^{(1)}, x^{(2)}
+\end{bmatrix}\)</span>。</p></li>
+<li><p>我们定义：</p></li>
+</ol>
 <ul>
-<li>$m(x)$：标准场景下，该行的全局最大值</li>
-<li>$m(x^{(1)})$：分块1的全局最大值</li>
-<li>$m(x^{(2)})$：分块2的全局最大值</li>
+<li><span class="math inline">\(m(x)\)</span>：标准场景下，该行的全局最大值</li>
+<li><span class="math inline">\(m(x^{(1)})\)</span>：分块1的全局最大值</li>
+<li><span class="math inline">\(m(x^{(2)})\)</span>：分块2的全局最大值</li>
 </ul>
-<p>那么易知：<br>$m(x) = m\left( \begin{bmatrix} x^{(1)}, x^{(2)} \end{bmatrix} \right) = \max \left( m(x^{(1)}), m(x^{(2)}) \right)$</p>
-<p>(3) 我们定义：</p>
+<p>那么易知： <span class="math inline">\(m(x) = m\left( \begin{bmatrix}
+x^{(1)}, x^{(2)} \end{bmatrix} \right) = \max \left( m(x^{(1)}),
+m(x^{(2)}) \right)\)</span></p>
+<ol start="3" type="1">
+<li>我们定义：</li>
+</ol>
 <ul>
-<li>$f(x)$：标准场景下，$\exp(x - m(x))$ 的结果</li>
-<li>$f(x^{(1)})$：分块场景下，$\exp(x^{(1)} - m(x^{(1)}))$ 的结果</li>
-<li>$f(x^{(2)})$：分块场景下，$\exp(x^{(2)} - m(x^{(2)}))$ 的结果</li>
+<li><span class="math inline">\(f(x)\)</span>：标准场景下，<span class="math inline">\(\exp(x - m(x))\)</span> 的结果</li>
+<li><span class="math inline">\(f(x^{(1)})\)</span>：分块场景下，<span class="math inline">\(\exp(x^{(1)} - m(x^{(1)}))\)</span> 的结果</li>
+<li><span class="math inline">\(f(x^{(2)})\)</span>：分块场景下，<span class="math inline">\(\exp(x^{(2)} - m(x^{(2)}))\)</span> 的结果</li>
 </ul>
-<p>那么易知：$f(x) = \left[ e^{m(x^{(1)}) - m(x)} f(x^{(1)}), e^{m(x^{(2)}) - m(x)} f(x^{(2)}) \right]$</p>
+<p>那么易知：<span class="math inline">\(f(x) = \left[ e^{m(x^{(1)}) -
+m(x)} f(x^{(1)}), e^{m(x^{(2)}) - m(x)} f(x^{(2)}) \right]\)</span></p>
 <p>这个很好理解，详细的证明过程就不写了。</p>
-<p>(4) 我们定义：</p>
+<ol start="4" type="1">
+<li>我们定义：</li>
+</ol>
 <ul>
-<li>$l(x)$：标准场景下，$\text{rowsum}[f(x)]$ 的结果</li>
-<li>$l(x^{(1)})$：分块场景下，$\text{rowsum}[f(x^{(1)})]$ 的结果</li>
-<li>$l(x^{(2)})$：分块场景下，$\text{rowsum}[f(x^{(2)})]$ 的结果</li>
+<li><span class="math inline">\(l(x)\)</span>：标准场景下，<span class="math inline">\(\text{rowsum}[f(x)]\)</span> 的结果</li>
+<li><span class="math inline">\(l(x^{(1)})\)</span>：分块场景下，<span class="math inline">\(\text{rowsum}[f(x^{(1)})]\)</span> 的结果</li>
+<li><span class="math inline">\(l(x^{(2)})\)</span>：分块场景下，<span class="math inline">\(\text{rowsum}[f(x^{(2)})]\)</span> 的结果</li>
 </ul>
-<p>那么由（3）易知：$l(x) = e^{m(x^{(1)}) - m(x)} l(x^{(1)}) + e^{m(x^{(2)}) - m(x)} l(x^{(2)})$</p>
-<p>(5) 现在，我们就可以用分块计算的结果，来表示标准场景下 safe softmax 的结果了：<br>$$softmax(x) = \frac{f(x)}{l(x)} = \frac{\left[e^{m(x^{(1)}) - m(x)} f(x^{(1)}), e^{m(x^{(2)}) - m(x)} f(x^{(2)})\right]}{e^{m(x^{(1)}) - m(x)} l(x^{(1)}) + e^{m(x^{(2)}) - m(x)} l(x^{(2)})}$$</p>
-<p>我们配合上面的图例和flash attention论文中的伪代码，再来进一步理解一下分块计算safe softmax的（1）～（5）步骤。</p>
+<p>那么由（3）易知：<span class="math inline">\(l(x) = e^{m(x^{(1)}) -
+m(x)} l(x^{(1)}) + e^{m(x^{(2)}) - m(x)} l(x^{(2)})\)</span></p>
+<ol start="5" type="1">
+<li>现在，我们就可以用分块计算的结果，来表示标准场景下 safe softmax
+的结果了： <span class="math display">\[softmax(x) = \frac{f(x)}{l(x)} =
+\frac{\left[e^{m(x^{(1)}) - m(x)} f(x^{(1)}), e^{m(x^{(2)}) - m(x)}
+f(x^{(2)})\right]}{e^{m(x^{(1)}) - m(x)} l(x^{(1)}) + e^{m(x^{(2)}) -
+m(x)} l(x^{(2)})}\]</span></li>
+</ol>
+<p>我们配合上面的图例和flash
+attention论文中的伪代码，再来进一步理解一下分块计算safe
+softmax的（1）～（5）步骤。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209021146.png"></p>
-<p>我们用 $S_{00}$（图中浅绿色方块）替换掉（1）$\sim$（5）步骤中的 $x^{(1)}$，用 $S_{01}$（图中深绿色方块）替换掉 $x^{(2)}$。我们关注点在伪代码部分的 6 $\sim$ 11 行。</p>
+<p>我们用 <span class="math inline">\(S_{00}\)</span>（图中浅绿色方块）替换掉（1）<span class="math inline">\(\sim\)</span>（5）步骤中的 <span class="math inline">\(x^{(1)}\)</span>，用 <span class="math inline">\(S_{01}\)</span>（图中深绿色方块）替换掉 <span class="math inline">\(x^{(2)}\)</span>。我们关注点在伪代码部分的 6 <span class="math inline">\(\sim\)</span> 11 行。</p>
 <p>由于伪代码中的表达符号较多，容易阻碍大家的理解，因此我们先明确各个数学符号表达的含义：</p>
 <ul>
-<li>$S_{ij}$：对应在我们的例子里，就是 $S_{00}$ 和 $S_{01}$，即 $Q_i K_j^\top$ 的结果。</li>
-<li>$m_{ij}$：对于当前分块 $S_{ij}$ 来说，每行的局部最大值。相当于前面步骤（2）中对 $m(x^{(1)})$, $m(x^{(2)})$ 的定义。</li>
-<li>$\tilde{P}_{ij}$：分块场景下，各块的 $p$ 矩阵（归一化前）结果。相当于步骤（3）中对 $f(x^{(1)})$, $f(x^{(2)})$ 的定义。</li>
-<li>$l_{ij}$：分块场景下，$\text{rowsum}$ 的结果。相当于步骤（4）中对 $l(x^{(1)})$, $l(x^{(2)})$ 的定义。</li>
-<li>$m$：标准场景下，对 $S$ 矩阵而言，每行的最大值，这里是全局最大值（$m$ 首次定义在伪代码第 2 行），相当于前面步骤（2）中对 $m(x)$ 的定义。</li>
-<li>$l$：标准场景下，全局 $\text{rowsum}$ 的结果（$l$ 首次定义在伪代码第 2 行），相当于前面步骤（4）中对 $l(x)$ 的定义。</li>
-<li>$m_i$：表示 $\max(m_{i0}, m_{i1}, \dots, m_{i(j-1)})$。如果当前分块是 $S_{ij}$，则 $m_i$ 表示固定 $i$ 时，前 $j - 1$ 个分块中的局部最大值。容易推出，当固定 $i$，遍历完成 $S_{00}, S_{01}$ 后，$m_i$ 的结果就是全局最大值 $m_0$。</li>
-<li>$m_i^{\text{new}}$：表示 $\max(m_{i0}, m_{i1}, \dots, m_{i(j-1)}, m_{ij})$。如果当前分块为 $S_{ij}$，则 $m_i^{\text{new}}$ 表示固定 $i$ 时，截止到当前分块为止的局部最大值。</li>
-<li>$l_i$：和 $m_i^{\text{new}}$ 对应，相当于步骤（4）中用分块更新 $l(x)$ 的步骤。</li>
-<li>$l_i$：和 $m_i$ 同理，即当我们将 $j$ 遍历完后，我们就能得到针对 $i$ 的全局 rowmax 和全局 rowsum。</li>
+<li><span class="math inline">\(S_{ij}\)</span>：对应在我们的例子里，就是 <span class="math inline">\(S_{00}\)</span> 和 <span class="math inline">\(S_{01}\)</span>，即 <span class="math inline">\(Q_i K_j^\top\)</span> 的结果。</li>
+<li><span class="math inline">\(m_{ij}\)</span>：对于当前分块 <span class="math inline">\(S_{ij}\)</span>
+来说，每行的局部最大值。相当于前面步骤（2）中对 <span class="math inline">\(m(x^{(1)})\)</span>, <span class="math inline">\(m(x^{(2)})\)</span> 的定义。</li>
+<li><span class="math inline">\(\tilde{P}_{ij}\)</span>：分块场景下，各块的 <span class="math inline">\(p\)</span>
+矩阵（归一化前）结果。相当于步骤（3）中对 <span class="math inline">\(f(x^{(1)})\)</span>, <span class="math inline">\(f(x^{(2)})\)</span> 的定义。</li>
+<li><span class="math inline">\(l_{ij}\)</span>：分块场景下，<span class="math inline">\(\text{rowsum}\)</span> 的结果。相当于步骤（4）中对
+<span class="math inline">\(l(x^{(1)})\)</span>, <span class="math inline">\(l(x^{(2)})\)</span> 的定义。</li>
+<li><span class="math inline">\(m\)</span>：标准场景下，对 <span class="math inline">\(S\)</span>
+矩阵而言，每行的最大值，这里是全局最大值（<span class="math inline">\(m\)</span> 首次定义在伪代码第 2
+行），相当于前面步骤（2）中对 <span class="math inline">\(m(x)\)</span>
+的定义。</li>
+<li><span class="math inline">\(l\)</span>：标准场景下，全局 <span class="math inline">\(\text{rowsum}\)</span> 的结果（<span class="math inline">\(l\)</span> 首次定义在伪代码第 2
+行），相当于前面步骤（4）中对 <span class="math inline">\(l(x)\)</span>
+的定义。</li>
+<li><span class="math inline">\(m_i\)</span>：表示 <span class="math inline">\(\max(m_{i0}, m_{i1}, \dots,
+m_{i(j-1)})\)</span>。如果当前分块是 <span class="math inline">\(S_{ij}\)</span>，则 <span class="math inline">\(m_i\)</span> 表示固定 <span class="math inline">\(i\)</span> 时，前 <span class="math inline">\(j -
+1\)</span> 个分块中的局部最大值。容易推出，当固定 <span class="math inline">\(i\)</span>，遍历完成 <span class="math inline">\(S_{00}, S_{01}\)</span> 后，<span class="math inline">\(m_i\)</span> 的结果就是全局最大值 <span class="math inline">\(m_0\)</span>。</li>
+<li><span class="math inline">\(m_i^{\text{new}}\)</span>：表示 <span class="math inline">\(\max(m_{i0}, m_{i1}, \dots, m_{i(j-1)},
+m_{ij})\)</span>。如果当前分块为 <span class="math inline">\(S_{ij}\)</span>，则 <span class="math inline">\(m_i^{\text{new}}\)</span> 表示固定 <span class="math inline">\(i\)</span>
+时，截止到当前分块为止的局部最大值。</li>
+<li><span class="math inline">\(l_i\)</span>：和 <span class="math inline">\(m_i^{\text{new}}\)</span>
+对应，相当于步骤（4）中用分块更新 <span class="math inline">\(l(x)\)</span> 的步骤。</li>
+<li><span class="math inline">\(l_i\)</span>：和 <span class="math inline">\(m_i\)</span> 同理，即当我们将 <span class="math inline">\(j\)</span> 遍历完后，我们就能得到针对 <span class="math inline">\(i\)</span> 的全局 rowmax 和全局 rowsum。</li>
 </ul>
-<p>而根据前面的定义，$m_i^{\text{new}}$ 和 $l_i^{\text{new}}$ 是遍历完成最新的 $S_{ij}$ 后得到的 rowmax 和 rowsum 结果，<br>所以每遍历完一块 $S_{ij}$，我们就执行伪代码的第 13 行，做一次更新。</p>
-<p>从伪代码 5-13 行中，你会发现，在整个计算过程中，只有 $m_i, l_i, O_i$ 被从 on-chip 的 SRAM 中写回到显存（HBM）中。<br>把 $i$ 都遍历完成后，读写量也不过是 $m, l, O$。相比于标准场景下，我们要读写的是 $S, P, O$，读写量是不是一下就少很多，这不就能解决 memory-bound 的问题了吗。</p>
-<p>所以，<strong>分块计算 safe softmax 的意义，就是抹去对 $S, P$ 的读写</strong>。</p>
-<h4 id="分块计算中的-O"><a href="#分块计算中的-O" class="headerlink" title="分块计算中的$O$"></a>分块计算中的$O$</h4><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209024821.png"><br>上图中画的6个$O$并不是我们最终想要的结果。我们期望维护并更新 $O_i$，当该 $i$下的所有 $j$ 遍历完毕后，我们的 $O_i$就应该和标准场景下的 $O_i$完全相等。</p>
-<p>在图中，$O_i$应该是红圈部分的乘积，但是我们只存了$m_i, l_i, O$，但是没有存$S, P$，所以到了最后一块我们也无法计算出$O_i$。</p>
-<p>所以这里我们换个思路： $O_i$不是每遍历一块就更新一次吗？那有没有一种办法，<strong>不断用当前最新的rowmax和rowsum去更新 $O_i$，直到遍历完最后一块，这时的 $O_i$不就和标准场景下的结果完全一致了吗？也就是我们想构造形如下面这样的更新等式：</strong><br>$$<br>O_i = O_i + 当前最新结果<br>$$</p>
-<p>因此我们有了伪代码中12行的推导：</p>
-
+<p>而根据前面的定义，<span class="math inline">\(m_i^{\text{new}}\)</span> 和 <span class="math inline">\(l_i^{\text{new}}\)</span> 是遍历完成最新的 <span class="math inline">\(S_{ij}\)</span> 后得到的 rowmax 和 rowsum 结果，
+所以每遍历完一块 <span class="math inline">\(S_{ij}\)</span>，我们就执行伪代码的第 13
+行，做一次更新。</p>
+<p>从伪代码 5-13 行中，你会发现，在整个计算过程中，只有 <span class="math inline">\(m_i, l_i, O_i\)</span> 被从 on-chip 的 SRAM
+中写回到显存（HBM）中。 把 <span class="math inline">\(i\)</span>
+都遍历完成后，读写量也不过是 <span class="math inline">\(m, l,
+O\)</span>。相比于标准场景下，我们要读写的是 <span class="math inline">\(S, P,
+O\)</span>，读写量是不是一下就少很多，这不就能解决 memory-bound
+的问题了吗。</p>
+<p>所以，<strong>分块计算 safe softmax 的意义，就是抹去对 <span class="math inline">\(S, P\)</span> 的读写</strong>。</p>
+<h4 id="分块计算中的o">分块计算中的<span class="math inline">\(O\)</span></h4>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209024821.png">
+上图中画的6个<span class="math inline">\(O\)</span>并不是我们最终想要的结果。我们期望维护并更新
+<span class="math inline">\(O_i\)</span>，当该 <span class="math inline">\(i\)</span>下的所有 <span class="math inline">\(j\)</span> 遍历完毕后，我们的 <span class="math inline">\(O_i\)</span>就应该和标准场景下的 <span class="math inline">\(O_i\)</span>完全相等。</p>
+<p>在图中，<span class="math inline">\(O_i\)</span>应该是红圈部分的乘积，但是我们只存了<span class="math inline">\(m_i, l_i, O\)</span>，但是没有存<span class="math inline">\(S,
+P\)</span>，所以到了最后一块我们也无法计算出<span class="math inline">\(O_i\)</span>。</p>
+<p>所以这里我们换个思路： <span class="math inline">\(O_i\)</span>不是每遍历一块就更新一次吗？那有没有一种办法，<strong>不断用当前最新的rowmax和rowsum去更新
+<span class="math inline">\(O_i\)</span>，直到遍历完最后一块，这时的
+<span class="math inline">\(O_i\)</span>不就和标准场景下的结果完全一致了吗？也就是我们想构造形如下面这样的更新等式：</strong>
+<span class="math display">\[
+O_i = O_i + 当前最新结果
+\]</span></p>
+<p>因此我们有了伪代码中12行的推导： 
 $$
 \begin{aligned}
 O_i^{(j+1)} &amp;= P_{i, j+1} V_{:j+1} \\
@@ -618,22 +756,44 @@ O_i^{(j+1)} &amp;= P_{i, j+1} V_{:j+1} \\
             &amp;= \text{diag}(l^{(j+1)})^{-1} \left[\text{diag}(l^{(j)})e^{m^{(j)} - m^{(j+1)}}O_i^{(j)} + e^{m^{(j)} - m^{(j+1)}} \tilde{P}_{i(j+1)} V_{j+1}\right]
 \end{aligned}
 $$
-
-
-<p>推导过程中的符号上下标的含义：</p>
-<ul>
-<li>$i$：这个大家应该很熟悉了。例如图例中，$i=0, 1, 2$ 分别对应着深浅绿、深浅蓝、深浅黄块。</li>
-<li>$(j+1)$：表示当前分块的相关结果。</li>
-<li>$i, :j+1$：表示截止到当前分块（包含当前分块）的相关结果。$i, :j$ 表示截止到前一分块（包含前一分块）的相关结果。</li>
-</ul>
-<h3 id="后向计算"><a href="#后向计算" class="headerlink" title="后向计算"></a>后向计算</h3><h4 id="softmax的求导"><a href="#softmax的求导" class="headerlink" title="softmax的求导"></a>softmax的求导</h4><p>设<br>$$<br>\begin{cases}<br>    y = \text{softmax}(z) \<br>    L = f(y)<br>\end{cases}<br>$$</p>
-<p>其中，$L$ 表示 Loss，$f(\cdot)$ 表示 Loss 函数，$y = [y_1 ; y_2 ; y_3]$，$z = [z_1 ; z_2 ; z_3]$，若现在我们想求 $\frac{\partial L}{\partial z_j}$，要怎么计算呢？</p>
-<p>根据链式法则，我们有：<br>$$<br>\frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z_j}<br>$$<br>所以我们分别来看这两项。</p>
-<p>(1) $\frac{\partial L}{\partial y}$<br>我们现在不考虑具体的 Loss 函数，直接假设这一项的结果为 $[m_1 ; m_2 ; m_3]$。</p>
-<p>(2) $\frac{\partial y}{\partial z_j}$<br>我们知道，对于某个 $z_j$ 来说，在 $\text{softmax}$ 的操作下，它参与了 $y_1, y_2, y_3$ 三者的计算，<br>因此它的偏导和这三者密切切相关，这里我们分成两种情况：<br>$$<br>\begin{cases}<br>\frac{\partial y_i}{\partial z_j} = y_i (1 - y_i), &amp; \text{当 } i = j \<br>\frac{\partial y_i}{\partial z_j} = -y_i y_j, &amp; \text{当 } i \neq j<br>\end{cases}<br>$$</p>
-<p>具体的推倒过程可以看这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuliytTaotao/p/10787510.html">对 softmax 和 cross-entropy 求导 
-</a></p>
-<p>有了这个理解，我们再来谈谈基于 $y = softmax(z)$ 的 Jacobian 矩阵 $diag(y) - y^T y$：</p>
+</p>
+<p>推导过程中的符号上下标的含义： - <span class="math inline">\(i\)</span>：这个大家应该很熟悉了。例如图例中，<span class="math inline">\(i=0, 1, 2\)</span>
+分别对应着深浅绿、深浅蓝、深浅黄块。 - <span class="math inline">\((j+1)\)</span>：表示当前分块的相关结果。 - <span class="math inline">\(i,
+:j+1\)</span>：表示截止到当前分块（包含当前分块）的相关结果。<span class="math inline">\(i, :j\)</span>
+表示截止到前一分块（包含前一分块）的相关结果。</p>
+<h3 id="后向计算">后向计算</h3>
+<h4 id="softmax的求导">softmax的求导</h4>
+<p>设 <span class="math display">\[
+\begin{cases}
+    y = \text{softmax}(z) \\
+    L = f(y)
+\end{cases}
+\]</span></p>
+<p>其中，<span class="math inline">\(L\)</span> 表示 Loss，<span class="math inline">\(f(\cdot)\)</span> 表示 Loss 函数，<span class="math inline">\(y = [y_1 \; y_2 \; y_3]\)</span>，<span class="math inline">\(z = [z_1 \; z_2 \; z_3]\)</span>，若现在我们想求
+<span class="math inline">\(\frac{\partial L}{\partial
+z_j}\)</span>，要怎么计算呢？</p>
+<p>根据链式法则，我们有： <span class="math display">\[
+\frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial y}
+\frac{\partial y}{\partial z_j}
+\]</span> 所以我们分别来看这两项。</p>
+<ol type="1">
+<li><p><span class="math inline">\(\frac{\partial L}{\partial
+y}\)</span> 我们现在不考虑具体的 Loss 函数，直接假设这一项的结果为 <span class="math inline">\([m_1 \; m_2 \; m_3]\)</span>。</p></li>
+<li><p><span class="math inline">\(\frac{\partial y}{\partial
+z_j}\)</span> 我们知道，对于某个 <span class="math inline">\(z_j\)</span> 来说，在 <span class="math inline">\(\text{softmax}\)</span> 的操作下，它参与了 <span class="math inline">\(y_1, y_2, y_3\)</span> 三者的计算，
+因此它的偏导和这三者密切切相关，这里我们分成两种情况： <span class="math display">\[
+\begin{cases}
+\frac{\partial y_i}{\partial z_j} = y_i (1 - y_i), &amp; \text{当 } i =
+j \\
+\frac{\partial y_i}{\partial z_j} = -y_i y_j, &amp; \text{当 } i \neq j
+\end{cases}
+\]</span></p></li>
+</ol>
+<p>具体的推倒过程可以看这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuliytTaotao/p/10787510.html">对 softmax
+和 cross-entropy 求导</a></p>
+<p>有了这个理解，我们再来谈谈基于 <span class="math inline">\(y =
+softmax(z)\)</span> 的 Jacobian 矩阵 <span class="math inline">\(diag(y)
+- y^T y\)</span>：</p>
 
 $$
 \begin{aligned}
@@ -660,14 +820,27 @@ y_1 - y_1^2 &amp; -y_1 y_2 &amp; -y_1 y_3 \\
 \end{aligned}
 $$
 
-
-
-<p>很容易发现只要把每行/每列相加，就能得到对应 $z$ 的偏导。别着急求和，我们继续往下看。</p>
-<p>(3) $ \frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z_j}$</p>
-<p>有了 (1) (2) 的结果，现在就可以来推导 $\frac{\partial L}{\partial z_j}$，我们有：<br>$$<br>\frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z_j}<br>= \sum_{i=1}^l \frac{\partial L}{\partial y_i} \frac{\partial y_i}{\partial z_j} = y_j (d y_j - \sum_{j=1}^l y_j d y_j)<br>$$</p>
-<p>举个例子，若我们现在想求 $\frac{\partial L}{\partial z_1}$，我们将 $\frac{\partial L}{\partial y} = [m_1 ; m_2 ; m_3]$ 代入上面公式，则有：</p>
-<p>$$<br>\frac{\partial L}{\partial z_1} = m_1 (y_1 - y_1^2) - m_2 y_1 y_2 - m_3 y_1 y_3<br>$$</p>
-<p>现在，针对所有的 $z$，我们将 $\frac{\partial L}{\partial z}$ 写成矩阵表达式有：</p>
+<p>很容易发现只要把每行/每列相加，就能得到对应 <span class="math inline">\(z\)</span>
+的偏导。别着急求和，我们继续往下看。</p>
+<ol start="3" type="1">
+<li>$ = $</li>
+</ol>
+<p>有了 (1) (2) 的结果，现在就可以来推导 <span class="math inline">\(\frac{\partial L}{\partial z_j}\)</span>，我们有：
+<span class="math display">\[
+\frac{\partial L}{\partial z_j} = \frac{\partial L}{\partial y}
+\frac{\partial y}{\partial z_j}
+= \sum_{i=1}^l \frac{\partial L}{\partial y_i} \frac{\partial
+y_i}{\partial z_j} = y_j (d y_j - \sum_{j=1}^l y_j d y_j)
+\]</span></p>
+<p>举个例子，若我们现在想求 <span class="math inline">\(\frac{\partial
+L}{\partial z_1}\)</span>，我们将 <span class="math inline">\(\frac{\partial L}{\partial y} = [m_1 \; m_2 \;
+m_3]\)</span> 代入上面公式，则有：</p>
+<p><span class="math display">\[
+\frac{\partial L}{\partial z_1} = m_1 (y_1 - y_1^2) - m_2 y_1 y_2 - m_3
+y_1 y_3
+\]</span></p>
+<p>现在，针对所有的 <span class="math inline">\(z\)</span>，我们将 <span class="math inline">\(\frac{\partial L}{\partial z}\)</span>
+写成矩阵表达式有：</p>
 
 $$
 \begin{aligned}
@@ -694,128 +867,285 @@ y_1 - y_1^2 &amp; -y_1 y_2 &amp; -y_1 y_3 \\
 \end{aligned}
 $$
 
-
-
 <p><strong>至此，大家记住这两个重要的结论：</strong></p>
-<p>$$<br>\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z} = dy(diag(y) - y^T y)<br>$$</p>
-<p>$$<br>\frac{\partial L}{\partial z_j} = y_j \left( dy_j - \sum_{j=1}^l y_j dy_j \right)<br>$$</p>
-<h4 id="标准后向计算"><a href="#标准后向计算" class="headerlink" title="标准后向计算"></a>标准后向计算</h4><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209041228.png"><br>首先我们先回顾一下标准前向过程：<br>$$<br>S = QK^T<br>$$</p>
-<p>$$<br>P = \text{softmax}(S)<br>$$</p>
-<p>$$<br>O = PV<br>$$</p>
-<p>$$<br>L = f(O)<br>$$</p>
-<p>对于标准backward来说，在计算开始时，显存（HBM）上已经存放有$Q, K, V, O, S, P$这些数据。</p>
-<h4 id="分块后向计算"><a href="#分块后向计算" class="headerlink" title="分块后向计算"></a>分块后向计算</h4><p>首先回顾一下经过分块 Forward 计算后，显存（HBM）上都存了哪些数据：</p>
+<p><span class="math display">\[
+\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y}
+\frac{\partial y}{\partial z} = dy(diag(y) - y^T y)
+\]</span></p>
+<p><span class="math display">\[
+\frac{\partial L}{\partial z_j} = y_j \left( dy_j - \sum_{j=1}^l y_j
+dy_j \right)
+\]</span></p>
+<h4 id="标准后向计算">标准后向计算</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209041228.png">
+首先我们先回顾一下标准前向过程： <span class="math display">\[
+S = QK^T
+\]</span></p>
+<p><span class="math display">\[
+P = \text{softmax}(S)
+\]</span></p>
+<p><span class="math display">\[
+O = PV
+\]</span></p>
+<p><span class="math display">\[
+L = f(O)
+\]</span></p>
+<p>对于标准backward来说，在计算开始时，显存（HBM）上已经存放有<span class="math inline">\(Q, K, V, O, S, P\)</span>这些数据。</p>
+<h4 id="分块后向计算">分块后向计算</h4>
+<p>首先回顾一下经过分块 Forward
+计算后，显存（HBM）上都存了哪些数据：</p>
 <ul>
-<li>**$m$**：全局 rowmax</li>
-<li>**$l$**：全局 rowsum</li>
-<li>**$Q, K, V$**：等同于标准 attention 场景下的结果</li>
-<li>**$O$**：等同于标准 attention 场景下的输出结果 $O$</li>
-<li>**$dO$**：有了完整的 $O$，我们就可以按正常的 backward 步骤先求出它的梯度，也存放在显存上。<br>然后我们就能按照链式法则，分块地去求列的矩阵的梯度了。</li>
+<li><strong><span class="math inline">\(m\)</span></strong>：全局
+rowmax</li>
+<li><strong><span class="math inline">\(l\)</span></strong>：全局
+rowsum</li>
+<li><strong><span class="math inline">\(Q, K,
+V\)</span></strong>：等同于标准 attention 场景下的结果</li>
+<li><strong><span class="math inline">\(O\)</span></strong>：等同于标准
+attention 场景下的输出结果 <span class="math inline">\(O\)</span></li>
+<li><strong><span class="math inline">\(dO\)</span></strong>：有了完整的
+<span class="math inline">\(O\)</span>，我们就可以按正常的 backward
+步骤先求出它的梯度，也存放在显存上。
+然后我们就能按照链式法则，分块地去求列的矩阵的梯度了。</li>
 </ul>
-<p>既然有了全局的 $m, l$，那么现在对任意一块 $S_{ij}$，我们就能基于 $m, l$ 算出和标准场景下完全一致的 $P_{ij}$ 了。<br><strong>因此，在 backward 的过程中，flash attention 将采用重计算的方式，重新算出 $S_{ij}, P_{ij}$，<br>并将它们运用到 backward 的计算中去</strong>，所以在接下来的讲解中，大家就可以把 $S, P$ 理解成完全等同于标准场景下的结果，<br>而不是像分块计算 forward 中那样的 $S, P$。</p>
+<p>既然有了全局的 <span class="math inline">\(m,
+l\)</span>，那么现在对任意一块 <span class="math inline">\(S_{ij}\)</span>，我们就能基于 <span class="math inline">\(m, l\)</span> 算出和标准场景下完全一致的 <span class="math inline">\(P_{ij}\)</span> 了。 <strong>因此，在 backward
+的过程中，flash attention 将采用重计算的方式，重新算出 <span class="math inline">\(S_{ij}, P_{ij}\)</span>， 并将它们运用到 backward
+的计算中去</strong>，所以在接下来的讲解中，大家就可以把 <span class="math inline">\(S, P\)</span> 理解成完全等同于标准场景下的结果，
+而不是像分块计算 forward 中那样的 <span class="math inline">\(S,
+P\)</span>。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209042346.png"></p>
-<p>(1) 求 $V_j$ 梯度</p>
-<p>由 Forward 过程我们知：$O = PV$，因此有了 $dO$ 后，我们就可以先来求 $dP$ 和 $dV$ 了。<br>观察下方的图，我们会发现此时所有的 $P$ 都是不带波浪号的，再强调一下，这是因为经过了重计算，<br>此处 $S, P$ 的结果都等同于标准场景下的结果，而不是 forward 中所代表的含义。</p>
+<ol type="1">
+<li>求 <span class="math inline">\(V_j\)</span> 梯度</li>
+</ol>
+<p>由 Forward 过程我们知：<span class="math inline">\(O =
+PV\)</span>，因此有了 <span class="math inline">\(dO\)</span>
+后，我们就可以先来求 <span class="math inline">\(dP\)</span> 和 <span class="math inline">\(dV\)</span> 了。
+观察下方的图，我们会发现此时所有的 <span class="math inline">\(P\)</span>
+都是不带波浪号的，再强调一下，这是因为经过了重计算， 此处 <span class="math inline">\(S, P\)</span>
+的结果都等同于标准场景下的结果，而不是 forward 中所代表的含义。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209042743.png"></p>
-<p>假设现在 $j = 0$，那我们要怎么求 $dV_0$ 呢？</p>
-<p>我们先来看 $V_0$ 都参与了 $O$ 哪些部分的计算，以及是怎么参与的：由图可知，$P_{00}$ 和 $V_0$ 参与了 $O_0$ 的计算，<br>$P_{10}$ 和 $V_0$ 参与了 $O_1$ 的计算，$P_{20}$ 和 $V_0$ 参与了 $O_2$ 的计算。所以我们有：</p>
-<p>$$<br>dV_0 = (P_{00})^T dO_0 + (P_{10})^T dO_1 + (P_{20})^T dO_2<br>$$</p>
-<p>进而推知：<br>$$<br>dV_j = \sum_i (P_{ij})^T dO_i<br>$$</p>
-<p>在伪代码 11～15 行中，做的都是 $S, P$ 重计算的过程，伪代码的第 16 行，<br>就是在按这个方法分块计算并累积 $dV_j$。</p>
-<p>(2) 求 $P_{ij}$ 梯度</p>
+<p>假设现在 <span class="math inline">\(j = 0\)</span>，那我们要怎么求
+<span class="math inline">\(dV_0\)</span> 呢？</p>
+<p>我们先来看 <span class="math inline">\(V_0\)</span> 都参与了 <span class="math inline">\(O\)</span>
+哪些部分的计算，以及是怎么参与的：由图可知，<span class="math inline">\(P_{00}\)</span> 和 <span class="math inline">\(V_0\)</span> 参与了 <span class="math inline">\(O_0\)</span> 的计算， <span class="math inline">\(P_{10}\)</span> 和 <span class="math inline">\(V_0\)</span> 参与了 <span class="math inline">\(O_1\)</span> 的计算，<span class="math inline">\(P_{20}\)</span> 和 <span class="math inline">\(V_0\)</span> 参与了 <span class="math inline">\(O_2\)</span> 的计算。所以我们有：</p>
+<p><span class="math display">\[
+dV_0 = (P_{00})^T dO_0 + (P_{10})^T dO_1 + (P_{20})^T dO_2
+\]</span></p>
+<p>进而推知： <span class="math display">\[
+dV_j = \sum_i (P_{ij})^T dO_i
+\]</span></p>
+<p>在伪代码 11～15 行中，做的都是 <span class="math inline">\(S,
+P\)</span> 重计算的过程，伪代码的第 16 行，
+就是在按这个方法分块计算并累积 <span class="math inline">\(dV_j\)</span>。</p>
+<ol start="2" type="1">
+<li>求 <span class="math inline">\(P_{ij}\)</span> 梯度</li>
+</ol>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209043105.png"></p>
-<p>观察上图，可以发现 $P_{ij}$ 只与 $V_j, O_i$ 相关，例如 $P_{10}$ 只与 $V_0, O_1$ 相关。因此我们有：</p>
-<p>$$<br>dP_{ij} = dO_i V_j^T<br>$$</p>
+<p>观察上图，可以发现 <span class="math inline">\(P_{ij}\)</span> 只与
+<span class="math inline">\(V_j, O_i\)</span> 相关，例如 <span class="math inline">\(P_{10}\)</span> 只与 <span class="math inline">\(V_0, O_1\)</span> 相关。因此我们有：</p>
+<p><span class="math display">\[
+dP_{ij} = dO_i V_j^T
+\]</span></p>
 <p>这就是伪代码第 17 行做的事情。</p>
-<p>(3) 求 $S_{ij}$ 梯度</p>
-<p>这一块是令许多人感到迷惑的，我们先来回顾下 “softmax 求导” 部分让大家记住的一个重要结论：</p>
-<p>$$<br>\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial z} = dy(diag(y) - y^T y)<br>$$</p>
-<p>我们假设 $s_i, p_i, o_i$ 分别为矩阵 $S, P, O$ 的某一行（注意这里 $i$ 不是表示第 $i$ 块的意思，是表示第 $i$ 行，所以我们用小写的 $s, p, o$ 表示），那么根据这个结论，我们有：</p>
-<p>$$<br>\begin{aligned}<br>ds_i &amp;= dp_i \left( diag(p_i) - p_i^T p_i \right) \<br>&amp;= dp_i diag(p_i) - dp_i p_i^T p_i \<br>&amp;= dp_i diag(p_i) - dO_i V_j^T p_i \<br>&amp;= dp_i diag(p_i) - dO_i o_i^T p_i \<br>&amp;= p_i \circ \left[ dp_i - \text{rowsum}(dO_i \cdot o_i) \right]<br>\end{aligned}<br>$$<br>你可能对这个推导的最后一步有疑惑：为什么要大费周章，将 $ds_i$ 改写成这么复杂的形式呢？因为在最后一步之前，我们都是针对“某一行”来求导，而引入最后一步的目的，是为了延展至对“某一块（多行）”的求导，也就是说针对某一块 $dS_i$（注意这里是大写的 $S$，$i$ 的含义也回归至“第几块”），我们有：</p>
-<p>$$<br>dS_i = P_i \circ \left[dP_i - \text{rowsum}(dO_i \circ O_i)\right]<br>$$</p>
+<ol start="3" type="1">
+<li>求 <span class="math inline">\(S_{ij}\)</span> 梯度</li>
+</ol>
+<p>这一块是令许多人感到迷惑的，我们先来回顾下 “softmax 求导”
+部分让大家记住的一个重要结论：</p>
+<p><span class="math display">\[
+\frac{\partial L}{\partial z} = \frac{\partial L}{\partial y}
+\frac{\partial y}{\partial z} = dy(diag(y) - y^T y)
+\]</span></p>
+<p>我们假设 <span class="math inline">\(s_i, p_i, o_i\)</span>
+分别为矩阵 <span class="math inline">\(S, P, O\)</span>
+的某一行（注意这里 <span class="math inline">\(i\)</span> 不是表示第
+<span class="math inline">\(i\)</span> 块的意思，是表示第 <span class="math inline">\(i\)</span> 行，所以我们用小写的 <span class="math inline">\(s, p, o\)</span>
+表示），那么根据这个结论，我们有：</p>
+<p><span class="math display">\[
+\begin{aligned}
+ds_i &amp;= dp_i \left( diag(p_i) - p_i^T p_i \right) \\
+&amp;= dp_i diag(p_i) - dp_i p_i^T p_i \\
+&amp;= dp_i diag(p_i) - dO_i V_j^T p_i \\
+&amp;= dp_i diag(p_i) - dO_i o_i^T p_i \\
+&amp;= p_i \circ \left[ dp_i - \text{rowsum}(dO_i \cdot o_i) \right]
+\end{aligned}
+\]</span> 你可能对这个推导的最后一步有疑惑：为什么要大费周章，将 <span class="math inline">\(ds_i\)</span>
+改写成这么复杂的形式呢？因为在最后一步之前，我们都是针对“某一行”来求导，而引入最后一步的目的，是为了延展至对“某一块（多行）”的求导，也就是说针对某一块
+<span class="math inline">\(dS_i\)</span>（注意这里是大写的 <span class="math inline">\(S\)</span>，<span class="math inline">\(i\)</span>
+的含义也回归至“第几块”），我们有：</p>
+<p><span class="math display">\[
+dS_i = P_i \circ \left[dP_i - \text{rowsum}(dO_i \circ O_i)\right]
+\]</span></p>
 <p>如果实在难以理解推导过程，建议大家可以带一些具体的值进去，就能理解我们为什么要写成这种形式了。进而，我们可以推知：</p>
-<p>$$<br>dS_{ij} = P_{ij} \circ \left[dP_{ij} - \text{rowsum}(dO_i \circ O_i)\right]<br>$$</p>
+<p><span class="math display">\[
+dS_{ij} = P_{ij} \circ \left[dP_{ij} - \text{rowsum}(dO_i \circ
+O_i)\right]
+\]</span></p>
 <p>这就是伪代码第 19～20 行做的事情。</p>
-<p>(4) 求 $Q_i$ 梯度</p>
+<ol start="4" type="1">
+<li>求 <span class="math inline">\(Q_i\)</span> 梯度</li>
+</ol>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209043616.png"></p>
-<p>到目前为止，我们已经知道 $dS_{ij}$，那么现在就可以根据链式法则继续求 $dQ_i$ 了。</p>
-<p>对照上图，我们把目光聚焦在 $Q_0$ 身上，由 forward 过程可知：</p>
-<p>$$<br>S_{00} = Q_0 K_0^T<br>$$</p>
-<p>$$<br>S_{01} = Q_0 K_1^T<br>$$</p>
-<p>因此，针对 $Q_0$，我们有：</p>
-<p>$$<br>dQ_0 = dS_{00} K_0 + dS_{01} K_1<br>$$</p>
-<p>推广到任意 $Q_i$，我们有：</p>
-<p>$$<br>dQ_i = \sum_j dS_{ij} K_j<br>$$</p>
+<p>到目前为止，我们已经知道 <span class="math inline">\(dS_{ij}\)</span>，那么现在就可以根据链式法则继续求
+<span class="math inline">\(dQ_i\)</span> 了。</p>
+<p>对照上图，我们把目光聚焦在 <span class="math inline">\(Q_0\)</span>
+身上，由 forward 过程可知：</p>
+<p><span class="math display">\[
+S_{00} = Q_0 K_0^T
+\]</span></p>
+<p><span class="math display">\[
+S_{01} = Q_0 K_1^T
+\]</span></p>
+<p>因此，针对 <span class="math inline">\(Q_0\)</span>，我们有：</p>
+<p><span class="math display">\[
+dQ_0 = dS_{00} K_0 + dS_{01} K_1
+\]</span></p>
+<p>推广到任意 <span class="math inline">\(Q_i\)</span>，我们有：</p>
+<p><span class="math display">\[
+dQ_i = \sum_j dS_{ij} K_j
+\]</span></p>
 <p>这就是伪代码第 21 行做的事情。</p>
-<p>(5) 求 $K_j$ 梯度<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209043830.png"></p>
-<p>这一步就很简单啦，如果你被复杂的分块推导弄得晕了脑袋，那不妨再复习一下我们前面提过的 trick：<br>对照上图，取出某一块 $K_j$。由于我们是从 $dS_{ij}$ 链式推向 $K_j$，所以这里只要搞明白这块 $K_j$ 和哪些 $Q_i$ 一起计算出了哪些 $S_{ij}$ 再把相关结果相加即可。</p>
-<p>只要看了流程图，就不难得知：某块 $K_j$ 和对应的 $Q_i$ 共同计算出了对应的 $S_{ij}$，因此有：</p>
-<p>$$<br>dK_j = \sum_i dS_{ij}^T Q_i<br>$$</p>
+<ol start="5" type="1">
+<li>求 <span class="math inline">\(K_j\)</span> 梯度 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209043830.png"></li>
+</ol>
+<p>这一步就很简单啦，如果你被复杂的分块推导弄得晕了脑袋，那不妨再复习一下我们前面提过的
+trick： 对照上图，取出某一块 <span class="math inline">\(K_j\)</span>。由于我们是从 <span class="math inline">\(dS_{ij}\)</span> 链式推向 <span class="math inline">\(K_j\)</span>，所以这里只要搞明白这块 <span class="math inline">\(K_j\)</span> 和哪些 <span class="math inline">\(Q_i\)</span> 一起计算出了哪些 <span class="math inline">\(S_{ij}\)</span> 再把相关结果相加即可。</p>
+<p>只要看了流程图，就不难得知：某块 <span class="math inline">\(K_j\)</span> 和对应的 <span class="math inline">\(Q_i\)</span> 共同计算出了对应的 <span class="math inline">\(S_{ij}\)</span>，因此有：</p>
+<p><span class="math display">\[
+dK_j = \sum_i dS_{ij}^T Q_i
+\]</span></p>
 <p>这就是伪代码第 22 行做的事情。</p>
-<h2 id="计算量与显存占用"><a href="#计算量与显存占用" class="headerlink" title="计算量与显存占用"></a>计算量与显存占用</h2><h3 id="矩阵相乘的计算量"><a href="#矩阵相乘的计算量" class="headerlink" title="矩阵相乘的计算量"></a>矩阵相乘的计算量</h3><p>我们先来看一个前置知识：两个矩阵相乘，要怎么统计它们的计算量？</p>
-<p>我们一般用<strong>FLOPs（floating point operations，浮点运算次数）</strong>来表示运算量的大小。对于“两矩阵相乘”这个操作而言，其 **运算量 = <strong>乘法运算的次数 + 加法运算的次数</strong>。</p>
+<h2 id="计算量与显存占用">计算量与显存占用</h2>
+<h3 id="矩阵相乘的计算量">矩阵相乘的计算量</h3>
+<p>我们先来看一个前置知识：两个矩阵相乘，要怎么统计它们的计算量？</p>
+<p>我们一般用<strong>FLOPs（floating point
+operations，浮点运算次数）</strong>来表示运算量的大小。对于“两矩阵相乘”这个操作而言，其
+<strong>运算量 = </strong>乘法运算的次数 + 加法运算的次数**。</p>
 <p>来看一个具体例子：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209224248.png"></p>
 <p>两矩阵相乘，为了获取图中深橘色部分的元素，我们一共需要进行<strong>n次乘法运算和n-1次加法运算</strong>。</p>
-<p>对于示例矩阵，我们需要进行：$mp \cdot (n + n - 1)$ 次浮点计算。</p>
-<p>再进一步，假设此时在蓝色和绿色的矩阵外，我们还有一个bias矩阵，意味着计算单个橘色方块时我们需要进行<em>n次乘法和n-1+1次加法运算</em>，那么此时总计算量为：$mp \cdot (n+n) = 2mnp$。当然，即使不加这个bias，我们也可以把-1项给忽略，得到相同的结果。</p>
-<p>总结一下：</p>
-<ul>
-<li>假设有两个矩阵A和B，它们的维度分别为(m, n)和(n, p)，则这两矩阵相乘的运算量为<strong>2mnp</strong>。</li>
-<li>由于乘法运算的时间要高于加法运算的时间，因此有时在统计运算量时，我们只考虑乘法运算的次数，则此时两矩阵相乘的运算量可近似为<strong>mnp</strong>。</li>
-</ul>
-<h3 id="Flash-Attention的计算量"><a href="#Flash-Attention的计算量" class="headerlink" title="Flash Attention的计算量"></a>Flash Attention的计算量</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209021146.png"></p>
+<p>对于示例矩阵，我们需要进行：<span class="math inline">\(mp \cdot (n +
+n - 1)\)</span> 次浮点计算。</p>
+<p>再进一步，假设此时在蓝色和绿色的矩阵外，我们还有一个bias矩阵，意味着计算单个橘色方块时我们需要进行<em>n次乘法和n-1+1次加法运算</em>，那么此时总计算量为：<span class="math inline">\(mp \cdot (n+n) =
+2mnp\)</span>。当然，即使不加这个bias，我们也可以把-1项给忽略，得到相同的结果。</p>
+<p>总结一下： - 假设有两个矩阵A和B，它们的维度分别为(m, n)和(n,
+p)，则这两矩阵相乘的运算量为<strong>2mnp</strong>。 -
+由于乘法运算的时间要高于加法运算的时间，因此有时在统计运算量时，我们只考虑乘法运算的次数，则此时两矩阵相乘的运算量可近似为<strong>mnp</strong>。</p>
+<h3 id="flash-attention的计算量">Flash Attention的计算量</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209021146.png"></p>
 <p>我们知道矩阵相乘运算占据了运算量的大头，因此我们把分析目光集中到所有的矩阵运算上来。</p>
-<p>(1) 在代码第 9 行，我们有 $S_{ij} = Q_i K_j^T$，其中 $Q_i \in \mathbb{R}^{B_r \times d}$，$K_j^T \in \mathbb{R}^{d \times B_c}$。根据前置知识，求 $S_{ij}$ 的计算量为 $O(B_r B_c d)$。</p>
-<p>(2) 在代码第 12 行，我们有 $\tilde{P}<em>{ij} V_j$，其中 $\tilde{P}</em>{ij} \in \mathbb{R}^{B_r \times B_c}$，$V_j \in \mathbb{R}^{B_c \times d}$。则这里的计算量同样为 $O(B_r B_c d)$。</p>
-<p>(3) 接下来我们看一共计算了多少次 (1) 和 (2)，也就是执行了多少次内循环：</p>
-<p>$$<br>T_c T_r = \frac{N}{B_c} \cdot \frac{N}{B_r}<br>$$</p>
-<p>(4) 综合以上三点，<strong>flash attention 的 forward 计算量为</strong>：</p>
-<p>$$<br>O\left(\frac{N^2}{B_r B_c} B_r B_c d \right) = O(N^2 d)<br>$$</p>
-<p>注意，因为计算量是用大 O 阶表示的，所以这里我们把常数项都省略了。</p>
-<p>同理大家可以自行推一下 backward 中的计算量，在论文里给出的结论是 $O(N^2)$，d 远小于 N，因此 d 也可以略去不表述。</p>
-<h3 id="Flash-Attention的显存占用"><a href="#Flash-Attention的显存占用" class="headerlink" title="Flash Attention的显存占用"></a>Flash Attention的显存占用</h3><p>和标准 attention 相比，如果不考虑 $O$ 的话，Flash Attention 只需要存储 $m, l$，其显存需求为 $O(N)$。</p>
-<p>而标准 attention 需要存储 $S, P$，其显存需求为 $O(N^2)$。</p>
-<p>FlashAttention 将显存需求降低到 O(N)，通过分块处理和重计算，<strong>显著减少了显存使用</strong>。实验显示，其显存消耗可减少至标准 Attention 的 1/20。</p>
-<h2 id="IO复杂度分析"><a href="#IO复杂度分析" class="headerlink" title="IO复杂度分析"></a>IO复杂度分析</h2><p>flash attention相比于标准attention的最大优势，就是其<strong>减少了对显存（HBM）的访问次数</strong>，一定程度上解决了memory bound的问题。所以这一节我们就来具体分析这两者对显存的访问次数（同样都是以forward为例，backward部分论文中也有给出相关推导过程，大家可以类比forward自行阅读）。</p>
-<h3 id="标准Attention的IO复杂度"><a href="#标准Attention的IO复杂度" class="headerlink" title="标准Attention的IO复杂度"></a>标准Attention的IO复杂度</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209233647.png"></p>
-<ol>
-<li><p><strong>从 HBM 中读取 $Q, K \in \mathbb{R}^{N \times d}$，计算 $S = Q K^T$，$S \in \mathbb{R}^{N \times N}$ 并将 $S$ 写回 HBM</strong>。</p>
-<ul>
-<li>一读一写的 IO 复杂度为：$O(2Nd + N^2)$。</li>
-</ul>
-</li>
-<li><p><strong>从 HBM 中读取 $S \in \mathbb{R}^{N \times N}$，同时计算 $P \in \mathbb{R}^{N \times N}$ 并将其写回 HBM</strong>。</p>
-<ul>
-<li>一读一写的 IO 复杂度为：$O(2N^2)$。</li>
-</ul>
-</li>
-<li><p><strong>从 HBM 中读取 $P \in \mathbb{R}^{N \times N}, V \in \mathbb{R}^{N \times d}$，计算 $O = P V, O \in \mathbb{R}^{N \times d}$ 并将 $O$ 写回 HBM</strong>。</p>
-<ul>
-<li>两读一写的 IO 复杂度为：$O((N^2 + Nd) + Nd)$。</li>
-</ul>
-</li>
+<ol type="1">
+<li><p>在代码第 9 行，我们有 <span class="math inline">\(S_{ij} = Q_i
+K_j^T\)</span>，其中 <span class="math inline">\(Q_i \in \mathbb{R}^{B_r
+\times d}\)</span>，<span class="math inline">\(K_j^T \in \mathbb{R}^{d
+\times B_c}\)</span>。根据前置知识，求 <span class="math inline">\(S_{ij}\)</span> 的计算量为 <span class="math inline">\(O(B_r B_c d)\)</span>。</p></li>
+<li><p>在代码第 12 行，我们有 <span class="math inline">\(\tilde{P}_{ij}
+V_j\)</span>，其中 <span class="math inline">\(\tilde{P}_{ij} \in
+\mathbb{R}^{B_r \times B_c}\)</span>，<span class="math inline">\(V_j
+\in \mathbb{R}^{B_c \times d}\)</span>。则这里的计算量同样为 <span class="math inline">\(O(B_r B_c d)\)</span>。</p></li>
+<li><p>接下来我们看一共计算了多少次 (1) 和
+(2)，也就是执行了多少次内循环：</p></li>
 </ol>
-<p><strong>因此，总体来说标准 attention 的 IO 复杂度为：$O(Nd + N^2)$。</strong></p>
-<h3 id="Flash-Attention的IO复杂度"><a href="#Flash-Attention的IO复杂度" class="headerlink" title="Flash Attention的IO复杂度"></a>Flash Attention的IO复杂度</h3><ol>
-<li><p>我们来看伪代码的第 6 行，在每个外循环中，我们都会加载 $K, V$ 的 block。所有外循环结束后，相当于我们加载了完整的 $K, V \in \mathbb{R}^{N \times d}$，因此这里的 IO 复杂度为：$O(2Nd)$。</p>
-</li>
-<li><p>再看伪代码第 8 行，在每个内循环中，我们都加载部分 $Q, O, m, l$ block。由于 $m, l$ 本身比较小（IO 复杂度是 $O(N)$），因此我们暂时忽略它们，只考虑 $Q, O$（原论文也是这么分析的）。<br>固定某个小循环，对于所有内循环结束后，我们相当于完整遍历了 $Q, O \in \mathbb{R}^{N \times d}$。同时我们经历了 $T_c$ 次外循环。因此这里最终的 IO 复杂度为：$O(T_c Nd)$。</p>
-</li>
-<li><p><strong>将 $O, m, l$ 写回 HBM</strong>，这里近似后 IO 复杂度为：$O(Nd)$。</p>
-</li>
+<p><span class="math display">\[
+T_c T_r = \frac{N}{B_c} \cdot \frac{N}{B_r}
+\]</span></p>
+<ol start="4" type="1">
+<li>综合以上三点，<strong>flash attention 的 forward
+计算量为</strong>：</li>
+</ol>
+<p><span class="math display">\[
+O\left(\frac{N^2}{B_r B_c} B_r B_c d \right) = O(N^2 d)
+\]</span></p>
+<p>注意，因为计算量是用大 O 阶表示的，所以这里我们把常数项都省略了。</p>
+<p>同理大家可以自行推一下 backward 中的计算量，在论文里给出的结论是
+<span class="math inline">\(O(N^2)\)</span>，d 远小于 N，因此 d
+也可以略去不表述。</p>
+<h3 id="flash-attention的显存占用">Flash Attention的显存占用</h3>
+<p>和标准 attention 相比，如果不考虑 <span class="math inline">\(O\)</span> 的话，Flash Attention 只需要存储 <span class="math inline">\(m, l\)</span>，其显存需求为 <span class="math inline">\(O(N)\)</span>。</p>
+<p>而标准 attention 需要存储 <span class="math inline">\(S,
+P\)</span>，其显存需求为 <span class="math inline">\(O(N^2)\)</span>。</p>
+<p>FlashAttention 将显存需求降低到
+O(N)，通过分块处理和重计算，<strong>显著减少了显存使用</strong>。实验显示，其显存消耗可减少至标准
+Attention 的 1/20。</p>
+<h2 id="io复杂度分析">IO复杂度分析</h2>
+<p>flash
+attention相比于标准attention的最大优势，就是其<strong>减少了对显存（HBM）的访问次数</strong>，一定程度上解决了memory
+bound的问题。所以这一节我们就来具体分析这两者对显存的访问次数（同样都是以forward为例，backward部分论文中也有给出相关推导过程，大家可以类比forward自行阅读）。
+### 标准Attention的IO复杂度</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241209233647.png"></p>
+<ol type="1">
+<li><strong>从 HBM 中读取 <span class="math inline">\(Q, K \in
+\mathbb{R}^{N \times d}\)</span>，计算 <span class="math inline">\(S = Q
+K^T\)</span>，<span class="math inline">\(S \in \mathbb{R}^{N \times
+N}\)</span> 并将 <span class="math inline">\(S\)</span> 写回
+HBM</strong>。
+<ul>
+<li>一读一写的 IO 复杂度为：<span class="math inline">\(O(2Nd +
+N^2)\)</span>。</li>
+</ul></li>
+<li><strong>从 HBM 中读取 <span class="math inline">\(S \in
+\mathbb{R}^{N \times N}\)</span>，同时计算 <span class="math inline">\(P
+\in \mathbb{R}^{N \times N}\)</span> 并将其写回 HBM</strong>。
+<ul>
+<li>一读一写的 IO 复杂度为：<span class="math inline">\(O(2N^2)\)</span>。</li>
+</ul></li>
+<li><strong>从 HBM 中读取 <span class="math inline">\(P \in
+\mathbb{R}^{N \times N}, V \in \mathbb{R}^{N \times d}\)</span>，计算
+<span class="math inline">\(O = P V, O \in \mathbb{R}^{N \times
+d}\)</span> 并将 <span class="math inline">\(O\)</span> 写回
+HBM</strong>。
+<ul>
+<li>两读一写的 IO 复杂度为：<span class="math inline">\(O((N^2 + Nd) +
+Nd)\)</span>。</li>
+</ul></li>
+</ol>
+<p><strong>因此，总体来说标准 attention 的 IO 复杂度为：<span class="math inline">\(O(Nd + N^2)\)</span>。</strong></p>
+<h3 id="flash-attention的io复杂度">Flash Attention的IO复杂度</h3>
+<ol type="1">
+<li><p>我们来看伪代码的第 6 行，在每个外循环中，我们都会加载 <span class="math inline">\(K, V\)</span> 的
+block。所有外循环结束后，相当于我们加载了完整的 <span class="math inline">\(K, V \in \mathbb{R}^{N \times
+d}\)</span>，因此这里的 IO 复杂度为：<span class="math inline">\(O(2Nd)\)</span>。</p></li>
+<li><p>再看伪代码第 8 行，在每个内循环中，我们都加载部分 <span class="math inline">\(Q, O, m, l\)</span> block。由于 <span class="math inline">\(m, l\)</span> 本身比较小（IO 复杂度是 <span class="math inline">\(O(N)\)</span>），因此我们暂时忽略它们，只考虑
+<span class="math inline">\(Q, O\)</span>（原论文也是这么分析的）。
+固定某个小循环，对于所有内循环结束后，我们相当于完整遍历了 <span class="math inline">\(Q, O \in \mathbb{R}^{N \times
+d}\)</span>。同时我们经历了 <span class="math inline">\(T_c\)</span>
+次外循环。因此这里最终的 IO 复杂度为：<span class="math inline">\(O(T_c
+Nd)\)</span>。</p></li>
+<li><p><strong>将 <span class="math inline">\(O, m, l\)</span> 写回
+HBM</strong>，这里近似后 IO 复杂度为：<span class="math inline">\(O(Nd)\)</span>。</p></li>
 </ol>
 <p>不过在原论文的分析中并没有考虑写回的复杂度，不过省略一些常数项不会影响我们最终的分析。</p>
-<p>总体来说，<strong>flash attention 的 IO 复杂度为</strong>：<br>$$<br>O(T_c Nd + Nd) = O\left(\frac{N}{B_c} Nd \right) = O\left(\frac{4Nd}{M} Nd \right) = O\left(N^2 d \frac{d}{M} \right)<br>$$<br>在文章中提到，一般的 $d$ 取值在 64～128，$M$ 的取值在 100KB 左右，因此有 $\frac{d^2}{M} \ll 1$。因此可以看出，<strong>Flash Attention 的 IO 复杂度是显著小于标准 attention 的 IO 复杂度的</strong>。</p>
-<h3 id="复杂度总结"><a href="#复杂度总结" class="headerlink" title="复杂度总结"></a>复杂度总结</h3><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000354.png"></p>
-<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000654.png"></p>
-<p>Flash attention 的作者将 $N = 1024$, $d = 64$, $B = 64$ 的 GPT2-medium 部署在 A100 GPU 上，来观察采用 flash attention 前后的模型的计算性能。</p>
-<p>我们先看最左侧图表，标准 attention 下，**计算强度 $I = \frac{66.6}{40.3} \approx 1.6 &lt; 201$**，说明 GPT2 在 A100 上的训练是受到内存限制的。而在采用 flash attention 后得到明显改善，runtime 也呈现了显著下降。</p>
-<p>我们再来看中间的图表，它表示在使用 flash attention 的前提下，以 forward 过程为例，每个数据块的大小对 HBM 读写次数（绿色）和耗时（蓝色）的影响。可以发现，数据块越大，读写次数越少，而随着读写次数的减少，runtime 也整体下降了（复习一下，读写复杂度为 $O(T_c Nd)$，数据块越大意味着 $T_c$ 越小）。<strong>但有趣的是，当数据块大小 $&gt; 256$ 后，runtime 的下降不明显了，这是因为随着矩阵的变大，计算耗时也更大了，会抵平读写节省下来的时间</strong>。</p>
-<p>参考资料</p>
-<blockquote>
-<p>图解大模型计算加速系列：FlashAttention V1，从硬件到计算逻辑:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/669926191">https://zhuanlan.zhihu.com/p/669926191</a><br>图解大模型计算加速系列：Flash Attention V2，从原理到并行计算:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p>
-</blockquote>
+<p>总体来说，<strong>flash attention 的 IO 复杂度为</strong>： <span class="math display">\[
+O(T_c Nd + Nd) = O\left(\frac{N}{B_c} Nd \right) = O\left(\frac{4Nd}{M}
+Nd \right) = O\left(N^2 d \frac{d}{M} \right)
+\]</span> 在文章中提到，一般的 <span class="math inline">\(d\)</span>
+取值在 64～128，<span class="math inline">\(M\)</span> 的取值在 100KB
+左右，因此有 <span class="math inline">\(\frac{d^2}{M} \ll
+1\)</span>。因此可以看出，<strong>Flash Attention 的 IO
+复杂度是显著小于标准 attention 的 IO 复杂度的</strong>。</p>
+<h3 id="复杂度总结">复杂度总结</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000354.png"></p>
+<h2 id="实验">实验</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210000654.png"></p>
+<p>Flash attention 的作者将 <span class="math inline">\(N =
+1024\)</span>, <span class="math inline">\(d = 64\)</span>, <span class="math inline">\(B = 64\)</span> 的 GPT2-medium 部署在 A100 GPU
+上，来观察采用 flash attention 前后的模型的计算性能。</p>
+<p>我们先看最左侧图表，标准 attention 下，<strong>计算强度 <span class="math inline">\(I = \frac{66.6}{40.3} \approx 1.6 &lt;
+201\)</span></strong>，说明 GPT2 在 A100
+上的训练是受到内存限制的。而在采用 flash attention
+后得到明显改善，runtime 也呈现了显著下降。</p>
+<p>我们再来看中间的图表，它表示在使用 flash attention 的前提下，以
+forward 过程为例，每个数据块的大小对 HBM
+读写次数（绿色）和耗时（蓝色）的影响。可以发现，数据块越大，读写次数越少，而随着读写次数的减少，runtime
+也整体下降了（复习一下，读写复杂度为 <span class="math inline">\(O(T_c
+Nd)\)</span>，数据块越大意味着 <span class="math inline">\(T_c\)</span>
+越小）。<strong>但有趣的是，当数据块大小 <span class="math inline">\(&gt; 256\)</span> 后，runtime
+的下降不明显了，这是因为随着矩阵的变大，计算耗时也更大了，会抵平读写节省下来的时间</strong>。</p>
+<p>参考资料 &gt; 图解大模型计算加速系列：FlashAttention
+V1，从硬件到计算逻辑:https://zhuanlan.zhihu.com/p/669926191 &gt;
+图解大模型计算加速系列：Flash Attention
+V2，从原理到并行计算:https://zhuanlan.zhihu.com/p/691067658</p>
 
                 
             </div>
@@ -1573,7 +1903,7 @@ $$
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             

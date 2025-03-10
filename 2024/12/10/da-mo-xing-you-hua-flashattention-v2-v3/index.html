@@ -5,8 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="大模型优化-FlashAttention-v2/v3, 庞贝堡垒">
-    <meta name="description" content="FlashAttention-v1回顾我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。
-FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
+    <meta name="description" content="FlashAttention-v1回顾
+我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。 
+FlashAttention-v2
+FlashAttention V2 出自论文(《FlashAttention-2: Faster">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -442,7 +444,7 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    220
+                    224
                 </div>
                 
 
@@ -472,19 +474,25 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="FlashAttention-v1回顾"><a href="#FlashAttention-v1回顾" class="headerlink" title="FlashAttention-v1回顾"></a>FlashAttention-v1回顾</h2><p>我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。<br><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210021847.png"></p>
-<h2 id="FlashAttention-v2"><a href="#FlashAttention-v2" class="headerlink" title="FlashAttention-v2"></a>FlashAttention-v2</h2><p>FlashAttention V2 出自论文(《FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning》)[<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2307.08691]%EF%BC%8C">https://arxiv.org/pdf/2307.08691]，</a><br>主要改进包括：</p>
+                <h2 id="flashattention-v1回顾">FlashAttention-v1回顾</h2>
+<p>我们先快速回顾一下V1的运作流程：以K，V为外循环，Q为内循环。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241210021847.png"></p>
+<h2 id="flashattention-v2">FlashAttention-v2</h2>
+<p>FlashAttention V2 出自论文(《FlashAttention-2: Faster Attention with
+Better Parallelism and Work
+Partitioning》)[https://arxiv.org/pdf/2307.08691]， 主要改进包括：</p>
 <ul>
 <li>优化计算次序，减少非矩阵计算量。</li>
 <li>增加 seq_len 维度的并行计算，提升 SM 利用率。</li>
 <li>优化 warp 级工作模式，减少内部通信和 shared memory 访问。</li>
 </ul>
-<h2 id="FlashAttention-v3"><a href="#FlashAttention-v3" class="headerlink" title="FlashAttention-v3"></a>FlashAttention-v3</h2><p>Flash Attention V3 出自论文(《FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision》)[<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.08608]%EF%BC%8C%E4%B8%BB%E8%A6%81%E6%94%B9%E8%BF%9B%E5%A6%82%E4%B8%8B%EF%BC%9A">https://arxiv.org/pdf/2407.08608]，主要改进如下：</a></p>
-<p>引入生产者-消费者异步机制，提升并行度。<br>优化 GEMM 和 Softmax 操作的重叠计算。<br>支持 FP8 低精度硬件加速，提升吞吐量并减少精度损失。</p>
-<p>参考：</p>
-<blockquote>
-<p>图解大模型计算加速系列：Flash Attention V2，从原理到并行计算: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/691067658">https://zhuanlan.zhihu.com/p/691067658</a></p>
-</blockquote>
+<h2 id="flashattention-v3">FlashAttention-v3</h2>
+<p>Flash Attention V3 出自论文(《FlashAttention-3: Fast and Accurate
+Attention with Asynchrony and
+Low-precision》)[https://arxiv.org/pdf/2407.08608]，主要改进如下：</p>
+<p>引入生产者-消费者异步机制，提升并行度。 优化 GEMM 和 Softmax
+操作的重叠计算。 支持 FP8 低精度硬件加速，提升吞吐量并减少精度损失。</p>
+<p>参考： &gt; 图解大模型计算加速系列：Flash Attention
+V2，从原理到并行计算: https://zhuanlan.zhihu.com/p/691067658</p>
 
                 
             </div>
@@ -1234,7 +1242,7 @@ FlashAttention-v2FlashAttention V2 出自论文(《FlashAttention-2: Faster At">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.2k</span>
+                        class="white-color">61.3k</span>
             
             
             
