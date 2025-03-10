@@ -48,35 +48,6 @@
   </entry>
   
   <entry>
-    <title>线性代数-半正定与正定矩阵</title>
-    <link href="http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/"/>
-    <id>http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/</id>
-    <published>2025-03-09T17:35:31.000Z</published>
-    <updated>2025-03-09T18:16:52.683Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;基本定义&quot;&gt;基本定义&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;正定矩阵：一个 n×n 的实对称矩阵 &lt;span class=&quot;math inline&quot;&gt;&#92;(A&#92;)&lt;/span&gt;，如果对于任何非零向量 &lt;span class=&quot;math inline&quot;&gt;&#92;(x</summary>
-        
-      
-    
-    
-    
-    <category term="线性代数" scheme="http://baoblei.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
-    
-    
-    <category term="线性代数" scheme="http://baoblei.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
-    
-    <category term="正定/半正定矩阵" scheme="http://baoblei.github.io/tags/%E6%AD%A3%E5%AE%9A-%E5%8D%8A%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/"/>
-    
-  </entry>
-  
-  <entry>
     <title>大模型动力引擎-深度学习必备的PyTorch</title>
     <link href="http://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch/"/>
     <id>http://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch/</id>
@@ -618,6 +589,31 @@ MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固�
     <category term="Latex" scheme="http://baoblei.github.io/tags/Latex/"/>
     
     <category term="VSCode" scheme="http://baoblei.github.io/tags/VSCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>日本-消失的三十年-启示与借鉴</title>
+    <link href="http://baoblei.github.io/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/"/>
+    <id>http://baoblei.github.io/2024/12/10/ri-ben-xiao-shi-de-san-shi-nian-qi-shi-yu-jie-jian/</id>
+    <published>2024-12-10T11:13:45.000Z</published>
+    <updated>2024-12-10T13:15:11.471Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="杂谈" scheme="http://baoblei.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+    <category term="经济发展" scheme="http://baoblei.github.io/tags/%E7%BB%8F%E6%B5%8E%E5%8F%91%E5%B1%95/"/>
     
   </entry>
   
