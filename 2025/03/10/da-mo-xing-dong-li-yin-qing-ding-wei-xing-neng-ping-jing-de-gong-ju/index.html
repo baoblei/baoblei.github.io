@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="transformers-源码学习, 庞贝堡垒">
-    <meta name="description" content="前言
-Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch
-框架之上（Tensorflow 的版本功能并不完善），基本上 所有的Transformer
-模型都可以在 Hugging Face">
+    <meta name="keywords" content="大模型动力引擎-定位性能瓶颈的工具, 庞贝堡垒">
+    <meta name="description" content="性能瓶颈定位工具
+为了保证分析结果的可靠性，对测试环境的稳定性有一定要求。由于程序运行的软件和硬件环境中影响因素较多，本节将根据重要性排序，依次介绍提升测试稳定性的方法。
+减少无关程序的干扰
+为了保证分析结果的可靠性，对测试环境的稳定性有一">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +21,7 @@ Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Py
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>transformers-源码学习 | 庞贝堡垒</title>
+    <title>大模型动力引擎-定位性能瓶颈的工具 | 庞贝堡垒</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -372,12 +372,12 @@ Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Py
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">transformers-源码学习</h1>
+                    <h1 class="description center-align post-title">大模型动力引擎-定位性能瓶颈的工具</h1>
                 </div>
             </div>
         </div>
@@ -401,16 +401,16 @@ Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Py
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/transformer/">
-                                <span class="chip bg-color">transformer</span>
+                            <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                                <span class="chip bg-color">《大模型动力引擎》</span>
                             </a>
                         
-                            <a href="/tags/huggingface/">
-                                <span class="chip bg-color">huggingface</span>
+                            <a href="/tags/%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88/">
+                                <span class="chip bg-color">性能瓶颈</span>
                             </a>
                         
-                            <a href="/tags/qwen/">
-                                <span class="chip bg-color">qwen</span>
+                            <a href="/tags/PyTorch/">
+                                <span class="chip bg-color">PyTorch</span>
                             </a>
                         
                     </div>
@@ -421,12 +421,8 @@ Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Py
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/transformer/" class="post-category">
-                                transformer
-                            </a>
-                        
-                            <a href="/categories/transformer/LLMs/" class="post-category">
-                                LLMs
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                《大模型动力引擎》阅读笔记
                             </a>
                         
                     </div>
@@ -438,28 +434,28 @@ Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Py
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-01-21
+                    2025-03-10
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-01-27
+                    2025-03-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    5.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    11 分
+                    22 分
                 </div>
                 
 
@@ -482,310 +478,387 @@ Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Py
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言">前言</h2>
-<p>Huggingface的transformers库是NLP领域最常用的库之一，其建立在 Pytorch
-框架之上（Tensorflow 的版本功能并不完善），基本上 所有的Transformer
-模型都可以在 Hugging Face Hub
-中找到并且加载使用，包括训练、推理、量化等。</p>
-<p>Huggingface官方提供了<a target="_blank" rel="noopener" href="https://transformers.run/">transformers
-快速入门</a>的官方教程，可以快速上手。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250121004750.png"></p>
-<h2 id="huggingface主要部分">HuggingFace主要部分</h2>
-<ul>
-<li>Models Hub：托管和分享模型。</li>
-<li>Datasets Hub：托管和分享数据集。</li>
-<li>Spaces：托管和运行应用（基于 Gradio 或 Streamlit）。</li>
-<li>Posts：帖子，可以查看最新的一些更新动态。</li>
-<li>Collections：收藏夹，可以查看最新的热门收藏内容。</li>
-<li>Community：社区，提供一些免费学习课程和博客。</li>
-</ul>
-<p>每个hub提供了对应的标签，按内容分为： -
-tasks：按照Multimodal/Computer Vision/Natural Language
-Processing/Audio/Tabular/Reinforcement Learning等内容又做了具体的细分。
+                <h2 id="性能瓶颈定位工具">性能瓶颈定位工具</h2>
+<p>为了保证分析结果的可靠性，对测试环境的稳定性有一定要求。由于程序运行的软件和硬件环境中影响因素较多，本节将根据重要性排序，依次介绍提升测试稳定性的方法。</p>
+<h3 id="减少无关程序的干扰">减少无关程序的干扰</h3>
+<p>为了保证分析结果的可靠性，对测试环境的稳定性有一定要求。由于程序运行的软件和硬件环境中影响因素较多，本节将根据重要性排序，依次介绍提升测试稳定性的方法。</p>
+<h4 id="gpu使用情况">GPU使用情况</h4>
+<p>首先可以通过<code>nvidia-smi</code>监控GPU使用情况（<code>nvtop</code>命令提供了更友好的交互界面，适合监督训练过程）
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310190914.png"></p>
+<p>查看相应进程的更多信息：<code>ps aux | grep &lt;PID&gt;</code></p>
+<p>杀掉进程：<code>kill -9 &lt;PID&gt;</code> （-9
+表示强制杀死进程）</p>
+<p>有条件的读者还应<strong>避免在GPU的性能优化过程中使用图形界面</strong>，因为图形界面也会占用GPU资源，比如上图中的/usr/bin/Xorg.bin就对应了图形界面进程。可以考虑停止UNIX系统的图形用户界面服务，之后通过另一台机器进行SSH远程登录。</p>
+<h4 id="cpu使用情况">CPU使用情况</h4>
+<p>可以通过<code>htop</code>这一系统监视工具来查看CPU使用情况。</p>
+<p>如果发现CPU使用率偏高——比如大部分CPU核心的占用率长时间在60%～70%以上，还可以通过进程列表来查询使用CPU最多的进程，并决定是否将其终止。</p>
+<h3 id="提升pytorch程序的可重复性">提升PyTorch程序的可重复性</h3>
+<p>前面着重讨论了如何避免其他程序的干扰，尽可能让目标程序独占计算资源，降低性能波动。
+但是程序内部也存在着一定的随机性，如模型权重的随机初始化/Dropout层随机失活，在本小节中，我们会专门介绍约束程序随机性的方法。</p>
+<p>在Python生态系统中缺乏一个统一的随机数生成标准库。NumPy、PyTorch和TensorFlow等库在处理随机数生成时，各自有不同的实现和优化方式，因此，没有一个统一的方法可以集中控制Python程序中所有库的随机数种子，在写程序时，需要考虑不同库的随机数生成方式。</p>
+<p>这里只介绍Pytorch、NumPy和python标准库random的随机数种子设置方法。</p>
+<h4 id="设置pytorch随机数种子">设置PyTorch随机数种子</h4>
+<p>PyTorch提供了一个<code>torch.manual_seed()</code>接口可以“一键设置”所有后端的随机数生成种子，以确保每次运行代码时，生成的随机数序列都是相同的。
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+
+def generate_random_seq(device):
+    return torch.rand((3, 3), device=device)
+
+print(
+    f"""不设置随机种子时，每次运行生成的序列都是不同的
+CPU: {generate_random_seq('cpu')}
+CUDA: {generate_random_seq('cuda')}"""
+)
+
+# 为所有PyTorch后端设置生成随机数的种子
+seed = 32
+torch.manual_seed(seed)
+
+print(
+    f"""设置随机种子后，每次运行都会生成相同的序列
+CPU: {generate_random_seq('cpu')}
+CUDA: {generate_random_seq('cuda')}"""
+)</code></pre><p></p>
+<h4 id="设置numpy随机数种子">设置NumPy随机数种子</h4>
+<p>numpy提供了<code>numpy.random.seed()</code>接口，可以设置NumPy的随机数种子。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import numpy as np
+
+def generate_random_seq():
+    return ", ".join([f"{np.random.random():.2f}" for _ in range(10)])
+
+print(f"不设置随机种子时，每次运行生成的序列都是不同的: {generate_random_seq()}")
+
+np.random.seed(32)
+
+print(f"设置随机种子后，每次运行都会生成相同的序列: {generate_random_seq()}")</code></pre>
+<h4 id="设置python随机数种子">设置python随机数种子</h4>
+<p>python的random模块提供了<code>random.seed()</code>接口，可以设置python标准库的随机数种子。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import os
+import random
+
+def generate_random_seq():
+    return ", ".join([f"{random.random():.2f}" for _ in range(10)])
+
+
+print(f"不设置随机种子时，每次运行生成的序列都是不同的: {generate_random_seq()}")
+
+seed = 32
+random.seed(seed)
+
+print(f"设置随机种子后，每次运行都会生成相同的序列: {generate_random_seq()}")</code></pre>
+<h4 id="其他随机性因素">其他随机性因素</h4>
+<p>虽然设置随机数种子能控制一部分Python代码的随机性，但并不能完全消除随机性。因为随机性的来源很多，比如<strong>哈希算法就是其中之一</strong>。如果用到了基于哈希算法的如hash()函数，或者set的遍历，为了确保程序的可复现性，就需要<strong>设置环境变量PYTHONHASHSEED</strong>，代码如下。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python -c 'print(hash("hello"))' # 跑多次结果是不一样的
+PYTHONHASHSEED=0 python -c 'print(hash("hello"))' #跑多次结果是一样的</code></pre>
+<p>甚至有一些随机性是无法控制的，例如使用<strong>Python的glob模块获取的文件列表顺序可能是不确定的</strong>，这个顺序会受到操作系统和文件系统类型等多种因素的影响。如果在调试过程中需要可复现性，要求文件以特定顺序出现，那么我们就需要<strong>在获取文件列表后，手动对这些文件进行排序</strong>。</p>
+<h4 id="约束gpu算子的随机性">约束GPU算子的随机性</h4>
+<p>GPU的计算特点与CPU存在一些差别，这尤其体现在数值精度方面。</p>
+<p>首先在硬件底层，浮点运算的机制及其硬件实现可能导致结合律在某些情况下不适用，由于其并行处理的特性，进行大量的数值累加时，累加的顺序可能不固定，从而可能进一步放大这种数值差异。</p>
+<p>其次，NVIDIA提供的cuDNN加速库还在软件层面上进一步加重了数值的不确定性。以卷积算法为例，cuDNN提供了不同版本的卷积实现方法，会根据情况临时选择其中性能最高的一种进行卷积计算，这就导致其计算结果更加的不可控。除此以外，如果算子实现过程中用到了随机采样的算法，那么采样的随机性同样也会对结果产生影响。</p>
+<p>不过对于cuDNN相关的操作，PyTorch还是提供了<code>torch.backends.cudnn.deterministic</code>和<code>torch.backends.cudnn.benchmark</code>接口，二者结合使用可以最大程度提高GPU计算结果的稳定性，使用方法如下所示：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">torch.backends.cudnn.deterministic = True # 确保算子使用确定性算法
+torch.backends.cudnn.benchmark = False # 禁用自动优化（如卷积算法）</code></pre>
+<p>但是这两个接口都可能导致GPU计算性能下降，所以尽量只在需要调试程序或者进行性能分析时开启。</p>
+<h4 id="完整的随机性约束脚本">完整的随机性约束脚本</h4>
+<p>使用以下脚本可以一键设置前文介绍的所有随机种子，代码如下：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">def set_seed(seed: int = 37) -&gt; None:
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed)  # 适用于所有PyTorch后端，包括CPU和所有CUDA设备
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    print(f"设置随机数种子为{seed}")</code></pre><p></p>
+<h3 id="控制gpu频率">控制GPU频率</h3>
+<p>GPU在实际运行过程中会根据芯片状态动态调整显存频率和基础频率来自动平衡性能和功耗。对于性能分析而言，我们需要<strong>GPU始终保持在相同的频率进行测试，从而降低数据波动</strong>。可以使用如下指令来锁定GPU的频率：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 查询 GPU显存频率、流处理器频率、图形频率
+nvidia-smi --query-gpu=pstate,clocks.mem,clocks.sm,clocks.gr --format=csv
+
+# clocks.current.memory [MHz], clocks.current.sm [MHz], clocks.current.graphics [MHz]
+# 9751 MHz, 1695 MHz, 1695 MHz
+
+# 查询GPU支持的clock组合
+nvidia-smi --query-supported-clocks=gpu_name,mem,gr --format=csv
+
+# 设置persistent mode，可以减少GPU初始化延迟
+sudo nvidia-smi -pm 1
+
+# 固定GPU时钟
+nvidia-smi -ac 9751,1530 # &lt;memory, graphics&gt;</code></pre>
+<p>注意AI
+GPU如V100、A100等是支持锁频功能的，但一些家用级别GPU可能不支持锁频（如RTX3090、4090系列）​，这时锁频指令会显示下述信息：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Setting applications clocks is not supported for GPU 00000000:1A:00.0.
+Treating as warning and moving on.</code></pre>
+<h3 id="控制cpu的状态和频率">控制CPU的状态和频率</h3>
+<p>一个CPU的性能状态被划分为不同的等级，称为性能状态(Performance state,
+P-state)。每个P-state对应于一组特定的工作频率和电压。</p>
+<p>在进行性能测量时，我们希望固定P-state和CPU频率，确保在每次运行基准测试时处理器以相同的性能状态运行。</p>
+<p>首先需要安装<code>cpufrequtils</code>软件包，并通过设置最大、最小频率来间接控制住CPU的状态，代码如下：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sudo apt-get install cpufrequtils
+
+# 设置最大、最小频率
+sudo cpufreq-set -r -g performance # 设置为性能模式， -r 表示所有CPU核心 -g 表示性能模式
+sudo cpufreq-set -r -d 2Ghz # 设置最小频率为2GHz
+sudo cpufreq-set -r -u 2Ghz # 设置最大频率为2GHz</code></pre>
+然后可以查询当前CPU的性能信息和工作状态，来验证改动是否生效，代码如下：
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 查询
+cpufreq-info
+
+# 或者
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq</code></pre><p></p>
+<p>另外，还可以在驱动或BIOS层面进一步关闭一些对性能有影响的CPU特性，例如：
 -
-libraries：指出改仓库使用了哪些库，如Pytorch、Transformers、PEFT、Diffusers等。
-- datasets：指出改仓库使用了哪些数据集，如GLUE、SQuAD、Common
-Crawl、Wikipedia等。 -
-languages：指出改仓库使用了哪些语言，如English、Chinese、Spanish、French等。
-- licenses：指出改仓库使用了哪些许可证，如Apache 2.0、MIT、CC-BY-NC-SA
-4.0等。 - other：如inference status，misc杂项等</p>
-<h2 id="transformers库">Transformers库</h2>
-<p>一个自然语言处理的库，提供了简单易用的API，可以快速地加载、训练和部署模型。并且提供统一的代码风格来使用BERT、XLNet和GPT等等各种不同的模型。
-包含configuration，models和tokenizer三个主要类，并基于这三个类提供更上层的pipeline和Trainer，从而用更少的代码实现模型的预测和微调。</p>
+设置max_cstate为1来阻止CPU进入低功耗状态，在计算机系统中C-state是指处理器的不同功耗状态，其中C0表示处理器处于活动状态，而C1、C2、C3等表示不同的睡眠状态，功耗逐渐降低。
+- 可以关闭超线程和睿频等高级功能。 </p><pre class="line-numbers language-none"><code class="language-none"># 查询C_state
+cat /sys/module/intel_idle/parameters/max_cstate
+
+# 查询turbo状态
+cat /sys/devices/system/cpu/intel_pstate/no_turbo</code></pre><p></p>
+<h2 id="精确测量程序运行时间">精确测量程序运行时间</h2>
+<h3 id="计量cpu程序的运行时间--time模块">计量CPU程序的运行时间--time模块</h3>
+<p>time.time()或者time.perf_counter()计算两个时间戳的间隔。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import time
+
+start = time.perf_counter()
+
+# 程序运行
+
+end = time.perf_counter()
+
+print(f"程序运行时间: {end - start}秒")</code></pre>
+<h3 id="warmup和多次运行取平均">warmup和多次运行取平均</h3>
+<p>计算机程序具有<strong>冷启动效应</strong>。具体到训练过程来说，一般最初几轮训练的单轮耗时要显著多于平稳运行时每轮的耗时，这主要是设备初始化、缓存命中、代码初次加载等诸多因素导致的。因此如果希望得到一致性更强的性能测试结果，就需要在正式测量前先进行几轮热身(warmup)，从而让系统达到稳定状态。除了程序预热以外，还应该测试多轮训练取平均值，进一步增加测试结果的稳定性。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import time
+import torch
+
+def my_work():
+    # 需要计时的操作
+    sz = 64
+    x = torch.randn((sz, sz))
+
+
+if __name__ == "__main__":
+    # 热身
+    num_warmup = 5
+    for i in range(num_warmup):
+        start = time.perf_counter()
+        my_work()
+        end = time.perf_counter()
+        t = end - start
+        print(f"热身#{i}: {t * 1000 :.6f}ms")
+
+    # 多次运行取平均
+    repeat = 30
+    start = time.perf_counter()
+    for _ in range(repeat):
+        my_work()
+    end = time.perf_counter()
+
+    t = (end - start) / repeat
+    print(f"{repeat}次取平均: {t * 1000:.6f}ms")
+
+# 热身#0: 0.317707ms
+# 热身#1: 0.023586ms
+# 热身#2: 0.016913ms
+# 热身#3: 0.016409ms
+# 热身#4: 0.015868ms
+# 30次取平均: 0.014164ms</code></pre>
+<h3 id="利用cpugpu同步计量gpu的运行时间--torch.cuda.synchronize">利用CPU/GPU同步计量GPU的运行时间--torch.cuda.synchronize()</h3>
+<p>如<a href="https://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch">大模型动力引擎-PyTorch</a>所述，CPU和GPU之间的操作是异步的。由于Python解释器在CPU上运行，使用time.perf_counter()记录的时间实际上是CPU的时间戳。
+若CPU没有等待GPU任务完成就记录时间的话，测量结果就是错的，通常会比实际程序运行时间短很多。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310224253.png"></p>
+<p>因此必须让CPU先等待GPU运行完成，也就是<code>调用torch.cuda.synchronize()</code>结束再记录时间戳。代码如下所示：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import time
+import torch
+
+sz = 512
+N = 10
+shape = (sz, sz, sz)
+
+x = torch.randn(dtype=torch.float, size=shape, device="cuda")
+y = torch.randn(dtype=torch.float, size=shape, device="cuda")
+
+torch.cuda.synchronize()
+start = time.perf_counter()
+for _ in range(N):
+    z = x * y
+# 同步
+torch.cuda.synchronize()
+end = time.perf_counter()
+print(f"{N}次运行取平均: {(end - start) / N}s")</code></pre>
+<h3 id="精确计量gpu的运行时间--torch.cuda.event">精确计量GPU的运行时间--torch.cuda.Event()</h3>
+<p>联合使用torch.cuda.synchronize()和time.perf_counter()来计量GPU程序的运行时间会因为同步过程产生一定延迟，所以使用上面的CPU时间戳间隔测量的GPU耗时是要略长于GPU算子实际运行时间的。</p>
+<p>可以通过建立<code>torch.cuda.Event()</code>对象，随后利用其record()方法在GPU队列中进行标记，最后通过两个CUDA
+Event的时间间隔来测量GPU运行时间： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+
+sz = 512
+shape = (sz, sz, sz)
+x = torch.randn(dtype=torch.float, size=shape, device="cuda")
+y = torch.randn(dtype=torch.float, size=shape, device="cuda")
+
+start = torch.cuda.Event(enable_timing=True) # -enable_timing=True 表示启用时间测量
+end = torch.cuda.Event(enable_timing=True)
+start.record()
+z = x + y
+end.record()
+
+print(f"用时{start.elapsed_time(end)}ms")</code></pre><p></p>
+<h2 id="pytorch的性能分析器--torch.profiler">PyTorch的性能分析器--torch.profiler</h2>
+<p>PyTorch原生的torch.profiler在与Perfetto
+UI进行联用之后能够很好地兼顾使用的易用性和性能指标的信息量。</p>
+<h3 id="性能分析">性能分析</h3>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torchvision.models as models
+from torch.profiler import profile, record_function, ProfilerActivity
+
+model = models.resnet18().cuda()
+inputs = torch.randn(5, 3, 224, 224, device="cuda")
+
+with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA]) as prof: # 指定分析CPU和GPU
+    with record_function("model_inference"): # 对不同代码段进行标记
+        model(inputs)
+
+print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10)) # 打印分析结果</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310231130.png"></p>
+<h3 id="显存分析">显存分析</h3>
+<p>torch.profiler可以追踪每个算子在执行时分配的显存大小，可以间接用来定位显存峰值出现的位置：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torchvision.models as models
+from torch.profiler import profile, record_function, ProfilerActivity
+
+model = models.resnet18().cuda()
+inputs = torch.randn(5, 3, 224, 224, device="cuda")
+
+with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], profile_memory=True) as prof:
+    model(inputs)
+
+print(prof.key_averages().table(sort_by="self_cuda_memory_usage", row_limit=5))</code></pre> <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310231453.png"><p></p>
+<p>不过这里的信息比较笼统，只能对每个算子的内存占用有个大致了解，如果想要专门对显存进行优化，则推荐使用PyTorch原生的显存工具torch.cuda.memory._record_memory_history()。(后续讲解)</p>
+<h3 id="可视化性能图谱">可视化性能图谱</h3>
+<p>导出用于可视化分析的文件： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">prof.export_chrome_trace("profiler_export_trace.json")</code></pre> 导出的文件可以通过Perfetto
+UI打开浏览：通过在浏览器中打开<a target="_blank" rel="noopener" href="https://ui.perfetto.dev/">Perfetto UI</a>，选择“Open
+Trace”，然后选择导出的文件即可。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310231914.png">
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310232334.png"><p></p>
+<h3 id="如何定位性能瓶颈">如何定位性能瓶颈</h3>
+<p>PyTorch
+Profiler还可以记录调用栈信息，对于将问题定位回Python代码非常有帮助。对于绝大多数场景而言，我们可以通过如下标准流程来查找性能瓶颈：
+-
+<strong>(1)观察GPU队列，如果GPU队列整体都非常稀疏，那么性能瓶颈在CPU上。</strong>
+-
+<strong>(2)观察GPU队列，如果任务队列密集，而没有显著空白区域，说明GPU满载，那么性能瓶颈在GPU算子。</strong>
+-
+<strong>(3)观察GPU队列，如果任务队列密集，同时存在GPU空闲区域，则需要放大空闲区域进行进一步观察。</strong>
+-
+<strong>(4)观察GPU空闲区域，查看空闲前后GPU任务以及CPU任务详情，并以此推断导致GPU队列阻塞的原因。</strong></p>
+<blockquote>
+<p>定位瓶颈的示例： <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310232649.png"></p>
+</blockquote>
+<h2 id="gpu专业分析工具">GPU专业分析工具</h2>
+<p>对于绝大多数性能分析的场景使用PyTorch
+Profiler就绰绰有余了，然而当需要进行更高级的优化时，我们可能希望拿到更加深入底层的性能数据。在这些情况下，我们需要转向NVIDIA官方提供的更为专业的性能分析工具。因此在本节我们重点介绍Nsight
+Systems和Nsight Compute两种专业分析工具。</p>
+<h3 id="nsight-systems"><a target="_blank" rel="noopener" href="https://developer.nvidia.com/nsight-systems">Nsight
+Systems</a></h3>
 <ul>
-<li><strong>pipeline</strong> 在底层是由 AutoModel 和 AutoTokenizer
-类来实现的。AutoClass（即像 AutoModel 和 AutoTokenizer
-这样的通用类）是加载模型的快捷方式，它可以从其名称或路径中自动检索预训练模型。</li>
-<li>需要为每个模型系列使用特定的Transformers和Tokenizer（例如，如果使用T5模型系列，则对应T5Tokenizer和
-T5ForConditionalGeneration），对于所有预训练模型，您可以声明一个简单的语句：
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import AutoTokenizer, AutoModelForCausalLM
-tokenizer = AutoTokenizer.from_pretrained("databricks/dolly-v2-3b")
-model = AutoModelForCausalLM.from_pretrained("databricks/dolly-v2-3b")</code></pre></li>
+<li>Nsight
+Systems是<strong>非侵入式的性能分析工具</strong>，不需要对代码进行任何改动；PyTorch
+Profiler则需要在代码中添加torch.profiler等函数。</li>
+<li>Nsight Systems能够显示更详细的信息，包括操作系统、CUDA
+API、通信等层面的信息，对多GPU性能分析的支持也更加完善。</li>
 </ul>
-<h2 id="下载模型文件">下载模型文件</h2>
-<p>如果直接使用transformers 库，默认保存位置在：～/.cache文件夹下。</p>
-<p><a target="_blank" rel="noopener" href="https://hf-mirror.com/">HF-Mirror</a>提供了国内的镜像下载，推荐使用“方法三：使用
-hfd”更加稳定并且下载进度条更直观。下载时记得使用tmux或screen等工具防止下载中断。</p>
-<h2 id="pipeline">pipeline</h2>
-<p>开箱即用的 pipelines，它封装了预训练模型和对应的前处理和后处理环节。
-<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250124012049.png">
-1. 预处理
-(preprocessing)，<strong>Transformer模型无法直接处理原始文本字符串</strong>；具体地，我们会使用每个模型对应的分词器
-(tokenizer) 来进行。 -
-将输入切分为词语、子词或者符号（例如标点符号），统称为 tokens； -
-根据模型的词表将每个 token 映射到对应的 token
-编号/id；映射通常是通过创建文本语料库中标记的词汇表，并根据每个标记在语料库中的出现频率为其分配一个整数值来执行的(如BPE)。最常见的tokens被分配较低的整数值，而不太常见的标记被分配较高的值。
-- 根据模型的需要，添加一些额外的输入。 - [PAD] - 用于填充序列到固定长度
-- [CLS] - 分类任务中的起始标记 - [SEP] - 用于分隔不同文本段落 - [MASK] -
-用于掩码语言模型预训练 - [BOS] / <s> - 序列开始标记 - [EOS] / </s> -
-序列结束标记 - [UNK] - 表示词表外的未知词</p>
-<pre><code>PS:除了上述训练推理时用到的特殊token，在chat任务时还有有其他的输入token（看promt template）：
-- "&lt;|system|&gt;"    # 系统提示
-- "&lt;|user|&gt;"      # 用户输入
-- "&lt;|assistant|&gt;" # AI助手回复
-- "&lt;|human|&gt;"     # 人类对话者
+<h3 id="nsight-compute"><a target="_blank" rel="noopener" href="https://developer.nvidia.com/nsight-compute">Nsight
+Compute</a></h3>
+<p>Nsight Systems是对PyTorch
+Profiler的补充，二者还是属于相同层级的分析工具；<strong>Nsight
+Compute则是完全专注于底层GPU内核函数</strong>的性能指标的分析工具。Nsight
+Compute提供的信息多而庞杂，同时收集性能信息的速度非常慢，所以往往只用来分析较小的代码段。具体到训练过程来说，一般只有在优化CUDA算子时才会考虑使用Nsight
+Compute用于定位算子内部的性能瓶颈。</p>
+<p>我们用Nsight
+Compute分析一个完整模型的训练过程，尽管它多用于分析单个算子，代码如下：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.nn as nn
+import torch.optim as optim
+class SimpleCNN(nn.Module):
+    def __init__(self):
+        super(SimpleCNN, self).__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(20, 50, 5)
+        self.fc1 = nn.Linear(50 * 4 * 4, 500)
+        self.fc2 = nn.Linear(500, 10)
 
-还有一些控制相关的token（多模态）：
-- "&lt;|endoftext|&gt;"  # 文本结束
-- "&lt;|im_start|&gt;"   # 图像开始
-- "&lt;|im_end|&gt;"     # 图像结束</code></pre>
-<ol start="2" type="1">
-<li>将处理好的输入送入模型；</li>
-<li>对模型的输出进行后处理
-(postprocessing)，将其转换为人类方便阅读的格式。 <pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import pipeline
-# 使用pipeline加载模型
-pipeline = pipeline("text-generation", model="gpt2")
-# 输入文本
-input_text = "Once upon a time"
-# 生成文本
-output_text = pipeline(input_text)
-print(output_text)</code></pre></li>
-</ol>
-<h2 id="三大组件">三大组件</h2>
-<ol type="1">
-<li>「Conﬁguration」：配置类，通常继承自「PretrainedConﬁg」，保存model或tokenizer的超参数，例如词典大小，隐层维度数，dropout
-rate等。配置类主要可用于复现模型。</li>
-<li>「Tokenizer」：Model只能处理数字，因此Tokenizer需要将我们的文本输入转换为数字。总体上做三件事情：分词；扩展词汇表；识别并处理特殊token。
-<ol type="1">
-<li>通常继承自「PreTrainedTokenizer」，主要存储词典（也就是<code>from_pretrained()</code>
-的部分），token到index映射关系等。</li>
-<li>此外，还会有一些model-specific的特性，如特殊token，<code>[SEP]</code>,
-<code>[CLS]</code>等的处理，token的type类型处理，语句最大长度等，<strong>因此tokenizer通常和模型是一对一适配的</strong>。</li>
-</ol></li>
-<li>「Model」:
-模型类。封装了预训练模型的计算图过程，遵循着相同的范式，如根据token
-ids进行embedding
-matrix映射（将token的one-hot编码转换成更dense的embedding编码），紧接着多个self-attention层做编码，最后一层task-specific做预测。</li>
-</ol>
-<p>针对上述三大类，transformer还额外封装了AutoConfig,
-AutoTokenizer,AutoModel，可通过模型的命名来定位其所属的具体类，比如’bert-base-cased’，就可以知道要加载BERT模型相关的配置、切词器和模型。</p>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">from transformers import BertConfig, BertModel
-# Building the config
-config = BertConfig()
-# Building the model from the config,使用随机值对其进行初始化
-model = BertModel(config)
-print(config)
-BertConfig {
-  [...]
-  "hidden_size": 768,               # 定义了hidden状态向量的大小
-  "intermediate_size": 3072,
-  "max_position_embeddings": 512,
-  "num_attention_heads": 12,
-  "num_hidden_layers": 12,          # 定义了Transformer模型的层数
-  [...]
-}
-# 加载已经训练过的Transformers模型
-model = BertModel.from_pretrained("bert-base-cased")</code></pre>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 加载与保存分词器
-from transformers import BertTokenizer
+    def forward(self, x):
+        x = self.pool(torch.relu(self.conv1(x)))
+        x = self.pool(torch.relu(self.conv2(x)))
+        x = x.view(-1, 50 * 4 * 4)
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
 
-tokenizer = BertTokenizer.from_pretrained("bert-base-cased")
-tokenizer.save_pretrained("./models/bert-base-cased/")
-# 加载与保存模型
-from transformers import AutoModel
-# 所有存储在 HuggingFace Model Hub 上的模型都可以通过 Model.from_pretrained() 来加载权重，参数可以是 checkpoint 的名称，也可以是本地路径（预先下载的模型目录）
-model = AutoModel.from_pretrained("bert-base-cased")
-model.save_pretrained("./models/bert-base-cased/") # 保存模型
 
-inputs = tokenizer(["来到美丽的大自然，我们发现"], return_tensors="pt")
-# {'input_ids': tensor([[    1, 68846, 68881, 67701, 67668, 98899, 91935]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1]])}
+net = SimpleCNN().to("cuda")
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-gen_kwargs = {"max_length": 128, "top_p": 0.8, "temperature": 0.8, "do_sample": True, "repetition_penalty": 1.1}
-output = model.generate(**inputs, **gen_kwargs) # 这种生成方式更加可控，结果需要decode
-# decode the new tokens
-output = tokenizer.decode(output[0].tolist(), skip_special_tokens=True)
-print(output)</code></pre>
-<p>Transformers还将模型分为两个部分： 1.
-基础架构：就像一个通用的引擎，负责理解输入的文本，将文本转换成计算机能理解的向量形式，所有任务都用相同的基础结构。
-2.
-任务相关的head：根据任务的不同，将基础架构的输出转换为任务需要的输出变量。</p>
-<p>tranformers中常见的模型类型： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># 举例说明不同任务的模型
-models = {
-    "*Model": "只输出基础理解，像原材料",
-    "*ForCausalLM": "预测下一个词（像GPT）",
-    "*ForMaskedLM": "完形填空（像BERT）",
-    "*ForMultipleChoice": "选择题",
-    "*ForQuestionAnswering": "回答问题",
-    "*ForSequenceClassification": "文本分类",
-    "*ForTokenClassification": "标注词语（如实体识别）"
-}</code></pre> <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250127032047.png"><p></p>
-<h2 id="datasets">Datasets</h2>
-<ol type="1">
-<li><p>介绍 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
-raw_datasets = load_dataset("glue", "mrpc") # GLUE基准测试中的MRPC任务
-print(raw_datasets)
-# 包含训练集、验证集和测试集。每一个集合都包含几个列(sentence1, sentence2, label, and idx)以及一个代表行数的变量
-#DatasetDict({
-#    train: Dataset({
-#        features: ['sentence1', 'sentence2', 'label', 'idx'],
-#        num_rows: 3668
-#    })
-#    validation: Dataset({
-#        features: ['sentence1', 'sentence2', 'label', 'idx'],
-#        num_rows: 408
-#    })
-#    test: Dataset({
-#        features: ['sentence1', 'sentence2', 'label', 'idx'],
-#        num_rows: 1725
-#    })
-#})</code></pre><p></p></li>
-<li><p>简单使用 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># 1. 加载内置数据集
-dataset = load_dataset("glue", "mrpc")  # GLUE基准测试中的MRPC任务
+for i in range(10):
+    inputs = torch.randn(32, 1, 28, 28, device="cuda")
+    labels = torch.randint(0, 10, (32,), device="cuda")
+    optimizer.zero_grad()
+    outputs = net(inputs)
+    loss = criterion(outputs, labels)
+    loss.backward()
+    optimizer.step()</code></pre> 直接用Nsight Compute的图形界面来启动PyTorch程序: <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310234626.png"><p></p>
+<p>当Nsight Compute完成分析后，首先出现的界面是一个总结界面(summary):
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250310234748.png"></p>
+<p>让我们双击其中任意一个函数名称，进入细节(details)视图，这时我们会看到大量硬件相关的性能信息:
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250311000423.png">
+首先是最上方的区域，这个区域反映的是执行过程中，GPU不同硬件单元的吞吐量。一般来说吞吐量最高的硬件单元就是该CUDA函数的性能瓶颈，以此可以判断CUDA函数属于计算密集型还是访存密集型。</p>
+<p>具体来说，如果我们观察一个池化函数(pooling)的硬件使用率情况，如图所示，就会发现其计算吞吐量(Compute
+Throughput)要远高于访存吞吐量(Memory
+Throughput)，说明当前这个池化函数是计算密集型的，但这有些反直觉。从计算特点来看，池化函数每次需要读取一块很大的数据区域，但是对这些数据的计算却比较简单，因此理应是访存密集型为主。从这个例子我们就可以看出Nsight
+Compute带来的价值，它能够定位表现异常的算子、提供性能分析数据，并最终帮助我们完成算子优化：
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250311000651.png"></p>
+<p>接下来让我们将注意力移动到CUDA函数启动信息(Launch
+Statistics)部分，这里展示的是每个CUDA函数在执行时的相关配置，比如说格点数量(Grid
+Size)、线程块大小(Block
+Size)、总线程数(Threads)等，这部分信息可以用来反映算子是否充分利用了GPU的资源：
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250311000749.png">
+比如说图中算子的问题就在于配置的格点数量太少，没能充分使用GPU的流式多处理器(SM)。在图中蓝色框的位置处，还可以看到Nsight
+Compute对此给出的提示，GPU支持128个并行的多处理器核心，但是这个CUDA函数只调用了40个，所以还有性能优化的空间。</p>
+<p>最后让我们观察占用率区域(Warp
+Occupancy)。这部分信息反映了多线程在GPU上执行时，实际的并行程度。比如图中存在的问题是线程使用率不高，理论上可以同时并行48个线程组，实际上只有10个，仅达到了理论并行度的20%。从提示中可以看出，导致该现象的原因可能有两类。一种可能是每个线程中的计算任务过于简单，导致线程束的创建和调度开销要显著大于线程计算任务的开销，所以优化方向是让多个简单线程合并成一个计算量较大的线程。另一种可能性则是线程束的负载不均衡，比如CUDA代码中存在大量线程发散，导致不同分支的线程束无法同步执行——这就需要我们结合CUDA代码进行具体分析。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250311001135.png"></p>
+<h2 id="cpu性能分析工具">CPU性能分析工具</h2>
+<h3 id="py-spy">Py-Spy</h3>
+<p>Py-Spy是非侵入式的，意味着我们不需要修改任何一行Python代码，即可通过如下命令开启CPU分析：
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">py-spy record -o profile.svg python train.py</code></pre> Py-Spy可以生成一种名为火焰图(flame
+graph)的可视化文件。将上面指令产生的profile.svg文件拖到浏览器中，就可以看到如图所示的火焰图了。
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250311002144.png"><p></p>
+<p>火焰图的每个竖条都表示一组调用栈，上面是栈底、下面是栈顶。一般来说Python函数名称会出现在靠近栈底的位置，而栈顶一般是一些底层的C++函数名称。当把鼠标移动到火焰图的某个函数上时，还会在后面显示该函数对应的代码位置以及采样数。采样数本质上和运行时间只差一个系数，这个系数就是采样间隔，默认情况下采样间隔是100
+samples/s，因此采样数除以100就是函数实际运行的时间了。从图中可以快速找到numpy_heavy_computation对应的运行时间，这就是我们代码中NumPy计算对应的CPU调用。Py-Spy是对所有Python原生程序以及第三方库都适用的分析工具，非常适合用来专门对CPU任务进行分析。</p>
+<h3 id="strace">strace</h3>
+<p>有时候在Py-Spy的火焰图中可以观测到一些函数明显占用了过长的时间，却不知道系统在干什么。这时，使用strace来查看程序与操作系统之间的实时交互，如文件操作、内存管理和网络通信等，通常能带来极大的帮助。<strong>strace是一个在Linux环境中极其实用的诊断和调试工具，它能够追踪并记录程序执行的所有系统调用，包括每个调用的函数名、传递的参数以及返回值。</strong>
+strace的使用方法也很直接，既可以通过strace启动一个程序，也可以追踪一个正在运行的进程，代码如下所示。
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 通过strace运行一个程序
+strace python train.py
 
-# 2. 加载本地文件
-dataset = load_dataset("csv", data_files="my_file.csv")
-dataset = load_dataset("json", data_files="my_file.json")
-
-# 3. 访问数据
-train_data = dataset['train']
-first_example = train_data[0]</code></pre><p></p></li>
-<li><p>为了预处理数据集，我们需要将文本转换为模型能够理解的数字，使用Dataset.map()方法
-</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># example 是一个dict，对应数据集的每个元素，并返回一个包含input_ids、attention_mask 和token_type_ids为key的新dict
-# 在机器学习任务中，一个example通常定义为模型的输入（也成为特征集合）
-def tokenize_function(example):
-    return tokenizer(example["sentence1"], example["sentence2"], truncation=True)
-tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
-print(raw_datasets)
-#DatasetDict({
-#    train: Dataset({
-#        features: ['attention_mask', 'idx', 'input_ids', 'label', 'sentence1', 'sentence2', 'token_type_ids'],
-#        num_rows: 3668
-#    })
-#    validation: Dataset({
-#        features: ['attention_mask', 'idx', 'input_ids', 'label', 'sentence1', 'sentence2', 'token_type_ids'],
-#        num_rows: 408
-#    })
-#    test: Dataset({
-#        features: ['attention_mask', 'idx', 'input_ids', 'label', 'sentence1', 'sentence2', 'token_type_ids'],
-#        num_rows: 1725
-#    })
-#})</code></pre><p></p></li>
-<li><p>为了解决句子长度统一的问题，我们必须定义一个collate函数，该函数会将每个batch句子填充到正确的长度。
-</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
-from transformers import AutoTokenizer, DataCollatorWithPadding
-
-raw_datasets = load_dataset("glue", "mrpc")
-tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-def tokenize_function(example):
-    return tokenizer(example["sentence1"], example["sentence2"], truncation=True)
-tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
-data_collator = DataCollatorWithPadding(tokenizer=tokenizer)</code></pre><p></p></li>
-<li><p>加载本地数据集 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">from datasets import load_dataset
-#{
-#    "data": [
-#        {
-#            "title": "Terremoto del Sichuan del 2008",
-#            "paragraphs": [{...}]
-#        }
-#    ],
-#     "version": "1.1"
-#}
-squad_it_dataset = load_dataset("json", data_files="SQuAD_it-train.json", field="data")
-print(squad_it_dataset) # 加载本地文件会创建一个带有train的DatasetDict 对象
-# DatasetDict({
-#    train: Dataset({
-#        features: ['title', 'paragraphs'],
-#        num_rows: 442
-#    })
-#})
-data_files = {"train": "SQuAD_it-train.json", "test": "SQuAD_it-test.json"}
-squad_it_dataset = load_dataset("json", data_files=data_files, field="data")
-print(squad_it_dataset) # 包括 train 和 test 的 DatasetDict 对象
-#DatasetDict({
-#    train: Dataset({
-#        features: ['title', 'paragraphs'],
-#        num_rows: 442
-#    })
-#    test: Dataset({
-#        features: ['title', 'paragraphs'],
-#        num_rows: 48
-#    })
-#})</code></pre><p></p></li>
-<li><p><code>streaming=True</code>： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">dataset = load_dataset("json", data_files="my_file.json", streaming=True)
-# 返回一个迭代器，可以逐个处理数据</code></pre><p></p></li>
-</ol>
-<h2 id="源码分析">源码分析</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-model = AutoModelForSequenceClassification.from_pretrained(checkpoint)
-sequences = ["I've been waiting for a HuggingFace course my whole life.", "So have I!"]
-tokens = tokenizer(sequences, padding=True, truncation=True, return_tensors="pt")
-print(tokens)
-#{
-#    'input_ids': tensor([
-#        [  101,  1045,  1005,  2310,  2042,  3403,  2005,  1037, 17662, 12172,2607,  2026,  2878,  2166,  1012,   102],
-#        [  101,  2061,  2031,  1045,   999,   102,     0,     0,     0,     0, 0,     0,     0,     0,     0,     0]
-#    ]),     
-#    'attention_mask': tensor([
-#        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-#    ])
-#}
-output = model(**tokens) # model(**tokens, labels=labels), 如果提供labels，则计算损失
-print(output)
-# SequenceClassifierOutput(
-#     loss=None,  # 损失值，在没有提供标签时为None
-#     logits=tensor([
-#         [-1.5607,  1.6123],  # 第一个序列的预测分数（两个类别）
-#         [-3.6183,  3.9137]   # 第二个序列的预测分数
-#     ]), 
-#     hidden_states=None,  # 隐藏状态，默认不返回
-#     attentions=None      # 注意力权重，默认不返回
-# )</code></pre>
-<h3 id="tokenizer">tokenizer</h3>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">tokens = tokenizer(
-    sequences,          # 输入文本，可以是单个字符串或字符串列表
-    padding=True,       # 填充设置
-    truncation=True,    # 截断设置
-    return_tensors="pt" # 返回格式
-)</code></pre>
-<ul>
-<li><p>padding </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># 相关参数
-tokens = tokenizer(
-    ["Hello", "Hi there!"],
-    padding=True, # 填充设置
-    max_length=10, # 最大长度限制
-    padding_side='right' # 填充位置：'left'或'right'
-)</code></pre><p></p></li>
-<li><p>truncation： 截断设置</p></li>
-<li><p>return_tensors： 返回格式(pt, tf)</p></li>
-<li><p>return_token_type_ids： 是否返回token_type_ids(默认False,
-用于区分不同句子)</p></li>
-</ul>
-<p><code>output = model(**tokens)</code>
-对于文本分类来说，整段文本输入返回一个标签，也就是SequenceClassifierOutput.logits，</p>
-<p>如果是文本生成模型，整段文本输入返回CausalLMOutputWithPast， 对于
-input_ids = [v1,v2,v3] 输出为 [v20,v30,v4]。 v20 是根据v1
-生成的下一个token（大概率跟真实的v2 不一样），v4 是根据v1,v2,v3 生成的。
-1. 生成式模型的训练是并行的，靠的attention
-mask操作。训练的时候只需要调用一次即可，因为attention
-mask的机制可以保证当前token的loss不包含后面的token。inputs
-则是一个dict，包含input_ids 和 attention_mask。 2.
-推理的时候，只能一个字一个字的推理，所以会调用多次。 output =
-model(inputs) 或者 output = model.forward(inputs)的时候，inputs
-其实也不需要包含 attention_mask，inputs 仅仅是token 就可以</p>
-<p>model(xx) ==&gt; <code>Module.__call__</code> ==&gt;
-Module.forward/model.forward，几乎每一个llm 都会自定义forward
-方法，如果向forward 方法传入 labels，还会自动计算loss。</p>
+# 追踪一个正在运行的进程
+strace -p &lt;pid&gt;</code></pre><p></p>
+<p>在使用strace追踪程序时，有一些常见的与性能相关的系统调用值得我们特殊关注：
+- 文件相关的系统调用，如open/close/read/write/lseek等 -
+网络通信相关的系统调用，如socket/bind/listen/send/recv等 -
+进程控制相关的系统调用，如fork/execve/wait等 -
+内存管理相关的系统调用，如mmap/munmap/brk等</p>
+<p>strace可以有效地帮助开发者了解程序在运行时的行为，特别是用于诊断程序的性能异常等。</p>
+<h2 id="小结">小结</h2>
+<p>本章主要介绍如何定位性能瓶颈，具体包括三个步骤： -
+配置一个稳定且可复现的软硬件环境。 -
+通过计时或观察PyTorch性能图谱来发现性能问题。 -
+使用底层硬件和系统相关的性能分析工具来剖析问题的根本原因。一旦找到了性能问题并理解其原因，就可以参考第6章中的性能优化方法进行优化。此外，还可以参考第9章中的高级优化方法进行进一步优化。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250311002659.png"></p>
 
                 
             </div>
@@ -812,7 +885,7 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/2025/01/21/transformers-yuan-ma-xue-xi/">http://baoblei.github.io/2025/01/21/transformers-yuan-ma-xue-xi/</a>
+                    <a href="http://baoblei.github.io/2025/03/10/da-mo-xing-dong-li-yin-qing-ding-wei-xing-neng-ping-jing-de-gong-ju/">http://baoblei.github.io/2025/03/10/da-mo-xing-dong-li-yin-qing-ding-wei-xing-neng-ping-jing-de-gong-ju/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -850,16 +923,16 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/transformer/">
-                                    <span class="chip bg-color">transformer</span>
+                                <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                                    <span class="chip bg-color">《大模型动力引擎》</span>
                                 </a>
                             
-                                <a href="/tags/huggingface/">
-                                    <span class="chip bg-color">huggingface</span>
+                                <a href="/tags/%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88/">
+                                    <span class="chip bg-color">性能瓶颈</span>
                                 </a>
                             
-                                <a href="/tags/qwen/">
-                                    <span class="chip bg-color">qwen</span>
+                                <a href="/tags/PyTorch/">
+                                    <span class="chip bg-color">PyTorch</span>
                                 </a>
                             
                         </div>
@@ -1205,17 +1278,18 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/">
+                <a href="/2025/03/10/da-mo-xing-dong-li-yin-qing-ding-wei-xing-neng-ping-jing-de-gong-ju/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="3D重建-深度图/网格/体素/点云">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="大模型动力引擎-定位性能瓶颈的工具">
                         
-                        <span class="card-title">3D重建-深度图/网格/体素/点云</span>
+                        <span class="card-title">大模型动力引擎-定位性能瓶颈的工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1225,42 +1299,35 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/3D%E9%87%8D%E5%BB%BA/" class="post-category">
-                                    3D重建
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    《大模型动力引擎》阅读笔记
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/3D%E9%87%8D%E5%BB%BA/">
-                        <span class="chip bg-color">3D重建</span>
+                    <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                        <span class="chip bg-color">《大模型动力引擎》</span>
                     </a>
                     
-                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%9B%BE/">
-                        <span class="chip bg-color">深度图</span>
+                    <a href="/tags/%E6%80%A7%E8%83%BD%E7%93%B6%E9%A2%88/">
+                        <span class="chip bg-color">性能瓶颈</span>
                     </a>
                     
-                    <a href="/tags/%E7%BD%91%E6%A0%BC/">
-                        <span class="chip bg-color">网格</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%BD%93%E7%B4%A0/">
-                        <span class="chip bg-color">体素</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%82%B9%E4%BA%91/">
-                        <span class="chip bg-color">点云</span>
+                    <a href="/tags/PyTorch/">
+                        <span class="chip bg-color">PyTorch</span>
                     </a>
                     
                 </div>
@@ -1274,13 +1341,13 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/01/16/vscode-kuai-jie-jian/">
+                <a href="/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="vscode 快捷键">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="线性代数-半正定与正定矩阵">
                         
-                        <span class="card-title">vscode 快捷键</span>
+                        <span class="card-title">线性代数-半正定与正定矩阵</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1291,14 +1358,14 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/vscode/" class="post-category">
-                                    vscode
+                            <a href="/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="post-category">
+                                    线性代数
                                 </a>
                             
                             
@@ -1308,8 +1375,12 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/vscode/">
-                        <span class="chip bg-color">vscode</span>
+                    <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">
+                        <span class="chip bg-color">线性代数</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%AD%A3%E5%AE%9A-%E5%8D%8A%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/">
+                        <span class="chip bg-color">正定/半正定矩阵</span>
                     </a>
                     
                 </div>
@@ -1470,6 +1541,13 @@ Module.forward/model.forward，几乎每一个llm 都会自定义forward
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 
