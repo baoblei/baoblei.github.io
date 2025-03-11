@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-10T16:27:04.086Z</updated>
+  <updated>2025-03-11T09:13:23.367Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>大模型动力引擎-数据加载和预处理</title>
+    <link href="http://baoblei.github.io/2025/03/11/da-mo-xing-dong-li-yin-qing-shu-ju-jia-zai-he-yu-chu-li/"/>
+    <id>http://baoblei.github.io/2025/03/11/da-mo-xing-dong-li-yin-qing-shu-ju-jia-zai-he-yu-chu-li/</id>
+    <published>2025-03-11T09:13:23.000Z</published>
+    <updated>2025-03-11T09:13:23.367Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>大模型动力引擎-定位性能瓶颈的工具</title>
@@ -585,39 +598,6 @@ MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固�
     <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
     
     <category term="Prompt" scheme="http://baoblei.github.io/tags/Prompt/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在宇宙最强编辑器上使用latex</title>
-    <link href="http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/"/>
-    <id>http://baoblei.github.io/2024/12/18/zai-yu-zhou-zui-qiang-bian-ji-qi-shang-shi-yong-latex/</id>
-    <published>2024-12-18T11:47:12.000Z</published>
-    <updated>2024-12-18T12:30:02.555Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;安装准备&quot;&gt;安装准备&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;TeXLive / MacTeX / MiKTeX等LaTeX发行版&lt;/li&gt;
-&lt;li&gt;VSCode&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;vscode-配置&quot;&gt;Vscode 配置&lt;/h2&gt;
-&lt;h3</summary>
-        
-      
-    
-    
-    
-    <category term="Latex" scheme="http://baoblei.github.io/categories/Latex/"/>
-    
-    
-    <category term="Latex" scheme="http://baoblei.github.io/tags/Latex/"/>
-    
-    <category term="VSCode" scheme="http://baoblei.github.io/tags/VSCode/"/>
     
   </entry>
   
