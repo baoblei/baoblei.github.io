@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="大模型高效微调方法PEFT--LoRA/QLoRA, 庞贝堡垒">
-    <meta name="description" content="参数高效微调PEFT
-微调
-微调（Fine-tuning）是一种迁移学习的技术，用于在一个已经预训练好的模型基础上，通过进一步训练来适应特定的任务或数据集。微调可以在具有相似特征的任务之间共享知识，从而加快训练速度并提高模型性能。
-以下是一">
+    <meta name="keywords" content="大模型动力引擎-单卡显存优化专题, 庞贝堡垒">
+    <meta name="description" content="Pytorch的显存管理机制
+显存池机制:
+每当需要为张量分配显存时，PyTorch不会只申请张量所需的显存大小，而是向驱动一次性申请一块更大的显存空间，这样多出来的显存空间就会被显存池缓存下来。
+除此以外，任何张量在销毁后，其占用的显存空">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>大模型高效微调方法PEFT--LoRA/QLoRA | 庞贝堡垒</title>
+    <title>大模型动力引擎-单卡显存优化专题 | 庞贝堡垒</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -372,12 +372,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">大模型高效微调方法PEFT--LoRA/QLoRA</h1>
+                    <h1 class="description center-align post-title">大模型动力引擎-单卡显存优化专题</h1>
                 </div>
             </div>
         </div>
@@ -401,16 +401,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                <span class="chip bg-color">深度学习</span>
+                            <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                                <span class="chip bg-color">《大模型动力引擎》</span>
                             </a>
                         
-                            <a href="/tags/LoRA/">
-                                <span class="chip bg-color">LoRA</span>
-                            </a>
-                        
-                            <a href="/tags/PEFT/">
-                                <span class="chip bg-color">PEFT</span>
+                            <a href="/tags/%E5%8D%95%E5%8D%A1%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/">
+                                <span class="chip bg-color">单卡显存优化</span>
                             </a>
                         
                     </div>
@@ -421,8 +417,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/LLMs/" class="post-category">
-                                LLMs
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                《大模型动力引擎》阅读笔记
                             </a>
                         
                     </div>
@@ -434,28 +430,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-04
+                    2025-03-12
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-12-07
+                    2025-03-13
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.6k
+                    3.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    17 分
+                    14 分
                 </div>
                 
 
@@ -478,249 +474,312 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="参数高效微调peft">参数高效微调PEFT</h2>
-<h4 id="微调">微调</h4>
-<p>微调（Fine-tuning）是一种迁移学习的技术，用于在一个已经预训练好的模型基础上，通过进一步训练来适应特定的任务或数据集。微调可以在具有相似特征的任务之间共享知识，从而加快训练速度并提高模型性能。</p>
-<p>以下是一般的微调步骤：</p>
-<ul>
-<li><strong>选择择预训练模型</strong>：选择一个在大规模数据集上预训练好的模型，如ImageNet上的预训练的卷积神经网络（如ResNet、VGG等）。这些模型通常具有良好的特征提取能力。</li>
-<li><strong>冻结底层权重</strong>：将预训练模型的底层权重（通常是卷积层）固定住，不进行训练。这是因为底层权重通常学习到了通用的特征，可以被用于许多不同的任务。</li>
-<li><strong>替换顶层分类器</strong>：将预训练模型的顶层分类器（通常是全连接层）替换为适合特定任务的新的分类器。新的分类器的输出节点数量应该与任务的类别数相匹配。</li>
-<li><strong>解冻部分权重（可选）</strong>：根据任务的复杂性和可用的训练数据量，可以选择解冻一些底层权重，以便更好地适应新的任务。这样可以允许底层权重进行微小的调整，以更好地适应新任务的特征。</li>
-<li><strong>进行训练</strong>：使用特定任务的训练数据集对新的分类器进行训练。可以使用<strong>较小的学习率</strong>进行训练，以避免对预训练模型的权重进行过大的更新。</li>
-<li><strong>评估和调整</strong>：在训练完成后，使用验证集或测试集评估模型的性能。根据评估结果，可以进行调整，如调整学习率、调整模型结构等。</li>
-</ul>
-<p>微调的关键是在预训练模型的基础上进行训练，从而将模型的知识迁移到特定任务上。通过这种方式，可以在较少的数据和计算资源下，快速构建和训练高性能的模型。</p>
-<h4 id="peft">PEFT</h4>
-<p>PEFT（Parameter-Efficient
-Fine-Tuning，参数高效微调）是一种在大语言模型（Large Language
-Model，LLM）上进行微调的新技术，旨在降低微调大模型的计算和存储成本，使得微调过程更为高效。与传统的微调技术相比，PEFT
-可以显著减少训练所需的参数量，并保持与标准微调相似的性能。PEFT
-技术在优化资源效率、降低硬件需求、并提高开发灵活性方面有显著优势，特别是在需要频繁微调以适应不同任务或领域的场景中尤为有用。</p>
-<p>目前主流的方法包括2019年 Houlsby N 等人提出的 Adapter
-Tuning，2021年微软提出的 LORA，斯坦福提出的 Prefix-Tuning，谷歌提出的
-Prompt Tuning，2022年清华提出的 P-tuning v2。</p>
-<ul>
-<li>Adapter Tuning
-在模型的某些层之间插入小的适配器模块，而不对原有的大量参数进行修改。适配器模块通常包含一小部分可训练的参数，并通过这些参数来调整模型的输出；但是增加了模型层数，引入了额外的推理延迟</li>
-<li>Prefix-Tuning 每个 Transformer
-层前面添加一个可学习的前缀（prefix）来实现模型的调整。这个前缀是固定长度的，可视作特定任务的提示（prompt）；但是预留给
-Prompt 的序列挤占了下游任务的输入序列空间，影响模型性能</li>
-<li>P-tuning v2
-使用可学习的嵌入来替代硬编码的提示文本；但是很容易导致旧知识遗忘，微调之后的模型，在之前的问题上表现明显变差</li>
-<li>基于上述背景，LORA 得益于前人的一些关于内在维度（intrinsic
-dimension）的发现：</li>
-</ul>
-<blockquote>
-<p>模型是过参数化的，它们有更小的内在维度，模型主要依赖于这个低的内在维度（low
-intrinsic dimension）去做任务适配。</p>
-</blockquote>
-<p>假设模型在任务适配过程中权重的改变量是低秩（low
-rank）的，由此提出<strong>低秩自适应</strong>（LoRA）方法。</p>
-<p>LoRA
-允许我们通过优化适应过程中密集层变化的秩分解矩阵，来间接训练神经网络中的一些密集层，同时保持预先训练的权重不变。</p>
-<h2 id="lora">LoRA</h2>
-<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204190635.png">
-LoRA 的思想很简单:</p>
-<ul>
-<li><p>在原始 PLM (Pre-trained Language Model)
-旁边增加一个旁路，做一个降维再升维的操作，来模拟所谓的intrinsic
-rank。</p></li>
-<li><p>训练的时候固定 PLM 的参数，只训练降维矩阵
-与升维矩阵。而模型的输入输出维度不变，输出时将与 PLM
-的参数叠加。</p></li>
-<li><p>用随机高斯分布初始化 A，用 0 矩阵初始化
-B，保证训练的开始此旁路矩阵依然是 0 矩阵。 &gt;
-为什么A用随机高斯分布初始化，B用0矩阵初始化呢？</p></li>
-<li><p>首先增量矩阵<span class="math inline">\(\Delta W = BA\)</span>
-在训练刚开始肯定是要用0来初始化。</p></li>
-<li><p>如果A用0矩阵初始化，在计算梯度时由于B的梯度有一个因子A，导致B的梯度始终为0，无法被更新，导致梯度传播受阻。</p></li>
-</ul>
-<p>我们也可以理解为因为A是降维矩阵，所以它能够学到一些有用的信息，所以用随机高斯分布初始化；而B是升维矩阵，我们希望它能够保持原始信息，所以用0矩阵初始化。</p>
-<p><strong>秩的选择</strong> 在 Transformer 中，LoRA 主要作用在
-attention 过程的四个权重矩阵W_Q, W_K, W_V,
-W_O（也可以选择其中部分）。A，B矩阵的秩r也时远远小于原始的权重大小。
-对于一般的任务，
-r=1，2，4，8就足够了。而一些领域差距比较大的任务可能需要更大的r。
-同时，增加r值变大并不能提升微调的效果，这可能是因为参数量增加需要更多的语料.
-<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204204545.png"></p>
-<p><strong>实现</strong> huggingface:
-https://huggingface.co/docs/peft/main/conceptual_guides/lora
-llama_factory:
-https://llamafactory.readthedocs.io/zh-cn/latest/getting_started/sft.html
-关键参数： - lora_r：秩，控制低秩矩阵的表示能力。 -
-lora_alpha：缩放因子，控制 LoRA 的影响力。 - lora_dropout：dropout
-概率，防止过拟合。 - lora_target_modules：指定微调的目标层。 -
-lora_trainable_only：是否只训练 LoRA 增加的部分。 -
-lora_init_scale：控制低秩矩阵初始化的尺度。 -
-lora_layers_to_freeze：指定冻结哪些层。 - lora_lr：设置 LoRA 的学习率。
-- lora_warmup_steps：指定热身阶段的步数。</p>
-<h2 id="qlora">QLoRA</h2>
-<p>QLoRA（Quantized Low-Rank Adapter）是一种高效的微调方法，是 LoRA
-的量化版本（什么是 LoRA？）。该调优方法由华盛顿大学发表于论文《QLORA:
-Efficient Finetuning of Quantized LLMs》。通过降低内存使用，实现在单个
-GPU 上对大型语言模型进行微调。它可以在单个 48GB GPU 上微调 650
-亿个参数的模型，并且能够保持完整的 1 6 位微调任务性能。</p>
-<p>QLoRA 核心是使用量化进行微调。其成果有三个。 - 4
-位标准浮点数量化（4-bit NormalFloat Quantization） - 双重量化（Double
-Quantization） - 分页优化（Paged
-Optimizer）就是显存不足时将部分梯度检查点转移到内存上。</p>
-<p>为了降低极端的量化对微调造成的不利影响，<strong>QLoRA 借助 LoRA
-对原模型权重进行更新</strong>，且 LoRA 侧的权重保持高精度。这就是 QLoRA
-与 LoRA 的关系。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241204231609.png">
-### 基础知识 #### 量化
-<strong>量化</strong>指的是将连续或高精度的数值转换为较低精度（比如较少的位数）的表示形式的过程。这通常用于减少模型的存储需求和加快其运算速度。例如，将一个
-FP32 的 tensor 转成 Int8: <span class="math display">\[X^{\text{Int8}} =
-\text{round}\left(\frac{127}{\text{absmax}(X^{\text{FP32}})} \cdot
-X^{\text{FP32}}\right)=round(c^{\text{FP32}} \cdot
-X^{\text{FP32}})\]</span></p>
-<p>其中，c
-为量化常数，通常是这个张量的特征的绝对值的最大值。逆量化公式则为： <span class="math display">\[\text{dequant}(c^{\text{FP32}}, X^{\text{Int8}})
-= \frac{X^{\text{Int8}}}{c^{\text{FP32}}}\]</span></p>
-<p>按照量化过程是否以0点为对称点量化又可以分为对称量化和非对称量化。其中对称量化将原浮点数的最小或最大值的绝对值作为映射值的范围，而非对称量化是将原浮点数的最小和最大值映射为量化数据的最小和最大值。在非对称量化中，0的映射也可能会有偏移，因此不一定会被映射到0。
-<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241205004225.png"></p>
-<h4 id="分位数量化">分位数量化</h4>
-<p>分位数量化（Quantile
-Quantization）是隶属于非线性量化。分位数（Quantile）在数学上的定义指的是把顺序排列的一组数据分割为若干个相等块的分割点的数值。在标准正态分布中，对于分布X给定的概率<span class="math inline">\(\alpha\)</span>，如果存在<span class="math inline">\(\mu_\alpha\)</span>使得它的累积分布函数（CDF）
-<span class="math inline">\(P(X &lt; \mu_\alpha)= \alpha\)</span>，则称
-<span class="math inline">\(\mu_\alpha\)</span>是标准正态分布的 <span class="math inline">\(\alpha\)</span>分位数，因为CDF表示的是概率值小于<span class="math inline">\(\mu_\alpha\)</span>的阴影部分的面积，因此具有严格递增的特性，所以它一定存在反函数。CDF的反函数的一个重要作用是用来生成服从该随机分布的随机变量。假设a是[0,1)区间上均匀分布的一个随机变量，那么
-<span class="math inline">\(F_{X}^{-1}(a)\)</span>服从分布<span class="math inline">\(X\)</span>。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241205004852.png"></p>
-<p><strong>分位数量化是通过分位数将张量分成了大小相同的若干个块，这样我们得到更加均匀的量化特征</strong>，对于4比特量化，我们希望需要找到15个分位数来将这个曲线下面的面积（积分）等分成16份。两个分位数的中点便是模型量化到这个区间映射的值
-<span class="math inline">\(q_i\)</span>。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241205005255.png"></p>
-<p>由于大模型参数通常服从正态分布，因此有： <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241205015121.png">
-其中<span class="math inline">\(Q\)</span>是CSF的反函数。</p>
-<h4 id="分块k位量化">分块k位量化</h4>
-<p>常规的量化方法的局限性是当 tensor 中有一个非常大的数字（一般称为
-outlier）时，导致大多数值被压缩到较小的范围，精度损失大，影响最终的量化结果。</p>
-<p>因此，Block-wise k-bit Quantization 方法就是把 tensor 分割成 B
-块，每块有自己的量化常数
-c，独自量化。从而解决模型参数的极大极小的异常值的问题。分块量化的另外一个好处是减少了核之间的通信，可以实现更好的并行性，并充分利用硬件的多核的能力。
-<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20241205010158.png"></p>
-<h3 id="位标准浮点量化---nf4">4位标准浮点量化---NF4</h3>
-<p>4-bit NormlFLoat 量化是结合了分位数量化和分块量化，
-使用上面介绍的分位数量化方法我们可以将FP2精度量化到4bit的精度，但是直接这么用的一个问题是不能保证高精度的0一定被映射到低精度的0，但是0点又是深度学习中一个重要的值，例如在模型稀疏化，数据padding的时候一般都是使用0来完成。</p>
-<p>假设offset的值是0.99，我们可以通过下面的代码片段计算出它的16个 <span class="math inline">\(q_i\)</span>。 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">offset = 0.99
-num_bins = 16
-quantile = norm.ppf(torch.linspace(1 - offset, offset, num_bins + 1)).tolist() # 将[1-offset,offset]区间等分为16份
-tmp = [(quantile[1:][idx] + val) / 2 for idx, val in enumerate(quantile[:-1])] # 计算分位数
-r_max, r_min = tmp[-1], tmp[0]
-S = (r_max - r_min)/(1 - (-1))
-Z = 1 - r_max / S
-Q = [x/S + Z for x in tmp] # 分位数量化到[-1,1]
-print (Q)
+                <h2 id="pytorch的显存管理机制">Pytorch的显存管理机制</h2>
+<p><strong>显存池机制</strong>:
+每当需要为张量分配显存时，PyTorch不会只申请张量所需的显存大小，而是向驱动一次性申请一块更大的显存空间，这样多出来的显存空间就会被显存池缓存下来。
+除此以外，任何张量在销毁后，其占用的显存空间也不会直接归还给GPU驱动，而是同样被显存池缓存下来。</p>
+<p>这样的好处在于，当需要再次为新张量分配显存时，就可以从显存池的缓存中进行分配，而不需要效率低下的GPU驱动来从GPU内存中申请。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250312233317.png"></p>
+<p>但是显存池会导致PyTorch总是占用比实际需求更多的显存。大部分情况下显存池额外占用的显存不会太大，但是<strong>一旦进行了删除模型、删除大体积张量等释放大量显存的操作后，被缓存下来而无法释放的显存量就非常大了，甚至会影响程序的后续执行</strong>。这时需调用<strong>torch.cuda.empty_cache()</strong>接口，尽可能释放所有完全空闲的显存段。</p>
+<p>但是<strong>torch.cuda.empty_cache()</strong>接口只能释放完全空闲的显存段，而<strong>显存池</strong>中还可以存在一些碎片段（整个显存段中只有小部分空间被占用）。</p>
+<p>通过调小环境变量<strong>PYTORCH_CUDA_ALLOC_CONF</strong>来拒绝PyTorch分割比该参数大的显存段，可以在显存段剩余空间已经很小时阻止PyTorch继续分割，从而有效阻止显存碎片化。
+</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128</code></pre><p></p>
+<h2 id="显存的分析方法">显存的分析方法</h2>
+<h3 id="pytorch显存分析api">Pytorch显存分析API</h3>
+<p>除了使用nvidia-smi查看显存占用，Pytorch还提供了一些API来查询显存实时数据：
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250312235550.png">
+reserved表示PyTorch实际预留的显存大小，但这些预留的显存不一定会立即使用；而allocated表示实际分配给张量的显存。
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
-&gt;&gt;&gt; Q = [-1.0, -0.680534899946304, -0.5217156169574965, -0.4015399993912077, -0.299784167882981, -0.20835410767681603, -0.12291223249970012, -0.040639059218818274, 0.04063881956774142, 0.12291199284862328, 0.20835391124150712, 0.2997839714476721, 0.40153976366883704, 0.5217154126647753, 0.6805348056573558, 1.0]</code></pre><p></p>
-<p>这种方式的一个问题是0的映射值不是0，如果我们考虑奇数个bin，0是可以有个映射值但是却无法充分利用4比特的16位的信息。为了确保零点映射到0并且使用4位数据类型的全部16位，我们通过估计正负两个范围的分位数来创建一个非对称的数据类型：负数部分映射其中7位，正数部分映射8位，0占据1位，总共用满了4位数的16位。另外我们也可以使用对称的量化，其中正数和负数均使用7位，0占用2个位。我这里和论文介绍的略有不同，论文说的是正数部分取9个值，负数部分取8个值，不过它们都会取到0，所以合并时再去掉一个重复的0，这两个说法其实是一样的，只是实现方式略有差异。</p>
-<p>接下来根据作者的源码来看下量化分位数如何计算的。其中核心代码片段摘抄如下。
-</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">from scipy.stats import norm
-import torch
+t1 = torch.randn([1024, 1024], device="cuda:0")  # 4MB
 
-def create_normal_map(offset=0.9677083, use_extra_value=True, num_bins=16):
-    # INT8 : num_bins = 256
-    # INT4 : num_bins = 16
+shape = [256, 1024, 1024, 1]  # 1024MB
+t2 = torch.randn(shape, device="cuda:0")
 
-    if use_extra_value:
-        # one more positive value, this is an asymmetric type
-        v1 = norm.ppf(torch.linspace(offset, 0.5, 9)[:-1]).tolist() # 正数部分
-        v2 = [0]*(num_bins-15) ## we have 15 non-zero values in this data type
-        v3 = (-norm.ppf(torch.linspace(offset, 0.5, 8)[:-1])).tolist() #负数部分
-        v = v1 + v2 + v3
-    else:
-        v1 = norm.ppf(torch.linspace(offset, 0.5, 8)[:-1]).tolist()
-        v2 = [0]*(num_bins-14) ## we have 14 non-zero values in this data type
-        v3 = (-norm.ppf(torch.linspace(offset, 0.5, 8)[:-1])).tolist()
-        v = v1 + v2 + v3
-
-    values = torch.Tensor(v)
-    values = values.sort().values
-    values /= values.max()
-    assert values.numel() == num_bins
-    return values
-  
-  Q = create_normal_map()
-
-&gt;&gt;&gt; Q = [-1.0, -0.6961928009986877, -0.5250730514526367, -0.39491748809814453, -0.28444138169288635, -0.18477343022823334, -0.09105003625154495, 0.0, 0.07958029955625534, 0.16093020141124725,0.24611230194568634, 0.33791524171829224, 0.44070982933044434, 0.5626170039176941, 0.7229568362236023, 1.0]
-函数create_normal_map有两个入参：offset和use_extra_value。其中offset的作用是确定分位数的始末值。use_extra_value用来控制是使用对称量化还是非对称量化。v1计算正数部分，v3计算负数部分。v2直接将0映射到0，并且根据要量化的单位计算0的个数。源码是使用NF4来表示8比特的量化，如果是使用4比特的量化，我们将里面的256改成16就行。接下来最后几行用来将量化值归一化到[-1,1]。
-
-接下来我们举一个具体的实例。假设一个张量有16个值，它的被分成了4块：
-```python
-input_blocked_tensor = [[-1.28645003578589, -1.817660483275528, 9.889441349505042, 0.010208034676132627],
- [ -15.009014631551885, 1.4136255086268115, -7.815595761491153, 10.766760590950263], 
- [-0.731406153917959, 3.468224595908726, 2.445252541840315, -8.970824523299282], 
- [-9.641638854625175, 7.696158363188889, -5.323939281255154, 5.97160401402024]]</code></pre>
-根据每个块的特征的绝对值的最大值，我们为每个块保存一个量化常数，它的计算方式是每个块中特征的绝对值中最大的那个：
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">c1 = max(|-1.28645003578589|, |-1.817660483275528|, |9.889441349505042|, |0.010208034676132627|) = 9.889441349505042
-c2 = max(|-15.009014631551885|, |1.4136255086268115|, |-7.815595761491153|, |10.766760590950263|) = 15.009014631551885
-c3 = max(|-0.731406153917959|, |3.468224595908726|, |2.445252541840315|, |-8.970824523299282|) = 8.970824523299282
-c4 = max(|-9.641638854625175|, |7.696158363188889|, |-5.323939281255154|, |5.97160401402024|) = 9.641638854625175</code></pre><p></p>
-<p>最后我们便可以计算这个张量的量化值了。例如第一个值-1.28645003578589，它除以这个块的量化常数c1后得到-0.13008318572517502，接下来我们要按照分位数的值来量化这个值。-0.13008318572517502在Q中最接近的值是-0.12291223249970012，这个值在Q中对应的索引是6，因此这个值被量化后的值是6。同理我们可以得到这个输入张量所有的值量化后的结果。<strong>在模型保存时，除了要保存量化后的值，我们还要保存每个块对应的量化常数c_i</strong>，因为这个值在我们进行反量化时需要用到。
-</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">[[6, 5, 15, 7],
-[0, 8, 2, 14],
-[6, 11, 10, 0],
-[0, 14, 2, 13]]</code></pre>
-在反量化时，我们以量化结果作为索引，从Q中查找到它对应的分位数，再乘以为每个块保存的量化常数c_i，便可以得到最终结果。
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">[[-0.9004339933799617, -1.8273060011889755, 9.889441349505042, 0.0],
- [-15.009014631551885, 1.1944218804231184,  -7.880829111886221,  10.850869732860506],
- [-0.816793898052648, 3.0313783372030603, 2.2078302737800004, -8.970824523299282],
- [-9.641638854625175, 6.970488722350373, -5.062564734402345, 5.424549965245643]]</code></pre><p></p>
-<h3 id="双量化">双量化</h3>
-<p>在上面我们介绍到，当我们保存模型时我们不仅要保存量化后的结果，还要保存每个块的量化常数。虽然量化后的参数只有4bit的精度，但是这个量化常量的精度是float32。</p>
-<p>**在QLoRA中，每个块的大小是64，块中的每个值占4比特。这相当于为了存储量化常数，模型要额外占用
-32/（64*4）=12.5% 的显存。**</p>
-<p>QLoRA的双重量化就是对这个量化常数再做一次8bit的量化，在进行量化常数的量化时，QLoRA以每256个量化常数为一组再做一次量化。因此它额外增加的内存消耗有两部分组成，一部分是量化后的8bit的第一层的量化常数，它额外增加的显存占比是
-8/（64x4）= 3.125%，
-第二部分是为量化常数做量化的第二层的32bit的量化常数，它额外增加的显存占比是32/（256x64x4）=
-0.049%，额外显存增加只有3.17%。</p>
-<h3 id="分页优化器">分页优化器</h3>
-<p>分页优化是针对梯度检查点做的进一步优化，以防止在显存使用峰值时发生显存OOM的问题。QLoRA分页优化其实就是当显存不足是，将保存的部分梯度检查点转移到CPU内存上，和计算机的内存数据转移到硬盘上的常规内存分页一个道理。</p>
-<h3 id="实现">实现</h3>
-<p>要使用 HuggingFace 进行 QLoRA 微调，您需要安装BitsandBytes 库和 PEFT
-库。BitsandBytes 库负责 4 位量化以及整个低精度存储和高精度计算部分。PEFT
-库将用于 LoRA 微调部分。 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
-from peft import prepare_model_for_kbit_training, LoraConfig, get_peft_model
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
-
-model_id = "EleutherAI/gpt-neox-20b"
-bnb_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_use_double_quant=True,
-    bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch.bfloat16
-) # setup bits and bytes config
-
-model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map={"":0})
-
-model.gradient_checkpointing_enable()
-model = prepare_model_for_kbit_training(model) # prepares the whole model for kbit training
-
-config = LoraConfig(
-    r=8, 
-    lora_alpha=32, 
-    target_modules=["query_key_value"], 
-    lora_dropout=0.05, 
-    bias="none", 
-    task_type="CAUSAL_LM"
+print(
+    f"PyTorch reserved {torch.cuda.memory_reserved()/1024/1024}MB, allocated {torch.cuda.memory_allocated()/1024/1024}MB"
 )
+# PyTorch reserved 1044.0MB, allocated 1028.0MB</code></pre><p></p>
+<p>一般我们会更加关注如何将峰值显存限制在OOM的边缘，所以<code>cuda.max_memory_allocated()</code>和<code>cuda.max_memory_reserved()</code>这两个API会更有参考价值。</p>
+<p>注意使用以上API只能查询Pytorch的显存占用，可能还有其他第三方库调用来CUDA
+API来分配管理显存，此时需要使用<code>nvidia-smi</code>来查看。</p>
+<h3 id="pytorch显存分析器">Pytorch显存分析器</h3>
+<p>我们还可以利用PyTorch的<code>torch.cuda.memory._record_memory_history()</code>和<code>torch.cuda.memory._dump_snapshot()</code>功能来绘制显存占用在训练过程中的变化曲线。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 
-model = get_peft_model(model, config) # Now you get a model ready for QLoRA training</code></pre>
-在模型的微调过程中，虽然主干参数以 4-bit
-精度存储，但计算（例如前向传播、反向传播和梯度计算）可以使用更高精度的数据类型<code>bnb_4bit_compute_dtype</code>，以减少由于低精度存储引起的累积误差。<p></p>
-<p>参考资料： &gt; https://arxiv.org/pdf/2106.09685</p>
-<blockquote>
-<p>https://arxiv.org/abs/2305.14314</p>
-</blockquote>
-<blockquote>
-<p>https://zhuanlan.zhihu.com/p/623543497</p>
-</blockquote>
-<blockquote>
-<p>https://mingchao.wang/ShYWOOwr/</p>
-</blockquote>
-<blockquote>
-<p>https://zhuanlan.zhihu.com/p/690739797</p>
-</blockquote>
-<blockquote>
-<p>https://zhuanlan.zhihu.com/p/666234324</p>
-</blockquote>
+torch.cuda.memory._record_memory_history()
+
+with torch.inference_mode():      # 禁用所有与反向传播相关的额外显存分配操作
+    shape = [256, 1024, 1024, 1]
+    x1 = torch.randn(shape, device="cuda:0")
+    x2 = torch.randn(shape, device="cuda:0")
+
+    # Multiplication
+    y = x1 * x2
+
+torch.cuda.memory._dump_snapshot("traces/vram_profile_example.pickle")</code></pre>
+<p>将结果上传到<a target="_blank" rel="noopener" href="https://pytorch.org/memory_viz">PyTorch Memory
+Visualization</a>，可以得到显存占用在训练过程中的变化曲线。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250313001506.png">
+点击条幅触发相应显存分配的程序调用栈，从而了解该显存分配与哪些Python代码对应。</p>
+<h2 id="训练过程中的显存占用">训练过程中的显存占用</h2>
+<p>训练时的显存占用主要分为两类： -
+静态占用：模型参数、优化器状态、梯度等固定占用 -
+动态占用：临时显存占用（中间激活值等）</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+
+torch.cuda.memory._record_memory_history()
+
+with torch.inference_mode():
+    shape = [256, 1024, 1024, 1]
+    weight = torch.randn(shape, device="cuda:0")  # (1)
+    data = torch.randn(shape, device="cuda:0")  # (2)
+
+    x = data * weight  # (3)
+    x = x * weight  # (4)
+    x = x.sum()
+
+torch.cuda.memory._dump_snapshot("traces/double_muls_inference.pickle")</code></pre>
+<p>示例代码的显存占用图： <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250313002508.png"></p>
+<p>再结合反向过程看看完整的显存占用： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.optim as optim
+
+torch.cuda.memory._record_memory_history()
+
+shape = [256, 1024, 1024, 1]
+weight = torch.randn(shape, requires_grad=True, device="cuda:0")
+data = torch.randn(shape, requires_grad=False, device="cuda:0")
+
+x = data * weight
+x = x * weight
+x = x.sum()
+
+torch.cuda.memory._dump_snapshot("triple_muls_fwd.pickle")
+
+optimizer = optim.SGD([weight], lr=0.01)
+optimizer.zero_grad()
+
+x.backward()
+
+optimizer.step()
+
+torch.cuda.memory._dump_snapshot("traces/double_muls_full.pickle")</code></pre><p></p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250313010941.png"></p>
+<p>注意与之前不同的是，红色条幅在此过程中的存在时间更长，一直持续到反向传播的中段才结束。红色条幅代表x
+= x
+<em>weight中临时输出变量的显存，没有在运算结束后立刻释放的原因在于，x =
+x
+</em>weight里的乘法算子需要保存输出张量的数值以进行反向计算，所以这个临时变量被保存到了反向算子的成员中（见下述公式）。
+<span class="math display">\[
+[MulForward]out=x*y
+[MulBackward]d_x=d_out*y
+[MulBackward]d_y=d_out*x
+\]</span></p>
+<h2 id="通用显存复用方法">通用显存复用方法</h2>
+<h3 id="使用原位操作算子">使用原位操作算子</h3>
+<p>PyTorch还提供了一系列的原位操作算子。这些算子的特点是它们直接对输入张量的显存进行修改，而不需要为输出张量分配额外的显存，从而显著降低算子调用的显存占用。</p>
+<p>但是如果在计算梯度时，反向传播算法依赖于前向传播中的某个张量，而这个张量被原位操作修改过，那么梯度的计算就可能出现错误。
+为了应对这种情况，PyTorch引入了一种基于版本的检查机制。每当张量的值通过原位操作发生改变，它的版本号就会增加。在进行反向传播时，如果发现所依赖的张量版本已经不是最新的，则会立即停止并抛出错误信息。这种机制确保了梯度计算的准确性和数据的一致性。</p>
+<h3 id="使用共享存储">使用共享存储</h3>
+<p>Pytorch在将一个张量赋值给另一个张量时，一般是浅拷贝，即共享同一块显存。</p>
+<p>除了赋值操作外，PyTorch还提供了视图(view)操作，与赋值操作中仅仅创建一个张量的引用不同，视图操作返回的是一个新的张量，该张量与输入张量共享底层的显存数据（子集数据）。
+## 有代价的显存优化技巧 ### 跨批次梯度累加
+如果受限于硬件资源，无法达到理想的BatchSize，可以通过牺牲一些训练速度来增加BatchSize，即使用<strong>跨批次梯度累加(cross-batch
+gradient accumulation)</strong>。
+这种方法的核心是降低优化器梯度更新的频率——通过累积多轮训练的梯度，最后再一起更新，从而实现增大BatchSize的效果。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.optim as optim
+
+torch.manual_seed(1000)
+
+N = 128
+Total_N = 512
+dataset = torch.randn([Total_N, 32, 1024], requires_grad=False)
+
+weight = torch.randn([1024, 32], requires_grad=True, device="cuda:0")
+optimizer = optim.SGD([weight], lr=0.01)
+
+num_iters = int(Total_N / 256)
+steps = 2
+
+for i in range(num_iters):
+    # ---------------模拟一个批次的训练start---------------
+    optimizer.zero_grad()
+    for j in range(steps):
+        offset = i * 256 + N * j
+
+        input = dataset[offset : offset + N, :, :].to(torch.device("cuda:0"))
+        y = input.matmul(weight)
+        loss = y.sum()
+
+        loss.backward()
+    optimizer.step()
+    # ---------------模拟一个批次的训练end---------------
+
+print(weight.sum())
+print(f"显存分配的峰值: {torch.cuda.max_memory_allocated()/1024/1024}MB")
+
+# 输出：
+# tensor(2096.2283, device='cuda:0', grad_fn=&lt;SumBackward0&gt;)
+# 显存分配的峰值: 49.00048828125MB</code></pre>
+<h3 id="即使重算前向张量">即使重算前向张量</h3>
+<p>PyTorch通常会将某些前向张量直接存储到反向算子中，以便在反向传播时使用。这会导致这些前向张量无法被释放，持续占用显存直到相应的反向计算完成为止。</p>
+<p>此时可以通过<code>torch.utils.checkpoint</code>接口来做到这一点，在反向传播时重新计算这些前向张量，而不是直接存储它们。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.nn as nn
+from torch.utils.checkpoint import checkpoint_sequential
+
+model = nn.Sequential(
+    nn.Linear(1000, 40000),
+    nn.ReLU(),
+    nn.Linear(40000, 1000),
+    nn.ReLU(),
+    nn.Linear(1000, 5),
+    nn.ReLU(),
+).to("cuda")
+
+input_var = torch.randn(10, 1000, device="cuda", requires_grad=True)
+
+segments = 2            
+modules = [module for k, module in model._modules.items()] # 将模型分成若干段，在每段的前向传播结束后丢弃中间激活值，并在反向传播时重新计算这些值。
+
+# (1). 使用checkpoint技术
+out = checkpoint_sequential(modules, segments, input_var)     
+
+model.zero_grad()
+out.sum().backward()
+print(f"使用checkpoint技术显存分配峰值: {torch.cuda.max_memory_allocated()/1024/1024}MB")
+# 使用checkpoint技术显存分配峰值: 628.63671875MB
+
+out_checkpointed = out.data.clone()
+grad_checkpointed = {}
+for name, param in model.named_parameters():
+    grad_checkpointed[name] = param.grad.data.clone()
+
+# (2). 不使用checkpoint技术
+original = model
+x = input_var.clone().detach_()
+out = original(x)
+
+out_not_checkpointed = out.data.clone()
+
+original.zero_grad()
+out.sum().backward()
+print(f"不使用checkpoint技术显存分配峰值: {torch.cuda.max_memory_allocated()/1024/1024}MB")
+# 不使用checkpoint技术显存分配峰值: 936.17431640625MB
+
+grad_not_checkpointed = {}
+for name, param in model.named_parameters():
+    grad_not_checkpointed[name] = param.grad.data.clone()
+
+
+# 对比使用和不使用checkpoint技术计算出来的梯度都是一样的
+assert torch.allclose(out_checkpointed, out_not_checkpointed)
+for name in grad_checkpointed:
+    assert torch.allclose(grad_checkpointed[name], grad_not_checkpointed[name])</code></pre>
+<h3 id="将gpu显存下放至cpu内存">将GPU显存下放至CPU内存</h3>
+<ul>
+<li>模型参数下放：当模型太大而无法完全装入显存时，可以将部分模型参数、优化器参数暂时存储在内存中。在训练过程中，只在有需要的时候临时加载到显存里，计算完成后马上从显存中移除。</li>
+<li>激活张量下放：训练过程中产生的所有激活张量默认存储在内存中，只在需要参与计算时才加载到显存里，计算完成后将所有激活张量再次存放回内存。</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.nn as nn
+
+class LargeModel(nn.Module):
+    def __init__(self):
+        super(LargeModel, self).__init__()
+        self.layer1 = nn.Linear(50000, 50000)
+        self.layer2 = nn.Linear(50000, 50000)
+
+    # OOM on a GPU with 24GB
+    # def forward(self, x):
+    #     x = self.layer1(x)
+    #     x = torch.relu(x)
+    #     x = self.layer2(x)
+    #     x = torch.relu(x)
+    #     return x
+
+    def forward(self, x):
+        self.layer1.to("cuda")
+        x = self.layer1(x)
+        x = torch.relu(x)
+        self.layer1.to("cpu")
+
+        self.layer2.to("cuda")
+        x = self.layer2(x)
+        x = torch.relu(x)
+        self.layer2.to("cpu")
+        return x
+
+model = LargeModel().to("cuda")
+input_data = torch.randn(10, 50000).to("cuda")
+output = model(input_data)
+
+print(f"前向过程中GPU显存占用峰值: {torch.cuda.max_memory_allocated()/1024/1024/1024}GB")
+# 前向过程中GPU显存占用峰值: 9.328798770904541GB
+
+loss = output.sum()
+loss.backward()</code></pre>
+<p>动态下放-加载的主要性能瓶颈是CPU和GPU之间的数据传输。如果数据传输不够高效，则一定会对性能产生很大影响。因此需要在数据传输延迟和显存节约之间做好平衡。PyTorch和相关的生态系统（如NVIDIA的Apex库）提供了一些工具来帮助用户实现上述动态下放-加载资源的策略，以便在有限的资源下训练大型模型。</p>
+<h3 id="降低优化器的显存占用">降低优化器的显存占用</h3>
+<p>优化器往往也是显存占用的大头，这里主要来源有两个：一个是优化器内置的状态变量，另一个则是优化器进行参数更新时的运行内存占用。</p>
+<p>可以通过optimizer.state_dict()接口查看优化器为每个参数保存的状态变量。对于显存非常紧张的情况，选择占用额外显存较少的优化器，如SGD等，可以帮助快速突破显存瓶颈，但会对结果产生影响。</p>
+<p>另外，之前介绍过<a href="https://baoblei.github.io/2025/03/12/da-mo-xing-dong-li-yin-qing-dan-qia-xing-neng-you-hua-zhuan-ti/#%E4%BD%BF%E7%94%A8%E6%80%A7%E8%83%BD%E7%89%B9%E5%8C%96%E7%9A%84%E4%BC%98%E5%8C%96%E5%99%A8">PyTorch优化器的不同计算模式</a>，也就是for-loop、for-each、fused三种不同的实现方法。这三种方法本质上是在性能和显存之间寻找一种平衡，其中for-loop显存用量最少，当然代价是其性能也是三种模型里最差的。</p>
+<h2 id="优化python代码减少显存占用">优化Python代码减少显存占用</h2>
+<h3 id="python垃圾回收机制">Python垃圾回收机制</h3>
+<p>Python存在两层垃圾回收机制。</p>
+<p>第一层机制通过<strong>引用计数</strong>来判定变量是否为垃圾。简单来说，一个变量每被使用一次，其计数增一；每次使用完毕，计数减一。当计数为0时，该变量就会被回收。
+然而，一旦出现相互之间循环引用的变量时，它们的引用计数永远不会下降到零，为此，Python又引入了第二层循环垃圾回收机制。</p>
+<p><strong>循环垃圾回收机制</strong>实现了检测循环依赖的算法，能够打破循环依赖对引用计数造成的破坏。该机制的触发时机是不固定的，它依赖于自上次垃圾回收以来分配的新变量数量。实际上，该机制还包括变量年龄组和不同的阈值设置，但这些细节已经超出了本章讨论范围。我们只需要知道<strong>循环垃圾回收机制的触发频率不高，不能保证资源被即时释放掉</strong>。
+### 避免出现循环依赖
+循环依赖常见于PyTorch编程中自定义Python类型的相互嵌套，特别是在子节点持有对父节点的引用情况。以下代码展示了这种情况：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import gc
+
+class Module1(torch.nn.Module):
+    def __init__(self):
+        super(Module1, self).__init__()
+        self.saved = Module2(self)  # Module1对象保存了对Module2对象的引用
+        self.tensor = torch.randn(1024, 1024, device="cuda")
+
+class Module2(torch.nn.Module):
+    def __init__(self, module):
+        super(Module2, self).__init__()
+        self.saved = module  # Module2对象也保存了对Module1对象的饮用
+        self.tensor = torch.randn(1024, 1024, device="cuda")
+
+net = Module1()
+print("Memory allocated: ", torch.cuda.memory_allocated(0))
+
+
+del net        # 即便使用del命令手动删除变量，也不能立即释放其资源。
+print("Memory allocated after delete: ", torch.cuda.memory_allocated(0))
+
+gc.collect()     # 手动触发循环垃圾回收机制，这时才能释放被卷入循环依赖的变量们
+print("Memory allocated after gc: ", torch.cuda.memory_allocated(0))</code></pre><p></p>
+<p>再来看看以下这个例子，开发者可能会使用self.model =
+model等写法，让自定义类型持有model变量，从而方便随时访问。然而，一旦使用不当就会导致循环依赖：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+
+
+class CustomLayer(torch.nn.Module):
+    def __init__(self, model):
+        super(CustomLayer, self).__init__()
+        self.model = model         # 自定义类型持有model变量
+
+
+class MyModel(torch.nn.Module):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.custom_layer = CustomLayer(self) # CustomLayer对象持有MyModel对象的引用， 而MyModel对象又持有CustomLayer对象的引用， 从而形成循环依赖。
+
+
+model = MyModel()</code></pre><p></p>
+<h3 id="谨慎使用全局作用域">谨慎使用全局作用域</h3>
+<p>除了循环依赖以外，全局作用域中的张量也是导致显存资源不能被释放的重要原因。与局部变量不同，全局变量的生命周期通常延续至程序结束，从而导致持续的资源占用，这是任何垃圾回收机制都不能解决的。</p>
+<p>全局变量包括定义在脚本最外层的变量、使用global关键字声明的变量等。</p>
+<p>为减少全局变量造成的资源占用，只能通过<code>del</code>手动清理这些变量，清理后显存占用才能降至零。</p>
+<h2 id="小结">小结</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250313023036.png"></p>
 
                 
             </div>
@@ -747,7 +806,7 @@ model = get_peft_model(model, config) # Now you get a model ready for QLoRA trai
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/">http://baoblei.github.io/2024/12/04/da-mo-xing-gao-xiao-wei-diao-fang-fa-peft-lora-qlora/</a>
+                    <a href="http://baoblei.github.io/2025/03/12/da-mo-xing-dong-li-yin-qing-dan-qia-xian-cun-you-hua-zhuan-ti/">http://baoblei.github.io/2025/03/12/da-mo-xing-dong-li-yin-qing-dan-qia-xian-cun-you-hua-zhuan-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -785,16 +844,12 @@ model = get_peft_model(model, config) # Now you get a model ready for QLoRA trai
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                    <span class="chip bg-color">深度学习</span>
+                                <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                                    <span class="chip bg-color">《大模型动力引擎》</span>
                                 </a>
                             
-                                <a href="/tags/LoRA/">
-                                    <span class="chip bg-color">LoRA</span>
-                                </a>
-                            
-                                <a href="/tags/PEFT/">
-                                    <span class="chip bg-color">PEFT</span>
+                                <a href="/tags/%E5%8D%95%E5%8D%A1%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/">
+                                    <span class="chip bg-color">单卡显存优化</span>
                                 </a>
                             
                         </div>
@@ -1140,17 +1195,18 @@ model = get_peft_model(model, config) # Now you get a model ready for QLoRA trai
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2024/12/04/ge-ren-bo-ke-jia-ru-gu-ge-yuan-biao-ji-yu-zhan-dian-di-tu/">
+                <a href="/2025/03/12/da-mo-xing-dong-li-yin-qing-dan-qia-xian-cun-you-hua-zhuan-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="个人博客加入谷歌元标记与站点地图">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="大模型动力引擎-单卡显存优化专题">
                         
-                        <span class="card-title">个人博客加入谷歌元标记与站点地图</span>
+                        <span class="card-title">大模型动力引擎-单卡显存优化专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1160,34 +1216,31 @@ model = get_peft_model(model, config) # Now you get a model ready for QLoRA trai
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-12-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/google-search-console/" class="post-category">
-                                    google search console
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    《大模型动力引擎》阅读笔记
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
+                    <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                        <span class="chip bg-color">《大模型动力引擎》</span>
                     </a>
                     
-                    <a href="/tags/sitemap/">
-                        <span class="chip bg-color">sitemap</span>
-                    </a>
-                    
-                    <a href="/tags/google-search-console/">
-                        <span class="chip bg-color">google search console</span>
+                    <a href="/tags/%E5%8D%95%E5%8D%A1%E6%98%BE%E5%AD%98%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">单卡显存优化</span>
                     </a>
                     
                 </div>
@@ -1201,13 +1254,13 @@ model = get_peft_model(model, config) # Now you get a model ready for QLoRA trai
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/12/03/da-mo-xing-you-hua-pagedattention/">
+                <a href="/2025/03/12/da-mo-xing-dong-li-yin-qing-dan-qia-xing-neng-you-hua-zhuan-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="大模型优化--PagedAttention">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="大模型动力引擎-单卡性能优化专题">
                         
-                        <span class="card-title">大模型优化--PagedAttention</span>
+                        <span class="card-title">大模型动力引擎-单卡性能优化专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1218,14 +1271,14 @@ model = get_peft_model(model, config) # Now you get a model ready for QLoRA trai
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LLMs/" class="post-category">
-                                    LLMs
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    《大模型动力引擎》阅读笔记
                                 </a>
                             
                             
@@ -1235,16 +1288,12 @@ model = get_peft_model(model, config) # Now you get a model ready for QLoRA trai
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">深度学习</span>
+                    <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                        <span class="chip bg-color">《大模型动力引擎》</span>
                     </a>
                     
-                    <a href="/tags/LLM/">
-                        <span class="chip bg-color">LLM</span>
-                    </a>
-                    
-                    <a href="/tags/PagedAttention/">
-                        <span class="chip bg-color">PagedAttention</span>
+                    <a href="/tags/%E5%8D%95%E5%8D%A1%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">单卡性能优化</span>
                     </a>
                     
                 </div>
