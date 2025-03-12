@@ -67,9 +67,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 7.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="庞贝堡垒" type="application/atom+xml">
 </head>
 
 
@@ -439,7 +439,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-03-11
+                    2025-03-12
                 </div>
                 
 
@@ -499,27 +499,26 @@ I\boldsymbol{x} &gt; 0\)</span> 恒成立，即单位矩阵 <span class="math in
 <h4 id="简单证明">简单证明</h4>
 <p>对于任意单位矩阵 <span class="math inline">\(I \in \mathbb{R}^{n
 \times n}\)</span> 而言，给定任意非零向量 <span class="math inline">\(\boldsymbol{x} \in \mathbb{R}^n\)</span>，恒有
-<span class="math display">\[
+
+$$
 \begin{align*}
 \boldsymbol{x}^T I\boldsymbol{x} &amp;= \boldsymbol{x}^T\boldsymbol{x}\\
 &amp;= x_1^2 + x_2^2 + \cdots + x_n^2 &gt; 0
 \end{align*}
-\]</span></p>
-<h3 id="例2">例2</h3>
-<p>实对称矩阵 <span class="math inline">\(A =
+$$
+ ### 例2 实对称矩阵 <span class="math inline">\(A =
 \begin{bmatrix}2&amp;-1&amp;0\\-1&amp;2&amp;-1\\0&amp;-1&amp;2\end{bmatrix}
 \in \mathbb{R}^{3 \times 3}\)</span> 是否是正定矩阵？</p>
 <p>解：设向量 <span class="math inline">\(\boldsymbol{x} =
 \begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} \in \mathbb{R}^3\)</span>
-为非零向量，则 <span class="math display">\[
+为非零向量，则 
+$$
 \begin{align*}
-\boldsymbol{x}^T A\boldsymbol{x} &amp;= \begin{bmatrix}(2x_1 -
-x_2)&amp;(-x_1 + 2x_2 - x_3)&amp;-x_2 +
-2x_3\end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}\\
+\boldsymbol{x}^T A\boldsymbol{x} &amp;= \begin{bmatrix}(2x_1 - x_2)&amp;(-x_1 + 2x_2 - x_3)&amp;-x_2 + 2x_3\end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}\\
 &amp;= x_1^2 + (x_1 - x_2)^2 + (x_2 - x_3)^2 + x_3^2 &gt; 0
 \end{align*}
-\]</span> 因此，矩阵 <span class="math inline">\(A\)</span>
-是正定矩阵。</p>
+$$
+ 因此，矩阵 <span class="math inline">\(A\)</span> 是正定矩阵。</p>
 <h2 id="结合二次函数的解释">结合二次函数的解释</h2>
 <p>在初中我们学过二次函数，形如 <span class="math inline">\(f(x) =
 ax^2\)</span>，该函数的曲线会经过坐标原点，且开口向上，所有的函数值都大于等于0。</p>
@@ -548,15 +547,16 @@ ax^2\)</span>，该函数的曲线会经过坐标原点，且开口向上，所�
 \boldsymbol{y} = I\boldsymbol{x} = \boldsymbol{x} =
 \begin{bmatrix}2\\1\end{bmatrix}
 \]</span> 向量 <span class="math inline">\(\boldsymbol{x},
-\boldsymbol{y} \in \mathbb{R}^2\)</span> 之间的夹角为 <span class="math display">\[
+\boldsymbol{y} \in \mathbb{R}^2\)</span> 之间的夹角为 
+$$
 \begin{align*}
-\cos\langle\boldsymbol{x}, \boldsymbol{y}\rangle &amp;=
-\frac{\boldsymbol{x}^T\boldsymbol{y}}{\|\boldsymbol{x}\|\cdot\|\boldsymbol{y}\|}\\
-&amp;= \frac{2\times2 + 1\times1}{\sqrt{2^2 + 1^2}\cdot\sqrt{2^2 +
-1^2}}\\
+\cos\langle\boldsymbol{x}, \boldsymbol{y}\rangle &amp;= \frac{\boldsymbol{x}^T\boldsymbol{y}}{\|\boldsymbol{x}\|\cdot\|\boldsymbol{y}\|}\\
+&amp;= \frac{2\times2 + 1\times1}{\sqrt{2^2 + 1^2}\cdot\sqrt{2^2 + 1^2}}\\
 &amp;= 1
 \end{align*}
-\]</span> 即两个向量之间的夹角为 <span class="math inline">\(0^{\circ}\)</span>。</p>
+$$
+
+即两个向量之间的夹角为 <span class="math inline">\(0^{\circ}\)</span>。</p>
 <h3 id="例4">例4</h3>
 <p>给定向量 <span class="math inline">\(\boldsymbol{x} =
 \begin{bmatrix}2\\1\\1\end{bmatrix} \in
@@ -577,21 +577,17 @@ ax^2\)</span>，该函数的曲线会经过坐标原点，且开口向上，所�
 \overline{\boldsymbol{t}})(\boldsymbol{t} -
 \overline{\boldsymbol{t}})^T]\)</span></p>
 </blockquote>
-<p>现给定任意一个向量 <span class="math inline">\(\boldsymbol{x}\)</span>，则 <span class="math display">\[
+<p>现给定任意一个向量 <span class="math inline">\(\boldsymbol{x}\)</span>，则 
+$$
 \begin{align*}
-\boldsymbol{x}^T C\boldsymbol{x} &amp;=
-\boldsymbol{x}^T\mathbb{E}[(\boldsymbol{t} -
-\overline{\boldsymbol{t}})(\boldsymbol{t} -
-\overline{\boldsymbol{t}})^T]\boldsymbol{x}\\
-&amp;= \mathbb{E}[\boldsymbol{x}^T(\boldsymbol{t} -
-\overline{\boldsymbol{t}})(\boldsymbol{t} -
-\overline{\boldsymbol{t}})^T\boldsymbol{x}]\\
+\boldsymbol{x}^T C\boldsymbol{x} &amp;= \boldsymbol{x}^T\mathbb{E}[(\boldsymbol{t} - \overline{\boldsymbol{t}})(\boldsymbol{t} - \overline{\boldsymbol{t}})^T]\boldsymbol{x}\\
+&amp;= \mathbb{E}[\boldsymbol{x}^T(\boldsymbol{t} - \overline{\boldsymbol{t}})(\boldsymbol{t} - \overline{\boldsymbol{t}})^T\boldsymbol{x}]\\
 &amp;= \mathbb{E}(s^2) = \sigma_s^2
 \end{align*}
-\]</span></p>
-<p>其中， <span class="math inline">\(\sigma_s =
-\boldsymbol{x}^T(\boldsymbol{t} - \overline{\boldsymbol{t}}) =
-(\boldsymbol{t} -
+$$
+ 其中，
+<span class="math inline">\(\sigma_s = \boldsymbol{x}^T(\boldsymbol{t} -
+\overline{\boldsymbol{t}}) = (\boldsymbol{t} -
 \overline{\boldsymbol{t}})^T\boldsymbol{x}\)</span></p>
 <p>由于 <span class="math inline">\(\sigma_s^2 \geq
 0\)</span>，因此，<span class="math inline">\(\boldsymbol{x}^T
