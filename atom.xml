@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-11T13:53:21.186Z</updated>
+  <updated>2025-03-12T13:36:03.233Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>大模型动力引擎-单卡性能优化专题</title>
+    <link href="http://baoblei.github.io/2025/03/12/da-mo-xing-dong-li-yin-qing-dan-qia-xing-neng-you-hua-zhuan-ti/"/>
+    <id>http://baoblei.github.io/2025/03/12/da-mo-xing-dong-li-yin-qing-dan-qia-xing-neng-you-hua-zhuan-ti/</id>
+    <published>2025-03-11T16:13:59.000Z</published>
+    <updated>2025-03-12T13:36:03.233Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在单卡GPU训练环境中，性能问题主要分为四类：</summary>
+        
+      
+    
+    
+    
+    <category term="《大模型动力引擎》阅读笔记" scheme="http://baoblei.github.io/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《大模型动力引擎》" scheme="http://baoblei.github.io/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/"/>
+    
+    <category term="单卡性能优化" scheme="http://baoblei.github.io/tags/%E5%8D%95%E5%8D%A1%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大模型动力引擎-数据加载和预处理</title>
     <link href="http://baoblei.github.io/2025/03/11/da-mo-xing-dong-li-yin-qing-shu-ju-jia-zai-he-yu-chu-li/"/>
     <id>http://baoblei.github.io/2025/03/11/da-mo-xing-dong-li-yin-qing-shu-ju-jia-zai-he-yu-chu-li/</id>
     <published>2025-03-11T09:13:23.000Z</published>
-    <updated>2025-03-11T13:53:21.186Z</updated>
+    <updated>2025-03-11T13:59:20.809Z</updated>
     
     
       
@@ -80,7 +107,7 @@
     <link href="http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/"/>
     <id>http://baoblei.github.io/2025/03/10/xian-xing-dai-shu-ban-zheng-ding-yu-zheng-ding-ju-zhen/</id>
     <published>2025-03-09T17:35:31.000Z</published>
-    <updated>2025-03-10T17:03:45.692Z</updated>
+    <updated>2025-03-11T13:56:17.297Z</updated>
     
     
       
@@ -373,11 +400,11 @@ SSH
     <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
     
     
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
-    
     <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
     
     <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
+    
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
     
     <category term="ssh" scheme="http://baoblei.github.io/tags/ssh/"/>
     
@@ -584,35 +611,6 @@ MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固�
     <category term="python模块" scheme="http://baoblei.github.io/tags/python%E6%A8%A1%E5%9D%97/"/>
     
     <category term="python包" scheme="http://baoblei.github.io/tags/python%E5%8C%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>好用的大模型prompt分享</title>
-    <link href="http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/"/>
-    <id>http://baoblei.github.io/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/</id>
-    <published>2024-12-21T10:51:51.000Z</published>
-    <updated>2024-12-23T15:01:30.885Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;中文写作&quot;&gt;中文写作&lt;/h1&gt;
-&lt;h2 id=&quot;润色&quot;&gt;润色&lt;/h2&gt;
-&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="Prompt" scheme="http://baoblei.github.io/categories/Prompt/"/>
-    
-    
-    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
-    
-    <category term="Prompt" scheme="http://baoblei.github.io/tags/Prompt/"/>
     
   </entry>
   
