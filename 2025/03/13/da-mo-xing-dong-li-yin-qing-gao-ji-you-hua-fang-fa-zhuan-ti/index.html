@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="python-模块/包的导入, 庞贝堡垒">
-    <meta name="description" content="模块Module和包Package
-在Python中，一个 .py文件
-就称之为一个模块（Module）。Module的目的是代码的划分、管理以及代码重用，在一个Module中可以存在多个类、函数甚至是需要预执行的脚本。
-模块一共三种：py">
+    <meta name="keywords" content="大模型动力引擎-高级优化方法专题, 庞贝堡垒">
+    <meta name="description" content="自动混合精度训练
+NVIDIA从Volta架构之后就增加了专门用于加速矩阵乘法和累加操作的TensorCore硬件单元，在半精度甚至更低精度计算任务中相比传统CUDA核心可以实现数倍加速。
+结合混合精度的训练方法可以在充分利用低精度优秀的计">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>python-模块/包的导入 | 庞贝堡垒</title>
+    <title>大模型动力引擎-高级优化方法专题 | 庞贝堡垒</title>
     <link rel="icon" type="image/png" href="/favicon-32x32.png">
     
     <style>
@@ -372,12 +371,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">python-模块/包的导入</h1>
+                    <h1 class="description center-align post-title">大模型动力引擎-高级优化方法专题</h1>
                 </div>
             </div>
         </div>
@@ -401,20 +400,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/python/">
-                                <span class="chip bg-color">python</span>
+                            <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                                <span class="chip bg-color">《大模型动力引擎》</span>
                             </a>
                         
-                            <a href="/tags/ImportError/">
-                                <span class="chip bg-color">ImportError</span>
-                            </a>
-                        
-                            <a href="/tags/python%E6%A8%A1%E5%9D%97/">
-                                <span class="chip bg-color">python模块</span>
-                            </a>
-                        
-                            <a href="/tags/python%E5%8C%85/">
-                                <span class="chip bg-color">python包</span>
+                            <a href="/tags/%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">
+                                <span class="chip bg-color">高级优化方法</span>
                             </a>
                         
                     </div>
@@ -425,8 +416,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/python/" class="post-category">
-                                python
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                《大模型动力引擎》阅读笔记
                             </a>
                         
                     </div>
@@ -438,28 +429,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-12-27
+                    2025-03-13
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-03-06
+                    2025-03-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    5.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    23 分
                 </div>
                 
 
@@ -482,236 +473,540 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="模块module和包package">模块Module和包Package</h2>
-<p>在Python中，一个 <strong>.py文件</strong>
-就称之为一个模块（Module）。Module的目的是代码的划分、管理以及代码重用，在一个Module中可以存在多个类、函数甚至是需要预执行的脚本。
-模块一共三种：python标准库、第三方模块、应用程序自定义模块。
-相同名字的函数和变量完全可以分别存在不同的模块中，不必考虑名字会与其他模块冲突。但是<strong>不要与内置函数名字冲突</strong>。</p>
-<p>相关概念： -
-<code>_pycache__</code>：Python3.2版本引入的，用于存放模块的编译后的字节码文件，以提高模块的加载速度。
+                <h2 id="自动混合精度训练">自动混合精度训练</h2>
+<p>NVIDIA从Volta架构之后就增加了专门用于加速矩阵乘法和累加操作的TensorCore硬件单元，在半精度甚至更低精度计算任务中相比传统CUDA核心可以实现数倍加速。</p>
+<p>结合混合精度的训练方法可以在充分利用低精度优秀的计算性能和显存占用的同时，保持与单精度训练相近的模型精度。</p>
+<h3 id="浮点数的表示">浮点数的表示</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250313235546.png"></p>
+<p>可以直观的看出数值范围主要由指数部分决定。而精度主要由尾数的位数决定。</p>
+<p>再看一下对于FP16来说，不同指数位下的数值范围和精度情况： <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250314000155.png"></p>
+<p>注意在同一指数档位中，不同的尾数就相当于在该档位的最小值和最大值中间均等地插入若干可以表示的数字。当我们想要找到一个实数的对应表示时，必须找到离自己最近的可以表示的数字。比如float16的尾数会在每个档位中插入1024个数字，这样<span class="math inline">\(2^{6}\)</span>和<span class="math inline">\(2^{7}\)</span>之间的数字间隔为 <span class="math inline">\(2^{6} / 1024 =
+0.0625\)</span>。所以落在这个档位中的两个实数，如果差异在0.0625以下则会被表示成同一个float16数字，这就是尾数对数值精度的影响。</p>
+<p>因此在同一种精度下，在指数档位小的时候精度会更高些（在更小的范围中间插入相同的数量的数字）。</p>
+<h3 id="使用低精度数据类型的优缺点">使用低精度数据类型的优缺点</h3>
+<h4 id="优点">优点</h4>
+<ul>
+<li>计算效率更高：16位浮点数的计算速度通常是32位浮点数的两倍。</li>
+<li>存储空间更少：16位浮点数仅需32位浮点数一半的存储空间。</li>
+<li>传输速度更快：较小的存储需求意味着在相同时间内传输更少的数据量，这不仅能加速硬盘读写速度，也有助于提高内存、显存以及多级缓存的读写效率。</li>
+</ul>
+<h4 id="缺点">缺点</h4>
+<ul>
+<li>数值范围和精度的限制：float16的数值范围和精度较低。</li>
+<li>额外的数值转换开销：并非所有计算操作都适合使用float16，而在float32与float16之间的数据转换可能会产生额外的性能开销。</li>
+<li>需要特定硬件支持：为了充分利用float16的优势，必须配备支持半精度运算加速的硬件，如NVIDIA的AI计算卡或RTX30系列以上的显卡。在老旧或不支持float16计算的GPU上，不仅性能提升不明显，还可能因数据转换的额外开销而导致性能下降。</li>
+</ul>
+<h3 id="pytorch的自动混合精度训练">PyTorch的自动混合精度训练</h3>
+<p>使用FP16在训练时会出现的问题： -
+训练初期波动大，容易数值溢出，容易出现NaN或Inf。 -
+希望能够自动判断哪些算子适合使用float16加速，并自动对这些算子的输入输出张量进行类型转换。</p>
+<p>PyTorch提供了两个核心接口：
+<code>torch.autocast</code>和<code>torch.cuda.amp.GradScaler</code>。</p>
+<p><strong>torch.autocast</strong>可以根据算子类型，自动选择使用半精度(float16)或单精度(float32)进行计算，以适应不同算子对精度的要求，达到较好的性能、精度平衡。</p>
+<p><strong>torch.cuda.amp.GradScaler</strong>则用于平衡前向张量和反向梯度的数值范围。其基本原理是利用一个放大系数(scale
+factor)，在不引起梯度溢出的情况下尽可能使用较高的放大系数，从而充分利用float16的数值范围。训练过程中如果检测到梯度溢出，GradScaler会自动跳过该次的权重更新，并相应缩小放大系数。如果一段时间内未发生梯度溢出，GradScaler则会尝试增加放大系数，以最大化float16的数值范围利用率。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import time
+import torch.nn as nn
+from torch.profiler import profile, ProfilerActivity
+from torch.optim import SGD
+from torch.utils.data import TensorDataset
+
+
+class SimpleCNN(nn.Module):
+    def __init__(self, input_channels):
+        super(SimpleCNN, self).__init__()
+        self.conv1 = nn.Conv2d(
+            input_channels, 64, kernel_size=3, stride=1, padding=1
+        )
+        self.conv2 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)
+        self.conv3 = nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1)
+        self.conv4 = nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+        out = self.relu(self.conv1(x))
+        out = self.relu(self.conv2(out))
+        out = self.relu(self.conv3(out))
+        out = self.relu(self.conv4(out))
+        return out
+
+
+def train(dataset, model, use_amp):
+    optimizer = SGD(model.parameters(), lr=0.1, momentum=0.9)
+
+    #----------------------torch.cuda.amp.GradScaler----------------------
+    scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
+    for batch_data in dataset:
+        #----------------------torch.autocast----------------------
+        with torch.autocast(
+            device_type="cuda", dtype=torch.float16, enabled=use_amp
+        ):
+            result = model(batch_data[0])
+            loss = result.sum()
+
+        optimizer.zero_grad()
+        #----------------------torch.cuda.amp.GradScaler----------------------
+        scaler.scale(loss).backward()       # 对loss进行放大
+        scaler.step(optimizer)             # 更新权重
+        scaler.update()                    # 更新放大系数</code></pre>
+<p>在支持FP16计算的机器上运行以下训练代码，可以发现开启amp后速度提高一倍。
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">N, C, H, W = 32, 3, 256, 256  # Example dimensions
+
+data = torch.randn(10, N, C, H, W, device="cuda")
+dataset = TensorDataset(data)
+
+model = SimpleCNN(C).to("cuda")
+
+# warm up
+train(dataset, model, use_amp=False)
+torch.cuda.synchronize()
+# 测量未使用AMP时的时间和性能图谱
+start_time = time.perf_counter()
+with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA]) as prof:
+    train(dataset, model, use_amp=False)
+    torch.cuda.synchronize()
+prof.export_chrome_trace("traces/PROF_wo_amp.json")
+end_time = time.perf_counter()
+elapsed = end_time - start_time
+print(f"Float32 Time: {elapsed} seconds")
+
+# warm up
+train(dataset, model, use_amp=True)
+torch.cuda.synchronize()
+# 测量使用AMP后的时间和性能图谱
+start_time = time.perf_counter()
+with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA]) as prof:
+    train(dataset, model, use_amp=True)
+    torch.cuda.synchronize()
+prof.export_chrome_trace("traces/PROF_amp.json")
+end_time = time.perf_counter()
+elapsed = end_time - start_time
+print(f"Float16 Time: {elapsed} seconds")</code></pre>
+在性能画像中可以看到有比较明显的重复模式，这对应了程序中的10个迭代步骤。可以看到使用混合精度训练后每个迭代的时间从741ms缩短到了363ms，并且从kernel的名称可以进一步确认PyTorch调用了float16对应的内核函数。<p></p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250314011008.png"></p>
+<p>一般来说，自动混合精度在GPU使用率越高的场景中，加速效果越明显。对于GPU使用率很低，<strong>以CPU瓶颈为主的训练过程，自动混合精度训练的性能可能反而变差</strong>——额外的数据转换开销不可忽视。</p>
+<h2 id="自定义高性能算子">自定义高性能算子</h2>
+<p>算子的计算效率成为程序的性能瓶颈，更进一步的优化会面临两个主要挑战：
+- 1.
+缺少全局的计算图：PyTorch主要提供基础算子，但是由于缺少全局的计算图信息无法自动合并计算，这也极大限制了PyTorch在算子层面的优化空间。
+- 2.
+调度开销：由于动态图模式中每个算子是独立的，因此每次调用都伴随一次调度开销。</p>
+<p>在开发者深入了解计算图的前提下，编写自定义算子不仅可以合并多个算子降低调度开销，还可以精细控制GPU的执行，包括线程块的配置以及内存访问模式等。
+以flash-attention库为例，它为Transformer模型中的自注意力部分提供了专门的自定义算子，通过优化内存访问模式和充分利用GPU的并行处理功能来提升计算效率。</p>
+<h3 id="自定义高性能算子的封装流程">自定义高性能算子的封装流程</h3>
+<p>实现一个PyTorch自定义算子包含三个核心步骤，分别是： - 1.
+[C++/CUDA]算子的多后端代码实现，比如CPU实现、CUDA实现等。 - 2.
+[Python]将算子注册到Python中，通过Pybind将算子导入到Python。 - 3.
+[PyTorch]将算子注册到PyTorch中，封装成nn.Module便于在PyTorch中调用。</p>
+<p>后面以动手实现一个Sigmoid算子为例，介绍自定义算子的封装流程。（注意：这里实现的没有Pytorch自带的高效，只是为了介绍自定义算子的封装流程）
+<img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250314014946.png"></p>
+<h4 id="自定义算子的后端实现">自定义算子的后端实现</h4>
+<p>首先来定义Sigmoid的CUDA核函数实现，我们将其写在custom_sigmoid_cuda.cu文件中：
+</p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// custom_sigmoid_cuda.cu
+#include &lt;cuda.h&gt;
+#include &lt;cuda_runtime.h&gt;
+#include &lt;torch/extension.h&gt;    // Pytorch为自定义算子提供的一系列预置函数和接口
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+template &lt;typename scalar_t&gt;
+__global__ void sigmoid_kernel(const scalar_t *__restrict__ input_tensor_data,
+                               scalar_t *__restrict__ output_tensor_data,
+                               size_t total_num_elements) {
+    // 计算要处理的元素位置
+    const int element_index = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (element_index &lt; total_num_elements) {
+        // 在单个元素上进行sigmoid计算
+        scalar_t x = input_tensor_data[element_index];
+        scalar_t y = 1.0 / (1.0 + exp(-x));
+
+        // 将计算结果写回显存
+        output_tensor_data[element_index] = y;
+    }
+}</code></pre>
+简单来说这里的sigmoid_kernel函数可以读取输入张量的显存地址，进行运算后，再将结果写入输出张量的显存地址中。
+这里模版的作用仅仅是为了方便支持不同类型的数据。<p></p>
+<p>接下来要对定义的核函数进行进一步的封装，让它能接受并返回torch::Tensor，这里torch::Tensor就是PyTorch提供的C++层面的张量：
+</p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// custom_sigmoid_cuda.cu
+torch::Tensor custom_sigmoid_cuda_forward(torch::Tensor input) {
+    size_t total_num_elements = input.numel();
+
+    auto output = torch::zeros_like(input);
+
+    // 配置CUDA线程数和线程块数
+    const int threads = 512;
+    const int blocks = (total_num_elements + threads - 1) / threads;
+
+    // 将实现好的CUDA kernel注册为前向算子的CUDA后端实现
+    AT_DISPATCH_FLOATING_TYPES(
+        input.type(), "sigmoid_kernel", ([&amp;] {
+            sigmoid_kernel&lt;scalar_t&gt;&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;(
+                input.data&lt;scalar_t&gt;(), output.data&lt;scalar_t&gt;(),
+                total_num_elements);
+        }));
+
+    return output;
+}</code></pre>
+这里定义了一个名为custom_sigmoid_cuda_forward的封装函数，主要逻辑是将数据从输入张量中加载，配置好CUDA线程数和线程块数之后，调用之前写好的sigmoid_kernel逐个元素进行Sigmoid操作，再将结果写到输出张量output中。
+这里AT_DISPATCH_FLOATING_TYPES是torch/extension.h中提供的辅助函数，它会根据输入张量的动态类型，自动找到并调用相应sigmoid_kernel<t>的模板实现。<p></p>
+<p>反向传播的核函数和封装类似： </p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// custom_sigmoid_cuda.cu
+template &lt;typename scalar_t&gt;
+__global__ void sigmoid_grad_kernel(
+    const scalar_t *__restrict__ output_tensor,
+    const scalar_t *__restrict__ output_grad_tensor,
+    scalar_t *__restrict__ input_grad_tensor, size_t total_num_elements) {
+    // 计算要处理的元素位置
+    const int element_index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (element_index &lt; total_num_elements) {
+        // 在单个元素上进行sigmoid的梯度计算
+        scalar_t output_grad = output_grad_tensor[element_index];
+        scalar_t output = output_tensor[element_index];
+        scalar_t input_grad = (1.0 - output) * output * output_grad;
+        // 将计算结果写回显存
+        input_grad_tensor[element_index] = input_grad;
+    }
+}
+
+torch::Tensor custom_sigmoid_cuda_backward(torch::Tensor output,
+                                           torch::Tensor output_grad) {
+    size_t total_num_elements = output_grad.numel();
+    auto input_grad = torch::zeros_like(output_grad);
+    const int threads = 512;
+    const int blocks = (total_num_elements + threads - 1) / threads;
+
+    // 将实现好的CUDA kernel注册为反向算子的CUDA后端实现
+    AT_DISPATCH_FLOATING_TYPES(
+        output_grad.type(), "sigmoid_grad_kernel", ([&amp;] {
+            sigmoid_grad_kernel&lt;scalar_t&gt;&lt;&lt;&lt;blocks, threads&gt;&gt;&gt;(
+                output.data&lt;scalar_t&gt;(), output_grad.data&lt;scalar_t&gt;(),
+                input_grad.data&lt;scalar_t&gt;(), total_num_elements);
+        }));
+
+    return input_grad;
+}</code></pre><p></p>
+<h4 id="自定义算子导入python">自定义算子导入Python</h4>
+<p>到此为止，实现了Sigmoid算子的CUDA后端代码，用类似的方法还可以实现Sigmoid的CPU或者其他后端代码。
+但是我们<strong>最终需要根据Python中的torch.device来决定调用哪个后端的代码，所以这里还需要实现一层代码分发的机制</strong>。
+下面的代码是一个简易的Sigmoid
+CPU后端的实现，并且会根据输入张量的后端来决定调用算子的CUDA实现或是CPU实现：
+</p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">// custom_sigmoid.cpp
+#include &lt;torch/extension.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+// forward declarations or include the header
+torch::Tensor custom_sigmoid_cuda_forward(torch::Tensor input);
+
+torch::Tensor custom_sigmoid_cuda_backward(torch::Tensor output,
+                                           torch::Tensor output_grad);
+
+// 简易的sigmoid前向算子的CPU后端实现
+torch::Tensor custom_sigmoid_cpu_forward(torch::Tensor input) {
+    return 1.0 / (1 + torch::exp(-input));
+}
+
+// 简易的sigmoid反向算子的CPU后端实现
+torch::Tensor custom_sigmoid_cpu_backward(torch::Tensor output,
+                                          torch::Tensor output_grad) {
+    return (1 - output) * output * output_grad;
+}
+
+// 进行前向算子的后端实现分发
+torch::Tensor custom_sigmoid_forward(torch::Tensor input) {
+    TORCH_CHECK(input.is_contiguous(), "input must be contiguous")
+
+    if (input.device().is_cuda()) {
+        return custom_sigmoid_cuda_forward(input);
+    } else {
+        return custom_sigmoid_cpu_forward(input);
+    }
+}
+
+// 进行反向算子的后端实现分发
+torch::Tensor custom_sigmoid_backward(torch::Tensor output,
+                                      torch::Tensor grad_output) {
+    TORCH_CHECK(grad_output.is_contiguous(), "input must be contiguous")
+
+    if (output.device().is_cuda()) {
+        return custom_sigmoid_cuda_backward(output, grad_output);
+    } else {
+        return custom_sigmoid_cpu_backward(output, grad_output);
+    }
+}
+
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
+    // 注册算子以便在Python中调用
+    m.def("sigmoid_fwd", &amp;custom_sigmoid_forward, "Custom sigmoid forward");
+    m.def("sigmoid_bwd", &amp;custom_sigmoid_backward, "Custom sigmoid backward");
+}</code></pre>
+这里我们用custom_sigmoid_forward以及custom_sigmoid_backward做了一层简单的结合分发的封装，
+然后调用<strong>PYBIND11_MODULE</strong>将其注册到Python中，方便后续在Python代码中调用C++代码中定义的算子。<p></p>
+<h4 id="自定义算子导入pytorch">自定义算子导入PyTorch</h4>
+<p>为了能最终在PyTorch中使用我们编写的算子，还需要写一个setup.py文件来编译并最终以Python模块的形式，导入到PyTorch中：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># setup.py
+from setuptools import setup
+from torch.utils.cpp_extension import BuildExtension, CppExtension
+
+
+setup(
+    name="custom_ops",
+    ext_modules=[
+        CppExtension(
+            "custom_ops",
+            [
+                "custom_sigmoid.cpp",
+                "custom_sigmoid_cuda.cu",
+            ],
+            extra_compile_args={"cxx": ["-g"], "nvcc": ["-O2"]},
+        )
+    ],
+    cmdclass={"build_ext": BuildExtension},
+)</code></pre> 使用下面命令就可以编译自定义的Python模块custom_ops：
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python setup.py install</code></pre>
+我们进一步将自定义的Sigmoid算子作为torch.nn.Module导入到PyTorch中：
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># custom_sigmoid_op.py
+import torch
+from torch.autograd import Function
+
+# custom_ops 便是我们自定义的Python扩展模块，包含了C++中编写的自定义sigmoid算子
+import custom_ops
+
+
+class CustomSigmoidFunction(Function):
+    @staticmethod
+    def forward(ctx, input):
+        # 调用自定义算子的前向操作
+        output = custom_ops.sigmoid_fwd(input)
+        ctx.save_for_backward(output)
+        return output
+
+    @staticmethod
+    def backward(ctx, grad_output):
+        (output,) = ctx.saved_tensors
+        # 调用自定义算子的反向操作
+        grad_input = custom_ops.sigmoid_bwd(output, grad_output.contiguous())
+        return grad_input
+
+
+class CustomSigmoid(torch.nn.Module):
+    def forward(self, input):
+        return CustomSigmoidFunction.apply(input)</code></pre> 为了与PyTorch的自动微分系统无缝衔接，
+这里我们使用torch.autograd.Function将CustomSigmoid算子的前向函数和反向函数关联起来，然后一起封装成torch.nn.Module。<p></p>
+<h4 id="在python中使用自定义算子">在Python中使用自定义算子</h4>
+<p>到此为止，我们完成了所有自定义算子的注册流程。接下来可以像使用其他PyTorch原生算子一样，在PyTorch中调用我们注册的自定义算子，让我们来实际测试一下：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
+import torch
+import torch.nn.functional as F
+import numpy as np
+from custom_sigmoid_op import CustomSigmoid
+
+
+def run(np_input, sigmoid_op, device="cuda"):
+    x = torch.tensor(np_input, dtype=torch.double, device=device, requires_grad=True)
+    output = sigmoid_op(x)
+
+    loss = torch.sum(output)
+    loss.backward()
+
+    return output.clone(), x.grad.clone()
+
+
+custom_sigmoid = CustomSigmoid()
+
+device = "cuda"
+
+np_input = np.random.randn(10, 20)
+
+# 确保自定义算子各个后端的计算结果与PyTorch原生sigmoid算子的结果是一致的
+for device in ["cpu", "cuda"]:
+    sigmoid_out_torch, sigmoid_grad_torch = run(np_input, torch.sigmoid, device)
+    sigmoid_out_custom, sigmoid_grad_custom = run(np_input, custom_sigmoid, device)
+
+    # Compare results
+    if torch.allclose(sigmoid_out_torch, sigmoid_out_custom) and torch.allclose(
+        sigmoid_grad_torch, sigmoid_grad_custom
+    ):
+        print(f"Pass on {device}")
+    else:
+        print(f"Error: results mismatch on {device}")</code></pre><p></p>
+<h2 id="基于计算图的性能优化">基于计算图的性能优化</h2>
+<h3 id="torch.compile">torch.compile</h3>
+<p>torch.compile是一个极其复杂的系统，它覆盖了诸多领域，包括计算图的提取、优化以及跨后端的代码生成。</p>
+<p>但实际使用并不需要深入了解所有的实现细节，因为启用它只需简单一行代码。</p>
+<p>让我们用一个例子来展示torch.compile的开启方法，并观察其性能优化效果：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.nn as nn
+
+
+class SimpleNet(nn.Module):
+    def __init__(self):
+        super(SimpleNet, self).__init__()
+        self.fc1 = nn.Linear(1000, 20000)
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        y = x
+        for _ in range(50):
+            y = y * x
+        return y
+
+
+# 未经优化的模型
+model = SimpleNet().cuda()
+
+# 打开torch.compile追踪模型的执行过程并自动优化
+compiled_model = torch.compile(model)
+
+
+def timed(fn):
+    start = torch.cuda.Event(enable_timing=True)
+    end = torch.cuda.Event(enable_timing=True)
+    start.record()
+    result = fn()
+    end.record()
+    torch.cuda.synchronize()
+    return result, start.elapsed_time(end) / 1000
+
+
+N_ITERS = 5
+
+
+def benchmark(model):
+    times = []
+    for i in range(N_ITERS):
+        input_data = torch.randn(1000, 1000, device="cuda")
+        _, time = timed(lambda: model(input_data))
+        times.append(time)
+    return times
+
+
+print("eager模式", benchmark(model))
+print("打开torch.compile后", benchmark(compiled_model))
+
+# 输出
+# eager模式 [1.1121439208984376, 0.01659187126159668, 0.01635430335998535, 0.016350208282470705, 0.016306175231933593]
+# 打开torch.compile后 [1.79336083984375, 0.002367487907409668, 0.0022937600612640383, 0.002292736053466797, 0.002288640022277832]</code></pre>
+可以看到第一次运行变慢了，这是计算图的提取和编译优化导致的，但是从第二次运行开始便可以达到近8倍的加速。<p></p>
+<p>性能的提升其实主要有两个来源： -
+一方面是计算图一旦编译好，其生成的代码会被缓存起来，后续循环中可以直接调用编译好的计算图，而省去了算子单独调用的额外开销；
 -
-<code>__init__.py</code>：模块的初始化文件，可以为空，也可以有代码。**当一个文件夹下有__init__.py文件时，这个文件夹就会被当作一个包来处理。**
-- <code>dir()</code>：查看模块的所有属性和方法。比如： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import math
-print(dir(math))</code></pre> -
-<code>__name__</code>：模块的内置属性，用于判断模块是被导入还是直接当作脚本执行。比如：
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">if __name__ == '__main__':
-    print('This is a module')</code></pre><p></p>
-<h3 id="模块的查找路径">模块的查找路径</h3>
-<p>在 Python 中，当运行一个项目时，模块的查找路径遵循特定的顺序。这是由
-<code>sys.path</code> 列表定义的，该列表按顺序列出了 Python
-在查找模块时会搜索的路径。</p>
-<p>模块查找路径的顺序 -
-当前目录：运行脚本所在的目录。如果你执行了一个脚本，那么 Python
-会首先尝试从该脚本所在的目录加载模块。 - 环境变量 PYTHONPATH
-指定的目录：如果设置了 PYTHONPATH
-环境变量，其值中列出的目录将被加入查找路径。 - 标准库目录：Python
-自带的标准库路径（例如 lib 或 Lib 目录）。 - 第三方包路径：通常是安装在
-site-packages 目录下的路径。 - 内置模块：如果以上路径都找不到，Python
-会尝试加载内置模块（如 sys、os）。</p>
-<p>示例及详细解释: 比如一个项目的目录结构如下： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-│
-├── script.py          # 主运行脚本
-├── module1.py         # 自定义模块
-└── subdir/
-    ├── module2.py     # 自定义模块
-    └── __init__.py    # 将 subdir 标记为包</code></pre><p></p>
-<p>其中 <code>script.py</code> 代码如下： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import sys
-print("Module search paths:")
-for path in sys.path:
-    print(path)
+另一方面则是torch.compile进行了一定的图优化，包括而不限于算子的融合、替换等，其最终生成的<strong>高性能triton算子</strong>也是性能提升的来源之一。</p>
+<p>torch.compile还有一些常见的参数： -
+fullgraph=True：开启完整的计算图优化，包括控制流、条件分支等；一旦计算图发生中断，系统会立即报错，帮助用户及时发现并处理潜在的图断裂问题
+- dynamic=True：开启动态图优化，支持对动态图中张量形状不断变化的场景； -
+mode="reduce-overhead"：减少从CPU到GPU的调用次数(CUDA
+graph能够通过记录一系列GPU操作，如内核执行和内存拷贝，创建一个可重用的GPU操作序列)</p>
+<h3 id="计算图的提取">计算图的提取</h3>
+<p>计算图在有些情况下会和实际的python代码逻辑相关，比如：
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">class DataDependentNet(nn.Module):
+    def __init__(self):
+        super(DataDependentNet, self).__init__()
+        self.linear1 = nn.Linear(10, 5)
+        self.linear2 = nn.Linear(5, 2)
+        self.linear3 = nn.Linear(5, 3)
 
-import module1         # 自定义模块，位于当前目录
-from subdir import module2  # 从子目录中导入模块</code></pre><p></p>
-<p>模块查找过程如下： 1. 当前目录： - 运行 python script.py 时，Python
-首先查看当前目录（project/）。 - 找到 module1.py，并成功导入。 2.
-子目录导入： - 对于 from subdir import module2，Python 进入
-project/subdir/ 并找到 module2.py。 - 因为 subdir 包含
-<strong>init</strong>.py，它被认为是一个包。 3. 标准库： -
-如果你尝试导入如 os、sys 等模块，Python 会从标准库路径中加载。 4.
-第三方包： - 如果尝试导入第三方库（如 numpy），Python 会在 site-packages
-目录中查找。</p>
-<h3 id="修改模块查找路径">修改模块查找路径</h3>
-<p>可以动态修改 sys.path 来影响模块的查找路径。 </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">import sys
-import os
-
-# 查看当前路径
-print("Before modification:", sys.path)
-
-# 添加新路径
-new_path = os.path.join(os.getcwd(), 'subdir')
-sys.path.insert(0, new_path)
-
-print("After modification:", sys.path)
-
-# 导入模块
-import module2</code></pre><p></p>
-<h3 id="与包package的关系">与包package的关系</h3>
-<p>包所在的目录需要包含一个空文件__init__.py来表明这个是一个包，所以说<strong>包是一个包含了多个模块的目录</strong>。包的目的是为了组织模块，以便更好地管理和维护代码。</p>
-<p>在<code>__init__.py</code>文件中可以声明一些描述性的代码来变更package的特性。比如针对import
-*的__all__，如果某个package下有你明确不希望被引用的py文件，可以通过__all__明确说明哪些是希望引入的，这样在python处理import
-*时会忽略掉不在__all__列表的内容。比如： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python">__all__ = ['module1', 'module2'] # 只允许导入module1和module2</code></pre> ### 模块的导入
-#### 同级目录下的模块导入
-如果你要使用的模块（py文件）和当前模块在同一目录，只要import相应的文件名就好，比如在当前目录下有一个module1.py文件，那么在另一个文件中可以直接使用import
-module1来导入。 -
-<strong>一个模块可以在当前位置import多次，但是只有第一次导入会执行内容，其他的都为引用内存</strong>
-- <strong>更改调用名称：<code>import module1 as m1</code></strong> -
-<strong>只导入模块中的部分内容：<code>from module1 import func1</code></strong><p></p>
-<h4 id="不同目录下的模块导入">不同目录下的模块导入</h4>
-<h5 id="子目录下的模块导入">子目录下的模块导入</h5>
-<p>假设目录结构如下： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── main.py
-├── subdir/
-│   ├── module2.py
-│   └── __init__.py</code></pre> 方法
-1：直接导入（如果子目录是一个包） 如果子目录包含
-<code>__init__.py</code> 文件（即被视为包），可以使用以下方式导入：
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from subdir import module2  # 导入子目录中的模块
-module2.some_function()    # 调用 module2 中的函数</code></pre><p></p>
-<p>方法 2：修改 sys.path 如果子目录中没有
-<code>__init__.py</code>，或者希望在没有包的情况下导入，可以通过添加子目录到
-sys.path： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-import sys
-import os
-
-# 将子目录路径添加到 sys.path
-sys.path.append(os.path.join(os.getcwd(), 'subdir'))
-
-import module2  # 现在可以直接导入
-module2.some_function()</code></pre><p></p>
-<h5 id="父目录下的模块导入">父目录下的模块导入</h5>
-<p>假设目录结构如下： </p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── parent_module.py
-└── subdir/
-    ├── main.py
-    ├── module3.py
-    └── __init__.py</code></pre> 方法 1：使用 sys.path
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-import sys
-import os
-
-# 将父目录路径添加到 sys.path
-sys.path.append(os.path.dirname(os.getcwd()))
-
-import parent_module  # 现在可以导入父目录的模块
-parent_module.some_function()</code></pre><p></p>
-<p>方法 2：相对导入（仅适用于包结构）</p>
-<p>如果 subdir 是一个包（包含
-<strong>init</strong>.py），可以使用相对导入： </p><pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from .. import parent_module  # 相对导入父目录的模块
-parent_module.some_function()</code></pre>
-<strong>注意：相对导入仅在包结构中有效，且不能直接运行该脚本（需要通过
-python -m 的方式运行）。</strong><p></p>
-<h2 id="其他">其他</h2>
-<ol type="1">
-<li><strong>当使用 <code>from module import func_b</code>
-时，整个模块会被加载和执行一次(包括下划线开头的私有对象)，但只有你导入的部分会被绑定到当前的命名空间</strong>
-例如： <pre class="line-numbers language-python" data-language="python"><code class="language-python"># module.py
-value = 1
-def func_a():
-    print("Function func_a is being executed")
-    return 0
-
-def func_b():
-    print("Function func_b is being executed")
-    b = func_a()
-    return b</code></pre></li>
-</ol>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from module import func_b
-
-print("Calling func_b() in main.py")
-result = func_b()
-print(f"Result: {result}")</code></pre>
-<p>执行过程： 1.<br>
-from module import func_b</p>
-<p>Python 会先找到 module.py 文件并加载整个模块： - Python 会解释并执行
-module.py 文件的顶层代码。 - value = 1 会被执行并存储到 module
-的命名空间中。 - 函数 func_a 和 func_b 的定义会被加载，并绑定到 module
-的命名空间。 - 然后，func_b
-会被绑定到当前模块（main.py）的命名空间。</p>
-<p><strong>注意：</strong> - 虽然整个模块被加载，但只有 func_b 被绑定到
-main.py 的命名空间中。 - 在加载过程中，module
-的顶层代码（如赋值语句、类定义等）都会被执行一次。</p>
-<ol start="2" type="1">
-<li>调用 func_b()</li>
-</ol>
+    def forward(self, x):
+        tmp = F.relu(self.linear1(x))
+        # 有数据依赖的控制流：如果x的第一个元素大于0.5，使用linear2，否则使用linear3
+        if tmp[0, 0] &gt; 0.5:
+            return self.linear2(tmp)
+        else:
+            return self.linear3(tmp)</code></pre><p></p>
+<p><strong>基于Python运行时的跟踪(tracing)方法</strong>本质上是在模型执行过程中动态捕捉计算图，
+也就是通过监视PyTorch操作的执行，来实时记录这些操作及其上下游之间的依赖关系。
+这种方法能够准确捕获模型实际执行时的行为，并且几乎可以无视控制流的影响——只捕获实际执行的分支即可，未被执行的分支就不放在计算图里了。
+如图中左半部分所示，我们仅捕捉到了linear2这个操作，linear3操作由于其分支没有被执行便没有出现在计算图中。
+JIT tracing、lazy tensor和torch.compile都是基于跟踪的方法。</p>
+<p><strong>基于源码分析的方法</strong>能够识别Python中的控制流结构，如if-else和for循环，同时将所有相关操作提取至同一计算图中，从而最大化保持图的完整性。
+这种方法的典型工具是TorchScript。拥有一张完整计算图的全局信息对图优化极为有利。
+然而，在实际应用中，TorchScript很难完全支持所有Python语言特性，使用时可能需要对原始代码进行调整，这可能影响代码的结构和灵活性。
+总的来说，当TorchScript能够顺利运行时，它能提供非常优异的性能，但为了让它能跑起来，用户可能需要在代码的编写上做出较大的妥协。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250314224947.png"></p>
+<p>我们再来看看torch.compile的计算图提取以及优化过程： - 1.
+<strong>字节码分析</strong>：Python代码在执行前会被编译成字节码，这是一种平台无关的中间表示形式。CPython提供了内部接口，可以在运行时分析这些字节码。
+- 2. <strong>捕获张量操作</strong>：
+使用<code>torch.compile</code>和Torch
+Dynamo技术，PyTorch在运行时捕获张量操作 - 3.
+<strong>动态生成计算图</strong>：根据实际运行时的数据和操作，动态生成计算图。
+- 4.
+<strong>优化计算图</strong>：生成的计算图可以被进一步优化，以提高执行效率，优化过程可能包括操作融合、内存优化、常量折叠等。
+- 5.
+<strong>生成高效执行代码</strong>：优化后的计算图用于生成更高效的执行代码，执行时将取代原来Python解释器中的函数调用。
+- 6.
+<strong>回退机制</strong>：如果遇到难以转换成图的代码，<code>torch.compile</code>会中断图的构建，程序会回退到标准的Python解释器来处理。
+- 7.
+<strong>透明的用户体验</strong>：对用户而言，整个过程是透明的。用户仍然编写标准的Python代码，但在执行过程中，<code>torch.compile</code>自动识别并优化可改进的部分。<br>
+- 8. <strong>AOT
+Autograd技术</strong>：<code>torch.compile</code>不仅捕获用户的前向代码，还能捕获反向传播的计算图。</p>
+<p>通过这些步骤，<code>torch.compile</code>在不改变用户代码的情况下，自动优化PyTorch程序的执行效率。</p>
+<h3 id="图的优化和后端代码">图的优化和后端代码</h3>
+<p>不管是基于运行时跟踪还是基于源码分析的方法，在获得计算图之后，torch.compile利用后端（如默认的inductor后端）来执行的优化是几乎一致的。
+这些优化主要基于后端的特定策略和硬件的技术，而不是传统编译器所采用的标准优化流程。</p>
+<p>例如，当前的代码生成主要关注提高算子的计算效率，这需要通过算子融合、数据布局转换以及利用特定硬件的指令集来实现。
+这样做的目的是为了减轻开发者手动编写每个自定义算子的负担。</p>
+<p>之前的示例代码中使用PyTorch
+profiler打印其性能图谱，从图中以看出torch.compile在底层生成了triton算子，
+该算子将原本的乘法算子、ReLU算子融合在了一起。 <img src="https://cdn.jsdelivr.net/gh/baoblei/imgs_md@main//images/20250314231021.png"></p>
+<p>在设置环境变量TORCH_COMPILE_DEBUG=1后重新执行代码我们还可以看到torch.compile生成的triton代码，</p>
+<p>比如下面代码是由inductor后端生成的将relu和50个mul算子融合成一个算子的triton代码。
+</p><pre class="line-numbers language-python" data-language="python"><code class="language-python">@pointwise(
+    size_hints=[33554432],
+    filename=__file__,
+    triton_meta={
+        "signature": {0: "*fp32", 1: "*fp32", 2: "i32"},
+        "device": 0,
+        "device_type": "cuda",
+        "constants": {},
+        "configs": [
+            instance_descriptor(
+                divisible_by_16=(0, 1, 2),
+                equal_to_1=(),
+                ids_of_folded_args=(),
+                divisible_by_8=(2,),
+            )
+        ],
+    },
+    inductor_meta={
+        "autotune_hints": set(),
+        "kernel_name": "triton_poi_fused_mul_relu_0",
+        "mutated_arg_names": ["in_out_ptr0"],
+    },
+    min_elem_per_thread=0,
+)
+@triton.jit
+def triton_(in_out_ptr0, in_ptr0, xnumel, XBLOCK: tl.constexpr):
+    xnumel = 20000000
+    xoffset = tl.program_id(0) * XBLOCK
+    xindex = xoffset + tl.arange(0, XBLOCK)[:]
+    xmask = xindex &lt; xnumel
+    x0 = xindex
+    tmp0 = tl.load(in_ptr0 + (x0), xmask)
+    tmp1 = triton_helpers.maximum(0, tmp0)
+    tmp2 = tmp1 * tmp1
+    tmp3 = tmp2 * tmp1
+    ...  # 篇幅原因省略中间的行
+    tmp49 = tmp48 * tmp1
+    tmp50 = tmp49 * tmp1
+    tmp51 = tmp50 * tmp1
+    tl.store(in_out_ptr0 + (x0), tmp51, xmask)</code></pre> ## 小结
+实际开发中，建议按照如下顺序来尝试这些高级优化技巧： -
+首先推荐尝试使用torch.compile，因为其开启方法简单且几乎没有副作用。
+只需在训练模型外层添加torch.compile，并观察性能变化即可。
+如果性能下降或torch.compile提示“回退到Eager模式”​，则说明当前网络结构无法直接被torch.compile优化<p></p>
 <ul>
-<li>Python 跳转到 module.py 中 func_b
-的定义，并开始执行该函数的内容。</li>
-<li>在 func_b 中，func_a 被调用，导致 func_a 的代码被执行。 完整输出：
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Calling func_b() in main.py
-Function func_b is being executed
-Function func_a is being executed
-Result: 0</code></pre></li>
+<li><p>其次，推荐尝试自动混合精度训练，因为半精度训练通常能显著提升性能。
+尽管对收敛性和模型质量可能有一定影响，但大多数模型在开启自动混合精度训练后，仍能达到与单精度训练相似的结果。
+然而，使用自动混合精度训练时应保持谨慎，需要仔细验证收敛性。因此，自动混合精度训练是一种有潜在风险的优化方法。</p></li>
+<li><p>最后，尝试自定义算子的优先级，其投入产出比相对较低且不确定性较大。
+通常仅建议在需要极致性能优化的场景下尝试自定义算子。
+熟悉CUDA和CPU加速且具备高性能计算背景的开发者，可以通过自行编写高性能算子来优化特定应用场景。
+另一种选择是使用开源算子库，不过第三方算子库往往存在局限性或副作用，未必能直接应用于自己的模型，且实际优化效果不可控。</p></li>
 </ul>
-<ol start="2" type="1">
-<li><strong><strong>init</strong>.py文件的的规范</strong>
-加入存在以下目录结构： <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── my_package/
-│   ├── module1.py
-│   ├── module2.py
-│   └── __init__.py
-└── main.py</code></pre> <code>__init__.py</code>
-文件的一些写法的解释：</li>
-</ol>
-<ul>
-<li>空：仅标记为包，导入需要显式地指明模块和内容。所以使用时也是<code>import my_package.module1</code>，本质上是模块，包中的定义的__all__列表不会生效。</li>
-<li><code>from . import module2</code>:
-导入完整模块到包命名空间，使用时需通过模块名访问，本质上是模块，包中的定义的__all__列表不会生效。</li>
-<li><code>from my_package import *</code>:
-导入完整模块到包命名空间，使用时无需模块名访问，</li>
-<li><code>from .module2 import *</code>:
-将整个模块内容导入到包命名空间，使用时无需模块名。</li>
-<li><code>from my_package.module2 import *</code>:
-将整个模块内容导入到包命名空间，使用时无需模块名。</li>
-<li><code>from module2 import *</code>:
-这是种错误写法，无法找到模块。</li>
-</ul>
-<ol start="3" type="1">
-<li><code>__all__</code>在<code>__init__.py</code>中的作用：</li>
-</ol>
-<ul>
-<li>当你使用 from my_package import * 时，<code>__all__</code>
-定义了哪些名称会被导入到当前命名空间。</li>
-<li>如果__all__没有定义，那么默认会导入所有非以下划线 _
-开头的对象。</li>
-</ul>
-<p>调用时的区别： - 如果在 <code>main.py</code> 中需要写模块名（例如
-my_package.module2.func2()），那么
-<code>__all__</code>不会限制模块中的内容。 - <code>__all__</code> 只在
-from my_package import * 时生效，而不会影响显式导入 例如： 目录结构：
-</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">my_package/
-├── __init__.py
-├── module1.py
-├── module2.py # 包含 func2 函数</code></pre> <pre class="line-numbers language-python" data-language="python"><code class="language-python">#__init__.py：
-from .module2 import *
-__all__ = []  # 不对外暴露任何内容</code></pre> <pre class="line-numbers language-python" data-language="python"><code class="language-python"># main.py
-from my_package import *
-func2()  # 报错，因为 __all__=[] 限制了导出的内容
-
-from my_package.module2 import func2 
-func2()  # 正常运行
-
-from my_package import func2
-func2()  # 正常运行， 比较奇怪哈，但是测试了这样子是可以的</code></pre><p></p>
-<ol start="4" type="1">
-<li><strong>通过<code>-m</code>运行一个模块</strong>
-对于一些项目，我们可能需要通过命令行来运行一个模块，这时候可以使用<code>-m</code>参数，以支持模块的相对导入。
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">project/
-├── my_package/
-│   ├── module1.py
-│   ├── module2.py
-│   └── __init__.py
-└── subdir/
-    ├── module3.py
-    └── __init__.py</code></pre> 对于moulde3.py中的内容，如果写成： <pre class="line-numbers language-python" data-language="python"><code class="language-python">from my_package import func1 # module1.py中的函数 
-func1()</code></pre>
-需要通过<code>-m</code>参数来运行：<code>python -m subdir.module3</code>，这样才能正确导入my_package中的内容。</li>
-</ol>
-<p>参考： &gt;
-https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
-
+</t>
                 
             </div>
             <hr/>
@@ -737,7 +1032,7 @@ https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/">http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/</a>
+                    <a href="http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/">http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -775,20 +1070,12 @@ https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/python/">
-                                    <span class="chip bg-color">python</span>
+                                <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                                    <span class="chip bg-color">《大模型动力引擎》</span>
                                 </a>
                             
-                                <a href="/tags/ImportError/">
-                                    <span class="chip bg-color">ImportError</span>
-                                </a>
-                            
-                                <a href="/tags/python%E6%A8%A1%E5%9D%97/">
-                                    <span class="chip bg-color">python模块</span>
-                                </a>
-                            
-                                <a href="/tags/python%E5%8C%85/">
-                                    <span class="chip bg-color">python包</span>
+                                <a href="/tags/%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">
+                                    <span class="chip bg-color">高级优化方法</span>
                                 </a>
                             
                         </div>
@@ -1134,17 +1421,18 @@ https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2025/01/07/linux-wen-jian-ci-pan-yi-ji-kuo-rong-fang-shi/">
+                <a href="/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Linux文件、磁盘以及扩容方式">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="大模型动力引擎-高级优化方法专题">
                         
-                        <span class="card-title">Linux文件、磁盘以及扩容方式</span>
+                        <span class="card-title">大模型动力引擎-高级优化方法专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1154,34 +1442,31 @@ https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    《大模型动力引擎》阅读笔记
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                        <span class="chip bg-color">《大模型动力引擎》</span>
                     </a>
                     
-                    <a href="/tags/%E7%A3%81%E7%9B%98/">
-                        <span class="chip bg-color">磁盘</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%89%A9%E5%AE%B9/">
-                        <span class="chip bg-color">扩容</span>
+                    <a href="/tags/%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">
+                        <span class="chip bg-color">高级优化方法</span>
                     </a>
                     
                 </div>
@@ -1195,13 +1480,13 @@ https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/12/21/hao-yong-de-da-mo-xing-prompt-fen-xiang/">
+                <a href="/2025/03/13/da-mo-xing-dong-li-yin-qing-fen-bu-shi-xun-lian-zhuan-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="好用的大模型prompt分享">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="大模型动力引擎-分布式训练专题">
                         
-                        <span class="card-title">好用的大模型prompt分享</span>
+                        <span class="card-title">大模型动力引擎-分布式训练专题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1212,14 +1497,14 @@ https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-12-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-13
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Prompt/" class="post-category">
-                                    Prompt
+                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    《大模型动力引擎》阅读笔记
                                 </a>
                             
                             
@@ -1229,12 +1514,12 @@ https://blog.csdn.net/Uncle_GUO/article/details/80867086</p>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/LLMs/">
-                        <span class="chip bg-color">LLMs</span>
+                    <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
+                        <span class="chip bg-color">《大模型动力引擎》</span>
                     </a>
                     
-                    <a href="/tags/Prompt/">
-                        <span class="chip bg-color">Prompt</span>
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/">
+                        <span class="chip bg-color">分布式训练</span>
                     </a>
                     
                 </div>

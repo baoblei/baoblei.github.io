@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-13T12:14:59.808Z</updated>
+  <updated>2025-03-14T15:15:34.209Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>大模型动力引擎-高级优化方法专题</title>
+    <link href="http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/"/>
+    <id>http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/</id>
+    <published>2025-03-13T12:39:46.000Z</published>
+    <updated>2025-03-14T15:15:34.209Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="《大模型动力引擎》阅读笔记" scheme="http://baoblei.github.io/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="《大模型动力引擎》" scheme="http://baoblei.github.io/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/"/>
+    
+    <category term="高级优化方法" scheme="http://baoblei.github.io/tags/%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>大模型动力引擎-分布式训练专题</title>
@@ -572,35 +599,6 @@ SSH
     <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
     
     <category term="CG" scheme="http://baoblei.github.io/tags/CG/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>通过公网访问局域网内服务器</title>
-    <link href="http://baoblei.github.io/2025/01/07/tong-guo-gong-wang-fang-wen-ju-yu-wang-nei-fu-wu-qi/"/>
-    <id>http://baoblei.github.io/2025/01/07/tong-guo-gong-wang-fang-wen-ju-yu-wang-nei-fu-wu-qi/</id>
-    <published>2025-01-06T17:17:02.000Z</published>
-    <updated>2025-01-06T18:23:54.860Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;分为两种情况： ## 拥有路由器管理权限 1.
-MAC地址绑定：在路由器中绑定服务器的MAC地址，使其获得固定的内网IP地址。&lt;/p&gt;
-&lt;ol start=&quot;2&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="网络配置" scheme="http://baoblei.github.io/categories/%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/"/>
-    
-    
-    <category term="端口转发" scheme="http://baoblei.github.io/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
-    
-    <category term="内网穿透" scheme="http://baoblei.github.io/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"/>
     
   </entry>
   
