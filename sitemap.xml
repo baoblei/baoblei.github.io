@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://baoblei.github.io/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/</loc>
+    
+    <lastmod>2025-03-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/</loc>
     
     <lastmod>2025-03-14</lastmod>
@@ -391,7 +400,7 @@
 
   <url>
     <loc>http://baoblei.github.io/</loc>
-    <lastmod>2025-03-14</lastmod>
+    <lastmod>2025-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

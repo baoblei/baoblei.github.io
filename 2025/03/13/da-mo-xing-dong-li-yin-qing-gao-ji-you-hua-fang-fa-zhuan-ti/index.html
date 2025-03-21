@@ -992,11 +992,12 @@ def triton_(in_out_ptr0, in_ptr0, xnumel, XBLOCK: tl.constexpr):
     tmp49 = tmp48 * tmp1
     tmp50 = tmp49 * tmp1
     tmp51 = tmp50 * tmp1
-    tl.store(in_out_ptr0 + (x0), tmp51, xmask)</code></pre> ## 小结
-实际开发中，建议按照如下顺序来尝试这些高级优化技巧： -
+    tl.store(in_out_ptr0 + (x0), tmp51, xmask)</code></pre><p></p>
+<h2 id="小结">小结</h2>
+<p>实际开发中，建议按照如下顺序来尝试这些高级优化技巧： -
 首先推荐尝试使用torch.compile，因为其开启方法简单且几乎没有副作用。
 只需在训练模型外层添加torch.compile，并观察性能变化即可。
-如果性能下降或torch.compile提示“回退到Eager模式”​，则说明当前网络结构无法直接被torch.compile优化<p></p>
+如果性能下降或torch.compile提示“回退到Eager模式”​，则说明当前网络结构无法直接被torch.compile优化</p>
 <ul>
 <li><p>其次，推荐尝试自动混合精度训练，因为半精度训练通常能显著提升性能。
 尽管对收敛性和模型质量可能有一定影响，但大多数模型在开启自动混合精度训练后，仍能达到与单精度训练相似的结果。
@@ -1421,18 +1422,17 @@ def triton_(in_out_ptr0, in_ptr0, xnumel, XBLOCK: tl.constexpr):
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/">
+                <a href="/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="大模型动力引擎-高级优化方法专题">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="大语言模型中的Norm和激活函数">
                         
-                        <span class="card-title">大模型动力引擎-高级优化方法专题</span>
+                        <span class="card-title">大语言模型中的Norm和激活函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1442,31 +1442,46 @@ def triton_(in_out_ptr0, in_ptr0, xnumel, XBLOCK: tl.constexpr):
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-13
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-18
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    《大模型动力引擎》阅读笔记
+                            <a href="/categories/LLMs/" class="post-category">
+                                    LLMs
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E3%80%8A%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%8A%A8%E5%8A%9B%E5%BC%95%E6%93%8E%E3%80%8B/">
-                        <span class="chip bg-color">《大模型动力引擎》</span>
+                    <a href="/tags/LLMs/">
+                        <span class="chip bg-color">LLMs</span>
                     </a>
                     
-                    <a href="/tags/%E9%AB%98%E7%BA%A7%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95/">
-                        <span class="chip bg-color">高级优化方法</span>
+                    <a href="/tags/LayerNorm/">
+                        <span class="chip bg-color">LayerNorm</span>
+                    </a>
+                    
+                    <a href="/tags/BatchNorm/">
+                        <span class="chip bg-color">BatchNorm</span>
+                    </a>
+                    
+                    <a href="/tags/RMSNorm/">
+                        <span class="chip bg-color">RMSNorm</span>
+                    </a>
+                    
+                    <a href="/tags/GLU/">
+                        <span class="chip bg-color">GLU</span>
+                    </a>
+                    
+                    <a href="/tags/SwiGLU/">
+                        <span class="chip bg-color">SwiGLU</span>
                     </a>
                     
                 </div>
@@ -1761,7 +1776,7 @@ def triton_(in_out_ptr0, in_ptr0, xnumel, XBLOCK: tl.constexpr):
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">89.5k</span>
+                        class="white-color">91k</span>
             
             
             

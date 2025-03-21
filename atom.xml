@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-14T15:15:34.209Z</updated>
+  <updated>2025-03-21T16:55:22.805Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,11 +17,48 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>大语言模型中的Norm和激活函数</title>
+    <link href="http://baoblei.github.io/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/"/>
+    <id>http://baoblei.github.io/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/</id>
+    <published>2025-03-17T17:09:34.000Z</published>
+    <updated>2025-03-21T16:55:22.805Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;norm&quot;&gt;Norm&lt;/h2&gt;
+&lt;p&gt;归一化策略主要是为了加强神经网络训练过程的稳定性，具体来说可以归纳为以下几点：
+-</summary>
+        
+      
+    
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/categories/LLMs/"/>
+    
+    
+    <category term="LLMs" scheme="http://baoblei.github.io/tags/LLMs/"/>
+    
+    <category term="LayerNorm" scheme="http://baoblei.github.io/tags/LayerNorm/"/>
+    
+    <category term="BatchNorm" scheme="http://baoblei.github.io/tags/BatchNorm/"/>
+    
+    <category term="RMSNorm" scheme="http://baoblei.github.io/tags/RMSNorm/"/>
+    
+    <category term="GLU" scheme="http://baoblei.github.io/tags/GLU/"/>
+    
+    <category term="SwiGLU" scheme="http://baoblei.github.io/tags/SwiGLU/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大模型动力引擎-高级优化方法专题</title>
     <link href="http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/"/>
     <id>http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/</id>
     <published>2025-03-13T12:39:46.000Z</published>
-    <updated>2025-03-14T15:15:34.209Z</updated>
+    <updated>2025-03-14T15:29:02.404Z</updated>
     
     
       
@@ -481,11 +518,11 @@ SSH
     <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
     
     
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
+    
     <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
     
     <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
-    
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
     
     <category term="ssh" scheme="http://baoblei.github.io/tags/ssh/"/>
     
@@ -569,36 +606,6 @@ SSH
     
     
     <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用CodeWithGPU实现模型的开箱即用</title>
-    <link href="http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/"/>
-    <id>http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/</id>
-    <published>2025-01-07T19:04:55.000Z</published>
-    <updated>2025-03-06T14:22:27.602Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;codewithgpu简介&quot;&gt;CodeWithGPU简介&lt;/h2&gt;
-&lt;p&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="CG" scheme="http://baoblei.github.io/categories/CG/"/>
-    
-    <category term="docker" scheme="http://baoblei.github.io/categories/CG/docker/"/>
-    
-    
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
-    
-    <category term="CG" scheme="http://baoblei.github.io/tags/CG/"/>
     
   </entry>
   
