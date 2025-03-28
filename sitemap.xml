@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://baoblei.github.io/2025/03/26/fen-lei-ren-wu-zhong-yong-mse-he-ce-sun-shi-de-qu-bie/</loc>
+    
+    <lastmod>2025-03-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://baoblei.github.io/2025/03/27/q-former/</loc>
+    
+    <lastmod>2025-03-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</loc>
+    
+    <lastmod>2025-03-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://baoblei.github.io/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/</loc>
     
     <lastmod>2025-03-21</lastmod>
@@ -104,15 +131,6 @@
     <loc>http://baoblei.github.io/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/</loc>
     
     <lastmod>2025-03-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/</loc>
-    
-    <lastmod>2025-03-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -400,7 +418,7 @@
 
   <url>
     <loc>http://baoblei.github.io/</loc>
-    <lastmod>2025-03-21</lastmod>
+    <lastmod>2025-03-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

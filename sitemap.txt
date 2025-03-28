@@ -1,3 +1,6 @@
+http://baoblei.github.io/2025/03/26/fen-lei-ren-wu-zhong-yong-mse-he-ce-sun-shi-de-qu-bie/
+http://baoblei.github.io/2025/03/27/q-former/
+http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/
 http://baoblei.github.io/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/
 http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-gao-ji-you-hua-fang-fa-zhuan-ti/
 http://baoblei.github.io/2025/03/13/da-mo-xing-dong-li-yin-qing-fen-bu-shi-xun-lian-zhuan-ti/
@@ -10,7 +13,6 @@ http://baoblei.github.io/2025/03/10/da-mo-xing-dong-li-yin-qing-ding-wei-xing-ne
 http://baoblei.github.io/2025/03/07/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-de-pytorch/
 http://baoblei.github.io/2025/03/06/da-mo-xing-dong-li-yin-qing-shen-du-xue-xi-bi-bei-ying-jian-zhi-shi/
 http://baoblei.github.io/2025/03/06/3d-chong-jian-shen-du-tu-wang-ge-ti-su-dian-yun/
-http://baoblei.github.io/2024/11/30/da-mo-xing-xian-cun-zhan-yong-fen-xi/
 http://baoblei.github.io/2025/01/08/shi-yong-codewithgpu-shi-xian-mo-xing-de-kai-xiang-ji-yong/
 http://baoblei.github.io/2024/11/28/hexo-zhu-ti-next-pei-zhi/
 http://baoblei.github.io/2024/12/27/python-mo-kuai-bao-de-dao-ru/

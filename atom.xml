@@ -6,7 +6,7 @@
   <link href="http://baoblei.github.io/atom.xml" rel="self"/>
   
   <link href="http://baoblei.github.io/"/>
-  <updated>2025-03-21T16:55:22.805Z</updated>
+  <updated>2025-03-28T14:14:14.794Z</updated>
   <id>http://baoblei.github.io/</id>
   
   <author>
@@ -17,20 +17,77 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>BLIP2 &amp; Q-former</title>
+    <link href="http://baoblei.github.io/2025/03/27/q-former/"/>
+    <id>http://baoblei.github.io/2025/03/27/q-former/</id>
+    <published>2025-03-27T11:08:53.000Z</published>
+    <updated>2025-03-28T14:14:14.794Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Q-former 是 BLIP2
+中提出的一个模块，目的在于从视觉编码器中提取出与文本最相关的视觉表示，而这种表示能够为大语言模型所解释。&lt;/p&gt;
+&lt;h2 id=&quot;blip2&quot;&gt;1.BLIP2&lt;/h2&gt;
+&lt;h3 id=&quot;组成&quot;&gt;1.1 组成&lt;/h3&gt;
+&lt;p&gt;BLIP-2</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="http://baoblei.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="Q-former" scheme="http://baoblei.github.io/tags/Q-former/"/>
+    
+    <category term="BLIP2" scheme="http://baoblei.github.io/tags/BLIP2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分类任务中用MSE和CE损失的区别</title>
+    <link href="http://baoblei.github.io/2025/03/26/fen-lei-ren-wu-zhong-yong-mse-he-ce-sun-shi-de-qu-bie/"/>
+    <id>http://baoblei.github.io/2025/03/26/fen-lei-ren-wu-zhong-yong-mse-he-ce-sun-shi-de-qu-bie/</id>
+    <published>2025-03-25T16:28:13.000Z</published>
+    <updated>2025-03-28T14:16:48.968Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;分类任务的解释&quot;&gt;1. 分类任务的解释&lt;/h2&gt;
+&lt;h3 id=&quot;二分类&quot;&gt;1.1</summary>
+        
+      
+    
+    
+    
+    <category term="机器学习" scheme="http://baoblei.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="MSE" scheme="http://baoblei.github.io/tags/MSE/"/>
+    
+    <category term="CE" scheme="http://baoblei.github.io/tags/CE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大语言模型中的Norm和激活函数</title>
     <link href="http://baoblei.github.io/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/"/>
     <id>http://baoblei.github.io/2025/03/18/da-yu-yan-mo-xing-zhong-de-norm-he-ji-huo-han-shu/</id>
     <published>2025-03-17T17:09:34.000Z</published>
-    <updated>2025-03-21T16:55:22.805Z</updated>
+    <updated>2025-03-21T17:16:11.824Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;norm&quot;&gt;Norm&lt;/h2&gt;
-&lt;p&gt;归一化策略主要是为了加强神经网络训练过程的稳定性，具体来说可以归纳为以下几点：
--</summary>
+    <summary type="html">&lt;h2</summary>
         
       
     
@@ -518,11 +575,11 @@ SSH
     <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
     
     
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
-    
     <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
     
     <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
+    
+    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
     
     <category term="ssh" scheme="http://baoblei.github.io/tags/ssh/"/>
     
@@ -553,59 +610,6 @@ SSH
     <category term="git" scheme="http://baoblei.github.io/tags/git/"/>
     
     <category term="github" scheme="http://baoblei.github.io/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker常见命令</title>
-    <link href="http://baoblei.github.io/2025/01/09/docker-chang-jian-ming-ling/"/>
-    <id>http://baoblei.github.io/2025/01/09/docker-chang-jian-ming-ling/</id>
-    <published>2025-01-09T12:27:32.000Z</published>
-    <updated>2025-02-10T16:52:40.819Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;ol type=&quot;1&quot;&gt;
-&lt;li&gt;&lt;p&gt;拉取镜像 &lt;/p&gt;&lt;pre class=&quot;line-numbers language-bash&quot; data-language=&quot;bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;docker pull</summary>
-        
-      
-    
-    
-    
-    <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
-    
-    
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker的存储</title>
-    <link href="http://baoblei.github.io/2025/01/09/docker-de-cun-chu/"/>
-    <id>http://baoblei.github.io/2025/01/09/docker-de-cun-chu/</id>
-    <published>2025-01-09T10:03:19.000Z</published>
-    <updated>2025-01-10T08:23:22.921Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/engine/storage/&quot;&gt;Docker
-的存储功能&lt;/a&gt;分为几个主要部分，每个部分都有不同的作用和适用场景，以下是对这些部分的详细说明：
-## Volumes（卷） Volumes 是</summary>
-        
-      
-    
-    
-    
-    <category term="docker" scheme="http://baoblei.github.io/categories/docker/"/>
-    
-    
-    <category term="docker" scheme="http://baoblei.github.io/tags/docker/"/>
     
   </entry>
   
